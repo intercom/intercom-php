@@ -9,11 +9,6 @@ use Guzzle\Service\Description\ServiceDescription;
 class IntercomBasicAuthClient extends Client
 {
     /**
-     * @todo: Remove hardcoded constant, discuss with platform how to obtain a service definition
-     */
-    const DESCRIPTION_FILE = 'src/intercom/Service/config/intercom.json';
-
-    /**
      * Creates a Basic Auth Client with the supplied configuration options
      *
      * @param array $config
@@ -21,8 +16,8 @@ class IntercomBasicAuthClient extends Client
      */
     public static function factory($config = [])
     {
-        $default = [];
-        $required = ['app_id', 'api_key'];
+        $default = ['service_description' => __DIR__ . '/Service/config/intercom.json'];
+        $required = ['app_id', 'api_key', 'service_description'];
         $config = Collection::fromConfig($config, $default, $required);
 
         $client = new self();
@@ -39,7 +34,7 @@ class IntercomBasicAuthClient extends Client
                 'Basic'
         ]);
 
-        $client->setDescription(static::getServiceDescriptionFromFile(self::DESCRIPTION_FILE));
+        $client->setDescription(static::getServiceDescriptionFromFile($config->get('service_description')));
 
         return $client;
     }
