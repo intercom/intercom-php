@@ -16,22 +16,30 @@ class IntercomBasicAuthClient extends Client
      */
     public static function factory($config = [])
     {
-        $default = ['service_description' => __DIR__ . '/Service/config/intercom.json'];
-        $required = ['app_id', 'api_key', 'service_description'];
-        $config = Collection::fromConfig($config, $default, $required);
+        $default = [
+            'service_description' => __DIR__ . '/Service/config/intercom.json',
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/vnd.intercom.3+json'
+            ]
+        ];
 
+        $required = [
+            'app_id',
+            'api_key',
+            'headers',
+            'service_description'
+        ];
+
+        $config = Collection::fromConfig($config, $default, $required);
         $client = new self();
 
-        // v3 Headers
-        $client->setDefaultOption('headers', [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/vnd.intercom.3+json'
-        ]);
+        $client->setDefaultOption('headers', $config->get('headers'));
 
         $client->setDefaultOption('auth', [
-                $config->get('app_id'),
-                $config->get('api_key'),
-                'Basic'
+            $config->get('app_id'),
+            $config->get('api_key'),
+            'Basic'
         ]);
 
         $client->setDescription(static::getServiceDescriptionFromFile($config->get('service_description')));
