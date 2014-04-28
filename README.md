@@ -96,3 +96,20 @@ $user->getCustomData();
  *    )
  */
 ```
+
+#### Fetching conversations / unread conversations
+
+#####
+```php
+    try {
+        $conversations = $intercom->getUserConversations(['email' => 'testuser@intercom.io']);
+        // $unread_conversations = $intercom->getUnreadUserConversations(['email' => 'testuser@intercom.io']);
+
+        foreach ($conversations as $id => $conversation) {
+            $conversation_lastcomment = $conversation->getLatestUserVisibleComment();
+            echo $conversation_lastcomment['body'];
+        }
+    } catch (ServerErrorResponseException $e) {
+        // Handle errors
+    }
+```
