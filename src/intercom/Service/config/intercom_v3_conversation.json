@@ -2,6 +2,29 @@
     "name": "Intercom API (Conversation) v3",
     "description": "The Intercom API (Conversation) v3",
     "operations": {
+        "createConversation": {
+            "httpMethod": "POST",
+            "parameters": {
+                "body": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseClass": "\\Intercom\\Resource\\Conversation",
+            "summary": "Creates a new conversation",
+            "uri": "/conversations"
+        },
         "getUserConversations": {
             "httpMethod": "GET",
             "parameters": {
