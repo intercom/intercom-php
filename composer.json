@@ -1,5 +1,26 @@
 {
+    "name": "intercom/intercom-api-client",
+    "description": "Intercom API client built on top of Guzzle 3",
+    "keywords": ["intercom", "intercom.io", "api", "guzzle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Intercom Platform Team",
+            "homepage": "http://intercom.io"
+        }
+    ],
+
     "require": {
-        "guzzlehttp/guzzle": "~4.0"
+        "guzzle/guzzle": "~3.8"
+    },
+
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Intercom": "src/"
+        }
     }
 }
