@@ -4,6 +4,7 @@
     "baseUrl": "http://api.intercom.io/",
     "description": "The Intercom API v3",
     "includes": [
+        "intercom_v3_conversation.json",
         "intercom_v3_user.json"
     ]
 }
