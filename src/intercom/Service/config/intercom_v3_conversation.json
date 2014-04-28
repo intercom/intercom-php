@@ -26,6 +26,20 @@
             "summary": "Gets conversations for a user",
             "uri": "/conversations"
         },
+        "getUserConversationsByAdminID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "query",
+                    "required": true,
+                    "sentAs": "assignee_identifier",
+                    "type": "integer"
+                }
+            },
+            "responseClass": "\\Intercom\\Resource\\ConversationList",
+            "summary": "Gets conversations for a user based on the ID of the admin the conversation is assigned to",
+            "uri": "/conversations"
+        },
         "getUnreadUserConversations": {
             "extends": "getUserConversations",
             "parameters": {
@@ -33,7 +47,7 @@
                     "default": true,
                     "location": "query",
                     "static": true,
-                    "required":true
+                    "required": true
                 }
             }
         }
