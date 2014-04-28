@@ -1,0 +1,71 @@
+{
+    "name": "Intercom API (User) v3",
+    "description": "The Intercom API (User) v3",
+    "operations": {
+        "SaveUser": {
+            "httpMethod": "POST",
+            "parameters": {
+                "companies": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "numeric",
+                    "format": "timestamp"
+                },
+                "custom_data": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "increments": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "last_request_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "numeric",
+                    "format": "timestamp"
+                },
+                "last_seen_ip": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "last_seen_user_agent": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "unsubscribed_from_emails": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseClass": "\\Intercom\\Resource\\User",
+            "summary": "Saves a user",
+            "uri": "/users"
+        }
+    }
+}
