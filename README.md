@@ -26,9 +26,10 @@ The API client can be installed via [Composer](https://github.com/composer/compo
 
 Once the composer.json file is created you can run `composer install` for the initial package install and `composer update` to updated to the latest version of the API client, which is linked to the `master` branch.
 
+
 ## Basic Usage
 
-Remember to include the Composer autoloader in your application
+Remember to include the Composer autoloader in your application:
 
 ```php
 <?php
@@ -37,6 +38,10 @@ require_once 'vendor/autoload.php';
 // Application code...
 ?>
 ```
+
+### Local Testing
+
+By default the service description files point at the live API. For testing you can edit the `url` value in `vendor/intercom/intercom-api-client/src/intercom/Service/config/intercom_v3.json` after running a composer install/update
 
 ### Resources
 
