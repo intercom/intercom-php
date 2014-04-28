@@ -1,0 +1,41 @@
+{
+    "name": "Intercom API (Conversation) v3",
+    "description": "The Intercom API (Conversation) v3",
+    "operations": {
+        "getUserConversations": {
+            "httpMethod": "GET",
+            "parameters": {
+                "email": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                "type": {
+                    "default": "user",
+                    "location": "query",
+                    "required": true,
+                    "static": true
+                },
+                "user_id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseClass": "\\Intercom\\Resource\\ConversationList",
+            "summary": "Gets conversations for a user",
+            "uri": "/conversations"
+        },
+        "getUnreadUserConversations": {
+            "extends": "getUserConversations",
+            "parameters": {
+                "unread": {
+                    "default": true,
+                    "location": "query",
+                    "static": true,
+                    "required":true
+                }
+            }
+        }
+    }
+}
