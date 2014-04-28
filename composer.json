@@ -11,7 +11,7 @@
     ],
 
     "require": {
-        "guzzle/guzzle": "~3.8"
+        "guzzle/guzzle": "~3.9"
     },
 
     "require-dev": {
