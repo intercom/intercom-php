@@ -30,6 +30,26 @@ class ObjectList implements Iterator
         }
     }
 
+
+    /**
+     * Gets either the current object in the list or if a key is provided
+     * will return the object referenced by the key (or null if the key'd object doesn't exist)
+     *
+     * @param null|int|string $key Optional. The object key
+     * @return object|null
+     */
+    public function getObject($key = null) {
+        if ($key == null) {
+            return $this->current();
+        } else {
+            if (isset($this->objects[$key])) {
+                return $this->objects[$key];
+            } else {
+                return null;
+            }
+        }
+    }
+
     /**
      * Removes the object with the specified key from the list
      *
