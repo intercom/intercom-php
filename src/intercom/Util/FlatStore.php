@@ -45,16 +45,6 @@ class FlatStore implements ArrayAccess
      *
      * @return array
      */
-    public function __toArray()
-    {
-        return $this->getStore();
-    }
-
-    /**
-     * Gets the attributes array
-     *
-     * @return array
-     */
     public function getStore()
     {
         return $this->attributes;
