@@ -8,101 +8,95 @@ use Intercom\Util\FlatStore;
 
 class User implements ResponseClassInterface
 {
-    private $sendable_params = [
-        'created_at', 'companies', 'custom_data', 'email',
-        'last_request_at', 'last_seen_ip', 'last_seen_user_agent',
-        'name', 'unsubscribed_from_emails', 'user_id'
-    ];
-
     /**
      * @var null|array
      */
-    protected $avatar = null;
+    protected $avatar;
 
     /**
      * @var null|string
      */
-    protected $app_id = null;
+    protected $app_id;
 
     /**
      * @var null|array
      */
-    protected $companies = null;
+    protected $companies;
 
     /**
      * @var null|array
      */
-    protected $company_ids = null;
+    protected $company_ids;
 
     /**
      * @var null|int
      */
-    protected $created_at = null;
+    protected $created_at;
 
     /**
      * @var null|FlatStore
      */
-    protected $custom_data = null;
+    protected $custom_data;
 
     /**
      * @var null|string
      */
-    protected $email = null;
+    protected $email;
 
     /**
      * @var null|string
      */
-    protected $last_seen_ip = null;
+    protected $last_seen_ip;
 
     /**
      * @var null|int
      */
-    protected $last_request_at = null;
+    protected $last_request_at;
 
     /**
      * @var null|string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * @var null|int
      */
-    protected $remote_created_at = null;
+    protected $remote_created_at;
 
     /**
      * @var null|int
      */
-    protected $session_count = null;
+    protected $session_count;
 
     /**
      * @var null|array
      */
-    protected $social_accounts = null;
+    protected $social_accounts;
 
     /**
      * @var null|array
      */
-    protected $segment_ids = null;
+    protected $segment_ids;
 
     /**
      * @var null|array
      */
-    protected $tag_ids = null;
+    protected $tag_ids;
 
     /**
      * @var null|bool
      */
-    protected $unsubscribed_from_emails = null;
+    protected $unsubscribed_from_emails;
 
     /**
      * @var null|int
      */
-    protected $updated_at = null;
+    protected $updated_at;
 
     /**
      * @var null|mixed
      */
-    protected $user_id = null;
+    protected $user_id;
 
     /**
      * @param mixed $app_id
