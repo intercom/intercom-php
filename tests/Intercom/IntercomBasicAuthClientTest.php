@@ -10,17 +10,20 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
         'app_id' => 'my-app'
     ];
 
-    public function testFactory() {
+    public function testFactory()
+    {
         $client = IntercomBasicAuthClient::factory($this->config);
         $this->assertInstanceOf('Intercom\IntercomBasicAuthClient', $client);
     }
 
-    public function testConstructor() {
+    public function testConstructor()
+    {
         $client = new IntercomBasicAuthClient($this->config);
         $this->assertInstanceOf('Intercom\IntercomBasicAuthClient', $client);
     }
 
-    public function testAuthIsSet() {
+    public function testAuthIsSet()
+    {
         $client = IntercomBasicAuthClient::factory($this->config);
         $auth = $client->getDefaultOption('auth');
 
@@ -30,7 +33,8 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
         $this->assertEquals('Basic', $auth[2]);
     }
 
-    function testGetServiceDescriptionFromFile() {
+    function testGetServiceDescriptionFromFile()
+    {
         $client = new IntercomBasicAuthClient($this->config);
         $sd = $client->getServiceDescriptionFromFile(__DIR__ . '/../../src/intercom/Service/config/intercom_v3.json');
         $this->assertInstanceOf('Guzzle\Service\Description\ServiceDescription', $sd);
@@ -39,7 +43,8 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    function testGetServiceDescriptionFromFileNoFile() {
+    function testGetServiceDescriptionFromFileNoFile()
+    {
         $client = new IntercomBasicAuthClient($this->config);
         $client->getServiceDescriptionFromFile('');
 
@@ -48,14 +53,16 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
     /**
      * @expectedException Guzzle\Common\Exception\InvalidArgumentException
      */
-    public function testFactoryEmptyArgs() {
+    public function testFactoryEmptyArgs()
+    {
         IntercomBasicAuthClient::factory([]);
     }
 
     /**
      * @expectedException Guzzle\Common\Exception\InvalidArgumentException
      */
-    public function testFactoryMissingArgs() {
+    public function testFactoryMissingArgs()
+    {
         IntercomBasicAuthClient::factory(['app_id' => 'my-app']);
     }
 }

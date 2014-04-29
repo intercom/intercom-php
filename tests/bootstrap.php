@@ -10,13 +10,15 @@ GuzzleTestCase::setMockBasePath($mock_basepath);
 
 // Service Builder for tests
 Guzzle\Tests\GuzzleTestCase::setServiceBuilder(
-    Guzzle\Service\Builder\ServiceBuilder::factory([
-        'intercom.basicauth' => [
-            'class' => 'Intercom.IntercomBasicAuthClient',
-            'params' => [
-                'api_key' => $_SERVER['INTERCOM_API_KEY'],
-                'app_id' => $_SERVER['INTERCOM_APP_ID']
+    Guzzle\Service\Builder\ServiceBuilder::factory(
+        [
+            'intercom.basicauth' => [
+                'class' => 'Intercom.IntercomBasicAuthClient',
+                'params' => [
+                    'api_key' => $_SERVER['INTERCOM_API_KEY'],
+                    'app_id' => $_SERVER['INTERCOM_APP_ID']
+                ]
             ]
         ]
-    ])
+    )
 );
