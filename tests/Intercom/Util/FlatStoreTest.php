@@ -33,6 +33,28 @@ class FlatStoreTest extends GuzzleTestCase
         $this->assertEquals($this->valid_data, $fs->getStore());
     }
 
+    public function testArrayAccess() {
+        $fs = new FlatStore($this->valid_data);
+        $this->assertEquals($this->valid_data['key1'], $fs['key1']);
+    }
+
+    public function testArrayAccessSetter() {
+        $fs = new FlatStore();
+        $fs['key1'] = 'test';
+        $this->assertEquals('test', $fs['key1']);
+    }
+
+    public function testArrayAccessInvalidKey() {
+        $fs = new FlatStore($this->valid_data);
+        $this->assertNull($this->valid_data['key4']);
+    }
+
+    public function testArrayAccessUnset() {
+        $fs = new FlatStore($this->valid_data);
+        unset($fs['key1']);
+        $this->assertEquals(array_slice($this->valid_data, 1), $fs->getStore());
+    }
+
     /**
      * @expectedException InvalidArgumentException
      */
