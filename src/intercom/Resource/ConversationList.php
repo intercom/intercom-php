@@ -1,75 +1,13 @@
 <?php
 namespace Intercom\Resource;
 
-use Iterator;
 use InvalidArgumentException as ArgumentException;
 use Guzzle\Service\Command\ResponseClassInterface;
 use Guzzle\Service\Command\OperationCommand;
+use Intercom\Util\ObjectList;
 
-class ConversationList implements ResponseClassInterface, Iterator
+class ConversationList extends ObjectList implements ResponseClassInterface
 {
-    /**
-     * @var array Holds the Conversation objects in the list
-     */
-    private $conversations = [];
-
-    /**
-     * Gets the number of conversations in this conversation list
-     *
-     * @return int
-     */
-    public function getConversationCount()
-    {
-        return count($this->conversations);
-    }
-
-    /**
-     * Rewinds the conversation list pointer to the start
-     */
-    public function rewind()
-    {
-        reset($this->conversations);
-    }
-
-    /**
-     * Gets the current conversation at the list pointer
-     *
-     * @return Conversation
-     */
-    public function current()
-    {
-        return current($this->conversations);
-    }
-
-    /**
-     * Gets the key for the conversation at the list pointer
-     * @return mixed
-     */
-    public function key()
-    {
-        return key($this->conversations);
-    }
-
-    /**
-     * Moves the conversation list pointer forward
-     *
-     * @return mixed|void
-     */
-    public function next()
-    {
-        return next($this->conversations);
-    }
-
-    /**
-     * Verifies the current conversation list pointer
-     * @return bool
-     */
-    public function valid()
-    {
-        $key = key($this->conversations);
-        return ($key !== null && key($this->conversations) !== false);
-    }
-
     /**
      * Creates the conversation objects and adds them to the list
      *
@@ -86,8 +24,9 @@ class ConversationList implements ResponseClassInterface, Iterator
 
         foreach ($conversations['conversations'] as $conversation) {
             $conversation_obj = new Conversation($conversation);
-            $this->conversations[$conversation_obj->getId()] = $conversation_obj;
+            $this->objects[$conversation_obj->getId()] = $conversation_obj;
         }
+
     }
 
     /**
