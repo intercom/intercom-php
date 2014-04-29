@@ -2,6 +2,7 @@
 namespace Intercom\Util;
 
 use Iterator;
+use InvalidArgumentException;
 
 class ObjectList implements Iterator
 {
@@ -11,11 +12,50 @@ class ObjectList implements Iterator
     protected $objects = [];
 
     /**
+     * Adds an object to the list
+     * @param object $object The object to add to the list
+     * @param null|int|string $key An optional key for the object
+     * @throws InvalidArgumentException If the key is not an int, string or null
+     */
+    public function addObject($object, $key = null)
+    {
+        if (!is_string($key) && !is_int($key) && $key !== null) {
+            throw new InvalidArgumentException("List key must be a string or integer");
+        }
+
+        if ($key) {
+            $this->objects[$key] = $object;
+        } else {
+            $this->objects[] = $object;
+        }
+    }
+
+    /**
+     * Removes the object with the specified key from the list
+     *
+     * @param $key
+     */
+    public function removeObject($key)
+    {
+        if (isset($this->objects[$key])) {
+            unset($this->objects[$key]);
+        }
+    }
+
+    /**
+     *
+     * @return array
+     */-
+    public function getList() {
+        return $this->objects;
+    }
+
+    /**
      * Gets the number of objects in this list
      *
      * @return int
      */
-    public function getObjectCount()
+    public function getLength()
     {
         return count($this->objects);
     }
