@@ -5,9 +5,24 @@ use InvalidArgumentException as ArgumentException;
 use Guzzle\Service\Command\ResponseClassInterface;
 use Guzzle\Service\Command\OperationCommand;
 use Intercom\Util\ObjectList;
+use InvalidArgumentException;
 
 class ConversationList extends ObjectList implements ResponseClassInterface
 {
+    /**
+     * Adds a conversation to the conversation list
+     *
+     * @param object $object The object to add
+     * @param int|null|string $key The key for the object
+     * @throws \InvalidArgumentException If the object to be added isn't a conversation
+     */
+    public function addObject($object, $key = null) {
+        if ($object instanceOf Conversation) {
+            throw new InvalidArgumentException('Only conversation objects can be added to a conversation list');
+        }
+        parent::addObject($object, $key);
+    }
+
     /**
      * Creates the conversation objects and adds them to the list
      *
@@ -24,9 +39,8 @@ class ConversationList extends ObjectList implements ResponseClassInterface
 
         foreach ($conversations['conversations'] as $conversation) {
             $conversation_obj = new Conversation($conversation);
-            $this->objects[$conversation_obj->getId()] = $conversation_obj;
+            $this->addObject($conversation_obj, $conversation_obj->getId());
         }
-
     }
 
     /**
