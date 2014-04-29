@@ -15,14 +15,15 @@ class FlatStore implements ArrayAccess
      * @param mixed $value The value to validate
      * @throws \InvalidArgumentException If the key is not a string or if the value is an object or array
      */
-    public function validate_key_and_value($key, $value)
+    private function validate_key_and_value($key, $value)
     {
         if (!is_string($key)) {
             throw new ArgumentException('The key must be a string: ' . $key);
         }
+
         if (is_array($value) || is_object($value)) {
             throw new ArgumentException(
-                "Nested data structures are not supported (key: {$key}, value:" . var_export($value)
+                "Nested data structures are not supported (key: {$key}, value:" . var_export($value, true)
             );
         }
     }
