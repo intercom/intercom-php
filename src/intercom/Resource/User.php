@@ -397,7 +397,8 @@ class User implements ResponseClassInterface
      * @param array $user_details The user details
      * @throws ArgumentException If the type of the response from the API is not a 'user'
      */
-    private function setUserInfoFromAPI(array $user_details) {
+    private function setUserInfoFromAPI(array $user_details)
+    {
         if (!isset($user_details['type']) || $user_details['type'] !== 'user') {
             // @todo: Decide if this is an exception or a silent failure
             throw new ArgumentException('API response not valid, type of response is incorrect');
@@ -420,7 +421,8 @@ class User implements ResponseClassInterface
      * @param OperationCommand $command The command
      * @return ResponseClassInterface|User
      */
-    public static function fromCommand(OperationCommand $command) {
+    public static function fromCommand(OperationCommand $command)
+    {
         $response = $command->getResponse();
         $user = new self();
 

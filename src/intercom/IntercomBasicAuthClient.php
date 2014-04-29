@@ -30,11 +30,14 @@ class IntercomBasicAuthClient extends IntercomAbstractClient
 
         $client->setDefaultOption('headers', $config->get('headers'));
 
-        $client->setDefaultOption('auth', [
-            $config->get('app_id'),
-            $config->get('api_key'),
-            'Basic'
-        ]);
+        $client->setDefaultOption(
+            'auth',
+            [
+                $config->get('app_id'),
+                $config->get('api_key'),
+                'Basic'
+            ]
+        );
 
         $client->setDescription(static::getServiceDescriptionFromFile($config->get('service_description')));
 

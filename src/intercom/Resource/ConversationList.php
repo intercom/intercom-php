@@ -18,7 +18,8 @@ class ConversationList implements ResponseClassInterface, Iterator
      *
      * @return int
      */
-    public function getConversationCount() {
+    public function getConversationCount()
+    {
         return count($this->conversations);
     }
 
@@ -66,7 +67,7 @@ class ConversationList implements ResponseClassInterface, Iterator
     public function valid()
     {
         $key = key($this->conversations);
-        return  ($key !== NULL && key($this->conversations) !== FALSE);
+        return ($key !== null && key($this->conversations) !== false);
     }
 
     /**
@@ -75,7 +76,8 @@ class ConversationList implements ResponseClassInterface, Iterator
      * @param array $conversations The conversations
      * @throws ArgumentException If the API response doesn't have the correct type
      */
-    private function setConversationsFromAPI(array $conversations) {
+    private function setConversationsFromAPI(array $conversations)
+    {
         // Validate the response type
         if (!isset($conversations['type']) || $conversations['type'] !== 'conversation.list') {
             // @todo: Decide if this is an exception or a silent failure
@@ -95,7 +97,8 @@ class ConversationList implements ResponseClassInterface, Iterator
      * @param OperationCommand $command The command
      * @return ResponseClassInterface|ConversationList
      */
-    public static function fromCommand(OperationCommand $command) {
+    public static function fromCommand(OperationCommand $command)
+    {
         $response = $command->getResponse();
         $conversation_list = new self();
 

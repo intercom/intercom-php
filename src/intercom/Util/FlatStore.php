@@ -4,7 +4,8 @@ namespace Intercom\Util;
 use \InvalidArgumentException as ArgumentException;
 use \ArrayAccess as ArrayAccess;
 
-class FlatStore implements ArrayAccess {
+class FlatStore implements ArrayAccess
+{
     private $attributes = [];
 
     /**
@@ -14,7 +15,8 @@ class FlatStore implements ArrayAccess {
      * @param mixed $value The value to validate
      * @throws \InvalidArgumentException If the key is not a string or if the value is an object or array
      */
-    public function validate_key_and_value($key, $value) {
+    public function validate_key_and_value($key, $value)
+    {
         if (!is_string($key)) {
             throw new ArgumentException('The key must be a string: ' . $key);
         }
@@ -30,8 +32,9 @@ class FlatStore implements ArrayAccess {
      *
      * @param array $attributes Optional. An array of attributes to load into the new object
      */
-    public function __construct(array $attributes = []) {
-        foreach($attributes as $key => $value) {
+    public function __construct(array $attributes = [])
+    {
+        foreach ($attributes as $key => $value) {
             $this->offsetSet($key, $value);
         }
     }
@@ -41,7 +44,8 @@ class FlatStore implements ArrayAccess {
      *
      * @return array
      */
-    public function __toArray() {
+    public function __toArray()
+    {
         return $this->getStore();
     }
 
@@ -50,7 +54,8 @@ class FlatStore implements ArrayAccess {
      *
      * @return array
      */
-    public function getStore() {
+    public function getStore()
+    {
         return $this->attributes;
     }
 
@@ -60,7 +65,8 @@ class FlatStore implements ArrayAccess {
      * @param string $offset The attribute name
      * @param mixed $value The value
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         $this->validate_key_and_value($offset, $value);
         $this->attributes[$offset] = $value;
     }
@@ -71,7 +77,8 @@ class FlatStore implements ArrayAccess {
      * @param string $offset The attribute key
      * @return bool
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return isset($this->attributes[$offset]);
     }
 
@@ -80,7 +87,8 @@ class FlatStore implements ArrayAccess {
      *
      * @param string $offset The attribute key
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         unset($this->attributes[$offset]);
     }
 
@@ -90,7 +98,8 @@ class FlatStore implements ArrayAccess {
      * @param string $offset The attribute name
      * @return mixed|null The value if the attribute exists, otherwise null
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return ($this->offsetExists($offset)) ? $this->attributes[$offset] : null;
     }
 }

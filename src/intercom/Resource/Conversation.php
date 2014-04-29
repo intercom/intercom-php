@@ -59,8 +59,9 @@ class Conversation
      *
      * @param array $conversation Conversation data
      */
-    private function setConversationFromData($conversation) {
-        foreach($conversation as $attribute => $value) {
+    private function setConversationFromData($conversation)
+    {
+        foreach ($conversation as $attribute => $value) {
             if (property_exists($this, $attribute)) {
                 $setter_method = sprintf('set%s', str_replace('_', '', $attribute));
                 if (method_exists($this, $setter_method)) {
