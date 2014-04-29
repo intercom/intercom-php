@@ -17,7 +17,7 @@ class ConversationList extends ObjectList implements ResponseClassInterface
      * @throws \InvalidArgumentException If the object to be added isn't a conversation
      */
     public function addObject($object, $key = null) {
-        if ($object instanceOf Conversation) {
+        if (!$object instanceof Conversation) {
             throw new InvalidArgumentException('Only conversation objects can be added to a conversation list');
         }
         parent::addObject($object, $key);
