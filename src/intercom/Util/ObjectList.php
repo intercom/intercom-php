@@ -65,7 +65,7 @@ class ObjectList implements Iterator
     /**
      *
      * @return array
-     */-
+     */
     public function getList() {
         return $this->objects;
     }
