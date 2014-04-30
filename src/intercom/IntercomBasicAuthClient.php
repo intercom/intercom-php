@@ -2,7 +2,11 @@
 namespace Intercom;
 
 use Guzzle\Common\Collection;
+use Guzzle\Common\Event;
 use Guzzle\Service\Client;
+use Guzzle\Http\Message;
+use Intercom\Exception\IntercomException;
+
 
 class IntercomBasicAuthClient extends IntercomAbstractClient
 {
@@ -40,6 +44,17 @@ class IntercomBasicAuthClient extends IntercomAbstractClient
         );
 
         $client->setDescription(static::getServiceDescriptionFromFile($config->get('service_description')));
+
+        $client->getEventDispatcher()->addListener('request.error', function(Event $event) {
+            // Stop other events from firing when you override 401 responses
+            $event->stopPropagation();
+
+            if ($event['response']->getStatusCode() > 400 && $event['response']->getStatusCode() < 600) {
+                $e = IntercomException::factory($event['request'], $event['response']);
+                $event['request']->setState(Request::STATE_ERROR, array('exception' => $e) + $event->toArray());
+                throw $e;
+            }
+        });
 
         return $client;
     }
