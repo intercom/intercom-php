@@ -9,94 +9,124 @@ use Intercom\Util\FlatStore;
 class User implements ResponseClassInterface
 {
     /**
-     * @var null|array
-     */
-    protected $avatar;
-
-    /**
      * @var null|string
      */
-    protected $app_id;
+    private $app_id;
 
     /**
      * @var null|array
      */
-    protected $companies;
+    private $avatar;
 
     /**
      * @var null|array
      */
-    protected $company_ids;
+    private $companies;
+
+    /**
+     * @var null|array
+     */
+    private $company_ids;
 
     /**
      * @var null|int
      */
-    protected $created_at;
+    private $created_at;
 
     /**
      * @var null|FlatStore
      */
-    protected $custom_data;
+    private $custom_data;
 
     /**
      * @var null|string
      */
-    protected $email;
+    private $email;
+
+    /**
+     * @var null|array
+     */
+    private $geoip_data;
 
     /**
      * @var null|string
      */
-    protected $last_seen_ip;
+    private $id;
 
     /**
      * @var null|int
      */
-    protected $last_request_at;
+    private $last_contacted_at;
+
+    /**
+     * @var null|int
+     */
+    private $last_request_at;
 
     /**
      * @var null|string
      */
-    protected $name;
+    private $last_seen_ip;
 
     /**
      * @var null|int
      */
-    protected $remote_created_at;
+    private $last_session_start;
+
+    /**
+     * @var null|string
+     */
+    private $name;
 
     /**
      * @var null|int
      */
-    protected $session_count;
+    private $remote_created_at;
 
     /**
      * @var null|array
      */
-    protected $social_accounts;
+    private $segment_ids;
+
+    /**
+     * @var null|int
+     */
+    private $session_count;
+
+    /**
+     * @var null|int
+     */
+    private $session_count_ios;
 
     /**
      * @var null|array
      */
-    protected $segment_ids;
+    private $social_accounts;
 
     /**
      * @var null|array
      */
-    protected $tag_ids;
+    private $tag_ids;
 
     /**
      * @var null|bool
      */
-    protected $unsubscribed_from_emails;
+    private $unsubscribed_from_emails;
 
     /**
      * @var null|int
      */
-    protected $updated_at;
+    private $updated_at;
+
+    /**
+     * @var null|array
+     */
+    private $user_agent_data;
 
     /**
      * @var null|mixed
      */
-    protected $user_id;
+    private $user_id;
 
     /**
      * @param mixed $app_id
@@ -137,7 +167,7 @@ class User implements ResponseClassInterface
     {
         $this->companies = [];
         foreach ($companies as $company) {
-            $this->companies[] = new FlatStore($company);
+            $this->companies[] = new Company($company);
         }
     }
 
@@ -390,6 +420,119 @@ class User implements ResponseClassInterface
     {
         return $this->updated_at;
     }
+
+    /**
+     * @param array|null $geoip_data
+     */
+    public function setGeoipData($geoip_data)
+    {
+        $this->geoip_data = $geoip_data;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getGeoipData()
+    {
+        return $this->geoip_data;
+    }
+
+    /**
+     * @param null|string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int|null $last_contacted_at
+     */
+    public function setLastContactedAt($last_contacted_at)
+    {
+        $this->last_contacted_at = $last_contacted_at;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLastContactedAt()
+    {
+        return $this->last_contacted_at;
+    }
+
+    /**
+     * @param null|string $last_seen_ip
+     */
+    public function setLastSeenIp($last_seen_ip)
+    {
+        $this->last_seen_ip = $last_seen_ip;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getLastSeenIp()
+    {
+        return $this->last_seen_ip;
+    }
+
+    /**
+     * @param int|null $last_session_start
+     */
+    public function setLastSessionStart($last_session_start)
+    {
+        $this->last_session_start = $last_session_start;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getLastSessionStart()
+    {
+        return $this->last_session_start;
+    }
+
+    /**
+     * @param int|null $session_count_ios
+     */
+    public function setSessionCountIos($session_count_ios)
+    {
+        $this->session_count_ios = $session_count_ios;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getSessionCountIos()
+    {
+        return $this->session_count_ios;
+    }
+
+    /**
+     * @param array|null $user_agent_data
+     */
+    public function setUserAgentData($user_agent_data)
+    {
+        $this->user_agent_data = $user_agent_data;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getUserAgentData()
+    {
+        return $this->user_agent_data;
+    }
+
 
     /**
      * Sets the user information from data received from the API
