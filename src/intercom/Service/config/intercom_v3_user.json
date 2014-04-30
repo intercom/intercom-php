@@ -2,6 +2,47 @@
     "name": "Intercom API (User) v3",
     "description": "The Intercom API (User) v3",
     "operations": {
+        "getUserByID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "\\Intercom\\Resource\\User",
+            "summary": "Gets a single user by their ID",
+            "uri": "/users/{id}"
+        },
+        "listUsersWithFilters": {
+            "httpMethod": "POST",
+            "parameters": {
+                "filters": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "attribute": {
+                                "description": "The field to compare against",
+                                "type": "number"
+                            },
+                            "comparison": {
+                                "description": "The comparison operator - valid values are: lt gt eq starts_with, ends_with, contains, not_contains, known, unknown",
+                                "type": "string"
+                             },
+                            "value": {
+                                "description": "The filter value for the comparison",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "responseClass": "\\Intercom\\Resource\\UserList",
+            "summary": "Gets a list of users that match the specified filter",
+            "uri": "/users/list"
+        },
         "SaveUser": {
             "httpMethod": "POST",
             "parameters": {
