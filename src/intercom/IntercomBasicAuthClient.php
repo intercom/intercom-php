@@ -4,7 +4,7 @@ namespace Intercom;
 use Guzzle\Common\Collection;
 use Guzzle\Common\Event;
 use Guzzle\Service\Client;
-use Guzzle\Http\Message;
+use Guzzle\Http\Message\Request;
 use Intercom\Exception\IntercomException;
 
 
