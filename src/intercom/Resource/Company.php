@@ -1,7 +1,11 @@
 <?php
 namespace Intercom\Resource;
 
-class Company
+use \InvalidArgumentException;
+use Guzzle\Service\Command\ResponseClassInterface;
+use Guzzle\Service\Command\OperationCommand;
+
+class Company implements ResponseClassInterface
 {
     private $app_id;
     private $created_at;
@@ -23,6 +27,35 @@ class Company
         if (!empty($company)) {
             $this->setCompanyFromData($company);
         }
+    }
+
+    private function setDataFromAPI(array $api_data)
+    {
+        if (!isset($api_data['type']) || $api_data['type'] !== 'company') {
+            // @todo: Decide if this is an exception or a silent failure
+            throw new InvalidArgumentException('API response not valid, type of response is incorrect');
+        }
+
+        $this->setCompanyFromData($api_data);
+    }
+
+    /**
+     * Takes the response from a successful API call and creates the
+     * object based on that
+     *
+     * @param OperationCommand $command The command
+     * @return ResponseClassInterface|User
+     */
+    public static function fromCommand(OperationCommand $command)
+    {
+        $response = $command->getResponse();
+        $obj = new self();
+
+        if ($response->getBody()) {
+            $obj->setDataFromAPI($response->json());
+        }
+
+        return $obj;
     }
 
     /**
