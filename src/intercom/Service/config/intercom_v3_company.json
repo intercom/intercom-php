@@ -1,76 +1,101 @@
 {
-    "name": "Intercom API (Conversation) v3",
-    "description": "The Intercom API (Conversation) v3",
+    "name": "Intercom API (Company) v3",
+    "description": "The Intercom API (Company) v3",
     "operations": {
-        "createConversation": {
-            "httpMethod": "POST",
-            "parameters": {
-                "body": {
-                    "location": "json",
-                    "required": true,
-                    "type": "string"
-                },
-                "email": {
-                    "location": "json",
-                    "required": false,
-                    "type": "string"
-                },
-                "user_id": {
-                    "location": "json",
-                    "required": false,
-                    "type": "string"
-                }
-            },
-            "responseClass": "\\Intercom\\Resource\\Conversation",
-            "summary": "Creates a new conversation",
-            "uri": "/conversations"
-        },
-        "getUserConversations": {
+        "getCompanies": {
             "httpMethod": "GET",
-            "parameters": {
-                "email": {
-                    "location": "query",
-                    "required": false,
-                    "type": "string"
-                },
-                "type": {
-                    "default": "user",
-                    "location": "query",
-                    "required": true,
-                    "static": true
-                },
-                "user_id": {
-                    "location": "query",
-                    "required": false,
-                    "type": "string"
-                }
-            },
-            "responseClass": "\\Intercom\\Resource\\ConversationList",
-            "summary": "Gets conversations for a user",
-            "uri": "/conversations"
+            "responseClass": "CompanyListModel",
+            "responseType": "model",
+            "summary": "Gets a list of companies",
+            "uri": "/companies"
         },
-        "getUserConversationsByAdminID": {
+        "getCompanyByID": {
             "httpMethod": "GET",
             "parameters": {
                 "id": {
-                    "location": "query",
+                    "location": "uri",
                     "required": true,
-                    "sentAs": "assignee_identifier",
-                    "type": "integer"
+                    "type": "string"
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\ConversationList",
-            "summary": "Gets conversations for a user based on the ID of the admin the conversation is assigned to",
-            "uri": "/conversations"
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Gets a company by ID",
+            "uri": "/companies/{id}"
+        }
+    },
+    "models": {
+        "CompanyModel": {
+            "type": "object",
+            "location": "json",
+            "properties": {
+                "app_id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "created_at": {
+                    "location": "json",
+                    "type": "int"
+                },
+                "custom_data": {
+                    "location": "json",
+                    "type": "object"
+                },
+                "id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "last_request_at": {
+                    "location": "json",
+                    "type": "int"
+                },
+                "monthly_spend": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "plan_id": {
+                    "location": "json",
+                    "type": "int"
+                },
+                "remote_company_id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "remote_created_at": {
+                    "location": "json",
+                    "type": "int"
+                },
+                "session_count": {
+                    "location": "json",
+                    "type": "int"
+                },
+                "tag_ids": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "location": "json",
+                    "type": "int"
+                },
+                "user_count": {
+                    "location": "json",
+                    "type": "int"
+                }
+            }
         },
-        "getUnreadUserConversations": {
-            "extends": "getUserConversations",
-            "parameters": {
-                "unread": {
-                    "default": true,
-                    "location": "query",
-                    "static": true,
-                    "required": true
+        "CompanyListModel": {
+            "type": "object",
+            "properties": {
+                "companies": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "CompanyModel"
+                    }
                 }
             }
         }
