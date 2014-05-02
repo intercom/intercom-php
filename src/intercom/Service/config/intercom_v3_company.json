@@ -30,59 +30,45 @@
             "location": "json",
             "properties": {
                 "app_id": {
-                    "location": "json",
                     "type": "string"
                 },
                 "created_at": {
-                    "location": "json",
                     "type": "integer"
                 },
                 "custom_data": {
-                    "location": "json",
                     "type": "object"
                 },
                 "id": {
-                    "location": "json",
                     "type": "string"
                 },
                 "last_request_at": {
-                    "location": "json",
                     "type": "integer"
                 },
                 "monthly_spend": {
-                    "location": "json",
                     "type": "string"
                 },
                 "name": {
-                    "location": "json",
                     "type": "string"
                 },
                 "plan_id": {
-                    "location": "json",
                     "type": "integer"
                 },
                 "remote_company_id": {
-                    "location": "json",
                     "type": "string"
                 },
                 "remote_created_at": {
-                    "location": "json",
                     "type": "integer"
                 },
                 "session_count": {
-                    "location": "json",
                     "type": "integer"
                 },
                 "tag_ids": {
-                    "location": "json",
                     "type": "string"
                 },
                 "updated_at": {
-                    "location": "json",
                     "type": "integer"
                 },
                 "user_count": {
-                    "location": "json",
                     "type": "integer"
                 }
             }
