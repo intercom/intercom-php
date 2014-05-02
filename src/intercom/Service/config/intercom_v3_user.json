@@ -16,7 +16,14 @@
             "summary": "Gets a single user by their ID",
             "uri": "/users/{id}"
         },
-        "listUsersByFilters": {
+        "getUsers": {
+            "httpMethod": "POST",
+            "responseClass": "UserListModel",
+            "responseType": "model",
+            "summary": "Gets a list of users",
+            "uri": "/users/list"
+        },
+        "getsUsersByFilters": {
             "httpMethod": "POST",
             "parameters": {
                 "filters": {
