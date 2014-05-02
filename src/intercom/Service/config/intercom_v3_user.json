@@ -11,35 +11,43 @@
                     "type": "string"
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\User",
+            "responseClass": "UserModel",
+            "responseType": "model",
             "summary": "Gets a single user by their ID",
             "uri": "/users/{id}"
         },
-        "listUsersWithFilters": {
+        "listUsersByFilters": {
             "httpMethod": "POST",
             "parameters": {
                 "filters": {
+                    "description": "An array of filter objects",
+                    "location": "json",
+                    "required": true,
                     "type": "array",
                     "items": {
                         "type": "object",
                         "properties": {
                             "attribute": {
                                 "description": "The field to compare against",
-                                "type": "number"
+                                "required": true,
+                                "type": "string"
                             },
                             "comparison": {
                                 "description": "The comparison operator - valid values are: lt gt eq starts_with, ends_with, contains, not_contains, known, unknown",
+                                "required": true,
                                 "type": "string"
                              },
                             "value": {
                                 "description": "The filter value for the comparison",
+                                "required": true,
                                 "type": "string"
                             }
                         }
                     }
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\UserList",
+            "responseClass": "UserListModel",
+            "responseType": "model",
             "summary": "Gets a list of users that match the specified filter",
             "uri": "/users/list"
         },
@@ -104,9 +112,207 @@
                     "type": "string"
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\User",
+            "responseClass": "UserModel",
+            "responseType": "model",
             "summary": "Saves a user",
             "uri": "/users"
+        }
+    },
+    "models": {
+        "UserModel": {
+            "type": "object",
+            "location": "json",
+            "properties": {
+                "app_id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "avatar": {
+                    "type": "object",
+                    "items": {
+                        "color": {
+                            "type": "string"
+                        },
+                        "image_url": {
+                            "type": "string"
+                        },
+                        "image_urls": {
+                            "type": "object",
+                            "items": {
+                                "large": {
+                                    "type": "string"
+                                },
+                                "mini": {
+                                    "type": "string"
+                                },
+                                "mini_x2": {
+                                    "type": "string"
+                                },
+                                "normal": {
+                                    "type": "string"
+                                },
+                                "normal_x2": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "initials": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "companies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "CompanyModel"
+                    }
+                },
+                "company_ids": {
+                    "type": "array",
+                    "items": {
+                        "name": "company_id",
+                        "type": "string"
+                    }
+                },
+                "created_at": {
+                    "type": "numeric"
+                },
+                "custom_data": {
+                    "type": "object"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "geoip_data": {
+                    "type": "object",
+                    "items": {
+                        "city_name": {
+                            "type" : "string"
+                        },
+                        "continent_code": {
+                            "type" : "string"
+                        },
+                        "country_code2": {
+                            "type" : "string"
+                        },
+                        "country_code3": {
+                            "type" : "string"
+                        },
+                        "id": {
+                            "type" : "string"
+                        },
+                        "latitude": {
+                            "type" : "numeric"
+                        },
+                        "longitude": {
+                            "type" : "numeric"
+                        },
+                        "postal_code": {
+                            "type" : "string"
+                        },
+                        "region_code": {
+                            "type" : "string"
+                        },
+                        "region_name": {
+                            "type" : "string"
+                        },
+                        "timezone": {
+                            "type" : "string"
+                        }
+                    }
+                },
+                "id": {
+                    "type": "string"
+                },
+                "last_contacted_at": {
+                    "type": "numeric"
+                },
+                "last_request_at": {
+                    "type": "numeric"
+                },
+                "last_seen_ip": {
+                    "type": "string"
+                },
+                "last_session_start": {
+                    "type": "numeric"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "remote_created_at": {
+                    "type": "numeric"
+                },
+                "segment_ids": {
+                    "type": "array",
+                    "items": {
+                        "name": "segment_id",
+                        "type": "string"
+                    }
+                },
+                "session_count": {
+                    "type": "numeric"
+                },
+                "session_count_ios": {
+                    "type": "numeric"
+                },
+                "social_accounts": {
+                    "type": "object"
+                },
+                "tag_ids": {
+                    "type": "array",
+                    "items": {
+                        "name": "tag",
+                        "type": "string"
+                    }
+                },
+                "unsubscribed_from_emails": {
+                    "type": "boolean"
+                },
+                "updated_at": {
+                    "type": "numeric"
+                },
+                "user_agent_data": {
+                    "type": "object",
+                    "items": {
+                        "engine": {
+                            "type": "string"
+                        },
+                        "engine_version": {
+                            "type": "string"
+                        },
+                        "mobile": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "boolean"
+                        },
+                        "os": {
+                            "type": "string"
+                        },
+                        "platform": {
+                            "type": "string"
+                        },
+                        "version": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "UserListModel": {
+            "type": "object",
+            "properties": {
+                "users": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "UserModel"
+                    }
+                }
+            }
         }
     }
 }
