@@ -1,0 +1,81 @@
+{
+    "name": "Intercom API (Event) v3",
+    "description": "The Intercom API (Event) v3",
+    "operations": {
+        "basicTagOperation": {
+            "parameters": {
+                "name": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "ids_to_add": {
+                    "items": {
+                        "name": "IntercomUserID",
+                        "type": "string"
+                    },
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "ids_to_remove": {
+                    "items": {
+                        "name": "IntercomUserID",
+                        "type": "string"
+                    },
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                }
+            },
+            "uri": "/tags"
+        },
+        "createTag": {
+            "extends": "basicTagOperation",
+            "httpMethod": "POST",
+            "summary": "Creates a tag and (optionally) tags users with the new tag"
+        },
+        "updateTag": {
+            "extends": "basicTagOperation",
+            "httpMethod": "POST",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "summary": "Creates a tag and (optionally) tags users with the new tag",
+            "uri": "/tags/{id}"
+        }
+    },
+    "models": {
+        "TagModel": {
+            "type": "object",
+            "location": "json",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "TagListModel": {
+            "type": "object",
+            "properties": {
+                "companies": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "TagModel"
+                    }
+                }
+            }
+        }
+    }
+}
