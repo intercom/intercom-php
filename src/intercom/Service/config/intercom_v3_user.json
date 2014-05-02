@@ -69,7 +69,7 @@
                 "created_at": {
                     "location": "json",
                     "required": false,
-                    "type": "numeric",
+                    "type": "integer",
                     "format": "timestamp"
                 },
                 "custom_data": {
@@ -90,7 +90,7 @@
                 "last_request_at": {
                     "location": "json",
                     "required": false,
-                    "type": "numeric",
+                    "type": "integer",
                     "format": "timestamp"
                 },
                 "last_seen_ip": {
@@ -182,7 +182,7 @@
                     }
                 },
                 "created_at": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "custom_data": {
                     "type": "object"
@@ -209,10 +209,10 @@
                             "type" : "string"
                         },
                         "latitude": {
-                            "type" : "numeric"
+                            "type" : "integer"
                         },
                         "longitude": {
-                            "type" : "numeric"
+                            "type" : "integer"
                         },
                         "postal_code": {
                             "type" : "string"
@@ -232,22 +232,22 @@
                     "type": "string"
                 },
                 "last_contacted_at": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "last_request_at": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "last_seen_ip": {
                     "type": "string"
                 },
                 "last_session_start": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "name": {
                     "type": "string"
                 },
                 "remote_created_at": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "segment_ids": {
                     "type": "array",
@@ -257,10 +257,10 @@
                     }
                 },
                 "session_count": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "session_count_ios": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "social_accounts": {
                     "type": "object"
@@ -276,7 +276,7 @@
                     "type": "boolean"
                 },
                 "updated_at": {
-                    "type": "numeric"
+                    "type": "integer"
                 },
                 "user_agent_data": {
                     "type": "object",

@@ -35,7 +35,7 @@
                 },
                 "created_at": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "custom_data": {
                     "location": "json",
@@ -47,7 +47,7 @@
                 },
                 "last_request_at": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "monthly_spend": {
                     "location": "json",
@@ -59,7 +59,7 @@
                 },
                 "plan_id": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "remote_company_id": {
                     "location": "json",
@@ -67,11 +67,11 @@
                 },
                 "remote_created_at": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "session_count": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "tag_ids": {
                     "location": "json",
@@ -79,11 +79,11 @@
                 },
                 "updated_at": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "user_count": {
                     "location": "json",
-                    "type": "int"
+                    "type": "integer"
                 }
             }
         },
