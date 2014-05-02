@@ -21,9 +21,24 @@
                     "type": "string"
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\Conversation",
+            "responseClass": "Conversation",
+            "responseType": "model",
             "summary": "Creates a new conversation",
             "uri": "/conversations"
+        },
+        "getConversationByID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "integer"
+                }
+            },
+            "responseClass": "ConversationPartList",
+            "responseType": "model",
+            "summary": "Gets a conversation by ID",
+            "uri": "/conversations/{id}"
         },
         "getUserConversations": {
             "httpMethod": "GET",
@@ -45,9 +60,21 @@
                     "type": "string"
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\ConversationList",
+            "responseClass": "ConversationList",
+            "responseType": "model",
             "summary": "Gets conversations for a user",
             "uri": "/conversations"
+        },
+        "getUnreadUserConversations": {
+            "extends": "getUserConversations",
+            "parameters": {
+                "unread": {
+                    "default": true,
+                    "location": "query",
+                    "static": true,
+                    "required": true
+                }
+            }
         },
         "getUserConversationsByAdminID": {
             "httpMethod": "GET",
@@ -59,18 +86,53 @@
                     "type": "integer"
                 }
             },
-            "responseClass": "\\Intercom\\Resource\\ConversationList",
+            "responseClass": "ConversationsList",
+            "responseType": "model",
             "summary": "Gets conversations for a user based on the ID of the admin the conversation is assigned to",
             "uri": "/conversations"
+        }
+    },
+    "models": {
+        "ConversationModel": {
+            "type": "object",
+            "location": "json"
         },
-        "getUnreadUserConversations": {
-            "extends": "getUserConversations",
-            "parameters": {
-                "unread": {
-                    "default": true,
-                    "location": "query",
-                    "static": true,
-                    "required": true
+        "ConversationListModel": {
+            "type": "object",
+            "properties": {
+                "conversations": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "ConversationModel"
+                    }
+                }
+            }
+        },
+        "ConversationPartModel": {
+            "type": "object",
+            "location": "json",
+            "properties": {
+                "author": {
+                    "type": "object"
+                },
+                "body": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "integer"
+                }
+            }
+        },
+        "ConversationPartListModel": {
+            "type": "object",
+            "properties": {
+                "parts": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "ConversationPartModel"
+                    }
                 }
             }
         }
