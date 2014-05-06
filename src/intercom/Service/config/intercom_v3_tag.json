@@ -33,11 +33,13 @@
         "createTag": {
             "extends": "basicTagOperation",
             "httpMethod": "POST",
+            "responseClass": "TagModel",
+            "responseType": "model",
             "summary": "Creates a tag and (optionally) tags users with the new tag"
         },
         "updateTag": {
             "extends": "basicTagOperation",
-            "httpMethod": "POST",
+            "httpMethod": "PUT",
             "parameters": {
                 "id": {
                     "location": "uri",
@@ -45,7 +47,9 @@
                     "type": "string"
                 }
             },
-            "summary": "Creates a tag and (optionally) tags users with the new tag",
+            "responseClass": "TagModel",
+            "responseType": "model",
+            "summary": "Updates a tag and (optionally) tags or untags users with the tag",
             "uri": "/tags/{id}"
         }
     },
