@@ -2,7 +2,23 @@
     "name": "Intercom API (Company) v3",
     "description": "The Intercom API (Company) v3",
     "operations": {
+        "_paginated_method": {
+            "parameters": {
+                "page": {
+                    "location": "query",
+                    "required": false,
+                    "type": "integer"
+                },
+                "per_page": {
+                    "location": "query",
+                    "maximum": 60,
+                    "required": false,
+                    "type": "integer"
+                }
+            }
+        },
         "getCompanies": {
+            "extends": "_paginated_method",
             "httpMethod": "GET",
             "responseClass": "CompanyListModel",
             "responseType": "model",

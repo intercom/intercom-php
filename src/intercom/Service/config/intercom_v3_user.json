@@ -2,6 +2,21 @@
     "name": "Intercom API (User) v3",
     "description": "The Intercom API (User) v3",
     "operations": {
+        "_paginated_method": {
+            "parameters": {
+                "page": {
+                    "location": "query",
+                    "required": false,
+                    "type": "integer"
+                },
+                "per_page": {
+                    "location": "query",
+                    "maximum": 60,
+                    "required": false,
+                    "type": "integer"
+                }
+            }
+        },
         "getUserByID": {
             "httpMethod": "GET",
             "parameters": {
@@ -17,6 +32,7 @@
             "uri": "/users/{id}"
         },
         "getUsers": {
+            "extends": "_paginated_method",
             "httpMethod": "POST",
             "responseClass": "UserListModel",
             "responseType": "model",
@@ -24,6 +40,7 @@
             "uri": "/users/list"
         },
         "getUsersByFilters": {
+            "extends": "_paginated_method",
             "httpMethod": "POST",
             "parameters": {
                 "filters": {
