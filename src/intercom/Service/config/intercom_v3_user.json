@@ -23,7 +23,7 @@
             "summary": "Gets a list of users",
             "uri": "/users/list"
         },
-        "getsUsersByFilters": {
+        "getUsersByFilters": {
             "httpMethod": "POST",
             "parameters": {
                 "filters": {
@@ -43,7 +43,7 @@
                                 "description": "The comparison operator - valid values are: lt gt eq starts_with, ends_with, contains, not_contains, known, unknown",
                                 "required": true,
                                 "type": "string"
-                             },
+                            },
                             "value": {
                                 "description": "The filter value for the comparison",
                                 "required": true,
