@@ -33,6 +33,13 @@
         "createTag": {
             "extends": "basicTagOperation",
             "httpMethod": "POST",
+            "parameters": {
+                "admin_id": {
+                    "location": "json",
+                    "required": true,
+                    "type": "integer"
+                }
+            },
             "responseClass": "TagModel",
             "responseType": "model",
             "summary": "Creates a tag and (optionally) tags users with the new tag"
