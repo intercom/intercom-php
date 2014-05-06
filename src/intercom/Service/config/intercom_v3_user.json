@@ -58,7 +58,7 @@
             "summary": "Gets a list of users that match the specified filter",
             "uri": "/users/list"
         },
-        "SaveUser": {
+        "saveUser": {
             "httpMethod": "POST",
             "parameters": {
                 "companies": {
