@@ -110,7 +110,7 @@
                             "type": "integer"
                         },
                         "name": {
-                            "type": "string",
+                            "type": "string"
                         }
                     }
                 },
