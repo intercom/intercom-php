@@ -29,7 +29,7 @@
                 "user_id": {
                     "location": "json",
                     "required": false,
-                    "type": "object"
+                    "type": "string"
                 }
             },
             "summary": "Records an event",
