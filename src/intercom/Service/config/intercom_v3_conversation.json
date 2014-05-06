@@ -95,7 +95,109 @@
     "models": {
         "ConversationModel": {
             "type": "object",
-            "location": "json"
+            "location": "json",
+            "properties": {
+                "assigned_to": {
+                    "type": "object",
+                    "properties": {
+                        "companies": {
+                            "type": "array"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "integer"
+                        },
+                        "name": {
+                            "type": "string",
+                        }
+                    }
+                },
+                "created_at": {
+                    "format": "timestamp",
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "latest_user_visible_comment": {
+                    "type": "object",
+                    "properties": {
+                        "$ref": "ConversationPartModel"
+                    }
+                },
+                "read": {
+                    "type": "boolean"
+                },
+                "updated_at": {
+                    "format": "timestamp",
+                    "type": "integer"
+                },
+                "user": {
+                    "type": "object",
+                    "properties": {
+                        "avatar": {
+                            "type": "object",
+                            "items": {
+                                "color": {
+                                    "type": "string"
+                                },
+                                "image_url": {
+                                    "type": "string"
+                                },
+                                "image_urls": {
+                                    "type": "object",
+                                    "items": {
+                                        "large": {
+                                            "type": "string"
+                                        },
+                                        "mini": {
+                                            "type": "string"
+                                        },
+                                        "mini_x2": {
+                                            "type": "string"
+                                        },
+                                        "normal": {
+                                            "type": "string"
+                                        },
+                                        "normal_x2": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "initials": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "companies": {
+                            "type": "array",
+                            "items": {
+                                "name": "Company",
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "user_created": {
+                    "type": "boolean"
+                }
+            }
         },
         "ConversationListModel": {
             "type": "object",
@@ -114,7 +216,33 @@
             "location": "json",
             "properties": {
                 "author": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "avatar": {
+                            "type": "object",
+                            "properties": {
+                                "image_url": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "companies": {
+                            "type": "array",
+                            "items": {
+                                "name": "CompanyID",
+                                "type": "string"
+                            }
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "body": {
                     "type": "string"
