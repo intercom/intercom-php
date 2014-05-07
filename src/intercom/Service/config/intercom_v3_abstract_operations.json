@@ -1,0 +1,22 @@
+{
+    "name": "Intercom API (Abstract Commands) v3",
+    "description": "The Intercom API (Abstract Commands) v3",
+    "operations": {
+        "_abstract_pagination_page": {
+            "httpMethod": "GET",
+            "parameters": {
+                "page": {
+                    "location": "query",
+                    "type": "string"
+                },
+                "per_page": {
+                    "location": "query",
+                    "maximum": 60,
+                    "required": false,
+                    "type": "integer"
+                }
+            },
+            "summary": "Abstract definition to allow pagination params in calls by extending this method"
+        }
+    }
+}
