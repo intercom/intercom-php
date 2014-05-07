@@ -42,7 +42,7 @@
                                 "type": "string"
                             },
                             "comparison": {
-                                "description": "The comparison operator - valid values are: lt gt eq starts_with, ends_with, contains, not_contains, known, unknown",
+                                "description": "The comparison operator - valid values are: lt, gt, eq, ne, starts_with, ends_with, contains, not_contains, known, unknown",
                                 "required": true,
                                 "type": "string"
                             },
