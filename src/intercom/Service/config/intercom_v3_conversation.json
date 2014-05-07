@@ -2,21 +2,6 @@
     "name": "Intercom API (Conversation) v3",
     "description": "The Intercom API (Conversation) v3",
     "operations": {
-        "IntercomPaginatedMethod": {
-            "parameters": {
-                "page": {
-                    "location": "query",
-                    "required": false,
-                    "type": "integer"
-                },
-                "per_page": {
-                    "location": "query",
-                    "maximum": 60,
-                    "required": false,
-                    "type": "integer"
-                }
-            }
-        },
         "createConversation": {
             "httpMethod": "POST",
             "parameters": {
@@ -56,7 +41,7 @@
             "uri": "/conversations/{id}"
         },
         "getUserConversations": {
-            "extends": "IntercomPaginatedMethod",
+            "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
                 "email": {
@@ -93,7 +78,7 @@
             }
         },
         "getUserConversationsByAdminID": {
-            "extends": "IntercomPaginatedMethod",
+            "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
                 "id": {

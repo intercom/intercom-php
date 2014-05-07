@@ -2,22 +2,6 @@
     "name": "Intercom API (User) v3",
     "description": "The Intercom API (User) v3",
     "operations": {
-        "IntercomPaginatedMethod": {
-            "parameters": {
-                "page": {
-                    "location": "query",
-                    "required": false,
-                    "type": "integer"
-                },
-                "per_page": {
-                    "location": "query",
-                    "maximum": 60,
-                    "required": false,
-                    "type": "integer"
-                }
-            },
-            "summary": "Abstract definition to allow pagination params in calls by extending this method"
-        },
         "getUserByID": {
             "httpMethod": "GET",
             "parameters": {
@@ -33,7 +17,7 @@
             "uri": "/users/{id}"
         },
         "getUsers": {
-            "extends": "IntercomPaginatedMethod",
+            "extends": "_abstract_pagination_page",
             "httpMethod": "POST",
             "responseClass": "UserListModel",
             "responseType": "model",
@@ -41,7 +25,7 @@
             "uri": "/users/list"
         },
         "getUsersByFilters": {
-            "extends": "IntercomPaginatedMethod",
+            "extends": "_abstract_pagination_page",
             "httpMethod": "POST",
             "parameters": {
                 "filters": {
