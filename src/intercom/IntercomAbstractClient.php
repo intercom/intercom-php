@@ -22,7 +22,8 @@ abstract class IntercomAbstractClient extends Client
      *
      * @param Collection $config
      */
-    protected function configure($config) {
+    protected function configure($config)
+    {
         $this->setDefaultOption('headers', $config->get('headers'));
         $this->setDescription($this->getServiceDescriptionFromFile($config->get('service_description')));
         $this->setErrorHandler();

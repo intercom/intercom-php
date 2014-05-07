@@ -19,7 +19,8 @@ class IntercomException extends BadResponseException
      * @param Response $response The response
      * @return BadResponseException
      */
-    public static function factory(RequestInterface $request, Response $response) {
+    public static function factory(RequestInterface $request, Response $response)
+    {
         if (!static::isValidIntercomError($response->json())) {
             $label = 'Unsuccessful response';
             $class = __CLASS__;
@@ -34,11 +35,14 @@ class IntercomException extends BadResponseException
             $class = __CLASS__;
         }
 
-        $message = $label . PHP_EOL . implode(PHP_EOL, array(
-            '[status code] ' . $response->getStatusCode(),
-            '[reason phrase] ' . $response->getReasonPhrase(),
-            '[url] ' . $request->getUrl(),
-        ));
+        $message = $label . PHP_EOL . implode(
+                PHP_EOL,
+                array(
+                    '[status code] ' . $response->getStatusCode(),
+                    '[reason phrase] ' . $response->getReasonPhrase(),
+                    '[url] ' . $request->getUrl(),
+                )
+            );
 
         $e = new $class($message);
         $e->setResponse($response);
@@ -57,11 +61,13 @@ class IntercomException extends BadResponseException
      * @param $response_body
      * @return bool
      */
-    private function isValidIntercomError($response_body) {
+    private function isValidIntercomError($response_body)
+    {
         if (array_key_exists('type', $response_body) &&
             $response_body['type'] == 'error.list' &&
-            array_key_exists('errors', $response_body)) {
-                return true;
+            array_key_exists('errors', $response_body)
+        ) {
+            return true;
         }
         return false;
     }
@@ -71,7 +77,8 @@ class IntercomException extends BadResponseException
      *
      * @return array
      */
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 }

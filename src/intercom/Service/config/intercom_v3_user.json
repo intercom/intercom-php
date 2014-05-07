@@ -212,37 +212,37 @@
                     "type": "object",
                     "items": {
                         "city_name": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "continent_code": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "country_code2": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "country_code3": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "id": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "latitude": {
-                            "type" : "integer"
+                            "type": "integer"
                         },
                         "longitude": {
-                            "type" : "integer"
+                            "type": "integer"
                         },
                         "postal_code": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "region_code": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "region_name": {
-                            "type" : "string"
+                            "type": "string"
                         },
                         "timezone": {
-                            "type" : "string"
+                            "type": "string"
                         }
                     }
                 },
