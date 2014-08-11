@@ -41,7 +41,7 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     function testGetServiceDescriptionFromFileNoFile()
     {
@@ -51,7 +51,7 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
     }
 
     /**
-     * @expectedException Guzzle\Common\Exception\InvalidArgumentException
+     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
      */
     public function testFactoryEmptyArgs()
     {
@@ -59,7 +59,7 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
     }
 
     /**
-     * @expectedException Guzzle\Common\Exception\InvalidArgumentException
+     * @expectedException \Guzzle\Common\Exception\InvalidArgumentException
      */
     public function testFactoryMissingArgs()
     {
