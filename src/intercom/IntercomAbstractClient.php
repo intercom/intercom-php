@@ -36,7 +36,7 @@ abstract class IntercomAbstractClient extends Client
      * @return ServiceDescription
      * @throws InvalidArgumentException If the description file doesn't exist or cannot be read
      */
-    private function getServiceDescriptionFromFile($description_file)
+    public function getServiceDescriptionFromFile($description_file)
     {
         if (!file_exists($description_file) || !is_readable($description_file)) {
             throw new InvalidArgumentException('Unable to read API definition schema');
