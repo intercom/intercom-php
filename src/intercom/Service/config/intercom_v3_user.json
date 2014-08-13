@@ -24,35 +24,11 @@
             "summary": "Gets a list of users",
             "uri": "/users/list"
         },
-        "getUsersByFilters": {
-            "extends": "_abstract_pagination_page",
+        "createUser": {
             "httpMethod": "POST",
             "parameters": {
-                "filters": {
-                    "description": "An array of filter objects",
+                "companies": {
                     "location": "json",
-                    "required": true,
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "attribute": {
-                                "description": "The field to compare against",
-                                "required": true,
-                                "type": "string"
-                            },
-                            "comparison": {
-                                "description": "The comparison operator - valid values are: lt, gt, eq, ne, starts_with, ends_with, contains, not_contains, known, unknown",
-                                "required": true,
-                                "type": "string"
-                            },
-                            "value": {
-                                "description": "The filter value for the comparison",
-                                "required": true,
-                                "type": "string"
-                            }
-                        }
-                    }
                 }
             },
             "responseClass": "UserListModel",
