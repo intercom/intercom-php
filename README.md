@@ -47,15 +47,17 @@ By default the service description files point at the live API. For testing you 
 
 The API supports:
 
-    POST https://api.intercom.io/users
-    GET  https://api.intercom.io/conversations
+    https://api.intercom.io/users
+    https://api.intercom.io/tags
 
 ### Examples
 
 #### Creating an API Client
 
 ```php
-$intercom = new IntercomBasicAuthClient([
+use Intercom\IntercomBasicAuthClient;
+
+$intercom = IntercomBasicAuthClient::factory([
     'app_id' => 'YOUR_APP_ID',
     'api_key' => 'YOUR_API_KEY'
 ]);
@@ -72,7 +74,7 @@ $user_data = [
 ]
 
 try {
-    $user = $intercom->saveUser($user_data);
+    $user = $intercom->createUser($user_data);
 } catch (ServerErrorResponseException $e) {
     // Handle the error appropriately. Simple example is below
     $request = $e->getRequest();
