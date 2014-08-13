@@ -1,4 +1,5 @@
 {
+    "additionalProperties": false,
     "name": "Intercom API (User) v3",
     "description": "The Intercom API (User) v3",
     "operations": {
@@ -57,18 +58,6 @@
             "parameters": {
                 "companies": {
                     "location": "json",
-                }
-            },
-            "responseClass": "UserListModel",
-            "responseType": "model",
-            "summary": "Gets a list of users that match the specified filter",
-            "uri": "/users/list"
-        },
-        "saveUser": {
-            "httpMethod": "POST",
-            "parameters": {
-                "companies": {
-                    "location": "json",
                     "required": false,
                     "type": "array"
                 },
@@ -78,7 +67,7 @@
                     "type": "integer",
                     "format": "timestamp"
                 },
-                "custom_data": {
+                "custom_attributes": {
                     "location": "json",
                     "required": false,
                     "type": "array"
@@ -110,6 +99,77 @@
                     "type": "string"
                 },
                 "unsubscribed_from_emails": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserModel",
+            "responseType": "model",
+            "summary": "Saves a user",
+            "uri": "/users"
+        },
+        "updateUser": {
+            "httpMethod": "POST",
+            "parameters": {
+                "id": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "companies": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "custom_attributes": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "last_request_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "last_seen_ip": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "last_seen_user_agent": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "unsubscribed_from_emails": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                },
+                "update_last_request_at": {
                     "location": "json",
                     "required": false,
                     "type": "boolean"
@@ -159,13 +219,13 @@
                 "created_at": {
                     "type": "integer"
                 },
-                "custom_data": {
+                "custom_attributes": {
                     "type": "object"
                 },
                 "email": {
                     "type": "string"
                 },
-                "geoip_data": {
+                "location_data": {
                     "type": "object",
                     "items": {
                         "city_name": {
@@ -257,7 +317,7 @@
         "UserListModel": {
             "type": "object",
             "properties": {
-                "users": {
+                "user.list": {
                     "type": "array",
                     "location": "json",
                     "items": {
