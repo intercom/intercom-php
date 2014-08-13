@@ -2,6 +2,12 @@
     "name": "Intercom API (Event) v3",
     "description": "The Intercom API (Event) v3",
     "operations": {
+        "getTags": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "responseClass": "TagListModel",
+            "responseType": "model",
+            "summary": "Get a list of tags",
             "uri": "/tags"
         },
         "createTag": {
