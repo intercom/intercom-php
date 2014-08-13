@@ -182,10 +182,34 @@
             },
             "responseClass": "UserModel",
             "responseType": "model",
-            "summary": "Saves a user",
+            "summary": "Updates the user",
+            "uri": "/users"
+        },
+        "deleteUser": {
+            "httpMethod": "DELETE",
+            "parameters": {
+                "id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseType": "string",
+            "summary": "Deletes a user given id, email or user_id",
             "uri": "/users"
         }
     },
+
     "models": {
         "UserModel": {
             "type": "object",
