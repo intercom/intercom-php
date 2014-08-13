@@ -2,32 +2,6 @@
     "name": "Intercom API (Event) v3",
     "description": "The Intercom API (Event) v3",
     "operations": {
-        "basicTagOperation": {
-            "parameters": {
-                "name": {
-                    "location": "json",
-                    "required": true,
-                    "type": "string"
-                },
-                "ids_to_add": {
-                    "items": {
-                        "name": "IntercomUserID",
-                        "type": "string"
-                    },
-                    "location": "json",
-                    "required": false,
-                    "type": "array"
-                },
-                "ids_to_remove": {
-                    "items": {
-                        "name": "IntercomUserID",
-                        "type": "string"
-                    },
-                    "location": "json",
-                    "required": false,
-                    "type": "array"
-                }
-            },
             "uri": "/tags"
         },
         "createTag": {
