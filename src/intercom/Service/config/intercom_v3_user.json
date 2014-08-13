@@ -16,6 +16,34 @@
             "summary": "Gets a single user by their ID",
             "uri": "/users/{id}"
         },
+        "getUserByEmail": {
+            "httpMethod": "GET",
+            "parameters": {
+                "email": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserModel",
+            "responseType": "model",
+            "summary": "Gets a single user by their email",
+            "uri": "/users?email={email}"
+        },
+        "getUserByUserID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "user_id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserModel",
+            "responseType": "model",
+            "summary": "Gets a single user by user id",
+            "uri": "/users?user_id=user_id"
+        },
         "getUsers": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "POST",
