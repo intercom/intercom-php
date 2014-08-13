@@ -25,19 +25,23 @@
             "uri": "/tags"
         },
         "updateTag": {
-            "extends": "basicTagOperation",
-            "httpMethod": "PUT",
+            "httpMethod": "POSt",
             "parameters": {
                 "id": {
-                    "location": "uri",
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
                     "required": true,
                     "type": "string"
                 }
             },
             "responseClass": "TagModel",
             "responseType": "model",
-            "summary": "Updates a tag and (optionally) tags or untags users with the tag",
-            "uri": "/tags/{id}"
+            "summary": "Updates a tag",
+            "uri": "/tags"
         }
     },
     "models": {
