@@ -143,33 +143,7 @@
                 "avatar": {
                     "type": "object",
                     "items": {
-                        "color": {
-                            "type": "string"
-                        },
                         "image_url": {
-                            "type": "string"
-                        },
-                        "image_urls": {
-                            "type": "object",
-                            "items": {
-                                "large": {
-                                    "type": "string"
-                                },
-                                "mini": {
-                                    "type": "string"
-                                },
-                                "mini_x2": {
-                                    "type": "string"
-                                },
-                                "normal": {
-                                    "type": "string"
-                                },
-                                "normal_x2": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "initials": {
                             "type": "string"
                         }
                     }
