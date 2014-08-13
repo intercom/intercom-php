@@ -50,12 +50,11 @@
             "location": "json",
             "properties": {
                 "id": {
+                    "location": "json",
                     "type": "string"
                 },
                 "name": {
-                    "type": "string"
-                },
-                "type": {
+                    "location": "json",
                     "type": "string"
                 }
             }
