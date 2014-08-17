@@ -25,7 +25,7 @@
             "uri": "/tags"
         },
         "updateTag": {
-            "httpMethod": "POSt",
+            "httpMethod": "POST",
             "parameters": {
                 "id": {
                     "location": "json",
@@ -50,11 +50,9 @@
             "location": "json",
             "properties": {
                 "id": {
-                    "location": "json",
                     "type": "string"
                 },
                 "name": {
-                    "location": "json",
                     "type": "string"
                 }
             }

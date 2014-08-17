@@ -5,15 +5,10 @@ use Guzzle\Tests\GuzzleTestCase;
 
 class IntercomBasicAuthClientTest extends GuzzleTestCase
 {
-    private $config;
-
-    public function __construct()
-    {
-        $this->config = [
-            'api_key' => '1234',
-            'app_id' => 'my-app'
-        ];
-    }
+    private $config = [
+        'api_key' => '1234',
+        'app_id' => 'my-app'
+    ];
 
     public function testFactory()
     {

@@ -1,5 +1,4 @@
 {
-    "additionalProperties": false,
     "name": "Intercom API (User) v3",
     "description": "The Intercom API (User) v3",
     "operations": {
