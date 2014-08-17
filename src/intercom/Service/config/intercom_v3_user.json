@@ -16,6 +16,34 @@
             "summary": "Gets a single user by their ID",
             "uri": "/users/{id}"
         },
+        "getUserByEmail": {
+            "httpMethod": "GET",
+            "parameters": {
+                "email": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserModel",
+            "responseType": "model",
+            "summary": "Gets a single user by their email",
+            "uri": "/users?email={email}"
+        },
+        "getUserByUserID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "user_id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserModel",
+            "responseType": "model",
+            "summary": "Gets a single user by user id",
+            "uri": "/users?user_id=user_id"
+        },
         "getUsers": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "POST",
@@ -24,43 +52,7 @@
             "summary": "Gets a list of users",
             "uri": "/users/list"
         },
-        "getUsersByFilters": {
-            "extends": "_abstract_pagination_page",
-            "httpMethod": "POST",
-            "parameters": {
-                "filters": {
-                    "description": "An array of filter objects",
-                    "location": "json",
-                    "required": true,
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "attribute": {
-                                "description": "The field to compare against",
-                                "required": true,
-                                "type": "string"
-                            },
-                            "comparison": {
-                                "description": "The comparison operator - valid values are: lt, gt, eq, ne, starts_with, ends_with, contains, not_contains, known, unknown",
-                                "required": true,
-                                "type": "string"
-                            },
-                            "value": {
-                                "description": "The filter value for the comparison",
-                                "required": true,
-                                "type": "string"
-                            }
-                        }
-                    }
-                }
-            },
-            "responseClass": "UserListModel",
-            "responseType": "model",
-            "summary": "Gets a list of users that match the specified filter",
-            "uri": "/users/list"
-        },
-        "saveUser": {
+        "createUser": {
             "httpMethod": "POST",
             "parameters": {
                 "companies": {
@@ -74,7 +66,7 @@
                     "type": "integer",
                     "format": "timestamp"
                 },
-                "custom_data": {
+                "custom_attributes": {
                     "location": "json",
                     "required": false,
                     "type": "array"
@@ -83,11 +75,6 @@
                     "location": "json",
                     "required": false,
                     "type": "string"
-                },
-                "increments": {
-                    "location": "json",
-                    "required": false,
-                    "type": "array"
                 },
                 "last_request_at": {
                     "location": "json",
@@ -125,8 +112,103 @@
             "responseType": "model",
             "summary": "Saves a user",
             "uri": "/users"
+        },
+        "updateUser": {
+            "httpMethod": "POST",
+            "parameters": {
+                "id": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "companies": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "custom_attributes": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "last_request_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "last_seen_ip": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "last_seen_user_agent": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "unsubscribed_from_emails": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                },
+                "update_last_request_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserModel",
+            "responseType": "model",
+            "summary": "Updates the user",
+            "uri": "/users"
+        },
+        "deleteUser": {
+            "httpMethod": "DELETE",
+            "parameters": {
+                "id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseType": "string",
+            "summary": "Deletes a user given id, email or user_id",
+            "uri": "/users"
         }
     },
+
     "models": {
         "UserModel": {
             "type": "object",
@@ -139,33 +221,7 @@
                 "avatar": {
                     "type": "object",
                     "items": {
-                        "color": {
-                            "type": "string"
-                        },
                         "image_url": {
-                            "type": "string"
-                        },
-                        "image_urls": {
-                            "type": "object",
-                            "items": {
-                                "large": {
-                                    "type": "string"
-                                },
-                                "mini": {
-                                    "type": "string"
-                                },
-                                "mini_x2": {
-                                    "type": "string"
-                                },
-                                "normal": {
-                                    "type": "string"
-                                },
-                                "normal_x2": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "initials": {
                             "type": "string"
                         }
                     }
@@ -186,13 +242,13 @@
                 "created_at": {
                     "type": "integer"
                 },
-                "custom_data": {
+                "custom_attributes": {
                     "type": "object"
                 },
                 "email": {
                     "type": "string"
                 },
-                "geoip_data": {
+                "location_data": {
                     "type": "object",
                     "items": {
                         "city_name": {
@@ -201,13 +257,7 @@
                         "continent_code": {
                             "type": "string"
                         },
-                        "country_code2": {
-                            "type": "string"
-                        },
-                        "country_code3": {
-                            "type": "string"
-                        },
-                        "id": {
+                        "country_code": {
                             "type": "string"
                         },
                         "latitude": {
@@ -217,9 +267,6 @@
                             "type": "integer"
                         },
                         "postal_code": {
-                            "type": "string"
-                        },
-                        "region_code": {
                             "type": "string"
                         },
                         "region_name": {
@@ -233,16 +280,7 @@
                 "id": {
                     "type": "string"
                 },
-                "last_contacted_at": {
-                    "type": "integer"
-                },
                 "last_request_at": {
-                    "type": "integer"
-                },
-                "last_seen_ip": {
-                    "type": "string"
-                },
-                "last_session_start": {
                     "type": "integer"
                 },
                 "name": {
@@ -251,29 +289,43 @@
                 "remote_created_at": {
                     "type": "integer"
                 },
-                "segment_ids": {
-                    "type": "array",
-                    "items": {
-                        "name": "segment_id",
-                        "type": "string"
-                    }
-                },
                 "session_count": {
                     "type": "integer"
                 },
-                "session_count_ios": {
-                    "type": "integer"
-                },
-                "social_accounts": {
-                    "type": "object"
-                },
-                "tag_ids": {
-                    "type": "array",
+                "social_profiles": {
+                    "type": "object",
+                    "location": "json",
                     "items": {
-                        "name": "tag",
-                        "type": "string"
+                        "type": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "username": {
+                            "type": "string"
+                        },
+                        "url": {
+                            "type": "string"
+                        }
                     }
                 },
+                "tags": {
+                    "type": "object",
+                    "properties": {
+                        "tag.list": {
+                            "type": "array",
+                            "location": "json",
+                            "items": {
+                                "$ref": "TagModel"
+                            }
+                        }
+                    }
+                },
+
                 "unsubscribed_from_emails": {
                     "type": "boolean"
                 },
@@ -281,32 +333,6 @@
                     "type": "integer"
                 },
                 "user_agent_data": {
-                    "type": "object",
-                    "items": {
-                        "engine": {
-                            "type": "string"
-                        },
-                        "engine_version": {
-                            "type": "string"
-                        },
-                        "mobile": {
-                            "type": "string"
-                        },
-                        "name": {
-                            "type": "boolean"
-                        },
-                        "os": {
-                            "type": "string"
-                        },
-                        "platform": {
-                            "type": "string"
-                        },
-                        "version": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "user_id": {
                     "type": "string"
                 }
             }
@@ -314,7 +340,7 @@
         "UserListModel": {
             "type": "object",
             "properties": {
-                "users": {
+                "user.list": {
                     "type": "array",
                     "location": "json",
                     "items": {
