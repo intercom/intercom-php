@@ -5,7 +5,7 @@
         "trackEvent": {
             "httpMethod": "POST",
             "parameters": {
-                "created": {
+                "created_at": {
                     "format": "timestamp",
                     "location": "json",
                     "required": true,
@@ -52,7 +52,7 @@
                         "name": "event",
                         "type": "object",
                         "properties": {
-                            "created": {
+                            "created_at": {
                                 "format": "timestamp",
                                 "location": "json",
                                 "required": true,
