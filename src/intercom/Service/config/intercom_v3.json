@@ -8,6 +8,8 @@
         "intercom_v3_conversation.json",
         "intercom_v3_event.json",
         "intercom_v3_tag.json",
+        "intercom_v3_segment.json",
+        "intercom_v3_admin.json",
         "intercom_v3_user.json",
         "intercom_v3_abstract_operations.json"
     ]

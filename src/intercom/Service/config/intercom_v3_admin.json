@@ -1,0 +1,45 @@
+{
+    "name": "Intercom API (Admin) v3",
+    "description": "The Intercom API (Admin) v3",
+    "operations": {
+        "getAdmins": {
+            "httpMethod": "GET",
+            "responseClass": "AdminListModel",
+            "responseType": "model",
+            "summary": "Gets a list of admins",
+            "uri": "/admins"
+        }
+    },
+    "models": {
+        "AdminModel": {
+            "type": "object",
+            "location": "json",
+            "properties": {
+                "app_id": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "AdminListModel": {
+            "type": "object",
+            "properties": {
+                "admin.list": {
+                    "type": "array",
+                    "location": "json",
+                    "items": {
+                        "$ref": "AdminModel"
+                    }
+                }
+            }
+        }
+    }
+}
