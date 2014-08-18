@@ -1,0 +1,65 @@
+{
+    "name": "Intercom API (Segment) v3",
+    "description": "The Intercom API (Segment) v3",
+    "operations": {
+        "getSegments": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "responseClass": "SegmentListModel",
+            "responseType": "model",
+            "summary": "Get a list of segments",
+            "uri": "/segments"
+        },
+        "getSegmentByID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "SegmentModel",
+            "responseType": "model",
+            "summary": "Gets a segment by ID",
+            "uri": "/segments/{id}"
+        }
+    },
+    "models": {
+        "SegmentModel": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "created_at": {
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "updated_at": {
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
+                }
+            }
+        },
+        "SegmentListModel": {
+            "type": "object",
+            "properties": {
+                "companies": {
+                    "location": "json",
+                    "type": "array",
+                    "items": {
+                        "$ref": "SegmentModel"
+                    }
+                }
+            }
+        }
+    }
+}
