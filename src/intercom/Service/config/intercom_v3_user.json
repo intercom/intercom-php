@@ -212,13 +212,13 @@
     "models": {
         "UserModel": {
             "type": "object",
-            "location": "json",
             "properties": {
                 "app_id": {
                     "location": "json",
                     "type": "string"
                 },
                 "avatar": {
+                    "location": "json",
                     "type": "object",
                     "items": {
                         "image_url": {
@@ -227,28 +227,26 @@
                     }
                 },
                 "companies": {
+                    "location": "json",
                     "type": "array",
                     "items": {
                         "$ref": "CompanyModel"
                     }
                 },
-                "company_ids": {
-                    "type": "array",
-                    "items": {
-                        "name": "company_id",
-                        "type": "string"
-                    }
-                },
                 "created_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "custom_attributes": {
+                    "location": "json",
                     "type": "object"
                 },
                 "email": {
+                    "location": "json",
                     "type": "string"
                 },
                 "location_data": {
+                    "location": "json",
                     "type": "object",
                     "items": {
                         "city_name": {
@@ -278,23 +276,28 @@
                     }
                 },
                 "id": {
+                    "location": "json",
                     "type": "string"
                 },
                 "last_request_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "name": {
+                    "location": "json",
                     "type": "string"
                 },
                 "remote_created_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "session_count": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "social_profiles": {
-                    "type": "object",
                     "location": "json",
+                    "type": "object",
                     "items": {
                         "type": {
                             "type": "string"
@@ -313,7 +316,21 @@
                         }
                     }
                 },
+                "segments": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "segment.list": {
+                            "type": "array",
+                            "location": "json",
+                            "items": {
+                                "$ref": "SegmentModel"
+                            }
+                        }
+                    }
+                },
                 "tags": {
+                    "location": "json",
                     "type": "object",
                     "properties": {
                         "tag.list": {
@@ -325,14 +342,16 @@
                         }
                     }
                 },
-
                 "unsubscribed_from_emails": {
+                    "location": "json",
                     "type": "boolean"
                 },
                 "updated_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "user_agent_data": {
+                    "location": "json",
                     "type": "string"
                 }
             }
