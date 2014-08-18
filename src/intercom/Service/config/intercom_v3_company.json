@@ -23,53 +23,263 @@
             "responseType": "model",
             "summary": "Gets a company by ID",
             "uri": "/companies/{id}"
+        },
+        "getCompanyByName": {
+            "httpMethod": "GET",
+            "parameters": {
+                "name": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Gets a company by name",
+            "uri": "/companies?name={name}"
+        },
+        "getCompanyByCompanyID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "company_id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Gets a company by company_id parameter",
+            "uri": "/companies?company_id={company_id}"
+        },
+        "getCompanyUsers": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "UserListModel",
+            "responseType": "model",
+            "summary": "Gets all company users",
+            "uri": "/companies/{id}/users"
+        },
+        "getCompaniesByTagID": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "tag_id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Gets all companies with given tag_id",
+            "uri": "/companies?tag_id={tag_id}"
+        },
+        "getCompaniesBySegmentID": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "segment_id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Gets all companies with given segment_id",
+            "uri": "/companies?segment_id={segment_id}"
+        },
+        "createCompany": {
+            "httpMethod": "POST",
+            "parameters": {
+                "remote_created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "company_id": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "monthly_spend": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer"
+                },
+                "plan": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "session_count": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer"
+                },
+                "custom_attributes": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                }
+            },
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Creates a new company",
+            "uri": "/companies"
+        },
+        "updateCompany": {
+            "httpMethod": "POST",
+            "parameters": {
+                "remote_created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "company_id": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "monthly_spend": {
+                    "location": "json",
+                    "required": false,
+                    "type": "number"
+                },
+                "plan": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "session_count": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer"
+                },
+                "custom_attributes": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
+                }
+            },
+            "responseClass": "CompanyModel",
+            "responseType": "model",
+            "summary": "Updates the Company",
+            "uri": "/companies"
         }
     },
     "models": {
         "CompanyModel": {
             "type": "object",
-            "location": "json",
             "properties": {
                 "app_id": {
+                    "location": "json",
                     "type": "string"
                 },
                 "created_at": {
+                    "location": "json",
                     "type": "integer"
                 },
-                "custom_data": {
+                "custom_attributes": {
+                    "location": "json",
                     "type": "object"
                 },
                 "id": {
+                    "location": "json",
                     "type": "string"
                 },
                 "last_request_at": {
-                    "type": "integer"
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
                 },
                 "monthly_spend": {
-                    "type": "string"
+                    "location": "json",
+                    "type": "number"
                 },
                 "name": {
+                    "location": "json",
                     "type": "string"
                 },
-                "plan_id": {
-                    "type": "integer"
-                },
-                "remote_company_id": {
-                    "type": "string"
+                "plan": {
+                    "type": "object",
+                    "items": {
+                        "type": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "name": {
+                            "location": "json",
+                            "type": "string"
+                        }
+                    }
                 },
                 "remote_created_at": {
-                    "type": "integer"
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
                 },
                 "session_count": {
+                    "location": "json",
                     "type": "integer"
                 },
-                "tag_ids": {
-                    "type": "string"
+                "segments": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "segment.list": {
+                            "type": "array",
+                            "location": "json",
+                            "items": {
+                                "$ref": "SegmentModel"
+                            }
+                        }
+                    }
+                },
+                "tags": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "tag.list": {
+                            "type": "array",
+                            "location": "json",
+                            "items": {
+                                "$ref": "TagModel"
+                            }
+                        }
+                    }
                 },
                 "updated_at": {
-                    "type": "integer"
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
                 },
                 "user_count": {
+                    "location": "json",
                     "type": "integer"
                 }
             }
@@ -78,8 +288,8 @@
             "type": "object",
             "properties": {
                 "companies": {
-                    "type": "array",
                     "location": "json",
+                    "type": "array",
                     "items": {
                         "$ref": "CompanyModel"
                     }
