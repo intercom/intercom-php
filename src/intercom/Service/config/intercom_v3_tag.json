@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Event) v3",
-    "description": "The Intercom API (Event) v3",
+    "name": "Intercom API (Tag) v3",
+    "description": "The Intercom API (Tag) v3",
     "operations": {
         "getTags": {
             "extends": "_abstract_pagination_page",
@@ -47,13 +47,15 @@
     "models": {
         "TagModel": {
             "type": "object",
-            "location": "json",
             "properties": {
                 "id": {
+                    "location": "json",
                     "type": "string"
                 },
                 "name": {
+                    "location": "json",
                     "type": "string"
+
                 }
             }
         },
@@ -61,8 +63,8 @@
             "type": "object",
             "properties": {
                 "companies": {
-                    "type": "array",
                     "location": "json",
+                    "type": "array",
                     "items": {
                         "$ref": "TagModel"
                     }
