@@ -1,0 +1,174 @@
+{
+    "name": "Intercom API (Note) v3",
+    "description": "The Intercom API (Note) v3",
+    "operations": {
+        "getNotesByUserID": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "user_id": {
+                    "location": "uri",
+                    "type": "string"
+                }
+            },
+            "responseClass": "NoteListModel",
+            "responseType": "model",
+            "summary": "Get a list of notes",
+            "uri": "/notes?user_id={user_id}"
+        },
+        "getNotesByIntercomUserID": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "intercom_user_id": {
+                    "location": "uri",
+                    "type": "string"
+                }
+            },
+            "responseClass": "NoteListModel",
+            "responseType": "model",
+            "summary": "Get a list of notes",
+            "uri": "/notes?id={intercom_user_id}"
+        },
+        "getNotesByUserEmail": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "email": {
+                    "location": "uri",
+                    "type": "string"
+                }
+            },
+            "responseClass": "NoteListModel",
+            "responseType": "model",
+            "summary": "Get a list of notes for user",
+            "uri": "/notes?email={email}"
+        },
+        "getNoteByID": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "type": "string"
+                }
+            },
+            "responseClass": "NoteListModel",
+            "responseType": "model",
+            "summary": "Get a single note",
+            "uri": "/notes/{id}"
+        },
+        "createNote": {
+            "httpMethod": "POST",
+            "parameters": {
+                "admin_id": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "user": {
+                    "location": "json",
+                    "type": "object",
+                    "required": true,
+                    "properties": {
+                        "id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "user_id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "email": {
+                            "location": "json",
+                            "type": "string"
+                        }
+                    }
+                },
+                "body": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "NoteModel",
+            "responseType": "model",
+            "summary": "Creates a note",
+            "uri": "/notes"
+        }
+    },
+    "models": {
+        "NoteModel": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "name": {
+                    "location": "json",
+                    "type": "string"
+
+                },
+                "created_at": {
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "user": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "location": "json",
+                            "type": "string"
+                        }
+                    }
+                },
+                "body": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "author": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "name": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "email": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "avatar": {
+                            "location": "json",
+                            "type": "object",
+                            "properties": {
+                                "image_url": {
+                                    "location": "json",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "NoteListModel": {
+            "type": "object",
+            "properties": {
+                "companies": {
+                    "location": "json",
+                    "type": "array",
+                    "items": {
+                        "$ref": "NoteModel"
+                    }
+                }
+            }
+        }
+    }
+}
