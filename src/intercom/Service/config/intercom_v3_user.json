@@ -208,17 +208,16 @@
             "uri": "/users"
         }
     },
-
     "models": {
         "UserModel": {
             "type": "object",
-            "location": "json",
             "properties": {
                 "app_id": {
                     "location": "json",
                     "type": "string"
                 },
                 "avatar": {
+                    "location": "json",
                     "type": "object",
                     "items": {
                         "image_url": {
@@ -227,28 +226,32 @@
                     }
                 },
                 "companies": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "CompanyModel"
-                    }
-                },
-                "company_ids": {
-                    "type": "array",
-                    "items": {
-                        "name": "company_id",
-                        "type": "string"
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "companies": {
+                            "location": "json",
+                            "type": "array",
+                            "items": {
+                                "$ref": "CompanyModel"
+                            }
+                        }
                     }
                 },
                 "created_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "custom_attributes": {
+                    "location": "json",
                     "type": "object"
                 },
                 "email": {
+                    "location": "json",
                     "type": "string"
                 },
                 "location_data": {
+                    "location": "json",
                     "type": "object",
                     "items": {
                         "city_name": {
@@ -278,45 +281,74 @@
                     }
                 },
                 "id": {
+                    "location": "json",
                     "type": "string"
                 },
                 "last_request_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "name": {
+                    "location": "json",
                     "type": "string"
                 },
                 "remote_created_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "session_count": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "social_profiles": {
-                    "type": "object",
                     "location": "json",
-                    "items": {
-                        "type": {
-                            "type": "string"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "id": {
-                            "type": "string"
-                        },
-                        "username": {
-                            "type": "string"
-                        },
-                        "url": {
-                            "type": "string"
+                    "type": "object",
+                    "properties": {
+                        "social_profiles": {
+                            "location": "json",
+                            "type": "array",
+                            "items": {
+                                "location": "json",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "segments": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "segments": {
+                            "type": "array",
+                            "location": "json",
+                            "items": {
+                                "$ref": "SegmentModel"
+                            }
                         }
                     }
                 },
                 "tags": {
+                    "location": "json",
                     "type": "object",
                     "properties": {
-                        "tag.list": {
+                        "tags": {
                             "type": "array",
                             "location": "json",
                             "items": {
@@ -325,14 +357,16 @@
                         }
                     }
                 },
-
                 "unsubscribed_from_emails": {
+                    "location": "json",
                     "type": "boolean"
                 },
                 "updated_at": {
+                    "location": "json",
                     "type": "integer"
                 },
                 "user_agent_data": {
+                    "location": "json",
                     "type": "string"
                 }
             }
@@ -340,7 +374,7 @@
         "UserListModel": {
             "type": "object",
             "properties": {
-                "user.list": {
+                "users": {
                     "type": "array",
                     "location": "json",
                     "items": {
