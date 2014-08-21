@@ -77,7 +77,7 @@
                     "type": "string"
                 }
             },
-            "responseClass": "CompanyModel",
+            "responseClass": "CompanyListModel",
             "responseType": "model",
             "summary": "Gets all companies with given tag_id",
             "uri": "/companies?tag_id={tag_id}"
@@ -92,7 +92,7 @@
                     "type": "string"
                 }
             },
-            "responseClass": "CompanyModel",
+            "responseClass": "CompanyListModel",
             "responseType": "model",
             "summary": "Gets all companies with given segment_id",
             "uri": "/companies?segment_id={segment_id}"
