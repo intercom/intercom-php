@@ -208,7 +208,6 @@
             "uri": "/users"
         }
     },
-
     "models": {
         "UserModel": {
             "type": "object",
@@ -228,9 +227,15 @@
                 },
                 "companies": {
                     "location": "json",
-                    "type": "array",
-                    "items": {
-                        "$ref": "CompanyModel"
+                    "type": "object",
+                    "properties": {
+                        "companies": {
+                            "location": "json",
+                            "type": "array",
+                            "items": {
+                                "$ref": "CompanyModel"
+                            }
+                        }
                     }
                 },
                 "created_at": {
@@ -298,21 +303,31 @@
                 "social_profiles": {
                     "location": "json",
                     "type": "object",
-                    "items": {
-                        "type": {
-                            "type": "string"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "id": {
-                            "type": "string"
-                        },
-                        "username": {
-                            "type": "string"
-                        },
-                        "url": {
-                            "type": "string"
+                    "properties": {
+                        "social_profiles": {
+                            "location": "json",
+                            "type": "array",
+                            "items": {
+                                "location": "json",
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "id": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "url": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
                         }
                     }
                 },
@@ -320,7 +335,7 @@
                     "location": "json",
                     "type": "object",
                     "properties": {
-                        "segment.list": {
+                        "segments": {
                             "type": "array",
                             "location": "json",
                             "items": {
@@ -333,7 +348,7 @@
                     "location": "json",
                     "type": "object",
                     "properties": {
-                        "tag.list": {
+                        "tags": {
                             "type": "array",
                             "location": "json",
                             "items": {
@@ -359,7 +374,7 @@
         "UserListModel": {
             "type": "object",
             "properties": {
-                "user.list": {
+                "users": {
                     "type": "array",
                     "location": "json",
                     "items": {
