@@ -62,7 +62,7 @@
         "TagListModel": {
             "type": "object",
             "properties": {
-                "companies": {
+                "tags": {
                     "location": "json",
                     "type": "array",
                     "items": {
