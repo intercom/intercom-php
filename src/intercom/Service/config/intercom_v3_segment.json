@@ -52,7 +52,7 @@
         "SegmentListModel": {
             "type": "object",
             "properties": {
-                "companies": {
+                "segments": {
                     "location": "json",
                     "type": "array",
                     "items": {
