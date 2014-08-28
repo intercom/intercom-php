@@ -2,55 +2,49 @@
     "name": "Intercom API (User) v3",
     "description": "The Intercom API (User) v3",
     "operations": {
-        "getUserByID": {
+        "getUser": {
             "httpMethod": "GET",
             "parameters": {
                 "id": {
                     "location": "uri",
-                    "required": true,
+                    "required": false,
                     "type": "string"
-                }
-            },
-            "responseClass": "UserModel",
-            "responseType": "model",
-            "summary": "Gets a single user by their ID",
-            "uri": "/users/{id}"
-        },
-        "getUserByEmail": {
-            "httpMethod": "GET",
-            "parameters": {
+                },
                 "email": {
-                    "location": "uri",
-                    "required": true,
+                    "location": "query",
+                    "required": false,
                     "type": "string"
-                }
-            },
-            "responseClass": "UserModel",
-            "responseType": "model",
-            "summary": "Gets a single user by their email",
-            "uri": "/users?email={email}"
-        },
-        "getUserByUserID": {
-            "httpMethod": "GET",
-            "parameters": {
+                },
                 "user_id": {
-                    "location": "uri",
-                    "required": true,
+                    "location": "query",
+                    "required": false,
                     "type": "string"
                 }
             },
             "responseClass": "UserModel",
             "responseType": "model",
-            "summary": "Gets a single user by user id",
-            "uri": "/users?user_id=user_id"
+            "summary": "Gets a single user",
+            "uri": "/users/{id}"
         },
         "getUsers": {
             "extends": "_abstract_pagination_page",
-            "httpMethod": "POST",
+            "httpMethod": "GET",
+            "parameters": {
+                "tag_id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                "segment_id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            },
             "responseClass": "UserListModel",
             "responseType": "model",
             "summary": "Gets a list of users",
-            "uri": "/users/list"
+            "uri": "/users"
         },
         "createUser": {
             "httpMethod": "POST",
