@@ -42,6 +42,88 @@
             "responseType": "model",
             "summary": "Updates a tag",
             "uri": "/tags"
+        },
+        "tagUsers": {
+            "httpMethod": "POST",
+            "parameters": {
+                "name": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "users": {
+                    "location": "json",
+                    "required": true,
+                    "type": "array",
+                    "items": {
+                        "id": {
+                            "location": "json",
+                            "required": false,
+                            "type": "string"
+                        },
+                        "email": {
+                            "location": "json",
+                            "required": false,
+                            "type": "string"
+                        },
+                        "user_id": {
+                            "location": "json",
+                            "required": false,
+                            "type": "string"
+                        },
+                        "untag": {
+                            "location": "json",
+                            "required": false,
+                            "type": "boolean"
+                        }
+                    }
+                }
+            },
+            "responseClass": "TagModel",
+            "responseType": "model",
+            "summary": "Tags or untags users",
+            "uri": "/tags"
+        },
+        "tagCompanies": {
+            "httpMethod": "POST",
+            "parameters": {
+                "name": {
+                    "location": "json",
+                    "required": true,
+                    "type": "string"
+                },
+                "companies": {
+                    "location": "json",
+                    "required": true,
+                    "type": "array",
+                    "items": {
+                        "id": {
+                            "location": "json",
+                            "required": false,
+                            "type": "string"
+                        },
+                        "email": {
+                            "location": "json",
+                            "required": false,
+                            "type": "string"
+                        },
+                        "user_id": {
+                            "location": "json",
+                            "required": false,
+                            "type": "string"
+                        },
+                        "untag": {
+                            "location": "json",
+                            "required": false,
+                            "type": "boolean"
+                        }
+                    }
+                }
+            },
+            "responseClass": "TagModel",
+            "responseType": "model",
+            "summary": "Tags or untags companies",
+            "uri": "/tags"
         }
     },
     "models": {
