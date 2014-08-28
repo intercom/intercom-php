@@ -10,7 +10,7 @@
             "summary": "Get a list of segments",
             "uri": "/segments"
         },
-        "getSegmentByID": {
+        "getSegment": {
             "httpMethod": "GET",
             "parameters": {
                 "id": {
