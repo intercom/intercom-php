@@ -5,52 +5,46 @@
         "getCompanies": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
+            "parameters": {
+                "tag_id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                "segment_id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            },
             "responseClass": "CompanyListModel",
             "responseType": "model",
             "summary": "Gets a list of companies",
             "uri": "/companies"
         },
-        "getCompanyByID": {
+        "getCompany": {
             "httpMethod": "GET",
             "parameters": {
                 "id": {
                     "location": "uri",
-                    "required": true,
+                    "required": false,
                     "type": "string"
-                }
-            },
-            "responseClass": "CompanyModel",
-            "responseType": "model",
-            "summary": "Gets a company by ID",
-            "uri": "/companies/{id}"
-        },
-        "getCompanyByName": {
-            "httpMethod": "GET",
-            "parameters": {
+                },
                 "name": {
-                    "location": "uri",
-                    "required": true,
+                    "location": "query",
+                    "required": false,
                     "type": "string"
-                }
-            },
-            "responseClass": "CompanyModel",
-            "responseType": "model",
-            "summary": "Gets a company by name",
-            "uri": "/companies?name={name}"
-        },
-        "getCompanyByCompanyID": {
-            "httpMethod": "GET",
-            "parameters": {
+                },
                 "company_id": {
-                    "location": "uri",
-                    "required": true,
+                    "location": "query",
+                    "required": false,
                     "type": "string"
                 }
             },
             "responseClass": "CompanyModel",
             "responseType": "model",
-            "summary": "Gets a company by company_id parameter",
-            "uri": "/companies?company_id={company_id}"
+            "summary": "Gets a single company",
+            "uri": "/companies/{id}"
         },
         "getCompanyUsers": {
             "extends": "_abstract_pagination_page",
@@ -67,35 +61,26 @@
             "summary": "Gets all company users",
             "uri": "/companies/{id}/users"
         },
-        "getCompaniesByTagID": {
+        "getCompanyUsersByCompanyID": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
-                "tag_id": {
-                    "location": "uri",
+                "company_id": {
+                    "location": "query",
                     "required": true,
                     "type": "string"
-                }
-            },
-            "responseClass": "CompanyListModel",
-            "responseType": "model",
-            "summary": "Gets all companies with given tag_id",
-            "uri": "/companies?tag_id={tag_id}"
-        },
-        "getCompaniesBySegmentID": {
-            "extends": "_abstract_pagination_page",
-            "httpMethod": "GET",
-            "parameters": {
-                "segment_id": {
-                    "location": "uri",
+                },
+                "type": {
+                    "location": "query",
                     "required": true,
-                    "type": "string"
+                    "type": "string",
+                    "default": "user"
                 }
             },
-            "responseClass": "CompanyListModel",
+            "responseClass": "UserListModel",
             "responseType": "model",
-            "summary": "Gets all companies with given segment_id",
-            "uri": "/companies?segment_id={segment_id}"
+            "summary": "Gets all company users",
+            "uri": "/companies"
         },
         "createCompany": {
             "httpMethod": "POST",
