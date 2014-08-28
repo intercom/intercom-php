@@ -2,37 +2,88 @@
     "name": "Intercom API (Conversation) v3",
     "description": "The Intercom API (Conversation) v3",
     "operations": {
-        "createConversation": {
+        "createMessage": {
             "httpMethod": "POST",
             "parameters": {
+                "message_type": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "subject": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
                 "body": {
                     "location": "json",
-                    "required": true,
+                    "required": false,
                     "type": "string"
                 },
-                "email": {
+                "template": {
                     "location": "json",
                     "required": false,
                     "type": "string"
                 },
-                "user_id": {
+                "from": {
                     "location": "json",
                     "required": false,
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "user_id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "email": {
+                            "location": "json",
+                            "type": "string"
+                        }
+                    }
+                },
+                "to": {
+                    "location": "json",
+                    "required": false,
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "user_id": {
+                            "location": "json",
+                            "type": "string"
+                        },
+                        "email": {
+                            "location": "json",
+                            "type": "string"
+                        }
+                    }
                 }
             },
             "responseClass": "Conversation",
             "responseType": "model",
             "summary": "Creates a new conversation",
-            "uri": "/conversations"
+            "uri": "/messages"
         },
-        "getConversationByID": {
+        "getConversation": {
             "httpMethod": "GET",
             "parameters": {
                 "id": {
                     "location": "uri",
                     "required": true,
-                    "type": "integer"
+                    "type": "string"
                 }
             },
             "responseClass": "ConversationPartList",
@@ -40,7 +91,7 @@
             "summary": "Gets a conversation by ID",
             "uri": "/conversations/{id}"
         },
-        "getUserConversations": {
+        "getConversations": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
@@ -61,143 +112,177 @@
                     "type": "string"
                 }
             },
-            "responseClass": "ConversationList",
+            "responseClass": "ConversationListModel",
             "responseType": "model",
-            "summary": "Gets conversations for a user",
+            "summary": "Gets conversations",
             "uri": "/conversations"
         },
-        "getUnreadUserConversations": {
-            "extends": "getUserConversations",
-            "parameters": {
-                "unread": {
-                    "default": true,
-                    "location": "query",
-                    "static": true,
-                    "required": true
-                }
-            }
-        },
-        "getUserConversationsByAdminID": {
-            "extends": "_abstract_pagination_page",
-            "httpMethod": "GET",
+        "replyToConversation": {
+            "httpMethod": "POST",
             "parameters": {
                 "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                },
+                "email": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "type": {
+                    "default": "json",
                     "location": "query",
                     "required": true,
-                    "sentAs": "assignee_identifier",
-                    "type": "integer"
+                    "static": true
+                },
+                "body": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "message_type": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
                 }
             },
-            "responseClass": "ConversationsList",
+            "responseClass": "ConversationModel",
             "responseType": "model",
-            "summary": "Gets conversations for a user based on the ID of the admin the conversation is assigned to",
-            "uri": "/conversations"
+            "summary": "Reply to Conversation",
+            "uri": "/conversations/{id}/reply"
+        },
+        "markConversationAsRead": {
+            "httpMethod": "PUT",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                },
+                "read": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                }
+            },
+            "responseClass": "ConversationModel",
+            "responseType": "model",
+            "summary": "Reply to Conversation",
+            "uri": "/conversations/{id}"
         }
     },
     "models": {
-        "ConversationModel": {
+        "MessageModel": {
             "type": "object",
-            "location": "json",
             "properties": {
-                "assigned_to": {
+                "type": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "owner": {
+                    "location": "json",
                     "type": "object",
                     "properties": {
-                        "companies": {
-                            "type": "array"
+                        "type": {
+                            "type": "string"
                         },
                         "email": {
                             "type": "string"
                         },
                         "id": {
-                            "type": "integer"
+                            "type": "string"
                         },
                         "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "body": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "subject": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "message_type": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "template": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "created_at": {
+                    "location": "json",
+                    "type": "integer",
+                    "format": "timestamp"
+                }
+            }
+        },
+        "ConversationModel": {
+            "type": "object",
+            "properties": {
+                "conversation_message": {
+                    "location": "json",
+                    "type": "object",
+                    "$ref": "MessageModel"
+                },
+                "assignee": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
+                        },
+                        "id": {
                             "type": "string"
                         }
                     }
                 },
                 "created_at": {
+                    "location": "json",
+                    "format": "timestamp",
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "location": "json",
                     "format": "timestamp",
                     "type": "integer"
                 },
                 "id": {
-                    "type": "integer"
+                    "location": "json",
+                    "type": "string"
                 },
-                "latest_user_visible_comment": {
-                    "type": "object",
-                    "properties": {
-                        "$ref": "ConversationPartModel"
-                    }
-                },
-                "read": {
+                "open": {
+                    "location": "json",
                     "type": "boolean"
                 },
-                "updated_at": {
-                    "format": "timestamp",
-                    "type": "integer"
+                "read": {
+                    "location": "json",
+                    "type": "boolean"
                 },
                 "user": {
+                    "location": "json",
                     "type": "object",
                     "properties": {
-                        "avatar": {
-                            "type": "object",
-                            "items": {
-                                "color": {
-                                    "type": "string"
-                                },
-                                "image_url": {
-                                    "type": "string"
-                                },
-                                "image_urls": {
-                                    "type": "object",
-                                    "items": {
-                                        "large": {
-                                            "type": "string"
-                                        },
-                                        "mini": {
-                                            "type": "string"
-                                        },
-                                        "mini_x2": {
-                                            "type": "string"
-                                        },
-                                        "normal": {
-                                            "type": "string"
-                                        },
-                                        "normal_x2": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "initials": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "companies": {
-                            "type": "array",
-                            "items": {
-                                "name": "Company",
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "email": {
+                        "type": {
                             "type": "string"
                         },
                         "id": {
                             "type": "string"
-                        },
-                        "name": {
-                            "type": "string"
                         }
                     }
                 },
-                "user_created": {
-                    "type": "boolean"
+                "conversation_parts": {
+                    "type": "array",
+                    "location": "json",
+                    "$ref": "ConversationPartListModel"
                 }
             }
         },
@@ -215,41 +300,52 @@
         },
         "ConversationPartModel": {
             "type": "object",
-            "location": "json",
             "properties": {
+                "body": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "part_type": {
+                    "location": "json",
+                    "type": "string"
+                },
                 "author": {
+                    "location": "json",
                     "type": "object",
                     "properties": {
-                        "avatar": {
-                            "type": "object",
-                            "properties": {
-                                "image_url": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "companies": {
-                            "type": "array",
-                            "items": {
-                                "name": "CompanyID",
-                                "type": "string"
-                            }
-                        },
-                        "email": {
+                        "type": {
                             "type": "string"
                         },
                         "id": {
                             "type": "string"
+                        }
+                    }
+                },
+                "assigned_to": {
+                    "location": "json",
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string"
                         },
-                        "name": {
+                        "id": {
                             "type": "string"
                         }
                     }
                 },
-                "body": {
-                    "type": "string"
-                },
                 "created_at": {
+                    "location": "json",
+                    "format": "timestamp",
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "location": "json",
+                    "format": "timestamp",
+                    "type": "integer"
+                },
+                "notified_at": {
+                    "location": "json",
+                    "format": "timestamp",
                     "type": "integer"
                 }
             }
