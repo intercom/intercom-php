@@ -57,36 +57,4 @@ class UserTest extends IntercomTestCase
         $this->assertEquals('user2@example.com', $users['1']['email']);
         $this->assertEquals('user3@example.com', $users['2']['email']);
     }
-
-//    /**
-//     * @expectedException \Guzzle\Service\Exception\ValidationException
-//     */
-//    public function testGetUserByIDNoID()
-//    {
-//        $this->client->getUserByID();
-//    }
-//
-//    /**
-//     * @expectedException \Guzzle\Service\Exception\ValidationException
-//     */
-//    public function testGetUserByEmailNoEmail()
-//    {
-//        $this->client->getUserByEmail();
-//    }
-//
-//    /**
-//     * @expectedException \Guzzle\Service\Exception\ValidationException
-//     */
-//    public function testGetUserByUserIDNoUserID()
-//    {
-//        $this->client->getUserByUserID();
-//    }
-//
-//    /**
-//     * @expectedException \Guzzle\Service\Exception\ValidationException
-//     */
-//    public function testUpdateUserNoID()
-//    {
-//        $this->client->updateUser();
-//    }
 }
