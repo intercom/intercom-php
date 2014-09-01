@@ -72,7 +72,7 @@
                     }
                 }
             },
-            "responseClass": "Conversation",
+            "responseClass": "MessageModel",
             "responseType": "model",
             "summary": "Creates a new conversation",
             "uri": "/messages"
@@ -86,7 +86,7 @@
                     "type": "string"
                 }
             },
-            "responseClass": "ConversationPartList",
+            "responseClass": "ConversationModel",
             "responseType": "model",
             "summary": "Gets a conversation by ID",
             "uri": "/conversations/{id}"
