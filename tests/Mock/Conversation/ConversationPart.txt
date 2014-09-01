@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Cache-Control: max-age=0, private, must-revalidate
+Content-Type: application/json; charset=utf-8
+Date: Mon, 25 Aug 2014 23:57:54 GMT
+Server: nginx
+
+{
+    "type": "conversation_part",
+    "id": "4412",
+    "part_type": "comment",
+    "body": "<p>Hi Jane, it's all great thanks!</p>",
+    "created_at": 1400857494,
+    "updated_at": 1400857494,
+    "notified_at": 1400857587,
+    "assigned_to": null,
+    "author": {
+      "type": "user",
+      "id": "536e564f316c83104c000020"
+    },
+    "attachments": []
+}
