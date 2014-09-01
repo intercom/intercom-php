@@ -2,7 +2,7 @@
     "name": "Intercom API (Event) v3",
     "description": "The Intercom API (Event) v3",
     "operations": {
-        "trackEvent": {
+        "createEvent": {
             "httpMethod": "POST",
             "parameters": {
                 "created_at": {
@@ -33,56 +33,6 @@
                 }
             },
             "summary": "Records an event",
-            "uri": "/events"
-        },
-        "trackMultipleEvents": {
-            "httpMethod": "POST",
-            "parameters": {
-                "type": {
-                    "default": "event.list",
-                    "location": "json",
-                    "required": true,
-                    "static": "true"
-                },
-                "data": {
-                    "type": "array",
-                    "location": "json",
-                    "required": true,
-                    "items": {
-                        "name": "event",
-                        "type": "object",
-                        "properties": {
-                            "created_at": {
-                                "format": "timestamp",
-                                "location": "json",
-                                "required": true,
-                                "type": "integer"
-                            },
-                            "email": {
-                                "location": "json",
-                                "required": false,
-                                "type": "string"
-                            },
-                            "event_name": {
-                                "location": "json",
-                                "required": true,
-                                "type": "string"
-                            },
-                            "metadata": {
-                                "location": "json",
-                                "required": false,
-                                "type": "array"
-                            },
-                            "user_id": {
-                                "location": "json",
-                                "required": false,
-                                "type": "object"
-                            }
-                        }
-                    }
-                }
-            },
-            "summary": "Records multiple events at once",
             "uri": "/events"
         }
     }
