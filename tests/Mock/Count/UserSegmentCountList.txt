@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Cache-Control: max-age=0, private, must-revalidate
+Content-Type: application/json; charset=utf-8
+Date: Mon, 25 Aug 2014 23:57:54 GMT
+Server: nginx
+
+{
+  "type": "count",
+  "user": {
+    "segment": [
+      {
+        "Active": 1
+      },
+      {
+        "New": 0
+      },
+      {
+        "VIP": 0
+      },
+      {
+        "Slipping Away": 0
+      },
+      {
+        "segment 1": 1
+      }
+    ]
+  }
+}
