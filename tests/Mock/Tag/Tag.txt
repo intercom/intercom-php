@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Cache-Control: max-age=0, private, must-revalidate
+Content-Type: application/json; charset=utf-8
+Date: Mon, 25 Aug 2014 23:57:54 GMT
+Server: nginx
+
+{
+  "id": "17513",
+  "name": "independent",
+  "type": "tag"
+}

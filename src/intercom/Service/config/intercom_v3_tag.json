@@ -102,12 +102,7 @@
                             "required": false,
                             "type": "string"
                         },
-                        "email": {
-                            "location": "json",
-                            "required": false,
-                            "type": "string"
-                        },
-                        "user_id": {
+                        "company_id": {
                             "location": "json",
                             "required": false,
                             "type": "string"
