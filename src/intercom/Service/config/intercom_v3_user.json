@@ -197,7 +197,8 @@
                     "type": "string"
                 }
             },
-            "responseType": "string",
+            "responseClass": "UserModel",
+            "responseType": "model",
             "summary": "Deletes a user given id, email or user_id",
             "uri": "/users"
         }
