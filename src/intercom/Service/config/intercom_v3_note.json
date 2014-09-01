@@ -2,7 +2,7 @@
     "name": "Intercom API (Note) v3",
     "description": "The Intercom API (Note) v3",
     "operations": {
-        "getNotes": {
+        "getNotesForUser": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
@@ -24,7 +24,7 @@
             },
             "responseClass": "NoteListModel",
             "responseType": "model",
-            "summary": "Get a list of notes",
+            "summary": "Get a list of notes for given user",
             "uri": "/notes"
         },
         "getNote": {
@@ -32,6 +32,7 @@
             "parameters": {
                 "id": {
                     "location": "uri",
+                    "required": true,
                     "type": "string"
                 }
             },
