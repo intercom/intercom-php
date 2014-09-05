@@ -1,6 +1,6 @@
 # intercom-php
 
-A Guzzle 3-based client for the Intercom API (https://api.intercom.io).
+PHP bindings for the Intercom API (https://api.intercom.io).
 
 [API Documentation](https://api.intercom.io/docs)
 
@@ -39,6 +39,20 @@ require_once 'vendor/autoload.php';
 ?>
 ```
 
+Configure your access credentials when creating a client:
+
+```php
+<?php
+use Intercom\IntercomBasicAuthClient;
+
+$intercom = IntercomBasicAuthClient::factory(array(
+    'app_id' => 'YOUR_APP_ID',
+    'api_key' => 'YOUR_API_KEY'
+));
+?>
+```
+
+
 ### Local Testing
 
 Run `phpunit` from the project root to start all tests.
@@ -58,19 +72,6 @@ Resources this API supports:
     https://api.intercom.io/counts
 
 ### Examples
-
-#### Creating an API Client
-
-```php
-<?php
-use Intercom\IntercomBasicAuthClient;
-
-$intercom = IntercomBasicAuthClient::factory(array(
-    'app_id' => 'YOUR_APP_ID',
-    'api_key' => 'YOUR_API_KEY'
-));
-?>
-```
 
 #### Users
 
