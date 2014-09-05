@@ -1,14 +1,12 @@
 # intercom-php
 
-PHP bindings for the Intercom API (https://api.intercom.io).
+Beta PHP bindings for the Intercom API (https://api.intercom.io).
 
 [API Documentation](https://api.intercom.io/docs)
 
-[Guzzle Documentation](http://guzzle3.readthedocs.org)
-
 ## Installation
 
-The API client can be installed via [Composer](https://github.com/composer/composer). When a public release is available it can be added to the [Packagist](https://packagist.org/) repository. For now you'll have to add the following to a composer.json file in the project root:
+The API client can be installed via [Composer](https://github.com/composer/composer). When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository. For now you'll have to add the following to a composer.json file in the project root:
 
 ```js
 {
@@ -25,6 +23,8 @@ The API client can be installed via [Composer](https://github.com/composer/compo
 ```
 
 Once the composer.json file is created you can run `composer install` for the initial package install and `composer update` to updated to the latest version of the API client, which is linked to the `master` branch.
+
+The client uses [Guzzle](http://guzzle3.readthedocs.org).
 
 
 ## Basic Usage
