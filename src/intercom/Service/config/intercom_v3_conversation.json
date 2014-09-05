@@ -101,15 +101,39 @@
                     "type": "string"
                 },
                 "type": {
-                    "default": "user",
                     "location": "query",
                     "required": true,
                     "static": true
+                },
+                "id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
                 },
                 "user_id": {
                     "location": "query",
                     "required": false,
                     "type": "string"
+                },
+                "intercom_user_id": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                "email": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
+                },
+                "unread": {
+                    "location": "query",
+                    "required": false,
+                    "type": "boolean"
+                },
+                "open": {
+                    "location": "query",
+                    "required": false,
+                    "type": "boolean"
                 }
             },
             "responseClass": "ConversationListModel",
@@ -162,6 +186,7 @@
                 },
                 "read": {
                     "location": "json",
+                    "default": true,
                     "required": false,
                     "type": "boolean"
                 }
