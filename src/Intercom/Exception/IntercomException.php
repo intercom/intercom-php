@@ -49,8 +49,8 @@ class IntercomException extends BadResponseException
         $e->setRequest($request);
 
         // Sets the errors if the error response is the standard Intercom error type
-        if (!static::isValidIntercomError($response->json())) {
-            $e->errors = $response->json()['errors'];
+        if (static::isValidIntercomError($response->json())) {
+            $e->setErrors($response->json()['errors']);
         }
 
         return $e;
@@ -61,7 +61,7 @@ class IntercomException extends BadResponseException
      * @param $response_body
      * @return bool
      */
-    private function isValidIntercomError($response_body)
+    private static function isValidIntercomError($response_body)
     {
         if (array_key_exists('type', $response_body) &&
             $response_body['type'] == 'error.list' &&
@@ -80,5 +80,10 @@ class IntercomException extends BadResponseException
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    public function setErrors($errors)
+    {
+        $this->errors = $errors;
     }
 }
