@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Event) v3",
-    "description": "The Intercom API (Event) v3",
+    "name": "Intercom API (Event)",
+    "description": "The Intercom API (Event)",
     "operations": {
         "createEvent": {
             "httpMethod": "POST",

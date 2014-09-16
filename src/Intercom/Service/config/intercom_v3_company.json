@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Company) v3",
-    "description": "The Intercom API (Company) v3",
+    "name": "Intercom API (Company)",
+    "description": "The Intercom API (Company)",
     "operations": {
         "getCompanies": {
             "extends": "_abstract_pagination_page",

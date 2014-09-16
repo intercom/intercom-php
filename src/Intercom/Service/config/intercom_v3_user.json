@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (User) v3",
-    "description": "The Intercom API (User) v3",
+    "name": "Intercom API (User)",
+    "description": "The Intercom API (User)",
     "operations": {
         "getUser": {
             "httpMethod": "GET",

@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Tag) v3",
-    "description": "The Intercom API (Tag) v3",
+    "name": "Intercom API (Tag)",
+    "description": "The Intercom API (Tag)",
     "operations": {
         "getTags": {
             "extends": "_abstract_pagination_page",
