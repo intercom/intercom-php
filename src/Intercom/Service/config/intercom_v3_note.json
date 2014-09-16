@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Note) v3",
-    "description": "The Intercom API (Note) v3",
+    "name": "Intercom API (Note)",
+    "description": "The Intercom API (Note)",
     "operations": {
         "getNotesForUser": {
             "extends": "_abstract_pagination_page",

@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Segment) v3",
-    "description": "The Intercom API (Segment) v3",
+    "name": "Intercom API (Segment)",
+    "description": "The Intercom API (Segment)",
     "operations": {
         "getSegments": {
             "extends": "_abstract_pagination_page",

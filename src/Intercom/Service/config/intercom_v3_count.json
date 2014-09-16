@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Count) v3",
-    "description": "The Intercom API (Count) v3",
+    "name": "Intercom API (Count)",
+    "description": "The Intercom API (Count)",
     "operations": {
         "getCounts": {
             "httpMethod": "GET",

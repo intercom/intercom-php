@@ -1,6 +1,6 @@
 {
-    "name": "Intercom API (Conversation) v3",
-    "description": "The Intercom API (Conversation) v3",
+    "name": "Intercom API (Conversation)",
+    "description": "The Intercom API (Conversation)",
     "operations": {
         "createMessage": {
             "httpMethod": "POST",
