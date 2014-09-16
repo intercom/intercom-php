@@ -4,6 +4,9 @@ Beta PHP bindings for the Intercom API (https://api.intercom.io).
 
 [API Documentation](https://api.intercom.io/docs)
 
+[![Build Status](https://circleci.com/gh/intercom/intercom-php.png)](https://circleci.com/gh/intercom/intercom-php)
+
+
 ## Installation
 
 The API client can be installed via [Composer](https://github.com/composer/composer). When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository. For now you'll have to add the following to a composer.json file in the project root:
