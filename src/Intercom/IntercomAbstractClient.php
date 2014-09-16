@@ -15,7 +15,7 @@ abstract class IntercomAbstractClient extends Client
     const DEFAULT_CONTENT_TYPE = 'application/json';
 
     /** @var string */
-    const DEFAULT_ACCEPT_HEADER = 'application/vnd.intercom.3+json';
+    const DEFAULT_ACCEPT_HEADER = 'application/json';
 
     /**
      * Configures the client by setting the appropriate headers, service description and error handling
