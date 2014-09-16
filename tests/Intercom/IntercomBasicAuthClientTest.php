@@ -36,7 +36,7 @@ class IntercomBasicAuthClientTest extends GuzzleTestCase
     function testGetServiceDescriptionFromFile()
     {
         $client = new IntercomBasicAuthClient($this->config);
-        $sd = $client->getServiceDescriptionFromFile(__DIR__ . '/../../src/intercom/Service/config/intercom_v3.json');
+        $sd = $client->getServiceDescriptionFromFile(__DIR__ . '/../../src/Intercom/Service/config/intercom_v3.json');
         $this->assertInstanceOf('Guzzle\Service\Description\ServiceDescription', $sd);
     }
 
