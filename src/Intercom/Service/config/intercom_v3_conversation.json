@@ -103,7 +103,8 @@
                 "type": {
                     "location": "query",
                     "required": true,
-                    "static": true
+                    "static": true,
+                    "default": "user"
                 },
                 "id": {
                     "location": "query",
