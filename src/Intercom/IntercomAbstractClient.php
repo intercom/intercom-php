@@ -17,6 +17,9 @@ abstract class IntercomAbstractClient extends Client
     /** @var string */
     const DEFAULT_ACCEPT_HEADER = 'application/vnd.intercom.3+json';
 
+    const USER_AGENT = 'intercom-php/1.0.0-b1';
+
+
     /**
      * Configures the client by setting the appropriate headers, service description and error handling
      *
@@ -96,7 +99,8 @@ abstract class IntercomAbstractClient extends Client
             'service_description' => __DIR__ . '/Service/config/intercom.json',
             'headers' => [
                 'Content-Type' => self::DEFAULT_CONTENT_TYPE,
-                'Accept' => self::DEFAULT_ACCEPT_HEADER
+                'Accept' => self::DEFAULT_ACCEPT_HEADER,
+                'User-Agent' => self::USER_AGENT
             ]
         ];
     }
