@@ -2,6 +2,6 @@
     "name": "Intercom API",
     "description": "The Intercom API",
     "includes": [
-        "intercom_v3.json"
+        "intercom_public.json"
     ]
 }
