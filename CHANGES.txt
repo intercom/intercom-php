@@ -1,6 +1,9 @@
 Changes
 =========
 
+1.0.0-b3
+
+- Add remote_created_at to user update and create.
 
 1.0.0-b2
 
