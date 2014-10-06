@@ -60,6 +60,12 @@
                     "type": "integer",
                     "format": "timestamp"
                 },
+                "remote_created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
                 "custom_attributes": {
                     "location": "json",
                     "required": false,
@@ -121,6 +127,12 @@
                     "type": "array"
                 },
                 "created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "remote_created_at": {
                     "location": "json",
                     "required": false,
                     "type": "integer",
