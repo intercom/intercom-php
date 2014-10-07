@@ -1,6 +1,10 @@
 Changes
 =========
 
+1.0.0-b4
+
+- Fix /events response being parsed as JSON
+
 1.0.0-b3
 
 - Add remote_created_at to user update and create.
