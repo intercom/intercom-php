@@ -95,11 +95,6 @@
             "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
-                "email": {
-                    "location": "query",
-                    "required": false,
-                    "type": "string"
-                },
                 "type": {
                     "location": "query",
                     "required": true,
