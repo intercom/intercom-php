@@ -98,7 +98,6 @@
                 "type": {
                     "location": "query",
                     "required": true,
-                    "static": true,
                     "default": "user"
                 },
                 "id": {
