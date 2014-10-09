@@ -41,19 +41,37 @@ class ConversationTest extends IntercomTestCase
         $this->assertEquals(true, $response['open']);
     }
 
-    public function testGetConversations()
+    public function testGetAllConversations()
     {
         $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
         $response = $this->client->getConversations();
         $conversations = $response->get('conversations');
 
-        $this->assertRequest('GET', '/conversations?type=user');
+        $this->assertRequest('GET', '/conversations');
 
         $this->assertInstanceOf('\Guzzle\Service\Resource\Model', $response);
         $this->assertEquals(1, count($conversations));
         $this->assertEquals(1400850973, $conversations['0']['created_at']);
         $this->assertEquals('536e564f316c83104c000020', $conversations['0']['user']['id']);
         $this->assertEquals('admin', $conversations['0']['assignee']['type']);
+    }
+    
+    public function testGetUserConversations()
+    {
+        $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
+        $response = $this->client->getConversations(['type' => 'user']);
+        $conversations = $response->get('conversations');
+
+        $this->assertRequest('GET', '/conversations?type=user');
+    }
+    
+    public function testGetAdminConversations()
+    {
+        $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
+        $response = $this->client->getConversations(['type' => 'admin']);
+        $conversations = $response->get('conversations');
+
+        $this->assertRequest('GET', '/conversations?type=admin');
     }
 
     public function testReplyToConversation()

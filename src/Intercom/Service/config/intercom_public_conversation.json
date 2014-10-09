@@ -97,9 +97,8 @@
             "parameters": {
                 "type": {
                     "location": "query",
-                    "required": true,
-                    "static": true,
-                    "default": "user"
+                    "required": false,
+                    "type": "string"
                 },
                 "id": {
                     "location": "query",
