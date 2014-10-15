@@ -82,11 +82,11 @@ Resources this API supports:
 // Get a list of users
 $intercom->getUsers();
 // Find user by email
-$intercom->findUserByEmail(array("email" => "bob@example.com"));
+$intercom->getUser(array("email" => "bob@example.com"));
 // Find user by user_id
-$intercom->findUserByUserID(array("user_id" => "123456"));
+$intercom->getUser(array("user_id" => "123456"));
 // Find user by id
-$intercom->findUserById(array("id" => "1"))
+$intercom->getUser(array("id" => "1"))
 // Create a new user
 $user = $intercom->createUser(array(
 	"email" => "bob@example.com",
