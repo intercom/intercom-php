@@ -80,11 +80,11 @@ abstract class IntercomAbstractClient extends Client
     {
         $this->setDefaultOption(
             'auth',
-            [
+            array(
                 $user,
                 $password,
                 'Basic'
-            ]
+            )
         );
     }
 
@@ -95,14 +95,14 @@ abstract class IntercomAbstractClient extends Client
      */
     public static function getDefaultConfig()
     {
-        return [
+        return array(
             'service_description' => __DIR__ . '/Service/config/intercom.json',
-            'headers' => [
+            'headers' => array(
                 'Content-Type' => self::DEFAULT_CONTENT_TYPE,
                 'Accept' => self::DEFAULT_ACCEPT_HEADER,
                 'User-Agent' => self::USER_AGENT
-            ]
-        ];
+            )
+        );
     }
 
     /**
