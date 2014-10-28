@@ -1,6 +1,6 @@
 # intercom-php
 
-Beta PHP bindings for the Intercom API (https://api.intercom.io).
+PHP bindings for the Intercom API (https://api.intercom.io).
 
 [API Documentation](https://api.intercom.io/docs)
 
@@ -8,23 +8,19 @@ Beta PHP bindings for the Intercom API (https://api.intercom.io).
 
 ## Installation
 
-The API client can be installed via [Composer](https://github.com/composer/composer). When a final public release is available it will be added to the [Packagist](https://packagist.org/) repository. For now you'll have to add the following to a composer.json file in the project root:
+The API client can be installed via [Composer](https://github.com/composer/composer).
+
+In your composer.json file:
 
 ```js
 {
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/intercom/intercom-php"
-        }
-    ],
     "require": {
-        "intercom/intercom-api-client": "dev-master"
+      "intercom/intercom-php": "1.0.0-b5"
     }
 }
 ```
 
-Once the composer.json file is created you can run `composer install` for the initial package install and `composer update` to updated to the latest version of the API client, which is linked to the `master` branch.
+Once the composer.json file is created you can run `composer install` for the initial package install and `composer update` to update to the latest version of the API client.
 
 The client uses [Guzzle](http://guzzle3.readthedocs.org).
 
