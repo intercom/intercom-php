@@ -1,6 +1,16 @@
 Changes
 =========
 
+1.0.0-b6
+
+- Added rate limit details to response, thanks @ziemkowski
+- Improve conversation fetching for admins/users, thanks @ziemkowski
+
+1.0.0-b5
+
+- Packagist
+- Licence & Readme updates
+
 1.0.0-b4
 
 - Fix /events response being parsed as JSON
