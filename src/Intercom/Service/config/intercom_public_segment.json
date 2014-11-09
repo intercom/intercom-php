@@ -46,6 +46,21 @@
                     "location": "json",
                     "type": "integer",
                     "format": "timestamp"
+                },
+                "x_rate_limit": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Limit",
+                    "type": "integer"
+                },
+                "x_rate_remaining": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Remaining",
+                    "type": "integer"
+                },
+                "x_rate_reset": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Reset",
+                    "type": "integer"
                 }
             }
         },
@@ -58,6 +73,21 @@
                     "items": {
                         "$ref": "SegmentModel"
                     }
+                },
+                "x_rate_limit": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Limit",
+                    "type": "integer"
+                },
+                "x_rate_remaining": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Remaining",
+                    "type": "integer"
+                },
+                "x_rate_reset": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Reset",
+                    "type": "integer"
                 }
             }
         }

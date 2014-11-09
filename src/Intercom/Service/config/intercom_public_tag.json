@@ -132,7 +132,21 @@
                 "name": {
                     "location": "json",
                     "type": "string"
-
+                },
+                "x_rate_limit": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Limit",
+                    "type": "integer"
+                },
+                "x_rate_remaining": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Remaining",
+                    "type": "integer"
+                },
+                "x_rate_reset": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Reset",
+                    "type": "integer"
                 }
             }
         },
@@ -145,6 +159,21 @@
                     "items": {
                         "$ref": "TagModel"
                     }
+                },
+                "x_rate_limit": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Limit",
+                    "type": "integer"
+                },
+                "x_rate_remaining": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Remaining",
+                    "type": "integer"
+                },
+                "x_rate_reset": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Reset",
+                    "type": "integer"
                 }
             }
         }
