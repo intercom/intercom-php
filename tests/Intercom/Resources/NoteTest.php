@@ -55,6 +55,14 @@ class NoteTest extends IntercomTestCase
         $this->assertRequestJson(['admin_id' => '6', 'user' => ['email' => 'bob@example.org'], 'body' => 'Hi']);
     }
 
+    public function testCreateNoteWithoutAdmin() {
+      $this->setMockResponse($this->client, 'Note/Note.txt');
+      $this->client->createNote(['user' => ['email' => 'bob@example.org'], 'body' => 'Hi']);
+
+      $this->assertRequest('POST', '/notes');
+      $this->assertRequestJson(['user' => ['email' => 'bob@example.org'], 'body' => 'Hi']);
+    }
+
     /**
      * @expectedException \Guzzle\Service\Exception\ValidationException
      */

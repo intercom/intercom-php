@@ -46,7 +46,6 @@
             "parameters": {
                 "admin_id": {
                     "location": "json",
-                    "required": true,
                     "type": "string"
                 },
                 "user": {
