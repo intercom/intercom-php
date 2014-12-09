@@ -1,6 +1,10 @@
 Changes
 =========
 
+1.0.0-b7
+
+- Removed requirement for admin_id on note creation
+
 1.0.0-b6
 
 - Added rate limit details to response, thanks @ziemkowski
