@@ -10,10 +10,10 @@ class IntercomTestCase extends GuzzleTestCase
 
     public function setUp()
     {
-        $this->client = IntercomBasicAuthClient::factory([
+        $this->client = IntercomBasicAuthClient::factory(array(
             'api_key' => '1234',
             'app_id' => 'my-app'
-        ]);
+        ));
     }
 
     protected function getOnlyMockedRequest($method = null, $path = null)

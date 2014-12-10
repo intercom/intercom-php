@@ -10,7 +10,7 @@ class IntercomException extends BadResponseException
     /**
      * @var array
      */
-    private $errors = [];
+    private $errors = array();
 
     /**
      * Simple exception factory for creating Intercom standardised exceptions
