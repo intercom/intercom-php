@@ -93,7 +93,7 @@ $user = $intercom->createUser(array(
 $user_data = array(
     "email" => "testuser@intercom.io",
     "last_request_at" => time(),
-    "custom_data" => array(
+    "custom_attributes" => array(
         "projects_delivered" => 12,
     )
 );
