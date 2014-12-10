@@ -4,7 +4,9 @@ PHP bindings for the Intercom API (https://api.intercom.io).
 
 [API Documentation](https://api.intercom.io/docs)
 
-[![Build Status](https://circleci.com/gh/intercom/intercom-php/tree/master.png)](https://circleci.com/gh/intercom/intercom-php/tree/master)
+[![Circle CI](https://circleci.com/gh/intercom/intercom-php.svg?style=svg)](https://circleci.com/gh/intercom/intercom-php)
+[![Code Climate](https://codeclimate.com/github/intercom/intercom-php/badges/gpa.svg)](https://codeclimate.com/github/intercom/intercom-php)
+
 
 ## Installation
 
