@@ -17,7 +17,7 @@ abstract class IntercomAbstractClient extends Client
     /** @var string */
     const DEFAULT_ACCEPT_HEADER = 'application/json';
 
-    const USER_AGENT = 'intercom-php/1.0.0-b4';
+    const USER_AGENT = 'intercom-php/1.0.0-b8';
 
 
     /**

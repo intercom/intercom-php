@@ -1,6 +1,10 @@
 Changes
 =========
 
+1.0.0-b8
+
+- Added support for the new_session parameter when creating or updating users, thanks @FallDi
+
 1.0.0-b7
 
 - Removed requirement for admin_id on note creation
