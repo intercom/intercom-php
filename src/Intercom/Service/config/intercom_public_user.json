@@ -193,6 +193,11 @@
                     "location": "json",
                     "required": false,
                     "type": "string"
+                },
+                "new_session": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
                 }
             },
             "responseClass": "UserModel",

@@ -47,10 +47,10 @@ class UserTest extends IntercomTestCase
     public function testUpdateUser()
     {
         $this->setMockResponse($this->client, 'User/User.txt');
-        $response = $this->client->updateUser(['id' => '123456', 'user_id' => '1234', 'hi' => 'hello']);
+        $response = $this->client->updateUser(['id' => '123456', 'user_id' => '1234', 'hi' => 'hello', 'new_session' => true]);
 
         $this->assertRequest('POST', '/users');
-        $this->assertRequestJson(['id' => '123456', 'user_id' => '1234']);
+        $this->assertRequestJson(['id' => '123456', 'user_id' => '1234', 'new_session' => true]);
 
         $this->assertInstanceOf('\Guzzle\Service\Resource\Model', $response);
         $this->assertEquals('Joe Schmoe', $response['name']);
