@@ -102,6 +102,11 @@
                     "required": false,
                     "type": "boolean"
                 },
+                "update_last_request_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "boolean"
+                },
                 "user_id": {
                     "location": "json",
                     "required": false,
