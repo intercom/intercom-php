@@ -77,9 +77,17 @@ class ConversationTest extends IntercomTestCase
     public function testReplyToConversation()
     {
         $this->setMockResponse($this->client, 'Conversation/Conversation.txt');
-        $this->client->replyToConversation(['id' => '123456']);
+        $this->client->replyToConversation(['id' => '123456', 'user_id' => '45', 'type' => 'user', 'message_type' => 'comment', 'body' => 'my reply']);
 
-        $this->assertRequest('POST', '/conversations/123456/reply?type=json');
+        $this->assertRequest('POST', '/conversations/123456/reply');
+        $this->assertRequestJson(['user_id' => '45', 'type' => 'user', 'body' => 'my reply', 'message_type' => 'comment']);
+    }
+
+    public function testReplyToConversationAsAdmin() {
+        $this->setMockResponse($this->client, 'Conversation/Conversation.txt');
+        $this->client->replyToConversation(['id' => '123456', 'admin_id' => '6', 'type' => 'admin', 'message_type' => 'comment', 'body' => 'my reply']);
+        $this->assertRequest('POST', '/conversations/123456/reply');
+        $this->assertRequestJson(['admin_id' => '6', 'type' => 'admin', 'body' => 'my reply', 'message_type' => 'comment']);
     }
 
     public function testMarkConversationAsRead()
