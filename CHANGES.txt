@@ -1,6 +1,10 @@
 Changes
 =========
 
+1.0.0-b10
+
+- Add support for Admin replies to conversations
+
 1.0.0-b9
 
 - Add support for the update_last_request_at parameter on creating users
