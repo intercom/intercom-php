@@ -66,6 +66,12 @@
                     "type": "integer",
                     "format": "timestamp"
                 },
+                "signed_up_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
                 "custom_attributes": {
                     "location": "json",
                     "required": false,
@@ -143,6 +149,12 @@
                     "format": "timestamp"
                 },
                 "remote_created_at": {
+                    "location": "json",
+                    "required": false,
+                    "type": "integer",
+                    "format": "timestamp"
+                },
+                "signed_up_at": {
                     "location": "json",
                     "required": false,
                     "type": "integer",
@@ -315,6 +327,10 @@
                     "type": "string"
                 },
                 "remote_created_at": {
+                    "location": "json",
+                    "type": "integer"
+                },
+                "signed_up_at": {
                     "location": "json",
                     "type": "integer"
                 },

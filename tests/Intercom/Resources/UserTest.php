@@ -42,6 +42,7 @@ class UserTest extends IntercomTestCase
 
         $this->assertInstanceOf('\Guzzle\Service\Resource\Model', $response);
         $this->assertEquals('Joe Schmoe', $response['name']);
+        $this->assertEquals(1393613864, $response['signed_up_at']);
     }
 
     public function testUpdateUser()

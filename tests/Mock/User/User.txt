@@ -49,6 +49,7 @@ Server: nginx
    "unsubscribed_from_emails":true,
    "last_request_at":1401970113,
    "remote_created_at":1393613864,
+   "signed_up_at":1393613864,
    "updated_at":1401970114,
    "user_agent_data":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11",
    "social_profiles":{
