@@ -1,6 +1,10 @@
 Changes
 =========
 
+1.0.0-b11
+
+- Add support for `signed_up_at`
+
 1.0.0-b10
 
 - Add support for Admin replies to conversations
