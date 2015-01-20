@@ -134,7 +134,7 @@
             "parameters": {
                 "id": {
                     "location": "json",
-                    "required": true,
+                    "required": false,
                     "type": "string"
                 },
                 "companies": {
