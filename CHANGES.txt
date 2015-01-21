@@ -1,6 +1,10 @@
 Changes
 =========
 
+1.0.0-b12
+
+- Remove Id requirement on userUpdate, thanks @rb-cohen
+
 1.0.0-b11
 
 - Add support for `signed_up_at`
@@ -12,7 +16,7 @@ Changes
 1.0.0-b9
 
 - Add support for the update_last_request_at parameter on creating users
-- Add support for the new_session paramter on updating users
+- Add support for the new_session parameter on updating users
 
 1.0.0-b8
 
