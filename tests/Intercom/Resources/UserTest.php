@@ -118,11 +118,12 @@ class UserTest extends IntercomTestCase
         $this->assertRequest('GET', '/users?segment_id=20');
     }
 
-    /**
-     * @expectedException \Guzzle\Service\Exception\ValidationException
-     */
     public function testUpdateUserNoID()
     {
-        $this->client->updateUser();
+      $this->setMockResponse($this->client, 'User/User.txt');
+      $response = $this->client->updateUser(['user_id' => '1234', 'hi' => 'hello', 'new_session' => true]);
+      
+      $this->assertRequest('POST', '/users');
+      $this->assertRequestJson(['user_id' => '1234', 'new_session' => true]);
     }
 }
