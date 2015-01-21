@@ -107,12 +107,12 @@ try {
     $request = $e->getRequest();
     $url = $request->getUrl();
     $params = serialize($request->getParams()->toArray());
-    error_log('[API SERVER ERROR] Status Code: {$url} | Body: {$params}');
+    error_log("[API SERVER ERROR] Status Code: {$url} | Body: {$params}");
 
     $response = $e->getResponse();
     $code = $response->getStatusCode();
     $body = $response->getBody();
-    error_log('[API SERVER ERROR] Status Code: {$code} | Body: {$body}');
+    error_log("[API SERVER ERROR] Status Code: {$code} | Body: {$body}");
 
 } catch (ClientErrorResponseException $e) {
     // Handle the error
