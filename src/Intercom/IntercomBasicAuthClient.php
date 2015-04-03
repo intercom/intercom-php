@@ -30,7 +30,7 @@ class IntercomBasicAuthClient extends IntercomAbstractClient
 
         $client->setBasicAuth($config->get('app_id'), $config->get('api_key'));
 
-        $client->setUserAgent('intercom-php/1.0.0-b12', true);
+        $client->setUserAgent('intercom-php/1.0.0', true);
 
         return $client;
     }
