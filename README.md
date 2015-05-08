@@ -17,7 +17,7 @@ In your composer.json file:
 ```js
 {
     "require": {
-      "intercom/intercom-php": "1.0.0"
+      "intercom/intercom-php": "1.1.0"
     }
 }
 ```
