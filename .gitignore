@@ -2,3 +2,4 @@ build/
 phpunit.xml
 composer.lock
 vendor/*
+*.swp

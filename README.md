@@ -445,3 +445,23 @@ The metadata key values in the example are treated as follows-
 - stripe_invoice: The identifier of the Stripe invoice (has a 'stripe_invoice' key)
 - order_number: a Rich Link (value contains 'url' and 'value' keys)
 - price: An Amount in US Dollars (value contains 'amount' and 'currency' keys)
+
+#### Contacts
+
+`Contacts` represent logged out users of your application.
+
+```php
+<?
+//Create a new contact
+$response = $this->client->createContact(['email' => 'some_contact@example.com']);
+
+//Update a contact
+$updated = $this->client->updateContact([
+  'id' => $response['id'],
+  'custom_attributes' => ['foo' => 'bar']
+]);
+
+//Get all contacts by email
+$search = $this->client->getContacts(['email' => 'some_contact@example.com']);
+>
+```
