@@ -398,6 +398,29 @@ $intercom->createMessage(array(
 		"id" => "536e564f316c83104c000020"
 	)
 ));
+
+// Message from a contact
+$intercom->createMessage(array(
+  "body" => "help",
+  "from" => array(
+    "type" => "contact",
+    "id" => "543e679ae537f54445000dac"
+  )
+));
+
+// Message from an admin to a contact
+$intercom->createMessage(array(
+  "message_type" => "inapp",
+  "body" => "how can I help",
+  "from" => array(
+    "type" => "admin",
+    "id" => "25610"
+  ),
+  "to" => array(
+    "type" => "contact",
+    "id" => "543e679ae537f54445000dac"
+  )
+));
 ?>
 ```
 
@@ -453,15 +476,21 @@ The metadata key values in the example are treated as follows-
 ```php
 <?
 //Create a new contact
-$response = $this->client->createContact(['email' => 'some_contact@example.com']);
+$response = $intercom->createContact(['email' => 'some_contact@example.com']);
 
 //Update a contact
-$updated = $this->client->updateContact([
+$updated = $intercom->updateContact([
   'id' => $response['id'],
   'custom_attributes' => ['foo' => 'bar']
 ]);
 
 //Get all contacts by email
-$search = $this->client->getContacts(['email' => 'some_contact@example.com']);
+$search = $intercom->getContacts(['email' => 'some_contact@example.com']);
+
+//Convert a contact into a user
+$response = $intercom->convertContact([
+  "contact" => array("user_id" => 1),
+  "user" => array("user_id" => 2)
+])
 >
 ```
