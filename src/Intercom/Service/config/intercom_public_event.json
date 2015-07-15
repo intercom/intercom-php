@@ -24,7 +24,13 @@
                 "metadata": {
                     "location": "json",
                     "required": false,
-                    "type": "array"
+                    "type": "array",
+                    "filters": [
+                      {
+                        "method": "Intercom\\IntercomBasicAuthClient::filterEmptyList",
+                        "args": ["@value"]
+                      }
+                    ]
                 },
                 "user_id": {
                     "location": "json",

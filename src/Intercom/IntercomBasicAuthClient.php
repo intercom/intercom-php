@@ -34,4 +34,13 @@ class IntercomBasicAuthClient extends IntercomAbstractClient
 
         return $client;
     }
+
+    public static function filterEmptyList($possiblyEmpty)
+    {
+      if (empty($possiblyEmpty)) {
+        return NULL;
+      } else {
+        return $possiblyEmpty;
+      }
+    }
 }
