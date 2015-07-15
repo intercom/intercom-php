@@ -21,9 +21,18 @@ class IntercomException extends BadResponseException
      */
     public static function factory(RequestInterface $request, Response $response)
     {
-        if (!static::isValidIntercomError($response->json())) {
-            $label = 'Unsuccessful response';
-            $class = __CLASS__;
+        $response_json = $response->json();
+        $intercom_unavailable_error = NULL;
+
+        if (!static::isValidIntercomError($response_json)) {
+            if ($response->isServerError()) {
+                $label = 'Server error response';
+                $class = __NAMESPACE__ . '\\ServerErrorResponseException';
+                $intercom_unavailable_error = 'Service Unavailable: Back-end server is at capacity';
+            } else {
+                $label = 'Unsuccessful response';
+                $class = __CLASS__;
+            }
         } elseif ($response->isClientError()) {
             $label = 'Client error response';
             $class = __NAMESPACE__ . '\\ClientErrorResponseException';
@@ -49,8 +58,12 @@ class IntercomException extends BadResponseException
         $e->setRequest($request);
 
         // Sets the errors if the error response is the standard Intercom error type
-        if (static::isValidIntercomError($response->json())) {
-            $e->setErrors($response->json()['errors']);
+        if (static::isValidIntercomError($response_json)) {
+            $e->setErrors($response_json['errors']);
+        } elseif($intercom_unavailable_error != NULL) {
+            $e ->setErrors([array(
+              'code' => 'service_unavailable',
+              "message" => $intercom_unavailable_error)]);
         }
 
         return $e;

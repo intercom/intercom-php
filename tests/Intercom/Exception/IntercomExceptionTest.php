@@ -33,4 +33,18 @@ class IntercomExceptionTest extends IntercomTestCase
             $this->assertEquals('Sorry, the API service is temporarily unavailable', $errors[0]['message'] );
         }
     }
+
+    public function test503ExceptionELB()
+    {
+        try {
+            $this->setMockResponse($this->client, 'Error/Error503ELB.txt');
+            $response = $this->client->getUser(['id' => '123456']);
+            $this->fail('An Exception\ClientErrorResponseException for a 503 ELB response should have been raised');
+        }
+        catch (Exception\ServerErrorResponseException $expected) {
+            $errors = $expected->getErrors();
+            $this->assertEquals(1, count($errors));
+            $this->assertEquals('Service Unavailable: Back-end server is at capacity', $errors[0]['message'] );
+        }
+    }
 }
