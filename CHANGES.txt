@@ -1,5 +1,10 @@
 Changes
 =========
+1.1.1
+
+- Fix encoding for empty event metadata
+- Fix error response when receiving ELB error
+
 1.1.0
 
 - Acquire support
