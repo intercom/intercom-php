@@ -84,6 +84,11 @@
                     "location": "uri",
                     "required": true,
                     "type": "string"
+                },
+                "display_as": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
                 }
             },
             "responseClass": "ConversationModel",
@@ -129,6 +134,11 @@
                     "location": "query",
                     "required": false,
                     "type": "boolean"
+                },
+                "display_as": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
                 }
             },
             "responseClass": "ConversationListModel",
