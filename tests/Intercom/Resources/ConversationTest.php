@@ -41,6 +41,18 @@ class ConversationTest extends IntercomTestCase
         $this->assertEquals(true, $response['open']);
     }
 
+    public function testGetConversationWithDisplayAs()
+    {
+        $this->setMockResponse($this->client, 'Conversation/Conversation.txt');
+        $response = $this->client->getConversation(['id' => '123456', 'display_as' => 'plaintext']);
+
+        $this->assertRequest('GET', '/conversations/123456?display_as=plaintext');
+
+        $this->assertInstanceOf('\Guzzle\Service\Resource\Model', $response);
+        $this->assertEquals('25', $response['conversation_message']['author']['id']);
+        $this->assertEquals(true, $response['open']);
+    }
+
     public function testGetAllConversations()
     {
         $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
@@ -72,6 +84,15 @@ class ConversationTest extends IntercomTestCase
         $conversations = $response->get('conversations');
 
         $this->assertRequest('GET', '/conversations?type=admin');
+    }
+
+    public function testGetAdminConversationsWithDisplayAs()
+    {
+        $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
+        $response = $this->client->getConversations(['type' => 'admin', 'display_as' => 'plaintext']);
+        $conversations = $response->get('conversations');
+
+        $this->assertRequest('GET', '/conversations?type=admin&display_as=plaintext');
     }
 
     public function testReplyToConversation()

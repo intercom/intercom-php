@@ -269,6 +269,13 @@ $intercom->getConversations(array(
 	"id" => "7",
 	"open" => true
 ));
+// Get all open conversations assigned to an admin and render as plaintext
+$intercom->getConversations(array(
+    "type" => "admin",
+    "id" => "7",
+    "open" => true,
+    "display_as" => "plaintext"
+));
 // Get all closed conversations assigned to an admin
 $intercom->getConversations(array(
 	"type" => "admin",
