@@ -67,7 +67,7 @@ class ConversationTest extends IntercomTestCase
         $this->assertEquals('536e564f316c83104c000020', $conversations['0']['user']['id']);
         $this->assertEquals('admin', $conversations['0']['assignee']['type']);
     }
-    
+
     public function testGetUserConversations()
     {
         $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
@@ -76,7 +76,7 @@ class ConversationTest extends IntercomTestCase
 
         $this->assertRequest('GET', '/conversations?type=user');
     }
-    
+
     public function testGetAdminConversations()
     {
         $this->setMockResponse($this->client, 'Conversation/ConversationList.txt');
@@ -109,6 +109,13 @@ class ConversationTest extends IntercomTestCase
         $this->client->replyToConversation(['id' => '123456', 'admin_id' => '6', 'type' => 'admin', 'message_type' => 'comment', 'body' => 'my reply']);
         $this->assertRequest('POST', '/conversations/123456/reply');
         $this->assertRequestJson(['admin_id' => '6', 'type' => 'admin', 'body' => 'my reply', 'message_type' => 'comment']);
+    }
+
+    public function testAssignConversationAsAdmin() {
+        $this->setMockResponse($this->client, 'Conversation/Conversation.txt');
+        $this->client->replyToConversation(['id' => '123456', 'admin_id' => '6', 'type' => 'admin', 'message_type' => 'assignment', 'assignee_id' => '7']);
+        $this->assertRequest('POST', '/conversations/123456/reply');
+        $this->assertRequestJson(['admin_id' => '6', 'assignee_id' => '7', 'type' => 'admin', 'message_type' => 'assignment']);
     }
 
     public function testMarkConversationAsRead()

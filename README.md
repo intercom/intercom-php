@@ -331,6 +331,15 @@ $intercom->replyToConversation(array(
 	"message_type" => "comment"
 	"body" => "bar"
 ));
+// Admin (identified by id) assigns a conversation
+$intercom->replyToConversation(array(
+	"id" => $conversation["id"],
+	"type" => "admin",
+	"admin_id" => "1",
+	"message_type" => "assignment",
+	"assignee_id" => "2"
+));
+
 
 // MARKING A CONVERSATION AS READ
 $intercom->markConversationAsRead(array("id" => $conversation["id"], "read": true));
