@@ -339,6 +339,20 @@ $intercom->replyToConversation(array(
 	"message_type" => "assignment",
 	"assignee_id" => "2"
 ));
+// Admin (identified by id) opens a conversation
+$intercom->replyToConversation(array(
+	"id" => $conversation["id"],
+	"type" => "admin",
+	"admin_id" => "1",
+	"message_type" => "open",
+));
+// Admin (identified by id) closes a conversation
+$intercom->replyToConversation(array(
+	"id" => $conversation["id"],
+	"type" => "admin",
+	"admin_id" => "1",
+	"message_type" => "close",
+));
 
 
 // MARKING A CONVERSATION AS READ
