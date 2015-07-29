@@ -2,6 +2,10 @@ Changes
 =========
 1.2.1
 
+- Metadata fix
+
+1.2.0
+
 - Support opening, closing, and assigning conversations
 
 1.1.1
