@@ -95,6 +95,8 @@ abstract class AbstractPageIterator extends ResourceIterator
                 return 'tags';
             case 'user.list':
                 return 'users';
+            case 'contact.list':
+                return 'contacts';
             default:
                 throw new IntercomException("Unknown list type returned ({$type}). Unable to use iterator to paginate");
         }
