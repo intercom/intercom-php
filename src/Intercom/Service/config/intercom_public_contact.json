@@ -17,6 +17,7 @@
             "uri": "/contacts?user_id={user_id}"
         },
         "getContacts": {
+            "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
                 "email": {
