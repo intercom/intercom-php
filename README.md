@@ -17,7 +17,7 @@ In your composer.json file:
 ```js
 {
     "require": {
-      "intercom/intercom-php": "1.2.2"
+      "intercom/intercom-php": "1.2.3"
     }
 }
 ```
@@ -504,7 +504,6 @@ The metadata key values in the example are treated as follows-
 `Contacts` represent logged out users of your application.
 
 ```php
-<?
 //Create a new contact
 $response = $intercom->createContact(['email' => 'some_contact@example.com']);
 
@@ -522,5 +521,10 @@ $response = $intercom->convertContact([
   "contact" => array("user_id" => 1),
   "user" => array("user_id" => 2)
 ])
->
+
+//Iterate through Contacts with pagination:
+$iterator = $intercom->getIterator("getContacts");
+foreach ($iterator as $contact) {
+  print_r($contact);
+}
 ```
