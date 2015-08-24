@@ -1,5 +1,9 @@
 Changes
 =========
+1.2.2
+
+- Adding Contacts iterator
+
 1.2.1
 
 - Metadata fix
