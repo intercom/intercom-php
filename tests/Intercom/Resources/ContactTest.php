@@ -44,6 +44,15 @@ class ContactTest extends IntercomTestCase
       $this->assertEquals("Silver Dove", $response['pseudonym']);
     }
 
+    public function testDeleteContact()
+    {
+        $this->setMockResponse($this->client, 'Contact/Contact.txt');
+        $response = $this->client->deleteContact(['id' => '1234']);
+
+        $this->assertRequest('DELETE', '/contacts');
+        $this->assertRequestJson(['id' => '1234']);
+    }
+
     public function testConvertContact()
     {
       $this->setMockResponse($this->client, 'Contact/Contact.txt');

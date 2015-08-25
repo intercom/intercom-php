@@ -186,6 +186,25 @@
             "responseType": "model",
             "summary": "Creates the contact",
             "uri": "/contacts"
+        },
+        "deleteContact": {
+            "httpMethod": "DELETE",
+            "parameters": {
+                "id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "location": "json",
+                    "required": false,
+                    "type": "string"
+                }
+            },
+            "responseClass": "ContactModel",
+            "responseType": "model",
+            "summary": "Deletes a contact given id or user_id",
+            "uri": "/contacts"
         }
     },
     "models": {
