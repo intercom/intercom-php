@@ -513,6 +513,11 @@ $updated = $intercom->updateContact([
   'custom_attributes' => ['foo' => 'bar']
 ]);
 
+//Delete a contact
+$deleted = $intercom->deleteContact([
+  "id" => "530370b477ad7120001d"
+]);
+
 //Get all contacts by email
 $search = $intercom->getContacts(['email' => 'some_contact@example.com']);
 
