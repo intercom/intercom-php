@@ -1,5 +1,9 @@
 Changes
 =========
+1.3.0
+
+- Adds support for the Bulk API (Users)
+
 1.2.3
 
 - Fixes Contacts iterator
