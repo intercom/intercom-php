@@ -533,3 +533,26 @@ foreach ($iterator as $contact) {
   print_r($contact);
 }
 ```
+
+#### Bulk API
+
+The [Bulk APIs](https://doc.intercom.io/api/#bulk-apis) are themselves in Beta:
+
+```php
+// Create or update a batch of users
+$result = $intercom->bulkUsers(
+[
+  'items' => [
+    [
+      'data_type' => 'user',
+      'method' => 'post', // can be 'delete'
+      'data' => [
+        'email' => 'pi@example.org',
+        'name' => 'Pi'
+      ]
+    ],
+    ...
+  ]
+]);
+```
+
