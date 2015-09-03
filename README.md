@@ -242,12 +242,12 @@ $intercom->createNote(array(
 	)
 ));
 // Iterate over all notes for a user via their email address
-$notes = $intercom->getNotes(array("email" => "joe@example.com"));
+$notes = $intercom->getNotesForUser(array("email" => "joe@example.com"));
 foreach($notes["notes"] as $note) {
     echo $note["body"] . PHP_EOL;
 }
 // Iterate over all notes for a user via their user_id
-$notes = $intercom->getNotes(array("user_id" => "123"));
+$notes = $intercom->getNotesForUser(array("user_id" => "123"));
 foreach($notes["notes"] as $note) {
     echo $note["body"] . PHP_EOL;
 }
