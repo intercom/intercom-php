@@ -240,9 +240,60 @@
             "responseType": "model",
             "summary": "Deletes a user given id, email or user_id",
             "uri": "/users"
+        },
+        "bulkUsers": {
+            "httpMethod": "POST",
+            "parameters": {
+                "items": {
+                    "location": "json",
+                    "required": true,
+                    "type": "array"
+                }
+            },
+            "responseClass": "JobModel",
+            "responseType": "model",
+            "summary": "Updates users in bulk, asynchronously",
+            "uri": "/bulk/users"
         }
     },
     "models": {
+        "JobModel": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "location": "json",
+              "type": "string"
+            },
+            "app_id": {
+              "location": "json",
+              "type": "string"
+            },
+            "name": {
+              "location": "json",
+              "type": "string"
+            },
+            "state": {
+              "location": "json",
+              "type": "string"
+            },
+            "updated_at": {
+              "location": "json",
+              "type": "integer"
+            },
+            "created_at": {
+              "location": "json",
+              "type": "integer"
+            },
+            "completed_at": {
+              "location": "json",
+              "type": "integer"
+            },
+            "links": {
+              "location": "json",
+              "type": "object"
+            }
+          }
+        },
         "UserModel": {
             "type": "object",
             "properties": {

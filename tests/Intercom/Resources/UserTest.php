@@ -4,6 +4,30 @@ namespace Intercom;
 
 class UserTest extends IntercomTestCase
 {
+    public function testBulk()
+    {
+      $this->setMockResponse($this->client, 'User/UserJob.txt');
+      $response = $this->client->bulkUsers(
+      [
+        'items' => [
+          [
+            'data_type' => 'user',
+            'method' => 'post', // can be 'delete'
+            'data' => [
+              'email' => 'pi@example.org',
+              'name' => 'Pi'
+            ]
+          ]
+        ]
+      ]);
+
+      $this->assertRequest('POST', '/bulk/users');
+      $this->assertRequestJson(['items' => [['data_type' => 'user', 'method' => 'post', 'data' =>['email' => 'pi@example.org', 'name' => 'Pi']]]]);
+
+      $this->assertInstanceOf('\Guzzle\Service\Resource\Model', $response);
+      $this->assertEquals('job_5ca1ab1eca11ab1e', $response['id']);
+    }
+
     public function testGetUserByID()
     {
         $this->setMockResponse($this->client, 'User/User.txt');
@@ -122,7 +146,7 @@ class UserTest extends IntercomTestCase
     {
       $this->setMockResponse($this->client, 'User/User.txt');
       $response = $this->client->updateUser(['user_id' => '1234', 'hi' => 'hello', 'new_session' => true]);
-      
+
       $this->assertRequest('POST', '/users');
       $this->assertRequestJson(['user_id' => '1234', 'new_session' => true]);
     }
