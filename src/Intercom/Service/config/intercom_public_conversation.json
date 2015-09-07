@@ -193,6 +193,11 @@
                     "location": "json",
                     "required": true,
                     "type": "string"
+                },
+                "attachment_urls": {
+                    "location": "json",
+                    "required": false,
+                    "type": "array"
                 }
             },
             "responseClass": "ConversationModel",
