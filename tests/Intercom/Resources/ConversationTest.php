@@ -104,6 +104,15 @@ class ConversationTest extends IntercomTestCase
         $this->assertRequestJson(['user_id' => '45', 'type' => 'user', 'body' => 'my reply', 'message_type' => 'comment']);
     }
 
+    public function testReplyToConversationWithAttachment()
+    {
+        $this->setMockResponse($this->client, 'Conversation/Conversation.txt');
+        $this->client->replyToConversation(['id' => '123456', 'user_id' => '45', 'type' => 'user', 'message_type' => 'comment', 'body' => 'my reply', 'attachment_urls' => ['http://www.example.com/attachment.png']]);
+
+        $this->assertRequest('POST', '/conversations/123456/reply');
+        $this->assertRequestJson(['user_id' => '45', 'type' => 'user', 'body' => 'my reply', 'message_type' => 'comment', 'attachment_urls' => ['http://www.example.com/attachment.png']]);
+    }
+
     public function testReplyToConversationAsAdmin() {
         $this->setMockResponse($this->client, 'Conversation/Conversation.txt');
         $this->client->replyToConversation(['id' => '123456', 'admin_id' => '6', 'type' => 'admin', 'message_type' => 'comment', 'body' => 'my reply']);
