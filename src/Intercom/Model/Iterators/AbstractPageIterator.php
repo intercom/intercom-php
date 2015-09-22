@@ -29,7 +29,7 @@ abstract class AbstractPageIterator extends ResourceIterator
         $result = $this->command->execute();
 
         // Parse the next token
-        $this->nextToken = (isset($result['next_page'])) ? $result['next_page'] : false;
+        $this->nextToken = (isset($result['pages']['next'])) ? $result['pages']['page'] + 1 : false;
 
         // Set the total results
         $this->totalResults = $result['total_count'];
