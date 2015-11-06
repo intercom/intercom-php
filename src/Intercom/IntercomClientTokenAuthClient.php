@@ -31,7 +31,7 @@ class IntercomClientTokenAuthClient extends IntercomAbstractClient
 
         $client->setBasicAuth($config->get('client_uuid'), $config->get('client_key'));
 
-        $client->setUserAgent('intercom-php/1.3.1', true);
+        $client->setUserAgent('intercom-php/1.3.2', true);
 
         $client->setDefaultOption('query/app_id', $config->get('app_id'));
 

@@ -17,7 +17,7 @@ In your composer.json file:
 ```js
 {
     "require": {
-      "intercom/intercom-php": "1.3.1"
+      "intercom/intercom-php": "1.3.2"
     }
 }
 ```
@@ -555,4 +555,3 @@ $result = $intercom->bulkUsers(
   ]
 ]);
 ```
-
