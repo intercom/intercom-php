@@ -40,6 +40,25 @@
             },
             "summary": "Records an event",
             "uri": "/events"
+        },
+        "bulkEvents": {
+            "httpMethod": "POST",
+            "parameters": {
+                "items": {
+                    "location": "json",
+                    "required": true,
+                    "type": "array"
+                },
+                "job": {
+                  "location": "json",
+                  "required": false,
+                  "type": "object"
+                }
+            },
+            "responseClass": "JobModel",
+            "responseType": "model",
+            "summary": "Creates or updates events in bulk, asynchronously",
+            "uri": "/bulk/events"
         }
     }
 }

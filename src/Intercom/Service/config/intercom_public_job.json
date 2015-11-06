@@ -1,0 +1,93 @@
+{
+    "name": "Intercom API (Job)",
+    "description": "The Intercom API (Job)",
+    "operations": {
+        "getJob": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "JobModel",
+            "responseType": "model",
+            "summary": "Gets a job",
+            "uri": "/jobs/{id}"
+        },
+        "getJobErrors": {
+            "httpMethod": "GET",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "required": true,
+                    "type": "string"
+                }
+            },
+            "responseClass": "ErrorFeedModel",
+            "responseType": "model",
+            "summary": "Gets a job's error feed",
+            "uri": "/jobs/{id}/error"
+        }
+    },
+    "models": {
+      "JobModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "location": "json",
+            "type": "string"
+          },
+          "app_id": {
+            "location": "json",
+            "type": "string"
+          },
+          "name": {
+            "location": "json",
+            "type": "string"
+          },
+          "state": {
+            "location": "json",
+            "type": "string"
+          },
+          "updated_at": {
+            "location": "json",
+            "type": "integer"
+          },
+          "created_at": {
+            "location": "json",
+            "type": "integer"
+          },
+          "completed_at": {
+            "location": "json",
+            "type": "integer"
+          },
+          "links": {
+            "location": "json",
+            "type": "object"
+          }
+        }
+      },
+      "ErrorFeedModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "location": "json",
+            "type": "string"
+          },
+          "items": {
+            "location": "json",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "pages": {
+            "location": "json",
+            "type": "object"
+          }
+        }
+      }
+    }
+}

@@ -14,6 +14,7 @@
         "intercom_public_admin.json",
         "intercom_public_user.json",
         "intercom_public_contact.json",
+        "intercom_public_job.json",
         "intercom_public_abstract_operations.json"
     ]
 }
