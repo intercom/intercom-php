@@ -4,6 +4,29 @@ namespace Intercom;
 
 class EventTest extends IntercomTestCase
 {
+    public function testBulk()
+    {
+      $this->setMockResponse($this->client, 'Event/EventJob.txt');
+      $response = $this->client->bulkEvents(
+      [
+        'items' => [
+          [
+            'data_type' => 'event',
+            'method' => 'post',
+            'data' => [
+              'created_at' => 1401970113,
+              'event_name' => 'invited-friend'
+            ]
+          ]
+        ]
+      ]);
+
+      $this->assertRequest('POST', '/bulk/events');
+      $this->assertRequestJson(['items' => [['data_type' => 'event', 'method' => 'post', 'data' =>['created_at' => 1401970113, 'event_name' => 'invited-friend']]]]);
+
+      $this->assertInstanceOf('\Guzzle\Service\Resource\Model', $response);
+      $this->assertEquals('job_5ca1ab1eca11ab1e', $response['id']);
+    }
     public function testCreateEvent()
     {
         $this->setMockResponse($this->client, 'Event/Event.txt');
