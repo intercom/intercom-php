@@ -554,4 +554,27 @@ $result = $intercom->bulkUsers(
     ...
   ]
 ]);
+
+// Create or update a batch of events
+$result = $intercom->bulkEvents(
+[
+  'items' => [
+    [
+      'data_type' => 'event',
+      'method' => 'post',
+      'data' => [
+        "event_name": "invited-friend",
+        "created_at": 1438944979,
+        "user_id": "314159"
+      ]
+    ],
+    ...
+  ]
+]);
+
+//Get bulk job info
+$result = $intercom->getJob(['id' => 'job_5ca1ab1eca11ab1e'])
+
+//Get bulk job errors
+$result = $intercom->getJobErrors(['id' => 'job_5ca1ab1eca11ab1e'])
 ```
