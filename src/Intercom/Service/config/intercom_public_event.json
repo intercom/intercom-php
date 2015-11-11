@@ -104,6 +104,10 @@
                     "location": "json",
                     "type": "string"
                 },
+                "id": {
+                    "location": "json",
+                    "type": "string"
+                },
                 "created_at": {
                     "location": "json",
                     "type": "integer"
@@ -116,17 +120,9 @@
                     "location": "json",
                     "type": "string"
                 },
-                "id": {
-                    "location": "json",
-                    "type": "string"
-                },
                 "intercom_user_id": {
                     "location": "json",
                     "type": "string",
-                },
-                "name": {
-                    "location": "json",
-                    "type": "string"
                 },
             }
         },
