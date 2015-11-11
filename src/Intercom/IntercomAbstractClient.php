@@ -101,7 +101,8 @@ abstract class IntercomAbstractClient extends Client
                 'Content-Type' => self::DEFAULT_CONTENT_TYPE,
                 'Accept' => self::DEFAULT_ACCEPT_HEADER,
                 'User-Agent' => self::USER_AGENT
-            ]
+            ],
+            'debug' => true,
         ];
     }
 
