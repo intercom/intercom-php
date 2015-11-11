@@ -65,27 +65,27 @@
             "httpMethod": "GET",
             "parameters": {
                 "type": {
-                    "location": "uri",
+                    "location": "query",
                     "required": true,
                     "type": "string"
                 },
                 "email": {
-                    "location": "uri",
+                    "location": "query",
                     "required": false,
                     "type": "string"
                 },
                 "user_id": {
-                    "location": "uri",
+                    "location": "query",
                     "required": false,
-                    "type": "string"
+                    "type": "integer"
                 },
                 "per_page": {
-                    "location": "uri",
+                    "location": "query",
                     "required": false,
                     "type": "integer"
                 },
                 "intercom_user_id": {
-                    "location": "uri",
+                    "location": "query",
                     "required": false,
                     "type": "string"
                 }
@@ -94,6 +94,68 @@
             "uri": "/events",
             "responseClass": "EventListModel",
             "responseType": "model"
+        }
+    },
+    "models": {
+        "EventModel": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "created_at": {
+                    "location": "json",
+                    "type": "integer"
+                },
+                "event_name": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "user_id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "id": {
+                    "location": "json",
+                    "type": "string"
+                },
+                "intercom_user_id": {
+                    "location": "json",
+                    "type": "string",
+                },
+                "name": {
+                    "location": "json",
+                    "type": "string"
+                },
+            }
+        },
+        "EventListModel": {
+            "type": "object",
+            "properties": {
+                "events": {
+                    "location": "json",
+                    "type": "array",
+                    "items": {
+                        "$ref": "EventModel"
+                    }
+                },
+                "x_rate_limit": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Limit",
+                    "type": "integer"
+                },
+                "x_rate_remaining": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Remaining",
+                    "type": "integer"
+                },
+                "x_rate_reset": {
+                    "location": "header",
+                    "sentAs": "X-RateLimit-Reset",
+                    "type": "integer"
+                }
+            }
         }
     }
 }
