@@ -60,7 +60,7 @@
             "summary": "Creates or updates events in bulk, asynchronously",
             "uri": "/bulk/events"
         },
-        "listUserEvents": {
+        "getUserEvents": {
             "extends": "_abstract_pagination_page",
             "httpMethod": "GET",
             "parameters": {
