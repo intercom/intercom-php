@@ -59,6 +59,42 @@
             "responseType": "model",
             "summary": "Creates or updates events in bulk, asynchronously",
             "uri": "/bulk/events"
+        },
+        "listUserEvents": {
+            "extends": "_abstract_pagination_page",
+            "httpMethod": "GET",
+            "parameters": {
+                "type": {
+                    "location": "uri",
+                    "required": true,
+                    "default": "user",
+                    "type": "string"
+                },
+                "email": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "string"
+                },
+                "user_id": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "integer"
+                },
+                "per_page": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "integer"
+                },
+                "intercom_user_id": {
+                    "location": "uri",
+                    "required": false,
+                    "type": "integer"
+                }
+            },
+            "summary": "Retrieves a listing of a user's events.",
+            "uri": "/events",
+            "responseClass": "EventListModel",
+            "responseType": "model"
         }
     }
 }
