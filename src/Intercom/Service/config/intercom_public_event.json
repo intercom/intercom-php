@@ -88,7 +88,7 @@
                 "intercom_user_id": {
                     "location": "uri",
                     "required": false,
-                    "type": "integer"
+                    "type": "string"
                 }
             },
             "summary": "Retrieves a listing of a user's events.",
