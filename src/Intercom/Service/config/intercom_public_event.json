@@ -67,7 +67,6 @@
                 "type": {
                     "location": "uri",
                     "required": true,
-                    "default": "user",
                     "type": "string"
                 },
                 "email": {
