@@ -77,7 +77,7 @@
                 "user_id": {
                     "location": "uri",
                     "required": false,
-                    "type": "integer"
+                    "type": "string"
                 },
                 "per_page": {
                     "location": "uri",
