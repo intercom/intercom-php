@@ -536,7 +536,6 @@ foreach ($iterator as $contact) {
 
 #### Bulk API
 
-The [Bulk APIs](https://doc.intercom.io/api/#bulk-apis) are themselves in Beta:
 
 ```php
 // Create or update a batch of users
