@@ -39,6 +39,11 @@
                     "location": "query",
                     "required": false,
                     "type": "string"
+                },
+                "order": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
                 }
             },
             "responseClass": "UserListModel",
