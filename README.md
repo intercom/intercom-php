@@ -117,6 +117,14 @@ try {
 } catch (ClientErrorResponseException $e) {
     // Handle the error
 }
+
+//Delete a user by email
+$intercom->deleteUser(array("email" => "bob@example.com"));
+//Delete a user by user_id
+$intercom->deleteUser(array("user_id" => "123456"));
+//Delete a user by id
+$intercom->deleteUser(array("id" => "1"));
+
 ?>
 ```
 
