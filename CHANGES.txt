@@ -1,5 +1,9 @@
 Changes
 =========
+1.5.0
+
+- Adds `created_since` when listing users
+
 1.4.0
 
 - Adds `order` when listing users
