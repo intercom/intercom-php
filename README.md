@@ -79,6 +79,8 @@ Resources this API supports:
 <?php
 // Get a list of users
 $intercom->getUsers();
+// Get a list of users created in the past 3 days
+$intercom->getUsers(array("created_since" => "3"));
 // Find user by email
 $intercom->getUser(array("email" => "bob@example.com"));
 // Find user by user_id

@@ -44,6 +44,11 @@
                     "location": "query",
                     "required": false,
                     "type": "string"
+                },
+                "created_since": {
+                    "location": "query",
+                    "required": false,
+                    "type": "string"
                 }
             },
             "responseClass": "UserListModel",
