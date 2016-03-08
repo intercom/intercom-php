@@ -142,6 +142,14 @@ class UserTest extends IntercomTestCase
         $this->assertRequest('GET', '/users?segment_id=20');
     }
 
+    public function testGetUsersByCreatedSince()
+    {
+        $this->setMockResponse($this->client, 'User/UserList.txt');
+        $this->client->getUsers(['created_since' => '1', 'hello'=>'hi']);
+
+        $this->assertRequest('GET', '/users?created_since=1');
+    }
+
     public function testUpdateUserNoID()
     {
       $this->setMockResponse($this->client, 'User/User.txt');
