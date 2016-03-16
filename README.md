@@ -549,8 +549,7 @@ foreach ($iterator as $contact) {
 
 ```php
 // Create or update a batch of users
-$result = $intercom->bulkUsers(
-[
+$result = $intercom->bulkUsers([
   'items' => [
     [
       'data_type' => 'user',
@@ -565,16 +564,15 @@ $result = $intercom->bulkUsers(
 ]);
 
 // Create or update a batch of events
-$result = $intercom->bulkEvents(
-[
+$result = $intercom->bulkEvents([
   'items' => [
     [
       'data_type' => 'event',
       'method' => 'post',
       'data' => [
-        "event_name": "invited-friend",
-        "created_at": 1438944979,
-        "user_id": "314159"
+        'event_name' => 'invited-friend',
+        'created_at' => 1438944979,
+        'user_id' => '314159'
       ]
     ],
     ...
