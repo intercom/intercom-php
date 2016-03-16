@@ -439,7 +439,7 @@ $intercom->createMessage(array(
 	)
 ));
 
-// Message from a contact
+// Message from a lead
 $intercom->createMessage(array(
   "body" => "help",
   "from" => array(
@@ -448,7 +448,7 @@ $intercom->createMessage(array(
   )
 ));
 
-// Message from an admin to a contact
+// Message from an admin to a lead
 $intercom->createMessage(array(
   "message_type" => "inapp",
   "body" => "how can I help",
@@ -509,35 +509,35 @@ The metadata key values in the example are treated as follows-
 - order_number: a Rich Link (value contains 'url' and 'value' keys)
 - price: An Amount in US Dollars (value contains 'amount' and 'currency' keys)
 
-#### Contacts
+#### Leads
 
-`Contacts` represent logged out users of your application.
+Leads (aka `Contacts`) represent logged out users of your application.
 
 ```php
-//Create a new contact
-$response = $intercom->createContact(['email' => 'some_contact@example.com']);
+//Create a new lead
+$response = $intercom->createContact(['email' => 'some_lead@example.com']);
 
-//Update a contact
+//Update a lead
 $updated = $intercom->updateContact([
   'id' => $response['id'],
   'custom_attributes' => ['foo' => 'bar']
 ]);
 
-//Delete a contact
+//Delete a lead
 $deleted = $intercom->deleteContact([
   "id" => "530370b477ad7120001d"
 ]);
 
-//Get all contacts by email
+//Get all leads by email
 $search = $intercom->getContacts(['email' => 'some_contact@example.com']);
 
-//Convert a contact into a user
+//Convert a lead into a user
 $response = $intercom->convertContact([
   "contact" => array("user_id" => 1),
   "user" => array("user_id" => 2)
 ])
 
-//Iterate through Contacts with pagination:
+//Iterate through leads with pagination:
 $iterator = $intercom->getIterator("getContacts");
 foreach ($iterator as $contact) {
   print_r($contact);
