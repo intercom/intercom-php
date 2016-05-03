@@ -1,3 +1,15 @@
+## Installation
+
+Using Composer:
+
+```json
+{
+    "require": {
+      "intercom/intercom-php": "2.0.0"
+    }
+}
+```
+
 ## Clients
 
 ```php
