@@ -1,3 +1,23 @@
+
+[![Code
+Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed)
+
+[![Build
+Status](https://travis-ci.org/intercom/intercom-php.svg?branch=master)](https://travis-ci.org/intercom/intercom-php)
+
+## Installation
+
+Using Composer:
+
+```json
+{
+    "require": {
+      "intercom/intercom-php": "2.0.0"
+    }
+}
+```
+
+
 ## Clients
 
 ```php
