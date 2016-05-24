@@ -5,6 +5,7 @@ namespace Intercom;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use function GuzzleHttp\Psr7\stream_for;
+use Psr\Http\Message\ResponseInterface;
 
 class IntercomClient {
 
@@ -47,6 +48,11 @@ class IntercomClient {
   /** @var IntercomBulk $bulk */
   public $bulk;
 
+  /**
+   * IntercomClient constructor.
+   * @param string $usernamePart App ID.
+   * @param string $passwordPart Api Key.
+   */
   public function __construct($usernamePart, $passwordPart)
   {
     $this->setDefaultClient();
@@ -70,11 +76,21 @@ class IntercomClient {
     $this->http_client = new Client();
   }
 
+  /**
+   * Sets GuzzleHttp client.
+   * @param Client $client
+   */
   public function setClient($client)
   {
     $this->http_client = $client;
   }
 
+  /**
+   * Sends POST request to Intercom API.
+   * @param string $endpoint
+   * @param string $json
+   * @return mixed
+   */
   public function post($endpoint, $json)
   {
     $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", [
@@ -87,6 +103,12 @@ class IntercomClient {
     return $this->handleResponse($response);
   }
 
+  /**
+   * Sends DELETE request to Intercom API.
+   * @param string $endpoint
+   * @param string $json
+   * @return mixed
+   */
   public function delete($endpoint, $json)
   {
     $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", [
@@ -99,6 +121,11 @@ class IntercomClient {
     return $this->handleResponse($response);
   }
 
+  /**
+   * @param string $endpoint
+   * @param string $query
+   * @return mixed
+   */
   public function get($endpoint, $query)
   {
     $response = $this->http_client->request('GET', "https://api.intercom.io/$endpoint", [
@@ -111,6 +138,11 @@ class IntercomClient {
     return $this->handleResponse($response);
   }
 
+  /**
+   * Returns next page of the result.
+   * @param array $pages
+   * @return mixed
+   */
   public function nextPage($pages)
   {
     $response = $this->http_client->request('GET', $pages['next'], [
@@ -122,11 +154,19 @@ class IntercomClient {
     return $this->handleResponse($response);
   }
 
+  /**
+   * Returns authentication parameters.
+   * @return array
+   */
   public function getAuth()
   {
     return [$this->usernamePart, $this->passwordPart];
   }
 
+  /**
+   * @param Response $response
+   * @return mixed
+   */
   private function handleResponse(Response $response){
     $stream = stream_for($response->getBody());
     $data = json_decode($stream->getContents());
