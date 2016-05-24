@@ -11,14 +11,25 @@ Requires PHP 5.6.
 
 Using Composer:
 
-```json
-{
-    "require": {
-      "intercom/intercom-php": "2.0.0"
-    }
-}
+The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
+
+First, install Composer:
+
+```
+$ curl -sS https://getcomposer.org/installer | php
 ```
 
+Next, install the latest intercom-php:
+
+```
+$ php composer.phar require intercom/intercom-php
+```
+
+Finally, you can include the files in your PHP script:
+
+```php
+require "vendor/autoload.php";
+```
 
 ## Clients
 
@@ -33,12 +44,12 @@ $client = new IntercomClient(appId, apiKey);
 ```php
 // Create/update a user
 $client->users->create([
-  'email' => 'test@intercom.io'
+  "email" => "test@intercom.io"
 ]);
 
 // Add companies to a user
 $client->users->create([
-  'email' => 'test@intercom.io',
+  "email" => "test@intercom.io",
   "companies" => [
     [
       "id" => "3"
@@ -47,7 +58,7 @@ $client->users->create([
 ]);
 
 // Find user by email
-$client->users->getUsers(['email' => 'bob@intercom.io']);
+$client->users->getUsers(["email" => "bob@intercom.io"]);
 ```
 
 ## Leads
@@ -236,5 +247,5 @@ When listing, the Intercom API may return a pagination object:
 You can grab the next page of results using the client:
 
 ```php
-$client->nextPage(response['pages']);
+$client->nextPage($response["pages"]);
 ```
