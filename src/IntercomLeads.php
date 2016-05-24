@@ -21,6 +21,7 @@ class IntercomLeads {
    * @see https://developers.intercom.io/reference#create-lead
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function create($options)
   {
@@ -32,6 +33,7 @@ class IntercomLeads {
    * @see https://developers.intercom.io/reference#list-leads
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getLeads($options)
   {
@@ -44,6 +46,7 @@ class IntercomLeads {
    * @param string $id
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getLead($id, $options = [])
   {
@@ -57,6 +60,7 @@ class IntercomLeads {
    * @param string $id
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function deleteLead($id, $options = [])
   {
@@ -69,6 +73,7 @@ class IntercomLeads {
    * @see https://developers.intercom.io/reference#convert-a-lead
    * @param $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function convertLead($options)
   {

@@ -21,6 +21,7 @@ class IntercomCounts {
    * @see https://developers.intercom.io/reference#getting-counts
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getCounts($options = [])
   {

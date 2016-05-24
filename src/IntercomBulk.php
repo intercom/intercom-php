@@ -21,6 +21,7 @@ class IntercomBulk {
    * @see https://developers.intercom.io/reference#bulk-user-operations
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function users($options)
   {
@@ -32,6 +33,7 @@ class IntercomBulk {
    * @see https://developers.intercom.io/reference#bulk-event-operations
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function events($options)
   {

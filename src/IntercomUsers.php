@@ -21,6 +21,7 @@ class IntercomUsers {
    * @see https://developers.intercom.io/reference#create-or-update-user
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function create($options)
   {
@@ -32,6 +33,7 @@ class IntercomUsers {
    * @see https://developers.intercom.io/reference#list-users
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getUsers($options)
   {

@@ -21,6 +21,7 @@ class IntercomCompanies {
    * @see https://developers.intercom.io/reference#create-or-update-company
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function create($options)
   {
@@ -32,6 +33,7 @@ class IntercomCompanies {
    * @see https://developers.intercom.io/reference#list-companies
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getCompanies($options)
   {

@@ -21,6 +21,7 @@ class IntercomMessages {
    * @see https://developers.intercom.io/reference#conversations
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function create($options)
   {

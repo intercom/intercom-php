@@ -21,6 +21,7 @@ class IntercomConversations {
    * @see https://developers.intercom.io/reference#list-conversations
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getConversations($options)
   {
@@ -32,6 +33,7 @@ class IntercomConversations {
    * @see https://developers.intercom.io/reference#get-a-single-conversation
    * @param string $id
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getConversation($id) {
     $path = $this->conversationPath($id);
@@ -44,6 +46,7 @@ class IntercomConversations {
    * @param string $id
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function replyToConversation($id, $options) {
     $path = $this->conversationReplyPath($id);

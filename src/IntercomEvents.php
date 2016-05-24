@@ -21,6 +21,7 @@ class IntercomEvents {
    * @see https://developers.intercom.io/reference#submitting-events
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function create($options)
   {
@@ -32,6 +33,7 @@ class IntercomEvents {
    * @see https://developers.intercom.io/reference#list-user-events
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getEvents($options)
   {

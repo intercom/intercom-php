@@ -90,6 +90,7 @@ class IntercomClient {
    * @param string $endpoint
    * @param string $json
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function post($endpoint, $json)
   {
@@ -108,6 +109,7 @@ class IntercomClient {
    * @param string $endpoint
    * @param string $json
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function delete($endpoint, $json)
   {
@@ -125,6 +127,7 @@ class IntercomClient {
    * @param string $endpoint
    * @param string $query
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function get($endpoint, $query)
   {
@@ -142,6 +145,7 @@ class IntercomClient {
    * Returns next page of the result.
    * @param array $pages
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function nextPage($pages)
   {

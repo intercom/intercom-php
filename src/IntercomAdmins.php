@@ -21,6 +21,7 @@ class IntercomAdmins {
    * @see https://developers.intercom.io/reference#list-admins
    * @param array $options
    * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function getAdmins($options = [])
   {
