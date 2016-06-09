@@ -7,6 +7,8 @@ Status](https://travis-ci.org/intercom/intercom-php.svg?branch=master)](https://
 
 ## Installation
 
+Requires PHP 5.6.
+
 Using Composer:
 
 ```json
@@ -21,6 +23,8 @@ Using Composer:
 ## Clients
 
 ```php
+use Intercom\IntercomClient;
+
 $client = new IntercomClient(appId, apiKey);
 ```
 
