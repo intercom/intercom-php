@@ -78,6 +78,22 @@ $leads->convertLead([
 ]);
 ```
 
+## Tags
+
+```php
+// List tags
+$client->tags->getTags();
+
+// Tag users
+// See more options here: https://developers.intercom.io/reference#tag-or-untag-users-companies-leads-contacts
+$client->tags->tag([
+  "name" => "Test",
+  "users" => [
+    ["id" => "1234"]
+  ]
+]);
+```
+
 ## Events
 
 ```php
