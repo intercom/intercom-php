@@ -60,6 +60,7 @@ class IntercomClient {
     $this->tags = new IntercomTags($this);
     $this->counts = new IntercomCounts($this);
     $this->bulk = new IntercomBulk($this);
+    $this->notes = new IntercomNotes($this);
 
     $this->usernamePart = $usernamePart;
     $this->passwordPart = $passwordPart;
