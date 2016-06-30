@@ -1,6 +1,30 @@
+
+[![Code
+Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed)
+
+[![Build
+Status](https://travis-ci.org/intercom/intercom-php.svg?branch=master)](https://travis-ci.org/intercom/intercom-php)
+
+## Installation
+
+Requires PHP 5.6.
+
+Using Composer:
+
+```json
+{
+    "require": {
+      "intercom/intercom-php": "2.0.0"
+    }
+}
+```
+
+
 ## Clients
 
 ```php
+use Intercom\IntercomClient;
+
 $client = new IntercomClient(appId, apiKey);
 ```
 
@@ -50,6 +74,22 @@ $leads->convertLead([
   ],
   "user" => [
     "email" => "winstonsmith@truth.org"
+  ]
+]);
+```
+
+## Tags
+
+```php
+// List tags
+$client->tags->getTags();
+
+// Tag users
+// See more options here: https://developers.intercom.io/reference#tag-or-untag-users-companies-leads-contacts
+$client->tags->tag([
+  "name" => "Test",
+  "users" => [
+    ["id" => "1234"]
   ]
 ]);
 ```
