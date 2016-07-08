@@ -7,7 +7,7 @@ Status](https://travis-ci.org/intercom/intercom-php.svg?branch=master)](https://
 
 ## Installation
 
-Requires PHP 5.6.
+Requires PHP 5.4.
 
 Using Composer:
 
