@@ -11,7 +11,7 @@ For feature requests please contact us at team@intercom.io
 
 ## Actual behavior
 
-## Steps to reproduce
+## Steps to reproduce (as granular as possible, including screenshots where appropriate)
  1. 
  2. 
  3. 
