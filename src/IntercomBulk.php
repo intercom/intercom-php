@@ -5,6 +5,7 @@ namespace Intercom;
 use GuzzleHttp\Client;
 
 class IntercomBulk {
+  /** @var IntercomClient $client */
   private $client;
 
   public function __construct($client)
