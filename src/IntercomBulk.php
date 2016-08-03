@@ -21,4 +21,10 @@ class IntercomBulk {
   {
     return $this->client->post("bulk/events", $options);
   }
+  
+  public function jobInfo($jobId)
+  {
+    return $this->client->get("jobs/{$jobId}", (array("inline"=>"tasks")));
+  }
+  
 }
