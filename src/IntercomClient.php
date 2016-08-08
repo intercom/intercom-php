@@ -4,7 +4,7 @@ namespace Intercom;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use function GuzzleHttp\Psr7\stream_for;
+use GuzzleHttp\Psr7;
 
 class IntercomClient {
 
@@ -60,7 +60,6 @@ class IntercomClient {
     $this->tags = new IntercomTags($this);
     $this->counts = new IntercomCounts($this);
     $this->bulk = new IntercomBulk($this);
-    $this->notes = new IntercomNotes($this);
 
     $this->usernamePart = $usernamePart;
     $this->passwordPart = $passwordPart;
@@ -129,7 +128,7 @@ class IntercomClient {
   }
 
   private function handleResponse(Response $response){
-    $stream = stream_for($response->getBody());
+    $stream = Psr7\stream_for($response->getBody());
     $data = json_decode($stream->getContents());
     return $data;
   }
