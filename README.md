@@ -47,6 +47,9 @@ $client->users->create([
   "email" => "test@intercom.io"
 ]);
 
+// Delete a user by ID
+$client->users->deleteUser("570680a8a1bcbca8a90001b9");
+
 // Add companies to a user
 $client->users->create([
   "email" => "test@intercom.io",
