@@ -21,4 +21,15 @@ class IntercomUsers {
   {
     return $this->client->get("users", $options);
   }
+  
+  public function deleteUser($id, $options = [])
+  {
+    $path = $this->userPath($id);
+    return $this->client->delete($path, $options);
+  }
+  
+  public function userPath($id)
+  {
+    return "users/" . $id;
+  }
 }
