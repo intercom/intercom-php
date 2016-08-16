@@ -1,5 +1,5 @@
 {
-    "name": "intercom/intercom-php",
+    "name": "mashiox/intercom-php5",
     "description": "Intercom API client built on top of Guzzle 6",
     "keywords": ["intercom", "intercom.io", "api", "guzzle"],
     "license": "Apache Version 2",
