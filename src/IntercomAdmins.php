@@ -2,18 +2,10 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
-
-class IntercomAdmins {
-  private $client;
-
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
-
-  public function getAdmins($options = [])
-  {
-    return $this->client->get("admins", $options);
-  }
+class IntercomAdmins extends IntercomRequest
+{
+    public function getAdmins(array $options = [])
+    {
+        return $this->client->get("admins", $options);
+    }
 }

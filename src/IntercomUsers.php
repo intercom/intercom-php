@@ -2,34 +2,27 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
+class IntercomUsers extends IntercomRequest
+{
+    public function create(array $options)
+    {
+        return $this->client->post("users", $options);
+    }
 
-class IntercomUsers {
-  private $client;
+    public function getUsers(array $options)
+    {
+        return $this->client->get("users", $options);
+    }
 
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
+    public function deleteUser($id, array $options = [])
+    {
+        $path = $this->userPath($id);
 
-  public function create($options)
-  {
-    return $this->client->post("users", $options);
-  }
+        return $this->client->delete($path, $options);
+    }
 
-  public function getUsers($options)
-  {
-    return $this->client->get("users", $options);
-  }
-  
-  public function deleteUser($id, $options = [])
-  {
-    $path = $this->userPath($id);
-    return $this->client->delete($path, $options);
-  }
-  
-  public function userPath($id)
-  {
-    return "users/" . $id;
-  }
+    public function userPath($id)
+    {
+        return "users/" . $id;
+    }
 }

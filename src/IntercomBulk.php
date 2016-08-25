@@ -2,23 +2,15 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
+class IntercomBulk extends IntercomRequest
+{
+    public function users(array $options)
+    {
+        return $this->client->post("bulk/users", $options);
+    }
 
-class IntercomBulk {
-  private $client;
-
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
-
-  public function users($options)
-  {
-    return $this->client->post("bulk/users", $options);
-  }
-
-  public function events($options)
-  {
-    return $this->client->post("bulk/events", $options);
-  }
+    public function events(array $options)
+    {
+        return $this->client->post("bulk/events", $options);
+    }
 }

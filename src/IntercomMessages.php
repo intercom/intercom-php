@@ -2,18 +2,10 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
-
-class IntercomMessages {
-  private $client;
-
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
-
-  public function create($options)
-  {
-    return $this->client->post("messages", $options);
-  }
+class IntercomMessages extends IntercomRequest
+{
+    public function create(array $options)
+    {
+        return $this->client->post("messages", $options);
+    }
 }

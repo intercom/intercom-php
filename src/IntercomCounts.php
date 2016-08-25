@@ -2,18 +2,10 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
-
-class IntercomCounts {
-  private $client;
-
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
-
-  public function getCounts($options = [])
-  {
-    return $this->client->get("counts", $options);
-  }
+class IntercomCounts extends IntercomRequest
+{
+    public function getCounts(array $options = [])
+    {
+        return $this->client->get("counts", $options);
+    }
 }

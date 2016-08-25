@@ -1,29 +1,22 @@
 <?php
 
 use Intercom\IntercomUsers;
-use Intercom\IntercomClient;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 
-class IntercomUsersTest extends PHPUnit_Framework_TestCase {
-  public function testUserCreate()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('post')->willReturn('foo');
+class IntercomUsersTest extends AbstractRequestBase
+{
+    public function testUserCreate()
+    {
+        $this->stub->method('post')->willReturn('foo');
 
-    $events = new IntercomUsers($stub);
-    $this->assertEquals('foo', $events->create([]));
-  }
+        $events = new IntercomUsers($this->stub);
+        $this->assertEquals('foo', $events->create([]));
+    }
 
-  public function testUserGet()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('get')->willReturn('foo');
+    public function testUserGet()
+    {
+        $this->stub->method('get')->willReturn('foo');
 
-    $events = new IntercomUsers($stub);
-    $this->assertEquals('foo', $events->getUsers([]));
-  }
+        $events = new IntercomUsers($this->stub);
+        $this->assertEquals('foo', $events->getUsers([]));
+    }
 }

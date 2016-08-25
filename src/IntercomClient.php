@@ -6,8 +6,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use function GuzzleHttp\Psr7\stream_for;
 
-class IntercomClient {
-
+class IntercomClient
+{
   /** @var Client $http_client */
   private $http_client;
 
