@@ -39,6 +39,14 @@ use Intercom\IntercomClient;
 $client = new IntercomClient(appId, apiKey);
 ```
 
+Or if using an OAuth or Personal Access Token use:
+
+``php
+use Intercom\IntercomClient;
+
+$client = new IntercomClient(<insert_token_here>, null);
+```
+
 ## Users
 
 ```php
