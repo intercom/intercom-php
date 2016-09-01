@@ -110,7 +110,7 @@ class IntercomClient
         ]);
         return $this->handleResponse($response);
     }
-    
+
     /**
      * Sends PUT request to Intercom API.
      * @param string $endpoint
