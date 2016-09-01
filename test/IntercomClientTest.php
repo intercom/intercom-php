@@ -50,9 +50,10 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     $client = new IntercomClient('u', 'p');
     $client->setClient($http_client);
 
-    $client->nextPage([
-      'next' => 'https://foo.com'
-    ]);
+    $pages = new stdClass;
+    $pages->next = 'https://foo.com';
+
+    $client->nextPage($pages);
 
     foreach ($container as $transaction) {
       $host = $transaction['request']->getUri()->getHost();
