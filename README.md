@@ -68,8 +68,11 @@ $client->users->create([
   ]
 ]);
 
-// Find user by email
+// Find a single user by email 
 $client->users->getUsers(["email" => "bob@intercom.io"]);
+
+// List all users 
+$client->users->getUsers([]);
 ```
 
 ## Leads
