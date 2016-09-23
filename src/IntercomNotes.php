@@ -2,28 +2,20 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
+class IntercomNotes extends IntercomRequest
+{
+    public function create(array $options)
+    {
+        return $this->client->post("notes", $options);
+    }
 
-class IntercomNotes {
-  private $client;
+    public function getNotes(array $options)
+    {
+        return $this->client->get("notes", $options);
+    }
 
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
-
-  public function create($options)
-  {
-    return $this->client->post("notes", $options);
-  }
-
-  public function getNotes($options)
-  {
-    return $this->client->get("notes", $options);
-  }
-
-  public function getNote($id)
-  {
-    return $this->client->get("notes/" . $id, []);
-  }
+    public function getNote($id)
+    {
+        return $this->client->get("notes/" . $id, []);
+    }
 }

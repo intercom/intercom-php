@@ -2,38 +2,34 @@
 
 namespace Intercom;
 
-use GuzzleHttp\Client;
+class IntercomConversations extends IntercomRequest
+{
+    public function getConversations(array $options)
+    {
+        return $this->client->get("conversations", $options);
+    }
 
-class IntercomConversations {
-  private $client;
+    public function getConversation($id)
+    {
+        $path = $this->conversationPath($id);
 
-  public function __construct($client)
-  {
-    $this->client = $client;
-  }
+        return $this->client->get($path, []);
+    }
 
-  public function getConversations($options)
-  {
-    return $this->client->get("conversations", $options);
-  }
+    public function replyToConversation($id, array $options)
+    {
+        $path = $this->conversationReplyPath($id);
 
-  public function getConversation($id) {
-    $path = $this->conversationPath($id);
-    return $this->client->get($path, []);
-  }
+        return $this->client->post($path, $options);
+    }
 
-  public function replyToConversation($id, $options) {
-    $path = $this->conversationReplyPath($id);
-    return $this->client->post($path, $options);
-  }
+    public function conversationPath($id)
+    {
+        return "conversations/" . $id;
+    }
 
-  public function conversationPath($id)
-  {
-    return "conversations/" . $id;
-  }
-
-  public function conversationReplyPath($id)
-  {
-    return "conversations/" . $id . "/reply";
-  }
+    public function conversationReplyPath($id)
+    {
+        return "conversations/" . $id . "/reply";
+    }
 }
