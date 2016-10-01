@@ -264,7 +264,7 @@ When listing, the Intercom API may return a pagination object:
 You can grab the next page of results using the client:
 
 ```php
-$client->nextPage($response["pages"]);
+$client->nextPage($response->pages);
 ```
 
 
