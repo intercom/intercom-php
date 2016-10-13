@@ -122,6 +122,18 @@ $client->tags->tag([
 ]);
 ```
 
+## Segments
+
+```php
+// List segments
+$client->getSegments();
+
+// View a segment
+$client->getSegment(array(
+  "id" => "1234"
+));
+```
+
 ## Events
 
 ```php
