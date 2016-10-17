@@ -126,7 +126,7 @@ $client->tags->tag([
 
 ```php
 // List Segments
-$client->tags->getSegments();
+$client->segments->getSegments();
 ```
 
 
