@@ -122,6 +122,14 @@ $client->tags->tag([
 ]);
 ```
 
+## Segments
+
+```php
+// List Segments
+$client->tags->getSegments();
+```
+
+
 ## Events
 
 ```php
