@@ -29,6 +29,17 @@ class IntercomCompanies {
   }
 
   /**
+   * Updates a Company.
+   * @see https://developers.intercom.io/reference#create-or-update-company
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function update($options) {
+    return $this->create($options);
+  }
+
+  /**
    * Returns list of Companies.
    * @see https://developers.intercom.io/reference#list-companies
    * @param array $options
