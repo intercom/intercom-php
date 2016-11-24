@@ -181,7 +181,7 @@ class IntercomClient
     private function handleResponse(Response $response)
     {
         $stream = stream_for($response->getBody());
-        $data = json_decode($stream->getContents());
+        $data = json_decode($stream);
         return $data;
     }
 }
