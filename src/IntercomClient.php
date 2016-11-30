@@ -110,6 +110,25 @@ class IntercomClient
         ]);
         return $this->handleResponse($response);
     }
+    
+    /**
+     * Sends PUT request to Intercom API.
+     * @param string $endpoint
+     * @param string $json
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function put($endpoint, $json)
+    {
+        $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", [
+            'json' => $json,
+            'auth' => $this->getAuth(),
+            'headers' => [
+                'Accept' => 'application/json'
+            ]
+        ]);
+        return $this->handleResponse($response);
+    }
 
     /**
      * Sends DELETE request to Intercom API.
