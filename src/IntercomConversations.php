@@ -95,6 +95,6 @@ class IntercomConversations {
    */
   public function conversationReplyPath($id)
   {
-    return 'conversations/'. $id . '/reply';
+    return 'conversations/' . $id . '/reply';
   }
 }
