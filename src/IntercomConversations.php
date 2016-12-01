@@ -15,6 +15,19 @@ class IntercomConversations {
   {
     $this->client = $client;
   }
+  
+  /**
+   * Create a new admin or user-initiated Conversation message.
+   * @see https://developers.intercom.io/reference#admin-initiated-conversation
+   * @see https://developers.intercom.com/reference#user-or-contact-initiated-conversation
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function createMessage($options)
+  {
+    return $this->client->post('messages', $options);
+  }
 
   /**
    * Returns list of Conversations.
