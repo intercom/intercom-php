@@ -53,7 +53,8 @@ $client = new IntercomClient(<insert_token_here>, null);
 ```php
 // Create/update a user
 $client->users->create([
-  "email" => "test@intercom.io"
+  "email" => "test@intercom.io",
+  "custom_attributes" => ['foo' => 'bar']
 ]);
 
 // Delete a user by ID
@@ -72,10 +73,10 @@ $client->users->create([
   ]
 ]);
 
-// Find a single user by email 
+// Find a single user by email
 $client->users->getUsers(["email" => "bob@intercom.io"]);
 
-// List all users 
+// List all users
 $client->users->getUsers([]);
 ```
 
@@ -84,7 +85,10 @@ $client->users->getUsers([]);
 ```php
 // Create/update a lead
 // See more options here: https://developers.intercom.io/reference#create-lead
-$client->leads->create([]);
+$client->leads->create([
+  "email" => "test@intercom.io",
+  "custom_attributes" => ['foo' => 'bar']
+]);
 
 // List leads
 // See more options here: https://developers.intercom.io/reference#list-leads
