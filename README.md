@@ -209,6 +209,19 @@ $client->conversations->replyToConversation("5678", [
   "type" => "user",
   "message_type" => "comment"
 ]);
+
+//Reply to a user's last conversation
+// See more options here: https://developers.intercom.com/reference#replying-to-users-last-conversation
+$client->conversations->replyToLastConversation([
+  "email" => "test@intercom.io",
+  "body" => "Thanks :)",
+  "type" => "user",
+  "message_type" => "comment"
+]);
+
+// Mark a conversation as read
+// See API documentation here: https://developers.intercom.io/reference#marking-a-conversation-as-read
+$client->conversations->markConversationAsRead("7890");
 ```
 
 ## Counts

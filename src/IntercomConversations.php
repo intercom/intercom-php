@@ -25,7 +25,7 @@ class IntercomConversations {
    */
   public function getConversations($options)
   {
-    return $this->client->get("conversations", $options);
+    return $this->client->get('conversations', $options);
   }
 
   /**
@@ -52,7 +52,32 @@ class IntercomConversations {
     $path = $this->conversationReplyPath($id);
     return $this->client->post($path, $options);
   }
-
+  
+   /**
+   * Creates Conversation Reply to last conversation. (no need to specify Conversation ID.)
+   * @see https://developers.intercom.io/reference#replying-to-users-last-conversation
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function replyToLastConversation($options) {
+    $path = 'conversations/last/reply';
+    return $this->client->post($path, $options);
+  }
+  
+   /**
+   * Marks a Conversation as read based on the given Conversation ID.
+   * @see https://developers.intercom.io/reference#marking-a-conversation-as-read
+   * @param string $id
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function markConversationAsRead($id) {
+    $path = $this->conversationPath($id); 
+    $data = ['read' => true];
+    return $this->client->put($path, $data);
+  }
+  
   /**
    * Returns endpoint path to Conversation with given ID.
    * @param string $id
@@ -60,7 +85,7 @@ class IntercomConversations {
    */
   public function conversationPath($id)
   {
-    return "conversations/" . $id;
+    return 'conversations/' . $id;
   }
 
   /**
@@ -70,6 +95,6 @@ class IntercomConversations {
    */
   public function conversationReplyPath($id)
   {
-    return "conversations/" . $id . "/reply";
+    return 'conversations/' . $id . '/reply';
   }
 }
