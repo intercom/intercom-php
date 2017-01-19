@@ -68,7 +68,18 @@ $client->users->create([
   "email" => "test@intercom.io",
   "companies" => [
     [
-      "id" => "3"
+      "company_id" => "3"
+    ]
+  ]
+]);
+
+// Remove companies from a user
+$client->users->create([
+  "email" => "test@intercom.io",
+  "companies" => [
+    [
+      "company_id" => "3",
+      "remove" => true
     ]
   ]
 ]);
@@ -154,7 +165,7 @@ $client->events->getEvents(["email" => "bob@intercom.io"]);
 ```php
 // Create a company
 $client->companies->create([
-  "name" => "foocorp", "id" => "3"
+  "name" => "foocorp", "company_id" => "3"
 ]);
 
 // List Companies
