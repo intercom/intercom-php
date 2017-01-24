@@ -32,21 +32,16 @@ require "vendor/autoload.php";
 ```
 
 ## Clients
-
-```php
-use Intercom\IntercomClient;
-
-$client = new IntercomClient(appId, apiKey);
-```
-> Warning: API Keys are being deprecated - you should use a [personal access token](https://app.intercom.io/a/apps/_/settings/personal-access-token) instead. [Learn more](https://developers.intercom.io/docs/personal-access-tokens) about API Keys deprecation
-
-Or if using an OAuth or Personal Access Token use:
+For OAuth or Access Tokens use:
 
 ```php
 use Intercom\IntercomClient;
 
 $client = new IntercomClient(<insert_token_here>, null);
 ```
+> If you already have an access token you can find it [here](https://app.intercom.com/developers/_). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.io/docs/personal-access-tokens).
+
+If you are building a third party application you can get your OAuth token by [setting-up-oauth](https://developers.intercom.io/page/setting-up-oauth) for Intercom.
 
 ## Users
 
