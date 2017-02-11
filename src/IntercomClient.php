@@ -3,6 +3,7 @@
 namespace Intercom;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
 use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Message\ResponseInterface;
@@ -101,7 +102,7 @@ class IntercomClient
      */
     public function post($endpoint, $json)
     {
-        $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", [
+        $response = $this->request('POST', "https://api.intercom.io/$endpoint", [
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
@@ -110,7 +111,7 @@ class IntercomClient
         ]);
         return $this->handleResponse($response);
     }
-    
+
     /**
      * Sends PUT request to Intercom API.
      * @param string $endpoint
@@ -120,7 +121,7 @@ class IntercomClient
      */
     public function put($endpoint, $json)
     {
-        $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", [
+        $response = $this->request('PUT', "https://api.intercom.io/$endpoint", [
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
@@ -139,7 +140,7 @@ class IntercomClient
      */
     public function delete($endpoint, $json)
     {
-        $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", [
+        $response = $this->request('DELETE', "https://api.intercom.io/$endpoint", [
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
@@ -157,7 +158,7 @@ class IntercomClient
      */
     public function get($endpoint, $query)
     {
-        $response = $this->http_client->request('GET', "https://api.intercom.io/$endpoint", [
+        $response = $this->request('GET', "https://api.intercom.io/$endpoint", [
             'query' => $query,
             'auth' => $this->getAuth(),
             'headers' => [
@@ -175,7 +176,7 @@ class IntercomClient
      */
     public function nextPage($pages)
     {
-        $response = $this->http_client->request('GET', $pages['next'], [
+        $response = $this->request('GET', $pages['next'], [
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
@@ -199,8 +200,28 @@ class IntercomClient
      */
     private function handleResponse(Response $response)
     {
-        $stream = stream_for($response->getBody());
-        $data = json_decode($stream);
-        return $data;
+      $stream = stream_for($response->getBody());
+      $data = json_decode($stream);
+      return $data;
+    }
+
+    /**
+     * @param string $method
+     * @param string $url
+     * @param array $options
+     * @return Response $response
+     */
+    private function request($method, $url, $options) {
+      try {
+        return $this->http_client->request($method, $url, $options);
+      } catch(ClientException $e) {
+        $response = $e->getResponse();
+        $statusCode = $response->getStatusCode();
+        if ($statusCode == '404') {
+          return $response;
+        } else {
+          throw $e;
+        }
+      }
     }
 }
