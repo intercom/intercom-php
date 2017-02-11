@@ -12,6 +12,15 @@ class IntercomLeadsTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('foo', $leads->create([]));
   }
 
+  public function testLeadUpdate()
+  {
+    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+    $stub->method('post')->willReturn('foo');
+
+    $leads = new IntercomLeads($stub);
+    $this->assertEquals('foo', $leads->update([]));
+  }
+
   public function testLeadsList()
   {
     $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
