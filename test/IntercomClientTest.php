@@ -60,4 +60,25 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  public function test404Response()
+  {
+    $mock = new MockHandler([
+      new Response(404, ['X-Foo' => 'Bar'], "{\"type\":\"error.list\",\"request_id\":\"aq5mh23br4kkd5orbrt0\",\"errors\":[{\"code\":\"not_found\",\"message\":\"User Not Found\"}]}")
+    ]);
+
+    $container = [];
+    $history = Middleware::history($container);
+    $stack = HandlerStack::create($mock);
+    $stack->push($history);
+
+    $http_client = new Client(['handler' => $stack]);
+
+    $client = new IntercomClient('u', 'p');
+    $client->setClient($http_client);
+
+    $res = $client->users->getUser("570680a8a1bcbca8a90001b9");
+    $this->assertTrue($res->type == "error.list");
+
+  }
+
 }
