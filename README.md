@@ -51,8 +51,14 @@ $client = new IntercomClient(<insert_token_here>, null);
 ## Users
 
 ```php
-// Create/update a user
+// Create a user
 $client->users->create([
+  "email" => "test@intercom.io",
+  "custom_attributes" => ['foo' => 'bar']
+]);
+
+// Update a user (Note: This method is an alias to the create method. In practice you can use create to update users if you wish)
+$client->users->update([
   "email" => "test@intercom.io",
   "custom_attributes" => ['foo' => 'bar']
 ]);
@@ -83,9 +89,15 @@ $client->users->getUsers([]);
 ## Leads
 
 ```php
-// Create/update a lead
+// Create a lead
 // See more options here: https://developers.intercom.io/reference#create-lead
 $client->leads->create([
+  "email" => "test@intercom.io",
+  "custom_attributes" => ['foo' => 'bar']
+]);
+
+// Update a lead (Note: This method is an alias to the create method. In practice you can use create to update leads if you wish)
+$client->leads->update([
   "email" => "test@intercom.io",
   "custom_attributes" => ['foo' => 'bar']
 ]);

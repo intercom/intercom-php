@@ -29,6 +29,18 @@ class IntercomUsers {
   }
 
   /**
+   * Creates a User.
+   * @see https://developers.intercom.io/reference#create-or-update-user
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function update($options)
+  {
+    return $this->create($options);
+  }
+
+  /**
    * Lists Users.
    * @see https://developers.intercom.io/reference#list-users
    * @param array $options
@@ -53,14 +65,14 @@ class IntercomUsers {
     $path = $this->userPath($id);
     return $this->client->get($path, $options);
   }
-  
+
   /**
    * Gets a list of Users through the user scroll API.
    * @see https://developers.intercom.com/reference#iterating-over-all-users
    * @param array $options
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
-   */  
+   */
   public function scrollUsers($options = [])
   {
     return $this->client->get('users/scroll', $options);
