@@ -14,8 +14,17 @@ class IntercomUsersTest extends PHPUnit_Framework_TestCase {
     $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
     $stub->method('post')->willReturn('foo');
 
-    $events = new IntercomUsers($stub);
-    $this->assertEquals('foo', $events->create([]));
+    $users = new IntercomUsers($stub);
+    $this->assertEquals('foo', $users->create([]));
+  }
+
+  public function testUserUpdate()
+  {
+    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+    $stub->method('post')->willReturn('foo');
+
+    $users = new IntercomUsers($stub);
+    $this->assertEquals('foo', $users->update([]));
   }
 
   public function testUserGet()
@@ -23,7 +32,7 @@ class IntercomUsersTest extends PHPUnit_Framework_TestCase {
     $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
     $stub->method('get')->willReturn('foo');
 
-    $events = new IntercomUsers($stub);
-    $this->assertEquals('foo', $events->getUsers([]));
+    $users = new IntercomUsers($stub);
+    $this->assertEquals('foo', $users->getUsers([]));
   }
 }

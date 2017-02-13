@@ -29,6 +29,18 @@ class IntercomLeads {
   }
 
   /**
+   * Creates Lead.
+   * @see https://developers.intercom.io/reference#create-lead
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function update($options)
+  {
+    return $this->create($options);
+  }
+
+  /**
    * Lists Leads.
    * @see https://developers.intercom.io/reference#list-leads
    * @param array $options
