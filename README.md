@@ -300,6 +300,29 @@ $client->nextPage($response["pages"]);
 ```
 
 
+## Exceptions
+
+Exceptions are handled by [Guzzle](https://github.com/guzzle/guzzle).
+The Intercom API may return an unsuccessful HTTP response, for example when a resource is not found (404).
+If you want to catch errors you can wrap your API call into a try/catch:
+
+```php
+use GuzzleHttp\Exception\ClientException;
+
+try {
+  $user = $client->users->getUser("570680a8a1bcbca8a90001b9");
+} catch(ClientException $e) {
+  $response = $e->getResponse();
+  $statusCode = $response->getStatusCode();
+  if ($statusCode == '404') {
+    // Handle 404 error
+    return;
+  } else {
+    throw $e;
+  }
+}
+```
+
 ## Pull Requests
 
 - **Add tests!** Your patch won't be accepted if it doesn't have tests.
