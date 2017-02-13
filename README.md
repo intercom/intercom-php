@@ -163,6 +163,11 @@ $client->companies->create([
   "name" => "foocorp", "company_id" => "3"
 ]);
 
+// Update a company (Note: This method is an alias to the create method. In practice you can use create to update companies if you wish)
+$client->companies->update([
+  "name" => "foocorp", "id" => "3"
+]);
+
 // List Companies
 $client->companies->getCompanies([]);
 ```
