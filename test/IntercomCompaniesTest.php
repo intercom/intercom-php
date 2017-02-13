@@ -9,7 +9,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 
 class IntercomCompaniesTest extends PHPUnit_Framework_TestCase {
-  public function testUserCreate()
+  public function testCompanyCreate()
   {
     $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
     $stub->method('post')->willReturn('foo');
@@ -18,7 +18,16 @@ class IntercomCompaniesTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('foo', $companies->create([]));
   }
 
-  public function testUserGet()
+  public function testCompanyUpdate()
+  {
+    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+    $stub->method('post')->willReturn('foo');
+
+    $companies = new IntercomCompanies($stub);
+    $this->assertEquals('foo', $companies->update([]));
+  }
+
+  public function testCompanyGet()
   {
     $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
     $stub->method('get')->willReturn('foo');

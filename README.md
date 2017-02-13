@@ -71,10 +71,10 @@ $client->users->create([
   ]
 ]);
 
-// Find a single user by email 
+// Find a single user by email
 $client->users->getUsers(["email" => "bob@intercom.io"]);
 
-// List all users 
+// List all users
 $client->users->getUsers([]);
 ```
 
@@ -149,6 +149,11 @@ $client->events->getEvents(["email" => "bob@intercom.io"]);
 ```php
 // Create a company
 $client->companies->create([
+  "name" => "foocorp", "id" => "3"
+]);
+
+// Update a company (Note: This method is an alias to the create method. In practice you can use create to update companies if you wish)
+$client->companies->update([
   "name" => "foocorp", "id" => "3"
 ]);
 
