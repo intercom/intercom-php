@@ -110,7 +110,7 @@ class IntercomClient
         ]);
         return $this->handleResponse($response);
     }
-    
+
     /**
      * Sends PUT request to Intercom API.
      * @param string $endpoint
@@ -175,7 +175,7 @@ class IntercomClient
      */
     public function nextPage($pages)
     {
-        $response = $this->http_client->request('GET', $pages['next'], [
+        $response = $this->http_client->request('GET', $pages->next, [
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
