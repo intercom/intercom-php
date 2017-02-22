@@ -169,7 +169,7 @@ class IntercomClient
 
     /**
      * Returns next page of the result.
-     * @param array $pages
+     * @param \stdClass $pages
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
