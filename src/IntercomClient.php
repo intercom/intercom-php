@@ -52,6 +52,9 @@ class IntercomClient
     /** @var IntercomBulk $bulk */
     public $bulk;
 
+    /** @var IntercomNotes $notes */
+    public $notes;
+
     /**
      * IntercomClient constructor.
      * @param string $usernamePart App ID.
@@ -72,7 +75,6 @@ class IntercomClient
         $this->counts = new IntercomCounts($this);
         $this->bulk = new IntercomBulk($this);
         $this->notes = new IntercomNotes($this);
-        $this->segments = new IntercomSegments($this);
 
         $this->usernamePart = $usernamePart;
         $this->passwordPart = $passwordPart;
