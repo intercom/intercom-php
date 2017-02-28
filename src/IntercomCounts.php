@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomCounts {
+class IntercomCounts
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomCounts {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,6 +26,6 @@ class IntercomCounts {
    */
   public function getCounts($options = [])
   {
-    return $this->client->get("counts", $options);
+      return $this->client->get("counts", $options);
   }
 }

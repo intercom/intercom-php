@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomTags {
+class IntercomTags
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomTags {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomTags {
    */
   public function tag($options)
   {
-    return $this->client->post("tags", $options);
+      return $this->client->post("tags", $options);
   }
 
   /**
@@ -37,6 +38,6 @@ class IntercomTags {
    */
   public function getTags($options = [])
   {
-    return $this->client->get("tags", $options);
+      return $this->client->get("tags", $options);
   }
 }

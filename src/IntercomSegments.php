@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomSegments {
+class IntercomSegments
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomSegments {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,6 +26,6 @@ class IntercomSegments {
    */
   public function getSegments($options = [])
   {
-    return $this->client->get("segments", $options);
+      return $this->client->get("segments", $options);
   }
 }

@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomNotes {
+class IntercomNotes
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomNotes {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomNotes {
    */
   public function create($options)
   {
-    return $this->client->post("notes", $options);
+      return $this->client->post("notes", $options);
   }
 
   /**
@@ -37,7 +38,7 @@ class IntercomNotes {
    */
   public function getNotes($options)
   {
-    return $this->client->get("notes", $options);
+      return $this->client->get("notes", $options);
   }
 
   /**
@@ -49,6 +50,6 @@ class IntercomNotes {
    */
   public function getNote($id)
   {
-    return $this->client->get("notes/" . $id, []);
+      return $this->client->get("notes/" . $id, []);
   }
 }

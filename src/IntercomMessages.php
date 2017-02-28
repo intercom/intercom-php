@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomMessages {
+class IntercomMessages
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomMessages {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,6 +26,6 @@ class IntercomMessages {
    */
   public function create($options)
   {
-    return $this->client->post("messages", $options);
+      return $this->client->post("messages", $options);
   }
 }

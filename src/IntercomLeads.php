@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomLeads {
+class IntercomLeads
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomLeads {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomLeads {
    */
   public function create($options)
   {
-    return $this->client->post("contacts", $options);
+      return $this->client->post("contacts", $options);
   }
 
   /**
@@ -37,7 +38,7 @@ class IntercomLeads {
    */
   public function update($options)
   {
-    return $this->create($options);
+      return $this->create($options);
   }
 
   /**
@@ -49,7 +50,7 @@ class IntercomLeads {
    */
   public function getLeads($options)
   {
-    return $this->client->get("contacts", $options);
+      return $this->client->get("contacts", $options);
   }
 
   /**
@@ -62,8 +63,8 @@ class IntercomLeads {
    */
   public function getLead($id, $options = [])
   {
-    $path = $this->leadPath($id);
-    return $this->client->get($path, $options);
+      $path = $this->leadPath($id);
+      return $this->client->get($path, $options);
   }
 
   /**
@@ -76,8 +77,8 @@ class IntercomLeads {
    */
   public function deleteLead($id, $options = [])
   {
-    $path = $this->leadPath($id);
-    return $this->client->delete($path, $options);
+      $path = $this->leadPath($id);
+      return $this->client->delete($path, $options);
   }
 
   /**
@@ -89,7 +90,7 @@ class IntercomLeads {
    */
   public function convertLead($options)
   {
-    return $this->client->post("contacts/convert", $options);
+      return $this->client->post("contacts/convert", $options);
   }
 
   /**
@@ -99,6 +100,6 @@ class IntercomLeads {
    */
   public function leadPath($id)
   {
-    return "contacts/" . $id;
+      return "contacts/" . $id;
   }
 }

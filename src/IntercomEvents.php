@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomEvents {
+class IntercomEvents
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomEvents {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomEvents {
    */
   public function create($options)
   {
-    return $this->client->post("events", $options);
+      return $this->client->post("events", $options);
   }
 
   /**
@@ -37,6 +38,6 @@ class IntercomEvents {
    */
   public function getEvents($options)
   {
-    return $this->client->get("events", array_merge(["type" => "user"], $options));
+      return $this->client->get("events", array_merge(["type" => "user"], $options));
   }
 }

@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomUsers {
+class IntercomUsers
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomUsers {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomUsers {
    */
   public function create($options)
   {
-    return $this->client->post("users", $options);
+      return $this->client->post("users", $options);
   }
 
   /**
@@ -37,7 +38,7 @@ class IntercomUsers {
    */
   public function update($options)
   {
-    return $this->create($options);
+      return $this->create($options);
   }
 
   /**
@@ -49,7 +50,7 @@ class IntercomUsers {
    */
   public function getUsers($options)
   {
-    return $this->client->get('users', $options);
+      return $this->client->get('users', $options);
   }
 
   /**
@@ -62,8 +63,8 @@ class IntercomUsers {
    */
   public function getUser($id, $options = [])
   {
-    $path = $this->userPath($id);
-    return $this->client->get($path, $options);
+      $path = $this->userPath($id);
+      return $this->client->get($path, $options);
   }
 
   /**
@@ -75,7 +76,7 @@ class IntercomUsers {
    */
   public function scrollUsers($options = [])
   {
-    return $this->client->get('users/scroll', $options);
+      return $this->client->get('users/scroll', $options);
   }
 
   /**
@@ -88,12 +89,12 @@ class IntercomUsers {
    */
   public function deleteUser($id, $options = [])
   {
-    $path = $this->userPath($id);
-    return $this->client->delete($path, $options);
+      $path = $this->userPath($id);
+      return $this->client->delete($path, $options);
   }
 
-  public function userPath($id)
-  {
-    return 'users/' . $id;
-  }
+    public function userPath($id)
+    {
+        return 'users/' . $id;
+    }
 }

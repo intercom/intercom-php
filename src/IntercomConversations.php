@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomConversations {
+class IntercomConversations
+{
 
   /** @var IntercomClient  */
   private $client;
@@ -13,7 +14,7 @@ class IntercomConversations {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomConversations {
    */
   public function getConversations($options)
   {
-    return $this->client->get('conversations', $options);
+      return $this->client->get('conversations', $options);
   }
 
   /**
@@ -35,9 +36,10 @@ class IntercomConversations {
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function getConversation($id) {
-    $path = $this->conversationPath($id);
-    return $this->client->get($path, []);
+  public function getConversation($id)
+  {
+      $path = $this->conversationPath($id);
+      return $this->client->get($path, []);
   }
 
   /**
@@ -48,9 +50,10 @@ class IntercomConversations {
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function replyToConversation($id, $options) {
-    $path = $this->conversationReplyPath($id);
-    return $this->client->post($path, $options);
+  public function replyToConversation($id, $options)
+  {
+      $path = $this->conversationReplyPath($id);
+      return $this->client->post($path, $options);
   }
   
    /**
@@ -60,9 +63,10 @@ class IntercomConversations {
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function replyToLastConversation($options) {
-    $path = 'conversations/last/reply';
-    return $this->client->post($path, $options);
+  public function replyToLastConversation($options)
+  {
+      $path = 'conversations/last/reply';
+      return $this->client->post($path, $options);
   }
   
    /**
@@ -72,10 +76,11 @@ class IntercomConversations {
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function markConversationAsRead($id) {
-    $path = $this->conversationPath($id); 
-    $data = ['read' => true];
-    return $this->client->put($path, $data);
+  public function markConversationAsRead($id)
+  {
+      $path = $this->conversationPath($id);
+      $data = ['read' => true];
+      return $this->client->put($path, $data);
   }
   
   /**
@@ -85,7 +90,7 @@ class IntercomConversations {
    */
   public function conversationPath($id)
   {
-    return 'conversations/' . $id;
+      return 'conversations/' . $id;
   }
 
   /**
@@ -95,6 +100,6 @@ class IntercomConversations {
    */
   public function conversationReplyPath($id)
   {
-    return 'conversations/' . $id . '/reply';
+      return 'conversations/' . $id . '/reply';
   }
 }
