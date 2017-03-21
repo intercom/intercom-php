@@ -1,5 +1,17 @@
-build/
-composer.lock
-vendor/*
-*.swp
+# OSX
+.DS_Store
+
+# PhpStorm
+.idea
+
+# Composer
 composer.phar
+/vendor
+
+# PhpUnit
+phpunit.phar
+/phpunit.xml
+
+# Extras
+build/
+*.swp
