@@ -19,6 +19,9 @@ class IntercomClient
     /** @var string API password authentication */
     protected $passwordPart;
 
+    /** @var string Extra Guzzle Requests Options */
+    protected $extraGuzzleRequestsOptions;
+
     /** @var IntercomUsers $users */
     public $users;
 
@@ -57,7 +60,7 @@ class IntercomClient
      * @param string $usernamePart App ID.
      * @param string $passwordPart Api Key.
      */
-    public function __construct($usernamePart, $passwordPart)
+    public function __construct($usernamePart, $passwordPart, $extraGuzzleRequestsOptions = [])
     {
         $this->setDefaultClient();
         $this->users = new IntercomUsers($this);
@@ -76,6 +79,7 @@ class IntercomClient
 
         $this->usernamePart = $usernamePart;
         $this->passwordPart = $passwordPart;
+        $this->extraGuzzleRequestsOptions = $extraGuzzleRequestsOptions;
     }
 
     private function setDefaultClient()
@@ -101,13 +105,15 @@ class IntercomClient
      */
     public function post($endpoint, $json)
     {
-        $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestsOptions = $this->getGuzzleRequestsOptions([
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
-            ]
+            ],
         ]);
+
+        $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", $guzzleRequestsOptions);
         return $this->handleResponse($response);
     }
 
@@ -120,13 +126,15 @@ class IntercomClient
      */
     public function put($endpoint, $json)
     {
-        $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestsOptions = $this->getGuzzleRequestsOptions([
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
-            ]
+            ],
         ]);
+
+        $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", $guzzleRequestsOptions);
         return $this->handleResponse($response);
     }
 
@@ -139,13 +147,15 @@ class IntercomClient
      */
     public function delete($endpoint, $json)
     {
-        $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestsOptions = $this->getGuzzleRequestsOptions([
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
-            ]
+            ],
         ]);
+
+        $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", $guzzleRequestsOptions);
         return $this->handleResponse($response);
     }
 
@@ -157,13 +167,15 @@ class IntercomClient
      */
     public function get($endpoint, $query)
     {
-        $response = $this->http_client->request('GET', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestsOptions = $this->getGuzzleRequestsOptions([
             'query' => $query,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
-            ]
+            ],
         ]);
+
+        $response = $this->http_client->request('GET', "https://api.intercom.io/$endpoint", $guzzleRequestsOptions);
         return $this->handleResponse($response);
     }
 
@@ -175,13 +187,25 @@ class IntercomClient
      */
     public function nextPage($pages)
     {
-        $response = $this->http_client->request('GET', $pages->next, [
+        $guzzleRequestsOptions = $this->getGuzzleRequestsOptions([
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
-            ]
+            ],
         ]);
+
+        $response = $this->http_client->request('GET', $pages->next, $guzzleRequestsOptions);
         return $this->handleResponse($response);
+    }
+
+    /**
+     * Returns Guzzle Requests Options Array
+     * @param  array $defaultGuzzleRequestsOptions
+     * @return array
+     */
+    public function getGuzzleRequestsOptions($defaultGuzzleRequestsOptions = [])
+    {
+        return array_replace_recursive($defaultGuzzleRequestsOptions, $this->extraGuzzleRequestsOptions);
     }
 
     /**
