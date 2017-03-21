@@ -205,7 +205,7 @@ class IntercomClient
      */
     public function getGuzzleRequestsOptions($defaultGuzzleRequestsOptions = [])
     {
-        return array_replace_recursive($defaultGuzzleRequestsOptions, $this->extraGuzzleRequestsOptions);
+        return array_replace_recursive($this->extraGuzzleRequestsOptions, $defaultGuzzleRequestsOptions);
     }
 
     /**
