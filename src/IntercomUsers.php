@@ -55,7 +55,7 @@ class IntercomUsers {
   /**
    * Gets a single User based on the Intercom ID.
    * @see https://developers.intercom.com/reference#view-a-user
-   * @param integer $id
+   * @param string $id
    * @param array $options
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
@@ -81,7 +81,7 @@ class IntercomUsers {
   /**
    * Deletes a single User based on the Intercom ID.
    * @see https://developers.intercom.com/reference#delete-a-user
-   * @param integer $id
+   * @param string $id
    * @param array $options
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
@@ -92,6 +92,10 @@ class IntercomUsers {
     return $this->client->delete($path, $options);
   }
 
+  /**
+   * @param string $id
+   * @return string
+   */
   public function userPath($id)
   {
     return 'users/' . $id;

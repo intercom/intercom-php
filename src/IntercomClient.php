@@ -151,7 +151,7 @@ class IntercomClient
 
     /**
      * @param string $endpoint
-     * @param string $query
+     * @param array $query
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
