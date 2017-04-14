@@ -22,10 +22,10 @@ class IntercomAdminsTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testAdminsGetPath()
-   {
-     $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+  {
+    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
 
-     $users = new IntercomAdmins($stub);
-     $this->assertEquals('admins/1', $users->adminPath(1));
-   }
+    $users = new IntercomAdmins($stub);
+    $this->assertEquals('admins/1', $users->adminPath(1));
+  }
 }
