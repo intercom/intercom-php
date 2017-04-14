@@ -11,4 +11,13 @@ class IntercomAdminsTest extends PHPUnit_Framework_TestCase {
     $users = new IntercomAdmins($stub);
     $this->assertEquals('foo', $users->getAdmins());
   }
+
+  public function testAdminsGet()
+  {
+    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+    $stub->method('get')->willReturn('foo');
+
+    $users = new IntercomAdmins($stub);
+    $this->assertEquals('foo', $users->getAdmin(1));
+  }
 }
