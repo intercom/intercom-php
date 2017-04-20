@@ -20,4 +20,13 @@ class IntercomBulkTest extends PHPUnit_Framework_TestCase {
     $bulk = new IntercomBulk($stub);
     $this->assertEquals('bulk/events', $bulk->events([]));
   }
+
+  public function testBulkLeads()
+  {
+    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+    $stub->method('post')->will($this->returnArgument(0));
+
+    $bulk = new IntercomBulk($stub);
+    $this->assertEquals('bulk/contacts', $bulk->leads([]));
+  }
 }

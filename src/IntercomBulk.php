@@ -39,4 +39,16 @@ class IntercomBulk {
   {
     return $this->client->post("bulk/events", $options);
   }
+
+  /**
+   * Creates Leads in bulk.
+   * @see https://developers.intercom.io/reference#bulk-event-operations
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function leads($options)
+  {
+    return $this->client->post("bulk/contacts", $options);
+  }
 }
