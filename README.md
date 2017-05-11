@@ -255,28 +255,6 @@ $client->conversations->markConversationAsRead("7890");
 $client->counts->getCounts([])
 ```
 
-## Bulk
-
-```php
-// Bulk create/update users
-// See more options here: https://developers.intercom.io/reference#bulk-user-operations
-$client->bulk->users([
-  "items" => [
-    ["method" => "post","data_type" => "user","data" => ['email' => 'test1@intercom.io']],
-    ["method" => "post","data_type" => "user","data" => ['email' => 'test2@intercom.io']]
-  ]
-]);
-
-// Bulk create/update users
-// See more options here: https://developers.intercom.io/reference#bulk-event-operations
-$client->bulk->events([
-  "items" => [
-    ["method" => "post","data_type" => "event","data" => ['event_name' => 'test-event', "email" => "test@intercom.io", "created_at" => 1468055411]],
-    ["method" => "post","data_type" => "event","data" => ['event_name' => 'test-event', "email" => "test@intercom.io", "created_at" => 1467969011]]
-  ]
-]);
-```
-
 ## Notes
 
 ```php
