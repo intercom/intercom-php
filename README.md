@@ -119,7 +119,7 @@ $client->leads->getLead("570680a8a1bcbca8a90000a9");
 $client->leads->deleteLead("570680a8a1bcbca8a90000a9");
 
 // Convert a Lead to a User
-$leads->convertLead([
+$client->leads->convertLead([
   "contact" => [
     "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
   ],
