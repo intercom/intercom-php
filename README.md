@@ -128,6 +128,44 @@ $client->leads->convertLead([
   ]
 ]);
 ```
+## Visitors
+Retrieve `user_id` of a visitor via [the Javscript API](https://developers.intercom.com/docs/intercom-javascript#section-intercomgetvisitorid)
+
+```php
+// Update a visitor
+$client->visitors->update([
+  "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c",
+  "custom_attributes" => ['foo' => 'bar']
+]);
+
+// Find a visitor by ID
+$client->visitors->getVisitor("570680a8a1bcbca8a90000a9");
+
+// Find a visitor by User ID
+$client->visitors->getVisitor("", ["user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"]);
+
+// Delete a visitor by ID
+$client->visitors->deleteVisitor("570680a8a1bcbca8a90000a9");
+
+// Convert a Visitor to a Lead
+$client->visitors->convertVisitor([
+  "visitor" => [
+    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+  ],
+  "type" => "lead"
+]);
+
+// Convert a Visitor to a User
+$client->visitors->convertVisitor([
+  "visitor" => [
+    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+  ],
+  "user" => [
+    "email" => "winstonsmith@truth.org"
+  ],
+  "type" => "user"
+]);
+```
 
 ## Tags
 

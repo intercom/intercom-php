@@ -66,6 +66,7 @@ class IntercomClient
         $this->messages = new IntercomMessages($this);
         $this->conversations = new IntercomConversations($this);
         $this->leads = new IntercomLeads($this);
+        $this->visitors = new IntercomVisitors($this);
         $this->admins = new IntercomAdmins($this);
         $this->tags = new IntercomTags($this);
         $this->segments = new IntercomSegments($this);
