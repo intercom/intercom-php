@@ -218,6 +218,16 @@ $client->companies->update([
   "name" => "foocorp", "id" => "3"
 ]);
 
+// Creating or Update a company with custom attributes.
+$client->companies->update([
+  "name" => "foocorp", 
+  "id" => "3",
+  "custom_attributes" => [
+    "foo" => "bar",
+    "baz" => "qux"
+  ]
+]);
+
 // List Companies
 $client->companies->getCompanies([]);
 ```
