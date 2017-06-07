@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomBulk {
+class IntercomBulk
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomBulk {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomBulk {
    */
   public function users($options)
   {
-    return $this->client->post("bulk/users", $options);
+      return $this->client->post("bulk/users", $options);
   }
 
   /**
@@ -37,6 +38,6 @@ class IntercomBulk {
    */
   public function events($options)
   {
-    return $this->client->post("bulk/events", $options);
+      return $this->client->post("bulk/events", $options);
   }
 }

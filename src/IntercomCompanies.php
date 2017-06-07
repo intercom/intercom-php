@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomCompanies {
+class IntercomCompanies
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomCompanies {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,7 +26,7 @@ class IntercomCompanies {
    */
   public function create($options)
   {
-    return $this->client->post("companies", $options);
+      return $this->client->post("companies", $options);
   }
 
   /**
@@ -35,8 +36,9 @@ class IntercomCompanies {
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function update($options) {
-    return $this->create($options);
+  public function update($options)
+  {
+      return $this->create($options);
   }
 
   /**
@@ -48,6 +50,6 @@ class IntercomCompanies {
    */
   public function getCompanies($options)
   {
-    return $this->client->get("companies", $options);
+      return $this->client->get("companies", $options);
   }
 }

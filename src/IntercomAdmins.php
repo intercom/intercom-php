@@ -2,7 +2,8 @@
 
 namespace Intercom;
 
-class IntercomAdmins {
+class IntercomAdmins
+{
 
   /** @var IntercomClient */
   private $client;
@@ -13,7 +14,7 @@ class IntercomAdmins {
    */
   public function __construct($client)
   {
-    $this->client = $client;
+      $this->client = $client;
   }
 
   /**
@@ -25,6 +26,6 @@ class IntercomAdmins {
    */
   public function getAdmins($options = [])
   {
-    return $this->client->get("admins", $options);
+      return $this->client->get("admins", $options);
   }
 }
