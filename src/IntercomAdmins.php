@@ -28,4 +28,23 @@ class IntercomAdmins
   {
       return $this->client->get("admins", $options);
   }
+
+  /**
+   * Gets a single Admin based on the Intercom ID.
+   * @see https://developers.intercom.com/v2.0/reference#view-an-admin
+   * @param integer $id
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function getAdmin($id, $options = [])
+  {
+    $path = $this->adminPath($id);
+    return $this->client->get($path, $options);
+  }
+
+  public function adminPath($id)
+  {
+    return 'admins/' . $id;
+  }
 }
