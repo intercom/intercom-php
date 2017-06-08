@@ -220,7 +220,7 @@ $client->companies->update([
 
 // Creating or Update a company with custom attributes.
 $client->companies->update([
-  "name" => "foocorp", 
+  "name" => "foocorp",
   "id" => "3",
   "custom_attributes" => [
     "foo" => "bar",
@@ -271,6 +271,11 @@ $client->conversations->getConversations([
 
 // Get a single conversation
 $client->conversations->getConversation("1234")
+// Get a single conversation with plaintext comments
+$client->conversations->getConversation("1234", [
+  "display_as" => "plaintext"
+])
+
 
 // Reply to a conversation
 // See more options here: https://developers.intercom.io/reference#replying-to-a-conversation
