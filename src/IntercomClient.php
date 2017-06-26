@@ -20,6 +20,9 @@ class IntercomClient {
   /** @var IntercomUsers $users */
   public $users;
 
+  /** @var IntercomNotes $notes */
+  public $notes;
+
   /** @var IntercomEvents $events */
   public $events;
 
@@ -51,6 +54,7 @@ class IntercomClient {
   {
     $this->setDefaultClient();
     $this->users = new IntercomUsers($this);
+    $this->notes = new IntercomNotes($this);
     $this->events = new IntercomEvents($this);
     $this->companies = new IntercomCompanies($this);
     $this->messages = new IntercomMessages($this);

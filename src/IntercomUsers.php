@@ -21,4 +21,9 @@ class IntercomUsers {
   {
     return $this->client->get("users", $options);
   }
+
+  public function deleteUsers($options)
+  {
+    return $this->client->delete("users", $options);
+  }
 }
