@@ -61,4 +61,30 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  public function testRateLimitDetails()
+  {
+    $mock = new MockHandler([
+        new Response(200, ['X-RateLimit-Limit' => '83', 'X-RateLimit-Remaining' => '2', 'X-RateLimit-Reset' => time() + 7], "{\"foo\":\"bar\"}")
+    ]);
+
+    $container = [];
+    $history = Middleware::history($container);
+    $stack = HandlerStack::create($mock);
+    $stack->push($history);
+
+    $http_client = new Client(['handler' => $stack]);
+
+    $client = new IntercomClient('u', 'p');
+    $client->setClient($http_client);
+
+    $client->users->create([
+        'email' => 'test@intercom.io'
+    ]);
+
+    $rateLimitDetails = $client->getRateLimitDetails();
+    $this->assertInternalType('array', $rateLimitDetails);
+    $this->assertArrayHasKey('limit', $rateLimitDetails);
+    $this->assertArrayHasKey('remaining', $rateLimitDetails);
+    $this->assertArrayHasKey('reset_at', $rateLimitDetails);
+  }
 }
