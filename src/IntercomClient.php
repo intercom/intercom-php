@@ -56,7 +56,7 @@ class IntercomClient
     public $notes;
 
     /** @var int[] $rateLimitDetails */
-    protected $rateLimitDetails;
+    protected $rateLimitDetails = [];
 
     /**
      * IntercomClient constructor.
