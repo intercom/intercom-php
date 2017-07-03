@@ -220,13 +220,13 @@ class IntercomClient
     {
         $this->rateLimitDetails = [
             'limit' => $response->hasHeader('X-RateLimit-Limit')
-                ? (int)$response->getHeader('X-RateLimit-Limit')
+                ? (int)$response->getHeader('X-RateLimit-Limit')[0]
                 : null,
             'remaining' => $response->hasHeader('X-RateLimit-Remaining')
-                ? (int)$response->getHeader('X-RateLimit-Remaining')
+                ? (int)$response->getHeader('X-RateLimit-Remaining')[0]
                 : null,
             'reset_at' => $response->hasHeader('X-RateLimit-Reset')
-                ? (new \DateTimeImmutable())->setTimestamp((int)$response->getHeader('X-RateLimit-Reset'))
+                ? (new \DateTimeImmutable())->setTimestamp((int)$response->getHeader('X-RateLimit-Reset')[0])
                 : null,
         ];
     }

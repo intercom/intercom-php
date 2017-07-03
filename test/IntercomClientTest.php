@@ -63,8 +63,9 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
 
   public function testRateLimitDetails()
   {
+    $time = time() + 7;
     $mock = new MockHandler([
-        new Response(200, ['X-RateLimit-Limit' => '83', 'X-RateLimit-Remaining' => '2', 'X-RateLimit-Reset' => time() + 7], "{\"foo\":\"bar\"}")
+        new Response(200, ['X-RateLimit-Limit' => '83', 'X-RateLimit-Remaining' => '2', 'X-RateLimit-Reset' => $time], "{\"foo\":\"bar\"}")
     ]);
 
     $container = [];
@@ -86,5 +87,8 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     $this->assertArrayHasKey('limit', $rateLimitDetails);
     $this->assertArrayHasKey('remaining', $rateLimitDetails);
     $this->assertArrayHasKey('reset_at', $rateLimitDetails);
+    $this->assertEquals(83, $rateLimitDetails['limit']);
+    $this->assertEquals(2, $rateLimitDetails['remaining']);
+    $this->assertEquals((new DateTimeImmutable)->setTimestamp($time), $rateLimitDetails['reset_at']);
   }
 }
