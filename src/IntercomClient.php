@@ -55,6 +55,9 @@ class IntercomClient
     /** @var IntercomNotes $notes */
     public $notes;
 
+    /** @var int[] $rateLimitDetails */
+    protected $rateLimitDetails;
+
     /**
      * IntercomClient constructor.
      * @param string $usernamePart App ID.
@@ -204,8 +207,37 @@ class IntercomClient
      */
     private function handleResponse(Response $response)
     {
+        $this->setRateLimitDetails($response);
+
         $stream = stream_for($response->getBody());
         $data = json_decode($stream);
         return $data;
+    }
+
+    /**
+     * @param Response $response
+     * @return void
+     */
+    private function setRateLimitDetails(Response $response)
+    {
+        $this->rateLimitDetails = [
+            'limit' => $response->hasHeader('X-RateLimit-Limit')
+                ? (int)$response->getHeader('X-RateLimit-Limit')[0]
+                : null,
+            'remaining' => $response->hasHeader('X-RateLimit-Remaining')
+                ? (int)$response->getHeader('X-RateLimit-Remaining')[0]
+                : null,
+            'reset_at' => $response->hasHeader('X-RateLimit-Reset')
+                ? (new \DateTimeImmutable())->setTimestamp((int)$response->getHeader('X-RateLimit-Reset')[0])
+                : null,
+        ];
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getRateLimitDetails()
+    {
+        return $this->rateLimitDetails;
     }
 }
