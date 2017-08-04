@@ -19,7 +19,7 @@ class IntercomBulk
 
   /**
    * Creates Users in bulk.
-   * @see https://developers.intercom.io/reference#bulk-user-operations
+   * @see https://developers.intercom.com/v2.0/page/bulk-api-overview
    * @param array $options
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
@@ -31,7 +31,7 @@ class IntercomBulk
 
   /**
    * Creates Events in bulk.
-   * @see https://developers.intercom.io/reference#bulk-event-operations
+   * @see https://developers.intercom.com/v2.0/page/bulk-api-overview
    * @param array $options
    * @return mixed
    * @throws \GuzzleHttp\Exception\GuzzleException
