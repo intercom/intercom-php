@@ -190,6 +190,10 @@ $client->tags->tag([
 $client->segments->getSegments();
 ```
 
+// View a segment
+```
+$client->segments->getSegment("58a707924f6651b07b94376c");
+```
 
 ## Events
 
