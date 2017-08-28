@@ -18,6 +18,19 @@ class IntercomSegments
   }
 
   /**
+   * Gets a single segment by ID.
+   * @see https://developers.intercom.com/reference#view-a-segment
+   * @param string $id
+   * @param array $options
+   * @return mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function getSegment($id, array $options = [])
+  {
+      return $this->client->get('segments/' . $id, $options);
+  }
+
+  /**
    * Lists Segments.
    * @see https://developers.intercom.com/reference#list-segments
    * @param array $options
