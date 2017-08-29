@@ -139,13 +139,15 @@ class IntercomClient
     /**
      * Sends DELETE request to Intercom API.
      * @param string $endpoint
-     * @param string $json
+     * @param mixed $json
+     * @param array $query
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function delete($endpoint, $json)
+    public function delete($endpoint, $json, array $query = [])
     {
         $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", [
+            'query' => $query,
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
