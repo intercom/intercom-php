@@ -332,6 +332,15 @@ $client->notes->getNotes([
 // Get a single Note by id
 $client->notes->getNote("42");
 ```
+## Rate Limits
+Rate limit info is passed via the rate limit headers.
+You can access this information as follows:
+```
+$rate_limit = $intercom->getRateLimitDetails();
+print("{$rate_limit['remaining']} {$rate_limit['limit']} \n");
+print_r($rate_limit['reset_at']->format(DateTime::ISO8601));
+```
+For more info on rate limits and these headers please see the [API ref docs](https://developers.intercom.com/reference#rate-limiting)
 
 ## Pagination
 
