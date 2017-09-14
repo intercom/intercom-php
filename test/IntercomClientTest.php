@@ -29,7 +29,6 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     ]);
 
     foreach ($container as $transaction) {
-      print_r($client->getGuzzleRequestOptions());
       $basic = $transaction['request']->getHeaders()['Authorization'][0];
       $this->assertTrue($basic == "Basic dTpw");
     }
@@ -91,7 +90,7 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
 
   public function testRateLimitDetails()
   {
-    date_default_timezone_set('America/New_York');
+    date_default_timezone_set('UTC');
     $time = time() + 7;
     $mock = new MockHandler([
         new Response(200, ['X-RateLimit-Limit' => '83', 'X-RateLimit-Remaining' => '2', 'X-RateLimit-Reset' => $time], "{\"foo\":\"bar\"}")

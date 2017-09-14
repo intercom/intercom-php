@@ -67,7 +67,6 @@ class IntercomClient
      */
     public function __construct($usernamePart, $passwordPart, $extraGuzzleRequestsOptions = [])
     {
-        //print_r(func_get_args());
         $this->setDefaultClient();
         $this->users = new IntercomUsers($this);
         $this->events = new IntercomEvents($this);
