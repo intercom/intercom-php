@@ -34,6 +34,33 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     }
   }
 
+  public function testExtendedClient()
+  {
+    $mock = new MockHandler([
+        new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
+    ]);
+
+    $container = [];
+    $history = Middleware::history($container);
+    $stack = HandlerStack::create($mock);
+    $stack->push($history);
+
+    $http_client = new Client(['handler' => $stack]);
+
+    $client = new IntercomClient('u', 'p', ['connect_timeout' => 10]);
+    $client->setClient($http_client);
+
+    $client->users->create([
+        'email' => 'test@intercom.io'
+    ]);
+
+    foreach ($container as $transaction) {
+      $basic = $client->getGuzzleRequestOptions()['connect_timeout'];
+      $this->assertTrue($basic == 10);
+    }
+  }
+
+
   public function testPaginationHelper()
   {
     $mock = new MockHandler([
@@ -63,6 +90,7 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
 
   public function testRateLimitDetails()
   {
+    date_default_timezone_set('UTC');
     $time = time() + 7;
     $mock = new MockHandler([
         new Response(200, ['X-RateLimit-Limit' => '83', 'X-RateLimit-Remaining' => '2', 'X-RateLimit-Reset' => $time], "{\"foo\":\"bar\"}")
