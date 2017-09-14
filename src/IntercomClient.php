@@ -67,6 +67,7 @@ class IntercomClient
      */
     public function __construct($usernamePart, $passwordPart, $extraGuzzleRequestsOptions = [])
     {
+        //print_r(func_get_args());
         $this->setDefaultClient();
         $this->users = new IntercomUsers($this);
         $this->events = new IntercomEvents($this);
@@ -117,7 +118,6 @@ class IntercomClient
                 'Accept' => 'application/json'
             ],
         ]);
-
         $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
