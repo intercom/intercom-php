@@ -55,7 +55,7 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase {
     ]);
 
     foreach ($container as $transaction) {
-      $basic = $client->getGuzzleRequestOptions()[connect_timeout];
+      $basic = $client->getGuzzleRequestOptions()['connect_timeout'];
       $this->assertTrue($basic == 10);
     }
   }
