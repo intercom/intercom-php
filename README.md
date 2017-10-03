@@ -126,10 +126,18 @@ $client->leads->update([
 ]);
 
 /** 
- * List leads
+ * List leads up to 10k records
  * See more options here: https://developers.intercom.io/reference#list-leads
  */
 $client->leads->getLeads([]);
+
+/** 
+ * List all leads (even above 10k records)
+ * The result object contains an array of your lead objects and a scroll_param which you can then 
+ * use to request the next 100 leads. Note that the scroll parameter will time out after one minute 
+ * and you will need to make a new request
+ */
+$client->users->scrollLeads();
 
 /** Find a lead by ID */
 $client->leads->getLead("570680a8a1bcbca8a90000a9");
