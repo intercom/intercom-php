@@ -8,31 +8,32 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 
-class IntercomUsersTest extends PHPUnit_Framework_TestCase {
-  public function testUserCreate()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('post')->willReturn('foo');
+class IntercomUsersTest extends PHPUnit_Framework_TestCase
+{
+    public function testUserCreate()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('post')->willReturn('foo');
 
-    $users = new IntercomUsers($stub);
-    $this->assertEquals('foo', $users->create([]));
-  }
+        $users = new IntercomUsers($stub);
+        $this->assertEquals('foo', $users->create([]));
+    }
 
-  public function testUserUpdate()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('post')->willReturn('foo');
+    public function testUserUpdate()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('post')->willReturn('foo');
 
-    $users = new IntercomUsers($stub);
-    $this->assertEquals('foo', $users->update([]));
-  }
+        $users = new IntercomUsers($stub);
+        $this->assertEquals('foo', $users->update([]));
+    }
 
-  public function testUserGet()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('get')->willReturn('foo');
+    public function testUserGet()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('get')->willReturn('foo');
 
-    $users = new IntercomUsers($stub);
-    $this->assertEquals('foo', $users->getUsers([]));
-  }
+        $users = new IntercomUsers($stub);
+        $this->assertEquals('foo', $users->getUsers([]));
+    }
 }
