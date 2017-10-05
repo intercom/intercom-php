@@ -49,7 +49,7 @@ $client = new IntercomClient(<insert_token_here>, null);
 ```php
 /** Create a user */
 $client->users->create([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "custom_attributes" => ['foo' => 'bar']
 ]);
 
@@ -58,7 +58,7 @@ $client->users->create([
  * can use create to update users if you wish)
  */
 $client->users->update([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "custom_attributes" => ['foo' => 'bar']
 ]);
 
@@ -70,7 +70,7 @@ $client->users->getUser("570680a8a1bcbca8a90001b9");
 
 /** Add companies to a user */
 $client->users->create([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "companies" => [
     [
       "company_id" => "3"
@@ -80,7 +80,7 @@ $client->users->create([
 
 /** Remove companies from a user */
 $client->users->create([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "companies" => [
     [
       "company_id" => "3",
@@ -90,7 +90,7 @@ $client->users->create([
 ]);
 
 /** Find a single user by email */
-$client->users->getUsers(["email" => "bob@intercom.io"]);
+$client->users->getUsers(["email" => "bob@example.com"]);
 
 /** List all users up to 10k records */
 $client->users->getUsers([]);
@@ -112,7 +112,7 @@ $client->users->scrollUsers();
  * See more options here: https://developers.intercom.io/reference#create-lead
  */
 $client->leads->create([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "custom_attributes" => ['foo' => 'bar']
 ]);
 
@@ -121,7 +121,7 @@ $client->leads->create([
  * In practice you can use create to update leads if you wish)
  */
 $client->leads->update([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "custom_attributes" => ['foo' => 'bar']
 ]);
 
@@ -222,11 +222,11 @@ $client->segments->getSegment("58a707924f6651b07b94376c");
 $client->events->create([
   "event_name" => "testing",
   "created_at" => 1391691571,
-  "email" => "test@intercom.io"
+  "email" => "test@example.com"
 ]);
 
 /** View events for a user */
-$client->events->getEvents(["email" => "bob@intercom.io"]);
+$client->events->getEvents(["email" => "bob@example.com"]);
 ```
 
 ## Companies
@@ -283,7 +283,7 @@ $client->messages->create([
   ],
   "to" => [
     "type" => "user",
-    "email" => "bob@intercom.io"
+    "email" => "bob@example.com"
   ]
 ]);
 ```
@@ -313,7 +313,7 @@ $client->conversations->getConversation("1234", [
  * See more options here: https://developers.intercom.io/reference#replying-to-a-conversation
  */
 $client->conversations->replyToConversation("5678", [
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "body" => "Thanks :)",
   "type" => "user",
   "message_type" => "comment"
@@ -324,7 +324,7 @@ $client->conversations->replyToConversation("5678", [
  * See more options here: https://developers.intercom.com/reference#replying-to-users-last-conversation
  */
 $client->conversations->replyToLastConversation([
-  "email" => "test@intercom.io",
+  "email" => "test@example.com",
   "body" => "Thanks :)",
   "type" => "user",
   "message_type" => "comment"
