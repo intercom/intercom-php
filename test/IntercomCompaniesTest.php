@@ -8,31 +8,32 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 
-class IntercomCompaniesTest extends PHPUnit_Framework_TestCase {
-  public function testCompanyCreate()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('post')->willReturn('foo');
+class IntercomCompaniesTest extends PHPUnit_Framework_TestCase
+{
+    public function testCompanyCreate()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('post')->willReturn('foo');
 
-    $companies = new IntercomCompanies($stub);
-    $this->assertEquals('foo', $companies->create([]));
-  }
+        $companies = new IntercomCompanies($stub);
+        $this->assertEquals('foo', $companies->create([]));
+    }
 
-  public function testCompanyUpdate()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('post')->willReturn('foo');
+    public function testCompanyUpdate()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('post')->willReturn('foo');
 
-    $companies = new IntercomCompanies($stub);
-    $this->assertEquals('foo', $companies->update([]));
-  }
+        $companies = new IntercomCompanies($stub);
+        $this->assertEquals('foo', $companies->update([]));
+    }
 
-  public function testCompanyGet()
-  {
-    $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-    $stub->method('get')->willReturn('foo');
+    public function testCompanyGet()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('get')->willReturn('foo');
 
-    $companies = new IntercomCompanies($stub);
-    $this->assertEquals('foo', $companies->getCompanies([]));
-  }
+        $companies = new IntercomCompanies($stub);
+        $this->assertEquals('foo', $companies->getCompanies([]));
+    }
 }
