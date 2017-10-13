@@ -10,87 +10,87 @@ class IntercomClient
 {
 
     /**
-     * @var Client $http_client 
+     * @var Client $http_client
      */
     private $http_client;
 
     /**
-     * @var string API user authentication 
+     * @var string API user authentication
      */
     protected $usernamePart;
 
     /**
-     * @var string API password authentication 
+     * @var string API password authentication
      */
     protected $passwordPart;
 
     /**
-     * @var string Extra Guzzle Requests Options 
+     * @var string Extra Guzzle Requests Options
      */
     protected $extraGuzzleRequestsOptions;
 
     /**
-     * @var IntercomUsers $users 
+     * @var IntercomUsers $users
      */
     public $users;
 
     /**
-     * @var IntercomEvents $events 
+     * @var IntercomEvents $events
      */
     public $events;
 
     /**
-     * @var IntercomCompanies $companies 
+     * @var IntercomCompanies $companies
      */
     public $companies;
 
     /**
-     * @var IntercomMessages $messages 
+     * @var IntercomMessages $messages
      */
     public $messages;
 
     /**
-     * @var IntercomConversations $conversations 
+     * @var IntercomConversations $conversations
      */
     public $conversations;
 
     /**
-     * @var IntercomLeads $leads 
+     * @var IntercomLeads $leads
      */
     public $leads;
 
     /**
-     * @var IntercomAdmins $admins 
+     * @var IntercomAdmins $admins
      */
     public $admins;
 
     /**
-     * @var IntercomTags $tags 
+     * @var IntercomTags $tags
      */
     public $tags;
 
     /**
-     * @var IntercomSegments $segments 
+     * @var IntercomSegments $segments
      */
     public $segments;
 
     /**
-     * @var IntercomCounts $counts 
+     * @var IntercomCounts $counts
      */
     public $counts;
 
     /**
-     * @var IntercomBulk $bulk 
+     * @var IntercomBulk $bulk
      */
     public $bulk;
 
     /**
-     * @var IntercomNotes $notes 
+     * @var IntercomNotes $notes
      */
     public $notes;
 
     /**
-     * @var int[] $rateLimitDetails 
+     * @var int[] $rateLimitDetails
      */
     protected $rateLimitDetails = [];
 

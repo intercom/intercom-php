@@ -6,7 +6,7 @@ class IntercomBulk
 {
 
     /**
-     * @var IntercomClient 
+     * @var IntercomClient
      */
     private $client;
 

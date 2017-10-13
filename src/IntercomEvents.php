@@ -6,7 +6,7 @@ class IntercomEvents
 {
 
     /**
-     * @var IntercomClient 
+     * @var IntercomClient
      */
     private $client;
 
