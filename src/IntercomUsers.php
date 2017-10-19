@@ -6,7 +6,7 @@ class IntercomUsers
 {
 
     /**
-     * @var IntercomClient 
+     * @var IntercomClient
      */
     private $client;
 
@@ -110,5 +110,4 @@ class IntercomUsers
     {
         return 'users/' . $id;
     }
-  
 }

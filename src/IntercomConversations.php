@@ -6,7 +6,7 @@ class IntercomConversations
 {
 
     /**
-     * @var IntercomClient  
+     * @var IntercomClient
      */
     private $client;
 

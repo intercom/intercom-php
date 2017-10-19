@@ -6,7 +6,7 @@ class IntercomLeads
 {
 
     /**
-     * @var IntercomClient 
+     * @var IntercomClient
      */
     private $client;
 

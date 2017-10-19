@@ -6,7 +6,7 @@ class IntercomCounts
 {
 
     /**
-     * @var IntercomClient 
+     * @var IntercomClient
      */
     private $client;
 

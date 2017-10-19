@@ -6,7 +6,7 @@ class IntercomSegments
 {
 
     /**
-     * @var IntercomClient 
+     * @var IntercomClient
      */
     private $client;
 
