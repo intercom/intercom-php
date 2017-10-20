@@ -112,4 +112,17 @@ class IntercomLeads
     {
         return "contacts/" . $id;
     }
+
+    /**
+     * Gets a list of Leads through the contacts scroll API.
+     *
+     * @see    https://developers.intercom.com/v2.0/reference#iterating-over-all-leads
+     * @param  array $options
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function scrollLeads($options = [])
+    {
+        return $this->client->get('contacts/scroll', $options);
+    }
 }
