@@ -104,6 +104,8 @@ $client->users->getUsers([]);
 $client->users->scrollUsers();
 ```
 
+See [here](https://github.com/intercom/intercom-php#scroll) for more info on using the scroll parameter
+
 ## Leads
 
 ```php
@@ -155,6 +157,8 @@ $client->leads->convertLead([
  */
 $client->leads->scrollLeads();
 ```
+
+See [here](https://github.com/intercom/intercom-php#scroll) for more info on using the scroll parameter
 
 ## Visitors
 Retrieve `user_id` of a visitor via [the JavaScript API](https://developers.intercom.com/docs/intercom-javascript#section-intercomgetvisitorid)
@@ -404,6 +408,35 @@ You can grab the next page of results using the client:
 
 ```php
 $client->nextPage($response->pages);
+```
+
+## Scroll 
+The first time you use the scroll API you can just send a simple GET request.
+This will return up to 100 records. If you have more than 100 you will need to make another call.
+To do this you need to use to scroll_parameter returned in the original response.
+Use this for subsequent responses until you get an empty array of records.
+This means there are no records and the scroll timer will be reset.
+For more information on scroll please see the [API reference](https://developers.intercom.com/reference#iterating-over-all-users)
+Here is an example of a simple way to use the scroll for multiple calls:
+
+```
+<?php
+require "vendor/autoload.php";
+use Intercom\IntercomClient;
+
+$intercom= new IntercomClient(getenv('AT'), null);
+$resp = $intercom->users->scrollUsers([]);
+#var_dump($resp);
+$count = 1;
+echo "PAGE $count: " . sizeof($resp->users);
+echo "\n";
+while (!empty($resp->scroll_param && sizeof($resp->users) > 0)){
+    $count = ++$count;
+    $resp = $intercom->users->scrollUsers(["scroll_param" => $resp->scroll_param]);
+    echo "PAGE $count: " . sizeof($resp->users);
+    echo "\n";
+}
+?>
 ```
 
 
