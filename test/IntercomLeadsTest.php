@@ -64,4 +64,13 @@ class IntercomLeadsTest extends PHPUnit_Framework_TestCase
         $leads = new IntercomLeads($stub);
         $this->assertEquals('foo', $leads->deleteLead("bar"));
     }
+
+    public function testLeadsScroll()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('get')->willReturn('foo');
+
+        $leads = new IntercomLeads($stub);
+        $this->assertEquals('foo', $leads->scrollLeads([]));
+    }
 }

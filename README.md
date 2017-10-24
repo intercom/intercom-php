@@ -146,6 +146,14 @@ $client->leads->convertLead([
     "email" => "winstonsmith@truth.org"
   ]
 ]);
+
+/** 
+ * List all leads (even above 10k records)
+ * The result object contains an array of your contacts objects and a scroll_param which you can then 
+ * use to request the next 100 leads. Note that the scroll parameter will time out after one minute 
+ * and you will need to make a new request
+ */
+$client->leads->scrollLeads();
 ```
 
 ## Visitors
