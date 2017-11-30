@@ -212,7 +212,7 @@ $client->tags->getTags();
 $client->tags->tag([
   "name" => "Test",
   "users" => [
-    ["id" => "1234"]
+    ["user_id" => "1234"]
   ]
 ]);
 ```
