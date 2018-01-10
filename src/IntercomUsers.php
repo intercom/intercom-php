@@ -94,18 +94,6 @@ class IntercomUsers
   }
 
   /**
-    * Deletes a single User based on the Intercom ID
-    * @see https://developers.intercom.com/reference#delete-a-user
-    * @param string $email
-    * @return mixed
-    * @throws \GuzzleHttp\Exception\GuzzleException
-    */
-  public function deleteUserByEmail($email)
-  {
-      return $this->client->delete('users', [], ['email' => $email]);
-  }
-
-  /**
    * @param string $id
    * @return string
    */
