@@ -4,66 +4,103 @@ namespace Intercom;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use function GuzzleHttp\Psr7\stream_for;
 use Psr\Http\Message\ResponseInterface;
 
 class IntercomClient
 {
 
-    /** @var Client $http_client */
+    /**
+     * @var Client $http_client
+     */
     private $http_client;
 
-    /** @var string API user authentication */
+    /**
+     * @var string API user authentication
+     */
     protected $usernamePart;
 
-    /** @var string API password authentication */
+    /**
+     * @var string API password authentication
+     */
     protected $passwordPart;
 
-    /** @var IntercomUsers $users */
+    /**
+     * @var string Extra Guzzle Requests Options
+     */
+    protected $extraGuzzleRequestsOptions;
+
+    /**
+     * @var IntercomUsers $users
+     */
     public $users;
 
-    /** @var IntercomEvents $events */
+    /**
+     * @var IntercomEvents $events
+     */
     public $events;
 
-    /** @var IntercomCompanies $companies */
+    /**
+     * @var IntercomCompanies $companies
+     */
     public $companies;
 
-    /** @var IntercomMessages $messages */
+    /**
+     * @var IntercomMessages $messages
+     */
     public $messages;
 
-    /** @var IntercomConversations $conversations */
+    /**
+     * @var IntercomConversations $conversations
+     */
     public $conversations;
 
-    /** @var IntercomLeads $leads */
+    /**
+     * @var IntercomLeads $leads
+     */
     public $leads;
 
-    /** @var IntercomAdmins $admins */
+    /**
+     * @var IntercomAdmins $admins
+     */
     public $admins;
 
-    /** @var IntercomTags $tags */
+    /**
+     * @var IntercomTags $tags
+     */
     public $tags;
 
-    /** @var IntercomSegments $segments */
+    /**
+     * @var IntercomSegments $segments
+     */
     public $segments;
 
-    /** @var IntercomCounts $counts */
+    /**
+     * @var IntercomCounts $counts
+     */
     public $counts;
 
-    /** @var IntercomBulk $bulk */
+    /**
+     * @var IntercomBulk $bulk
+     */
     public $bulk;
 
-    /** @var IntercomNotes $notes */
+    /**
+     * @var IntercomNotes $notes
+     */
     public $notes;
 
-    /** @var int[] $rateLimitDetails */
+    /**
+     * @var int[] $rateLimitDetails
+     */
     protected $rateLimitDetails = [];
 
     /**
      * IntercomClient constructor.
+     *
      * @param string $usernamePart App ID.
      * @param string $passwordPart Api Key.
      */
-    public function __construct($usernamePart, $passwordPart)
+    public function __construct($usernamePart, $passwordPart, $extraGuzzleRequestsOptions = [])
     {
         $this->setDefaultClient();
         $this->users = new IntercomUsers($this);
@@ -82,6 +119,7 @@ class IntercomClient
 
         $this->usernamePart = $usernamePart;
         $this->passwordPart = $passwordPart;
+        $this->extraGuzzleRequestsOptions = $extraGuzzleRequestsOptions;
     }
 
     private function setDefaultClient()
@@ -91,6 +129,7 @@ class IntercomClient
 
     /**
      * Sets GuzzleHttp client.
+     *
      * @param Client $client
      */
     public function setClient($client)
@@ -100,98 +139,133 @@ class IntercomClient
 
     /**
      * Sends POST request to Intercom API.
-     * @param string $endpoint
-     * @param string $json
+     *
+     * @param  string $endpoint
+     * @param  string $json
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function post($endpoint, $json)
     {
-        $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
+            [
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
+            ],
             ]
-        ]);
+        );
+        $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
 
     /**
      * Sends PUT request to Intercom API.
-     * @param string $endpoint
-     * @param string $json
+     *
+     * @param  string $endpoint
+     * @param  string $json
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function put($endpoint, $json)
     {
-        $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
+            [
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
+            ],
             ]
-        ]);
+        );
+
+        $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
 
     /**
      * Sends DELETE request to Intercom API.
-     * @param string $endpoint
-     * @param string $json
+     *
+     * @param  string $endpoint
+     * @param  string $json
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function delete($endpoint, $json)
     {
-        $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
+            [
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
+            ],
             ]
-        ]);
+        );
+
+        $response = $this->http_client->request('DELETE', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
 
     /**
      * @param string $endpoint
-     * @param array $query
+     * @param array  $query
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function get($endpoint, $query)
     {
-        $response = $this->http_client->request('GET', "https://api.intercom.io/$endpoint", [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
+            [
             'query' => $query,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
+            ],
             ]
-        ]);
+        );
+
+        $response = $this->http_client->request('GET', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
 
     /**
      * Returns next page of the result.
-     * @param \stdClass $pages
+     *
+     * @param  \stdClass $pages
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function nextPage($pages)
     {
-        $response = $this->http_client->request('GET', $pages->next, [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
+            [
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
+            ],
             ]
-        ]);
+        );
+
+        $response = $this->http_client->request('GET', $pages->next, $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
 
     /**
+     * Returns Guzzle Requests Options Array
+     *
+     * @param  array $defaultGuzzleRequestsOptions
+     * @return array
+     */
+    public function getGuzzleRequestOptions($defaultGuzzleRequestOptions = [])
+    {
+        return array_replace_recursive($this->extraGuzzleRequestsOptions, $defaultGuzzleRequestOptions);
+    }
+
+    /**
      * Returns authentication parameters.
+     *
      * @return array
      */
     public function getAuth()
@@ -207,7 +281,7 @@ class IntercomClient
     {
         $this->setRateLimitDetails($response);
 
-        $stream = stream_for($response->getBody());
+        $stream = \GuzzleHttp\Psr7\stream_for($response->getBody());
         $data = json_decode($stream);
         return $data;
     }
