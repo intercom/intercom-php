@@ -269,6 +269,9 @@ $client->companies->update([
 
 /** List Companies */
 $client->companies->getCompanies([]);
+
+/** Get a company by ID */
+$client->companies->getCompany("531ee472cce572a6ec000006");
 ```
 
 ## Admins
