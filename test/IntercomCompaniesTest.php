@@ -36,4 +36,20 @@ class IntercomCompaniesTest extends PHPUnit_Framework_TestCase
         $companies = new IntercomCompanies($stub);
         $this->assertEquals('foo', $companies->getCompanies([]));
     }
+
+    public function testCompanyPath()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $users = new IntercomCompanies($stub);
+        $this->assertEquals('companies/foo', $users->companyPath("foo"));
+    }
+
+    public function testCompanyGetById()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('get')->willReturn('foo');
+
+        $users = new IntercomCompanies($stub);
+        $this->assertEquals('foo', $users->getCompany("foo"));
+    }
 }

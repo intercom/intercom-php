@@ -58,4 +58,28 @@ class IntercomCompanies
     {
         return $this->client->get("companies", $options);
     }
+
+    /**
+     * Gets a single Company based on the Intercom ID.
+     *
+     * @see    https://developers.intercom.com/reference#view-a-company
+     * @param  string $id
+     * @param  array  $options
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getCompany($id, $options = [])
+    {
+        $path = $this->companyPath($id);
+        return $this->client->get($path, $options);
+    }
+
+    /**
+     * @param string $id
+     * @return string
+     */
+    public function companyPath($id)
+    {
+        return 'companies/' . $id;
+    }
 }
