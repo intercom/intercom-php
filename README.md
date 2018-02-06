@@ -225,8 +225,10 @@ $client->segments->getSegments();
 
 /** View a segment */
 $client->segments->getSegment("58a707924f6651b07b94376c");
-```
 
+/** View a segment with count */
+$client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"true"]);
+```
 ## Events
 
 ```php
