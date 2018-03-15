@@ -1,0 +1,16 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/php:7.1-node-browsers
+    working_directory: ~/intercom-php
+    steps:
+      - checkout
+      - run: curl -sS https://getcomposer.org/installer | php
+      - run: php -v
+      - run: php composer.phar --version
+      - run: php composer.phar require intercom/intercom-php
+    test:
+      override:
+        - phpunit --configuration phpunit.xml
