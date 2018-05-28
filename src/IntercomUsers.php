@@ -90,7 +90,22 @@ class IntercomUsers
     /**
      * Deletes a single User based on the Intercom ID.
      *
-     * @see    https://developers.intercom.com/reference#delete-a-user
+     * @see    https://developers.intercom.com/reference#archive-a-user
+     * @param  string $id
+     * @param  array  $options
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function archiveUser($id, $options = [])
+    {
+        $path = $this->userPath($id);
+        return $this->client->delete($path, $options);
+    }
+
+    /**
+     * Deletes a single User based on the Intercom ID.
+     *
+     * @see    https://developers.intercom.com/reference#archive-a-user
      * @param  string $id
      * @param  array  $options
      * @return mixed
@@ -98,8 +113,22 @@ class IntercomUsers
      */
     public function deleteUser($id, $options = [])
     {
-        $path = $this->userPath($id);
-        return $this->client->delete($path, $options);
+        return $this->archiveUser($id, $options);
+    }
+
+    /**
+     * Permanently deletes a single User based on the Intercom ID.
+     *
+     * @see   https://developers.intercom.com/reference#delete-users
+     * @param string $id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function permanentlyDeleteUser($id)
+    {
+        return $this->client->post('user_delete_requests', [
+            'intercom_user_id' => $id
+        ]);
     }
 
     /**
