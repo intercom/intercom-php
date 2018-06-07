@@ -141,7 +141,7 @@ class IntercomClient
      * Sends POST request to Intercom API.
      *
      * @param  string $endpoint
-     * @param  string $json
+     * @param  array $json
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -164,7 +164,7 @@ class IntercomClient
      * Sends PUT request to Intercom API.
      *
      * @param  string $endpoint
-     * @param  string $json
+     * @param  array $json
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -188,7 +188,7 @@ class IntercomClient
      * Sends DELETE request to Intercom API.
      *
      * @param  string $endpoint
-     * @param  string $json
+     * @param  array $json
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
