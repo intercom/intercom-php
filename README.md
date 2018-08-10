@@ -2,6 +2,8 @@
 [![Code
 Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
 
+## intercom-php
+
 > Official PHP bindings to the Intercom API
 
 ## Installation
