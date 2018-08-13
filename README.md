@@ -7,7 +7,7 @@ Status](https://travis-ci.org/intercom/intercom-php.svg?branch=master)](https://
 
 > Official PHP bindings to the Intercom API
 
-## Installation
+### Installation
 
 Requires PHP 5.6.
 
