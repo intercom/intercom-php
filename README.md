@@ -6,7 +6,7 @@ Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d473
 
 > Official PHP bindings to the Intercom API
 
-## Installation
+### Installation
 
 Requires PHP 5.6.
 
