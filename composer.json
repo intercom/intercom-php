@@ -2,7 +2,7 @@
     "name": "intercom/intercom-php",
     "description": "Intercom API client built on top of Guzzle 6",
     "keywords": ["intercom", "intercom.io", "api", "guzzle"],
-    "license": "Apache Version 2",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Intercom Platform Team",

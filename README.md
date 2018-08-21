@@ -1,7 +1,6 @@
 
 [![Code
-Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Build
-Status](https://travis-ci.org/intercom/intercom-php.svg?branch=master)](https://travis-ci.org/intercom/intercom-php)
+Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
 
 ## intercom-php
 
@@ -225,8 +224,10 @@ $client->segments->getSegments();
 
 /** View a segment */
 $client->segments->getSegment("58a707924f6651b07b94376c");
-```
 
+/** View a segment with count */
+$client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"true"]);
+```
 ## Events
 
 ```php
