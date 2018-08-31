@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:5.6
+
+    working_directory: ~/intercom-php
+
+    steps:
+      - checkout
+      - run: composer install --no-interaction
+      - run: vendor/bin/phpunit
