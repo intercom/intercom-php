@@ -1,10 +1,9 @@
+# intercom-php
 
 [![Code
 Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
 
-## intercom-php
-
-> Official PHP bindings to the Intercom API
+Official PHP bindings to the Intercom API
 
 ## Installation
 
@@ -14,14 +13,14 @@ The recommended way to install intercom-php is through [Composer](https://getcom
 
 First, install Composer:
 
-```
-$ curl -sS https://getcomposer.org/installer | php
+```sh
+curl -sS https://getcomposer.org/installer | php
 ```
 
 Next, install the latest intercom-php:
 
-```
-$ php composer.phar require intercom/intercom-php
+```sh
+php composer.phar require intercom/intercom-php
 ```
 
 Finally, you need to require the library in your PHP application:
@@ -31,17 +30,18 @@ require "vendor/autoload.php";
 ```
 
 ## Clients
+
 For OAuth or Access Tokens use:
 
 ```php
 use Intercom\IntercomClient;
 
-$client = new IntercomClient(<insert_token_here>, null);
+$client = new IntercomClient('<insert_token_here>', null);
 ```
 
-> If you already have an access token you can find it [here](https://app.intercom.com/developers/_). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.io/docs/personal-access-tokens).
-
-> If you are building a third party application you can get your OAuth token by [setting-up-oauth](https://developers.intercom.io/page/setting-up-oauth) for Intercom.
+> If you already have an access token you can find it [here](https://app.intercom.com/a/apps/_/developer-hub). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.com/building-apps/docs/authorization#section-access-tokens).
+>
+> If you are building a third party application you can get your OAuth token by [setting-up-oauth](https://developers.intercom.com/building-apps/docs/authorization#section-oauth) for Intercom.
 
 ## Users
 
@@ -52,8 +52,8 @@ $client->users->create([
   "custom_attributes" => ['foo' => 'bar']
 ]);
 
-/** 
- * Update a user (Note: This method is an alias to the create method. In practice you 
+/**
+ * Update a user (Note: This method is an alias to the create method. In practice you
  * can use create to update users if you wish)
  */
 $client->users->update([
@@ -94,10 +94,10 @@ $client->users->getUsers(["email" => "bob@example.com"]);
 /** List all users up to 10k records */
 $client->users->getUsers([]);
 
-/** 
+/**
  * List all users (even above 10k records)
- * The result object contains an array of your user objects and a scroll_param which you can then 
- * use to request the next 100 users. Note that the scroll parameter will time out after one minute 
+ * The result object contains an array of your user objects and a scroll_param which you can then
+ * use to request the next 100 users. Note that the scroll parameter will time out after one minute
  * and you will need to make a new request
  */
 $client->users->scrollUsers();
@@ -108,7 +108,7 @@ See [here](https://github.com/intercom/intercom-php#scroll) for more info on usi
 ## Leads
 
 ```php
-/** 
+/**
  * Create a lead
  * See more options here: https://developers.intercom.io/reference#create-lead
  */
@@ -118,7 +118,7 @@ $client->leads->create([
 ]);
 
 /**
- * Update a lead (Note: This method is an alias to the create method. 
+ * Update a lead (Note: This method is an alias to the create method.
  * In practice you can use create to update leads if you wish)
  */
 $client->leads->update([
@@ -126,7 +126,7 @@ $client->leads->update([
   "custom_attributes" => ['foo' => 'bar']
 ]);
 
-/** 
+/**
  * List leads
  * See more options here: https://developers.intercom.io/reference#list-leads
  */
@@ -148,10 +148,10 @@ $client->leads->convertLead([
   ]
 ]);
 
-/** 
+/**
  * List all leads (even above 10k records)
- * The result object contains an array of your contacts objects and a scroll_param which you can then 
- * use to request the next 100 leads. Note that the scroll parameter will time out after one minute 
+ * The result object contains an array of your contacts objects and a scroll_param which you can then
+ * use to request the next 100 leads. Note that the scroll parameter will time out after one minute
  * and you will need to make a new request
  */
 $client->leads->scrollLeads();
@@ -160,6 +160,7 @@ $client->leads->scrollLeads();
 See [here](https://github.com/intercom/intercom-php#scroll) for more info on using the scroll parameter
 
 ## Visitors
+
 Retrieve `user_id` of a visitor via [the JavaScript API](https://developers.intercom.com/docs/intercom-javascript#section-intercomgetvisitorid)
 
 ```php
@@ -204,7 +205,7 @@ $client->visitors->convertVisitor([
 /** List tags */
 $client->tags->getTags();
 
-/** 
+/**
  * Tag users
  * See more options here: https://developers.intercom.io/reference#tag-or-untag-users-companies-leads-contacts
  */
@@ -228,6 +229,7 @@ $client->segments->getSegment("58a707924f6651b07b94376c");
 /** View a segment with count */
 $client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"true"]);
 ```
+
 ## Events
 
 ```php
@@ -250,8 +252,8 @@ $client->companies->create([
   "name" => "foocorp", "company_id" => "3"
 ]);
 
-/** 
- * Update a company (Note: This method is an alias to the create method. 
+/**
+ * Update a company (Note: This method is an alias to the create method.
  * In practice you can use create to update companies if you wish)
  */
 $client->companies->update([
@@ -285,7 +287,7 @@ $client->admins->getAdmins();
 ## Messages
 
 ```php
-/** 
+/**
  * Send a message from an admin to a user
  * See more options here: https://developers.intercom.io/reference#conversations
  */
@@ -307,7 +309,7 @@ $client->messages->create([
 ## Conversations
 
 ```php
-/** 
+/**
  * List conversations for an admin
  * See more options here: https://developers.intercom.io/reference#list-conversations
  */
@@ -324,7 +326,7 @@ $client->conversations->getConversation("1234", [
   "display_as" => "plaintext"
 ])
 
-/** 
+/**
  * Reply to a conversation
  * See more options here: https://developers.intercom.io/reference#replying-to-a-conversation
  */
@@ -335,7 +337,7 @@ $client->conversations->replyToConversation("5678", [
   "message_type" => "comment"
 ]);
 
-/** 
+/**
  * Reply to a user's last conversation
  * See more options here: https://developers.intercom.com/reference#replying-to-users-last-conversation
  */
@@ -346,7 +348,7 @@ $client->conversations->replyToLastConversation([
   "message_type" => "comment"
 ]);
 
-/** 
+/**
  * Mark a conversation as read
  * See API documentation here: https://developers.intercom.io/reference#marking-a-conversation-as-read
  */
@@ -356,7 +358,7 @@ $client->conversations->markConversationAsRead("7890");
 ## Counts
 
 ```php
-/** 
+/**
  * List counts
  * See more options here: https://developers.intercom.io/reference#getting-counts
  */
@@ -389,11 +391,12 @@ $client->notes->getNote("42");
 Rate limit info is passed via the rate limit headers.
 You can access this information as follows:
 
-```
+```php
 $rate_limit = $intercom->getRateLimitDetails();
 print("{$rate_limit['remaining']} {$rate_limit['limit']} \n");
 print_r($rate_limit['reset_at']->format(DateTime::ISO8601));
 ```
+
 For more info on rate limits and these headers please see the [API reference docs](https://developers.intercom.com/reference#rate-limiting)
 
 ## Pagination
@@ -414,7 +417,8 @@ You can grab the next page of results using the client:
 $client->nextPage($response->pages);
 ```
 
-## Scroll 
+## Scroll
+
 The first time you use the scroll API you can just send a simple GET request.
 This will return up to 100 records. If you have more than 100 you will need to make another call.
 To do this you need to use to scroll_parameter returned in the original response.
@@ -423,7 +427,7 @@ This means there are no records and the scroll timer will be reset.
 For more information on scroll please see the [API reference](https://developers.intercom.com/reference#iterating-over-all-users)
 Here is an example of a simple way to use the scroll for multiple calls:
 
-```
+```php
 <?php
 require "vendor/autoload.php";
 use Intercom\IntercomClient;
@@ -442,7 +446,6 @@ while (!empty($resp->scroll_param && sizeof($resp->users) > 0)){
 }
 ?>
 ```
-
 
 ## Exceptions
 
