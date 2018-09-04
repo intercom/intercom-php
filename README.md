@@ -48,8 +48,8 @@ $client = new IntercomClient('<insert_token_here>', null);
 ```php
 /** Create a user */
 $client->users->create([
-  "email" => "test@example.com",
-  "custom_attributes" => ['foo' => 'bar']
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
 ]);
 
 /**
@@ -57,8 +57,8 @@ $client->users->create([
  * can use create to update users if you wish)
  */
 $client->users->update([
-  "email" => "test@example.com",
-  "custom_attributes" => ['foo' => 'bar']
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
 ]);
 
 /** Delete a user by ID */
@@ -69,23 +69,23 @@ $client->users->getUser("570680a8a1bcbca8a90001b9");
 
 /** Add companies to a user */
 $client->users->create([
-  "email" => "test@example.com",
-  "companies" => [
-    [
-      "company_id" => "3"
+    "email" => "test@example.com",
+    "companies" => [
+        [
+            "company_id" => "3"
+        ]
     ]
-  ]
 ]);
 
 /** Remove companies from a user */
 $client->users->create([
-  "email" => "test@example.com",
-  "companies" => [
-    [
-      "company_id" => "3",
-      "remove" => true
+    "email" => "test@example.com",
+    "companies" => [
+        [
+            "company_id" => "3",
+            "remove" => true
+        ]
     ]
-  ]
 ]);
 
 /** Find a single user by email */
@@ -113,8 +113,8 @@ See [here](https://github.com/intercom/intercom-php#scroll) for more info on usi
  * See more options here: https://developers.intercom.io/reference#create-lead
  */
 $client->leads->create([
-  "email" => "test@example.com",
-  "custom_attributes" => ['foo' => 'bar']
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
 ]);
 
 /**
@@ -122,8 +122,8 @@ $client->leads->create([
  * In practice you can use create to update leads if you wish)
  */
 $client->leads->update([
-  "email" => "test@example.com",
-  "custom_attributes" => ['foo' => 'bar']
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
 ]);
 
 /**
@@ -140,12 +140,12 @@ $client->leads->deleteLead("570680a8a1bcbca8a90000a9");
 
 /** Convert a Lead to a User */
 $client->leads->convertLead([
-  "contact" => [
-    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
-  ],
-  "user" => [
-    "email" => "winstonsmith@truth.org"
-  ]
+    "contact" => [
+        "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+    ],
+    "user" => [
+        "email" => "winstonsmith@truth.org"
+    ]
 ]);
 
 /**
@@ -166,8 +166,8 @@ Retrieve `user_id` of a visitor via [the JavaScript API](https://developers.inte
 ```php
 /** Update a visitor */
 $client->visitors->update([
-  "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c",
-  "custom_attributes" => ['foo' => 'bar']
+    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c",
+    "custom_attributes" => ['foo' => 'bar']
 ]);
 
 /** Find a visitor by ID */
@@ -181,21 +181,21 @@ $client->visitors->deleteVisitor("570680a8a1bcbca8a90000a9");
 
 /** Convert a Visitor to a Lead */
 $client->visitors->convertVisitor([
-  "visitor" => [
-    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
-  ],
-  "type" => "lead"
+    "visitor" => [
+        "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+    ],
+    "type" => "lead"
 ]);
 
 /** Convert a Visitor to a User */
 $client->visitors->convertVisitor([
-  "visitor" => [
-    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
-  ],
-  "user" => [
-    "email" => "winstonsmith@truth.org"
-  ],
-  "type" => "user"
+    "visitor" => [
+        "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+    ],
+    "user" => [
+        "email" => "winstonsmith@truth.org"
+    ],
+    "type" => "user"
 ]);
 ```
 
@@ -210,10 +210,10 @@ $client->tags->getTags();
  * See more options here: https://developers.intercom.io/reference#tag-or-untag-users-companies-leads-contacts
  */
 $client->tags->tag([
-  "name" => "Test",
-  "users" => [
-    ["id" => "1234"]
-  ]
+    "name" => "Test",
+    "users" => [
+        ["id" => "1234"]
+    ]
 ]);
 ```
 
@@ -235,9 +235,9 @@ $client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"tru
 ```php
 /** Create an event */
 $client->events->create([
-  "event_name" => "testing",
-  "created_at" => 1391691571,
-  "email" => "test@example.com"
+    "event_name" => "testing",
+    "created_at" => 1391691571,
+    "email" => "test@example.com"
 ]);
 
 /** View events for a user */
@@ -249,7 +249,8 @@ $client->events->getEvents(["email" => "bob@example.com"]);
 ```php
 /** Create a company */
 $client->companies->create([
-  "name" => "foocorp", "company_id" => "3"
+    "name" => "foocorp",
+    "company_id" => "3"
 ]);
 
 /**
@@ -257,17 +258,18 @@ $client->companies->create([
  * In practice you can use create to update companies if you wish)
  */
 $client->companies->update([
-  "name" => "foocorp", "id" => "3"
+    "name" => "foocorp",
+    "id" => "3"
 ]);
 
 /** Creating or Update a company with custom attributes. */
 $client->companies->update([
-  "name" => "foocorp",
-  "id" => "3",
-  "custom_attributes" => [
-    "foo" => "bar",
-    "baz" => "qux"
-  ]
+    "name" => "foocorp",
+    "id" => "3",
+    "custom_attributes" => [
+        "foo" => "bar",
+        "baz" => "qux"
+    ]
 ]);
 
 /** List Companies */
@@ -292,17 +294,17 @@ $client->admins->getAdmins();
  * See more options here: https://developers.intercom.io/reference#conversations
  */
 $client->messages->create([
-  "message_type" => "inapp",
-  "subject" => "Hey",
-  "body" => "Ponies, cute small horses or something more sinister?",
-  "from" => [
-    "type" => "admin",
-    "id" => "1234"
-  ],
-  "to" => [
-    "type" => "user",
-    "email" => "bob@example.com"
-  ]
+    "message_type" => "inapp",
+    "subject" => "Hey",
+    "body" => "Ponies, cute small horses or something more sinister?",
+    "from" => [
+        "type" => "admin",
+        "id" => "1234"
+    ],
+    "to" => [
+        "type" => "user",
+        "email" => "bob@example.com"
+    ]
 ]);
 ```
 
@@ -314,8 +316,8 @@ $client->messages->create([
  * See more options here: https://developers.intercom.io/reference#list-conversations
  */
 $client->conversations->getConversations([
-  "type" => "admin",
-  "admin_id" => "25610"
+    "type" => "admin",
+    "admin_id" => "25610"
 ]);
 
 /** Get a single conversation */
@@ -323,7 +325,7 @@ $client->conversations->getConversation("1234")
 
 /** Get a single conversation with plaintext comments */
 $client->conversations->getConversation("1234", [
-  "display_as" => "plaintext"
+    "display_as" => "plaintext"
 ])
 
 /**
@@ -331,10 +333,10 @@ $client->conversations->getConversation("1234", [
  * See more options here: https://developers.intercom.io/reference#replying-to-a-conversation
  */
 $client->conversations->replyToConversation("5678", [
-  "email" => "test@example.com",
-  "body" => "Thanks :)",
-  "type" => "user",
-  "message_type" => "comment"
+    "email" => "test@example.com",
+    "body" => "Thanks :)",
+    "type" => "user",
+    "message_type" => "comment"
 ]);
 
 /**
@@ -342,10 +344,10 @@ $client->conversations->replyToConversation("5678", [
  * See more options here: https://developers.intercom.com/reference#replying-to-users-last-conversation
  */
 $client->conversations->replyToLastConversation([
-  "email" => "test@example.com",
-  "body" => "Thanks :)",
-  "type" => "user",
-  "message_type" => "comment"
+    "email" => "test@example.com",
+    "body" => "Thanks :)",
+    "type" => "user",
+    "message_type" => "comment"
 ]);
 
 /**
@@ -370,11 +372,11 @@ $client->counts->getCounts([])
 ```php
 /** Create a note */
 $client->notes->create([
-  "admin_id" => "21",
-  "body" => "Text for my note",
-  "user" => [
-    "id" => "5310d8e8598c9a0b24000005"
-  ]
+    "admin_id" => "21",
+    "body" => "Text for my note",
+    "user" => [
+        "id" => "5310d8e8598c9a0b24000005"
+    ]
 ]);
 
 /** List notes for a user */
@@ -428,23 +430,21 @@ For more information on scroll please see the [API reference](https://developers
 Here is an example of a simple way to use the scroll for multiple calls:
 
 ```php
-<?php
 require "vendor/autoload.php";
+
 use Intercom\IntercomClient;
 
-$intercom= new IntercomClient(getenv('AT'), null);
+$intercom = new IntercomClient(getenv('AT'), null);
 $resp = $intercom->users->scrollUsers([]);
-#var_dump($resp);
 $count = 1;
 echo "PAGE $count: " . sizeof($resp->users);
 echo "\n";
-while (!empty($resp->scroll_param && sizeof($resp->users) > 0)){
+while (!empty($resp->scroll_param) && sizeof($resp->users) > 0) {
     $count = ++$count;
     $resp = $intercom->users->scrollUsers(["scroll_param" => $resp->scroll_param]);
     echo "PAGE $count: " . sizeof($resp->users);
     echo "\n";
 }
-?>
 ```
 
 ## Exceptions
@@ -457,16 +457,16 @@ If you want to catch errors you can wrap your API call into a try/catch:
 use GuzzleHttp\Exception\ClientException;
 
 try {
-  $user = $client->users->getUser("570680a8a1bcbca8a90001b9");
+    $user = $client->users->getUser("570680a8a1bcbca8a90001b9");
 } catch(ClientException $e) {
-  $response = $e->getResponse();
-  $statusCode = $response->getStatusCode();
-  if ($statusCode == '404') {
-    // Handle 404 error
-    return;
-  } else {
-    throw $e;
-  }
+    $response = $e->getResponse();
+    $statusCode = $response->getStatusCode();
+    if ($statusCode == '404') {
+        // Handle 404 error
+        return;
+    } else {
+        throw $e;
+    }
 }
 ```
 
