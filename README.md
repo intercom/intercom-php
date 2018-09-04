@@ -61,8 +61,13 @@ $client->users->update([
     "custom_attributes" => ['foo' => 'bar']
 ]);
 
-/** Delete a user by ID */
-$client->users->deleteUser("570680a8a1bcbca8a90001b9");
+/** Archive a user by ID (i.e. soft delete) */
+$client->users->archiveUser("570680a8a1bcbca8a90001b9");
+
+/** Permanently delete a user */
+$client->users->permanentlyDeleteUser("570680a8a1bcbca8a90001b9");
+
+/** For more on the difference between archive and permanently deleting a user please see https://developers.intercom.com/reference#archive-a-user. */
 
 /** Get a user by ID */
 $client->users->getUser("570680a8a1bcbca8a90001b9");
