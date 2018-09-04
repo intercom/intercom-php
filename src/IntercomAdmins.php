@@ -48,6 +48,12 @@ class IntercomAdmins
         return $this->client->get($path, $options);
     }
 
+    /**
+     * Returns endpoint path to Admin with given ID.
+     *
+     * @param  string $id
+     * @return string
+     */
     public function adminPath($id)
     {
         return 'admins/' . $id;

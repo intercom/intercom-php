@@ -38,6 +38,7 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#get-a-single-conversation
      * @param  string $id
+     * @param  array  $options
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */

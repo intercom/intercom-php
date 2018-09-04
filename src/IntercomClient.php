@@ -4,7 +4,6 @@ namespace Intercom;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
 
 class IntercomClient
 {
@@ -60,6 +59,11 @@ class IntercomClient
     public $leads;
 
     /**
+     * @var IntercomVisitors $visitors
+     */
+    public $visitors;
+
+    /**
      * @var IntercomAdmins $admins
      */
     public $admins;
@@ -99,6 +103,7 @@ class IntercomClient
      *
      * @param string $usernamePart App ID.
      * @param string $passwordPart Api Key.
+     * @param array  $extraGuzzleRequestsOptions Extra Guzzle request options.
      */
     public function __construct($usernamePart, $passwordPart, $extraGuzzleRequestsOptions = [])
     {
@@ -147,15 +152,13 @@ class IntercomClient
      */
     public function post($endpoint, $json)
     {
-        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
-            [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions([
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
             ],
-            ]
-        );
+        ]);
         $response = $this->http_client->request('POST', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
     }
@@ -170,15 +173,13 @@ class IntercomClient
      */
     public function put($endpoint, $json)
     {
-        $guzzleRequestOptions = $this->getGuzzleRequestOptions(
-            [
+        $guzzleRequestOptions = $this->getGuzzleRequestOptions([
             'json' => $json,
             'auth' => $this->getAuth(),
             'headers' => [
                 'Accept' => 'application/json'
             ],
-            ]
-        );
+        ]);
 
         $response = $this->http_client->request('PUT', "https://api.intercom.io/$endpoint", $guzzleRequestOptions);
         return $this->handleResponse($response);
@@ -255,7 +256,7 @@ class IntercomClient
     /**
      * Returns Guzzle Requests Options Array
      *
-     * @param  array $defaultGuzzleRequestsOptions
+     * @param  array $defaultGuzzleRequestOptions
      * @return array
      */
     public function getGuzzleRequestOptions($defaultGuzzleRequestOptions = [])
