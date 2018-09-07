@@ -1,5 +1,7 @@
 <?php
 
+namespace Intercom\Test;
+
 use Intercom\IntercomCompanies;
 use Intercom\IntercomClient;
 use GuzzleHttp\Client;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Intercom\Test;
+
 use Intercom\IntercomNotes;
 
 class IntercomNotesTest extends PHPUnit_Framework_TestCase

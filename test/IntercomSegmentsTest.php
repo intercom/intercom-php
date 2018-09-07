@@ -1,5 +1,7 @@
 <?php
 
+namespace Intercom\Test;
+
 use Intercom\IntercomSegments;
 
 class IntercomSegmentTest extends PHPUnit_Framework_TestCase

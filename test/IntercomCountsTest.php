@@ -1,5 +1,7 @@
 <?php
 
+namespace Intercom\Test;
+
 use Intercom\IntercomCounts;
 
 class IntercomCountsTest extends PHPUnit_Framework_TestCase

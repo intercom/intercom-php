@@ -1,5 +1,7 @@
 <?php
 
+namespace Intercom\Test;
+
 use Intercom\IntercomTags;
 
 class IntercomTagsTest extends PHPUnit_Framework_TestCase
