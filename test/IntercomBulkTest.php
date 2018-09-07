@@ -4,7 +4,7 @@ namespace Intercom\Test;
 
 use Intercom\IntercomBulk;
 
-class IntercomBulkTest extends PHPUnit_Framework_TestCase
+class IntercomBulkTest extends \PHPUnit_Framework_TestCase
 {
     public function testBulkUsers()
     {

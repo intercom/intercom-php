@@ -4,7 +4,7 @@ namespace Intercom\Test;
 
 use Intercom\IntercomTags;
 
-class IntercomTagsTest extends PHPUnit_Framework_TestCase
+class IntercomTagsTest extends \PHPUnit_Framework_TestCase
 {
     public function testTagUsers()
     {

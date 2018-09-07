@@ -10,7 +10,7 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 
-class IntercomCompaniesTest extends PHPUnit_Framework_TestCase
+class IntercomCompaniesTest extends \PHPUnit_Framework_TestCase
 {
     public function testCompanyCreate()
     {
