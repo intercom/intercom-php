@@ -1,12 +1,9 @@
 <?php
 
+namespace Intercom\Test;
+
 use Intercom\IntercomUsers;
-use Intercom\IntercomClient;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
+use PHPUnit_Framework_TestCase;
 
 class IntercomUsersTest extends PHPUnit_Framework_TestCase
 {

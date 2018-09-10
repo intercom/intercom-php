@@ -1,11 +1,16 @@
 <?php
 
+namespace Intercom\Test;
+
+use DateTimeImmutable;
 use Intercom\IntercomClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
+use PHPUnit_Framework_TestCase;
+use stdClass;
 
 class IntercomClientTest extends PHPUnit_Framework_TestCase
 {
