@@ -102,7 +102,7 @@ class IntercomClient
      * IntercomClient constructor.
      *
      * @param string $usernamePart App ID.
-     * @param string $passwordPart Api Key.
+     * @param string|null $passwordPart Api Key.
      * @param array  $extraGuzzleRequestsOptions Extra Guzzle request options.
      */
     public function __construct($usernamePart, $passwordPart, $extraGuzzleRequestsOptions = [])
