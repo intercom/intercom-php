@@ -245,7 +245,8 @@ $client->events->create([
     "email" => "test@example.com",
     "metadata" => [
         "order_date" => 1392036272,
-        "stripe_invoice" => "inv_3434343434" ]
+        "stripe_invoice" => "inv_3434343434"
+    ]
 ]);
 
 /** View events for a user */
