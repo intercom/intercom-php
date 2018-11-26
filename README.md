@@ -242,7 +242,11 @@ $client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"tru
 $client->events->create([
     "event_name" => "testing",
     "created_at" => 1391691571,
-    "email" => "test@example.com"
+    "email" => "test@example.com",
+    "metadata" => [
+        "order_date" => 1392036272,
+        "stripe_invoice" => "inv_3434343434"
+    ]
 ]);
 
 /** View events for a user */
