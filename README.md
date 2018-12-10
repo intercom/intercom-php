@@ -9,34 +9,22 @@ Official PHP bindings to the Intercom API
 
 This library supports PHP 7.1 and later
 
+Please note this library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTP Plug is only an abstraction, so you need to provide it with an adapter for the HTTP library you prefer. You can find the available adapters [here](http://docs.php-http.org/en/latest/clients.html). The example below assumes you use Guzzle6 as your HTTP library.
+
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
-First, install Composer:
-
 ```sh
-curl -sS https://getcomposer.org/installer | php
-```
-
-Next, install the latest intercom-php:
-
-```sh
-php composer.phar require intercom/intercom-php
-```
-
-Finally, you need to require the library in your PHP application:
-
-```php
-require "vendor/autoload.php";
+composer require intercom/intercom-php php-http/guzzle6-adapter
 ```
 
 ## Clients
 
-For OAuth or Access Tokens use:
+Initialize your client using your access token:
 
 ```php
 use Intercom\IntercomClient;
 
-$client = new IntercomClient('<insert_token_here>', null);
+$client = new IntercomClient('<insert_token_here>');
 ```
 
 > If you already have an access token you can find it [here](https://app.intercom.com/a/apps/_/developer-hub). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.com/building-apps/docs/authorization#section-access-tokens).
