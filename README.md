@@ -1,7 +1,6 @@
 # intercom-php
 
-[![Code
-Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
+[![Code Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
 
 Official PHP bindings to the Intercom API
 
@@ -9,7 +8,7 @@ Official PHP bindings to the Intercom API
 
 This library supports PHP 7.1 and later
 
-Please note this library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTP Plug is only an abstraction, so you need to provide it with an adapter for the HTTP library you prefer. You can find the available adapters [here](http://docs.php-http.org/en/latest/clients.html). The example below assumes you use Guzzle6 as your HTTP library.
+This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTP Plug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find the available adapters [here](http://docs.php-http.org/en/latest/clients.html). The example below assumes you use Guzzle6 as your HTTP library, but you can replace it with any adapter that you prefer.
 
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
@@ -30,6 +29,18 @@ $client = new IntercomClient('<insert_token_here>');
 > If you already have an access token you can find it [here](https://app.intercom.com/a/apps/_/developer-hub). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.com/building-apps/docs/authorization#section-access-tokens).
 >
 > If you are building a third party application you can get your OAuth token by [setting-up-oauth](https://developers.intercom.com/building-apps/docs/authorization#section-oauth) for Intercom.
+
+For most of the use cases, the code snippet above is just enough. However, for most specific scenarios, you can include custom request headers, or even pass in your own HTTP client, request factory or URI factory:
+
+```php
+use Intercom\IntercomClient;
+
+$client = new IntercomClient('<insert_token_here>', null, ['Custom-Header' => 'value']);
+
+$client->setClient($myCustomHttpClient); // $myCustomHttpClient implements Psr\Http\Client\ClientInterface
+$client->setRequestFactory($myCustomRequestFactory); // $myCustomRequestFactory implements Http\Message\RequestFactory
+$client->setUriFactory($myCustomUriFactory); // $myCustomUriFactory implements Http\Message\UriFactory
+```
 
 ## Users
 
