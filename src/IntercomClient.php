@@ -303,7 +303,7 @@ class IntercomClient
     /**
      * @param string              $method
      * @param string|UriInterface $uri
-     * @param array|null          $body
+     * @param array|string|null   $body
      *
      * @return ResponseInterface
      * @throws ClientExceptionInterface
@@ -311,6 +311,7 @@ class IntercomClient
     private function sendRequest($method, $uri, $body = null)
     {
         $headers = $this->getRequestHeaders();
+        $body = ($body !== null && is_array($body)) ? json_encode($body) : $body;
         $request = $this->authenticateRequest(
             $this->requestFactory->createRequest($method, $uri, $headers, $body)
         );
