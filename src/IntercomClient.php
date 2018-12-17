@@ -144,6 +144,10 @@ class IntercomClient
         $this->appIdOrToken = $appIdOrToken;
         $this->passwordPart = $password;
         $this->extraRequestHeaders = $extraRequestHeaders;
+
+        $this->client = HttpClientDiscovery::find();
+        $this->requestFactory = MessageFactoryDiscovery::find();
+        $this->uriFactory = UriFactoryDiscovery::find();
     }
 
     /**
@@ -224,7 +228,7 @@ class IntercomClient
      */
     public function get($endpoint, $queryParams = [])
     {
-        $uri = $this->getUriFactory()->createUri("https://api.intercom.io/$endpoint");
+        $uri = $this->uriFactory->createUri("https://api.intercom.io/$endpoint");
         if (!empty($queryParams)) {
             $uri = $uri->withQuery(http_build_query($queryParams));
         }
@@ -271,39 +275,6 @@ class IntercomClient
     }
 
     /**
-     * @return ClientInterface
-     */
-    private function getClient()
-    {
-        if (empty($this->client)) {
-            $this->client = HttpClientDiscovery::find();
-        }
-        return $this->client;
-    }
-
-    /**
-     * @return RequestFactory
-     */
-    private function getRequestFactory()
-    {
-        if (empty($this->requestFactory)) {
-            $this->requestFactory = MessageFactoryDiscovery::find();
-        }
-        return $this->requestFactory;
-    }
-
-    /**
-     * @return UriFactory
-     */
-    private function getUriFactory()
-    {
-        if (empty($this->uriFactory)) {
-            $this->uriFactory = UriFactoryDiscovery::find();
-        }
-        return $this->uriFactory;
-    }
-
-    /**
      * Returns authentication parameters
      *
      * @return Authentication
@@ -341,10 +312,10 @@ class IntercomClient
     {
         $headers = $this->getRequestHeaders();
         $request = $this->authenticateRequest(
-            $this->getRequestFactory()->createRequest($method, $uri, $headers, $body)
+            $this->requestFactory->createRequest($method, $uri, $headers, $body)
         );
 
-        return $this->getClient()->sendRequest($request);
+        return $this->client->sendRequest($request);
     }
 
     /**
