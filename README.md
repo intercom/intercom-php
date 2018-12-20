@@ -8,7 +8,7 @@ Official PHP bindings to the Intercom API
 
 Requires PHP 5.6 or above.
 
-This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTP Plug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find the available adapters [here](http://docs.php-http.org/en/latest/clients.html). The example below assumes you use Guzzle6 as your HTTP library, but you can replace it with any adapter that you prefer.
+This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTPPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find the available adapters [here](http://docs.php-http.org/en/latest/clients.html). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
 
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
@@ -457,7 +457,7 @@ while (!empty($resp->scroll_param) && sizeof($resp->users) > 0) {
 
 ## Exceptions
 
-Exceptions are handled by [Guzzle](https://github.com/guzzle/guzzle).
+Exceptions are handled by the HTTP client that you chose during the installation of this library. The following example assumes you chose `php-http/guzzle6-adapter`.
 The Intercom API may return an unsuccessful HTTP response, for example when a resource is not found (404).
 If you want to catch errors you can wrap your API call into a try/catch:
 
