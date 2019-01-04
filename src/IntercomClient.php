@@ -297,7 +297,8 @@ class IntercomClient
      */
     private function authenticateRequest(RequestInterface $request)
     {
-        return $this->getAuth() ? $this->getAuth()->authenticate($request) : $request;
+        $auth = $this->getAuth();
+        return $auth ? $auth->authenticate($request) : $request;
     }
 
     /**
@@ -311,7 +312,7 @@ class IntercomClient
     private function sendRequest($method, $uri, $body = null)
     {
         $headers = $this->getRequestHeaders();
-        $body = ($body !== null && is_array($body)) ? json_encode($body) : $body;
+        $body = is_array($body) ? json_encode($body) : $body;
         $request = $this->authenticateRequest(
             $this->requestFactory->createRequest($method, $uri, $headers, $body)
         );
