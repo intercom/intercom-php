@@ -19,9 +19,9 @@ use Psr\Http\Message\UriInterface;
 class IntercomClient
 {
     /**
-     * @var ClientInterface $client
+     * @var ClientInterface $httpClient
      */
-    private $client;
+    private $httpClient;
 
     /**
      * @var RequestFactory $requestFactory
@@ -145,7 +145,7 @@ class IntercomClient
         $this->passwordPart = $password;
         $this->extraRequestHeaders = $extraRequestHeaders;
 
-        $this->client = HttpClientDiscovery::find();
+        $this->httpClient = HttpClientDiscovery::find();
         $this->requestFactory = MessageFactoryDiscovery::find();
         $this->uriFactory = UriFactoryDiscovery::find();
     }
@@ -153,11 +153,11 @@ class IntercomClient
     /**
      * Sets the HTTP client.
      *
-     * @param ClientInterface $client
+     * @param ClientInterface $httpClient
      */
-    public function setClient(ClientInterface $client)
+    public function setHttpClient(ClientInterface $httpClient)
     {
-        $this->client = $client;
+        $this->httpClient = $httpClient;
     }
 
     /**
@@ -316,7 +316,7 @@ class IntercomClient
             $this->requestFactory->createRequest($method, $uri, $headers, $body)
         );
 
-        return $this->client->sendRequest($request);
+        return $this->httpClient->sendRequest($request);
     }
 
     /**

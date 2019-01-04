@@ -30,14 +30,14 @@ $client = new IntercomClient('<insert_token_here>');
 >
 > If you are building a third party application you can get your OAuth token by [setting-up-oauth](https://developers.intercom.com/building-apps/docs/authorization#section-oauth) for Intercom.
 
-For most of the use cases, the code snippet above is just enough. However, for most specific scenarios, you can include custom request headers, or even pass in your own HTTP client, request factory or URI factory:
+For most use cases the code snippet above should suffice. However, if needed, you can customize the Intercom client as follows:
 
 ```php
 use Intercom\IntercomClient;
 
 $client = new IntercomClient('<insert_token_here>', null, ['Custom-Header' => 'value']);
 
-$client->setClient($myCustomHttpClient); // $myCustomHttpClient implements Psr\Http\Client\ClientInterface
+$client->setHttpClient($myCustomHttpClient); // $myCustomHttpClient implements Psr\Http\Client\ClientInterface
 $client->setRequestFactory($myCustomRequestFactory); // $myCustomRequestFactory implements Http\Message\RequestFactory
 $client->setUriFactory($myCustomUriFactory); // $myCustomUriFactory implements Http\Message\UriFactory
 ```

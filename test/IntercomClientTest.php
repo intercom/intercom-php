@@ -26,10 +26,10 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $http_client = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
-        $client->setClient($http_client);
+        $client->setHttpClient($httpClient);
 
         $client->users->create([
             'email' => 'test@intercom.io'
@@ -52,10 +52,10 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $http_client = new Client(new GuzzleClient(['handler' => $stack, 'connect_timeout' => 10]));
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack, 'connect_timeout' => 10]));
 
         $client = new IntercomClient('u', 'p');
-        $client->setClient($http_client);
+        $client->setHttpClient($httpClient);
 
         $client->users->create([
             'email' => 'test@intercom.io'
@@ -78,10 +78,10 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $http_client = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p', ['Custom-Header' => 'value']);
-        $client->setClient($http_client);
+        $client->setHttpClient($httpClient);
 
         $client->users->create([
             'email' => 'test@intercom.io'
@@ -106,10 +106,10 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $http_client = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
-        $client->setClient($http_client);
+        $client->setHttpClient($httpClient);
 
         $pages = new stdClass;
         $pages->next = 'https://foo.com';
@@ -143,10 +143,10 @@ class IntercomClientTest extends PHPUnit_Framework_TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $http_client = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
-        $client->setClient($http_client);
+        $client->setHttpClient($httpClient);
 
         $client->users->create([
             'email' => 'test@intercom.io'
