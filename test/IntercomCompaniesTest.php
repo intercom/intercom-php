@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomCompanies;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomCompaniesTest extends PHPUnit_Framework_TestCase
+class IntercomCompaniesTest extends TestCase
 {
     public function testCompanyCreate()
     {

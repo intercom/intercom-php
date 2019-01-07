@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomUsers;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomUsersTest extends PHPUnit_Framework_TestCase
+class IntercomUsersTest extends TestCase
 {
     public function testUserCreate()
     {

@@ -9,10 +9,10 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class IntercomClientTest extends PHPUnit_Framework_TestCase
+class IntercomClientTest extends TestCase
 {
     public function testBasicClient()
     {

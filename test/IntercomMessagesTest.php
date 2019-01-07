@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomMessages;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomMessagesTest extends PHPUnit_Framework_TestCase
+class IntercomMessagesTest extends TestCase
 {
     public function testMessageCreate()
     {

@@ -1,8 +1,8 @@
 version: 2
 jobs:
-  build:
+  test-7.3: &test-template
     docker:
-      - image: circleci/php:5.6
+      - image: circleci/php:7.3
 
     working_directory: ~/intercom-php
 
@@ -11,3 +11,21 @@ jobs:
       - run: composer install --no-interaction
       - run: vendor/bin/phpunit
       - run: vendor/bin/phpcs --standard=PSR2 src test
+
+  test-7.2:
+    <<: *test-template
+    docker:
+      - image: circleci/php:7.2
+
+  test-7.1:
+    <<: *test-template
+    docker:
+      - image: circleci/php:7.1
+
+workflows:
+  version: 2
+  test_on_supported_php_versions:
+    jobs:
+      - test-7.3
+      - test-7.2
+      - test-7.1

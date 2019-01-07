@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomLeads;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomLeadsTest extends PHPUnit_Framework_TestCase
+class IntercomLeadsTest extends TestCase
 {
     public function testLeadCreate()
     {

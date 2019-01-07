@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomAdmins;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomAdminsTest extends PHPUnit_Framework_TestCase
+class IntercomAdminsTest extends TestCase
 {
     public function testAdminsList()
     {
