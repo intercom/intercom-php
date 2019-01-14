@@ -8,7 +8,7 @@ Official PHP bindings to the Intercom API
 
 This library supports PHP 7.1 and later
 
-This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTPPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find the available adapters [here](http://docs.php-http.org/en/latest/clients.html). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
+This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTPPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
 
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
