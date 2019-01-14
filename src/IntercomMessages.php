@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomMessages
 {
 
@@ -25,8 +27,8 @@ class IntercomMessages
      *
      * @see    https://developers.intercom.io/reference#conversations
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {

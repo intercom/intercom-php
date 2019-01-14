@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomCounts
 {
 
@@ -25,8 +27,8 @@ class IntercomCounts
      *
      * @see    https://developers.intercom.io/reference#getting-counts
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getCounts($options = [])
     {

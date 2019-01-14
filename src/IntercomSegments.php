@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomSegments
 {
 
@@ -26,8 +28,8 @@ class IntercomSegments
      * @see    https://developers.intercom.com/reference#view-a-segment
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getSegment($id, array $options = [])
     {
@@ -39,8 +41,8 @@ class IntercomSegments
      *
      * @see    https://developers.intercom.com/reference#list-segments
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getSegments($options = [])
     {

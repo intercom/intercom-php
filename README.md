@@ -457,19 +457,15 @@ while (!empty($resp->scroll_param) && sizeof($resp->users) > 0) {
 
 ## Exceptions
 
-Exceptions are handled by the HTTP client that you chose during the installation of this library. The following example assumes you chose `php-http/guzzle6-adapter`.
+Exceptions are handled by HTTPPlug. Every exception thrown implements `Http\Client\Exception`. See the different exceptions that can be thrown [in the HTTPPlug documentation](http://docs.php-http.org/en/latest/httplug/exceptions.html).
 The Intercom API may return an unsuccessful HTTP response, for example when a resource is not found (404).
-If you want to catch errors you can wrap your API call into a try/catch:
+If you want to catch errors you can wrap your API call into a try/catch block:
 
 ```php
-use GuzzleHttp\Exception\ClientException;
-
 try {
     $user = $client->users->getUser("570680a8a1bcbca8a90001b9");
-} catch(ClientException $e) {
-    $response = $e->getResponse();
-    $statusCode = $response->getStatusCode();
-    if ($statusCode == '404') {
+} catch(Http\Client\Exception $e) {
+    if ($e->getCode() == '404') {
         // Handle 404 error
         return;
     } else {

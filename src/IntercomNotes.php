@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomNotes
 {
 
@@ -25,8 +27,8 @@ class IntercomNotes
      *
      * @see    https://developers.intercom.io/reference#create-a-note
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {
@@ -38,8 +40,8 @@ class IntercomNotes
      *
      * @see    https://developers.intercom.io/reference#list-notes-for-a-user
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getNotes($options)
     {
@@ -51,8 +53,8 @@ class IntercomNotes
      *
      * @see    https://developers.intercom.io/reference#view-a-note
      * @param  string $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getNote($id)
     {
