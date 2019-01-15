@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomSegments;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomSegmentTest extends PHPUnit_Framework_TestCase
+class IntercomSegmentTest extends TestCase
 {
 
     public function testSegmentList()

@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomNotes;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomNotesTest extends PHPUnit_Framework_TestCase
+class IntercomNotesTest extends TestCase
 {
     public function testNoteCreate()
     {

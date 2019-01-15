@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomEvents;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomEventsTest extends PHPUnit_Framework_TestCase
+class IntercomEventsTest extends TestCase
 {
     public function testEventCreate()
     {

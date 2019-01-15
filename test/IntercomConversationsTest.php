@@ -3,9 +3,9 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomConversations;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class IntercomConversationsTest extends PHPUnit_Framework_TestCase
+class IntercomConversationsTest extends TestCase
 {
     public function testConversationsList()
     {

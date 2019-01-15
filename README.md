@@ -7,7 +7,7 @@ Official PHP bindings to the Intercom API
 
 ## Installation
 
-Requires PHP 5.6.
+This library supports PHP 7.1 and later
 
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
