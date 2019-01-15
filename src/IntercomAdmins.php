@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomAdmins
 {
 
@@ -25,8 +27,8 @@ class IntercomAdmins
      *
      * @see    https://developers.intercom.io/reference#list-admins
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getAdmins($options = [])
     {
@@ -39,8 +41,8 @@ class IntercomAdmins
      * @see    https://developers.intercom.com/v2.0/reference#view-an-admin
      * @param  integer $id
      * @param  array   $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getAdmin($id, $options = [])
     {

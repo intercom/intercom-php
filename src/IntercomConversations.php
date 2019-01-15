@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomConversations
 {
 
@@ -25,8 +27,8 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#list-conversations
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getConversations($options)
     {
@@ -39,8 +41,8 @@ class IntercomConversations
      * @see    https://developers.intercom.io/reference#get-a-single-conversation
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getConversation($id, $options = [])
     {
@@ -54,8 +56,8 @@ class IntercomConversations
      * @see    https://developers.intercom.io/reference#replying-to-a-conversation
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function replyToConversation($id, $options)
     {
@@ -68,8 +70,8 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#replying-to-users-last-conversation
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function replyToLastConversation($options)
     {
@@ -82,8 +84,8 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#marking-a-conversation-as-read
      * @param  string $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function markConversationAsRead($id)
     {

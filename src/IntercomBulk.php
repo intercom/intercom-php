@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomBulk
 {
 
@@ -24,8 +26,8 @@ class IntercomBulk
      * Creates Users in bulk.
      *
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function users($options)
     {
@@ -36,8 +38,8 @@ class IntercomBulk
      * Creates Events in bulk.
      *
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function events($options)
     {

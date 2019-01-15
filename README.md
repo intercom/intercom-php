@@ -1,7 +1,6 @@
 # intercom-php
 
-[![Code
-Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
+[![Code Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
 
 Official PHP bindings to the Intercom API
 
@@ -9,39 +8,39 @@ Official PHP bindings to the Intercom API
 
 This library supports PHP 7.1 and later
 
+This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTPPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
+
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
-First, install Composer:
-
 ```sh
-curl -sS https://getcomposer.org/installer | php
-```
-
-Next, install the latest intercom-php:
-
-```sh
-php composer.phar require intercom/intercom-php
-```
-
-Finally, you need to require the library in your PHP application:
-
-```php
-require "vendor/autoload.php";
+composer require intercom/intercom-php php-http/guzzle6-adapter
 ```
 
 ## Clients
 
-For OAuth or Access Tokens use:
+Initialize your client using your access token:
 
 ```php
 use Intercom\IntercomClient;
 
-$client = new IntercomClient('<insert_token_here>', null);
+$client = new IntercomClient('<insert_token_here>');
 ```
 
 > If you already have an access token you can find it [here](https://app.intercom.com/a/apps/_/developer-hub). If you want to create or learn more about access tokens then you can find more info [here](https://developers.intercom.com/building-apps/docs/authorization#section-access-tokens).
 >
 > If you are building a third party application you can get your OAuth token by [setting-up-oauth](https://developers.intercom.com/building-apps/docs/authorization#section-oauth) for Intercom.
+
+For most use cases the code snippet above should suffice. However, if needed, you can customize the Intercom client as follows:
+
+```php
+use Intercom\IntercomClient;
+
+$client = new IntercomClient('<insert_token_here>', null, ['Custom-Header' => 'value']);
+
+$client->setHttpClient($myCustomHttpClient); // $myCustomHttpClient implements Psr\Http\Client\ClientInterface
+$client->setRequestFactory($myCustomRequestFactory); // $myCustomRequestFactory implements Http\Message\RequestFactory
+$client->setUriFactory($myCustomUriFactory); // $myCustomUriFactory implements Http\Message\UriFactory
+```
 
 ## Users
 
@@ -458,19 +457,15 @@ while (!empty($resp->scroll_param) && sizeof($resp->users) > 0) {
 
 ## Exceptions
 
-Exceptions are handled by [Guzzle](https://github.com/guzzle/guzzle).
+Exceptions are handled by HTTPPlug. Every exception thrown implements `Http\Client\Exception`. See the different exceptions that can be thrown [in the HTTPPlug documentation](http://docs.php-http.org/en/latest/httplug/exceptions.html).
 The Intercom API may return an unsuccessful HTTP response, for example when a resource is not found (404).
-If you want to catch errors you can wrap your API call into a try/catch:
+If you want to catch errors you can wrap your API call into a try/catch block:
 
 ```php
-use GuzzleHttp\Exception\ClientException;
-
 try {
     $user = $client->users->getUser("570680a8a1bcbca8a90001b9");
-} catch(ClientException $e) {
-    $response = $e->getResponse();
-    $statusCode = $response->getStatusCode();
-    if ($statusCode == '404') {
+} catch(Http\Client\Exception $e) {
+    if ($e->getCode() == '404') {
         // Handle 404 error
         return;
     } else {

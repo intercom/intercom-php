@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomCompanies
 {
 
@@ -25,8 +27,8 @@ class IntercomCompanies
      *
      * @see    https://developers.intercom.io/reference#create-or-update-company
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {
@@ -38,8 +40,8 @@ class IntercomCompanies
      *
      * @see    https://developers.intercom.io/reference#create-or-update-company
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function update($options)
     {
@@ -51,8 +53,8 @@ class IntercomCompanies
      *
      * @see    https://developers.intercom.io/reference#list-companies
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getCompanies($options)
     {
@@ -65,8 +67,8 @@ class IntercomCompanies
      * @see    https://developers.intercom.com/reference#view-a-company
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getCompany($id, $options = [])
     {

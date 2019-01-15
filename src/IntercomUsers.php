@@ -2,6 +2,8 @@
 
 namespace Intercom;
 
+use Http\Client\Exception;
+
 class IntercomUsers
 {
 
@@ -25,8 +27,8 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.io/reference#create-or-update-user
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {
@@ -38,8 +40,8 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.io/reference#create-or-update-user
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function update($options)
     {
@@ -51,8 +53,8 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.io/reference#list-users
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getUsers($options)
     {
@@ -65,8 +67,8 @@ class IntercomUsers
      * @see    https://developers.intercom.com/reference#view-a-user
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getUser($id, $options = [])
     {
@@ -79,8 +81,8 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.com/reference#iterating-over-all-users
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function scrollUsers($options = [])
     {
@@ -93,8 +95,8 @@ class IntercomUsers
      * @see    https://developers.intercom.com/reference#archive-a-user
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function archiveUser($id, $options = [])
     {
@@ -108,8 +110,8 @@ class IntercomUsers
      * @see    https://developers.intercom.com/reference#archive-a-user
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function deleteUser($id, $options = [])
     {
@@ -121,8 +123,8 @@ class IntercomUsers
      *
      * @see   https://developers.intercom.com/reference#delete-users
      * @param string $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function permanentlyDeleteUser($id)
     {
