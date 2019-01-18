@@ -2,6 +2,9 @@
 
 namespace Intercom;
 
+use Http\Client\Common\Plugin\ErrorPlugin;
+use Http\Client\Common\PluginClient;
+use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Discovery\UriFactoryDiscovery;
@@ -11,7 +14,6 @@ use Http\Message\Authentication\Bearer;
 use Http\Message\RequestFactory;
 use Http\Message\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;
-use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -19,7 +21,7 @@ use Psr\Http\Message\UriInterface;
 class IntercomClient
 {
     /**
-     * @var ClientInterface $httpClient
+     * @var HttpClient $httpClient
      */
     private $httpClient;
 
@@ -145,7 +147,7 @@ class IntercomClient
         $this->passwordPart = $password;
         $this->extraRequestHeaders = $extraRequestHeaders;
 
-        $this->httpClient = HttpClientDiscovery::find();
+        $this->httpClient = $this->getDefaultHttpClient();
         $this->requestFactory = MessageFactoryDiscovery::find();
         $this->uriFactory = UriFactoryDiscovery::find();
     }
@@ -153,9 +155,9 @@ class IntercomClient
     /**
      * Sets the HTTP client.
      *
-     * @param ClientInterface $httpClient
+     * @param HttpClient $httpClient
      */
-    public function setHttpClient(ClientInterface $httpClient)
+    public function setHttpClient(HttpClient $httpClient)
     {
         $this->httpClient = $httpClient;
     }
@@ -258,6 +260,17 @@ class IntercomClient
     public function getRateLimitDetails()
     {
         return $this->rateLimitDetails;
+    }
+
+    /**
+     * @return HttpClient
+     */
+    private function getDefaultHttpClient()
+    {
+        return new PluginClient(
+            HttpClientDiscovery::find(),
+            [new ErrorPlugin()]
+        );
     }
 
     /**

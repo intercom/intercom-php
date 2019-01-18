@@ -4,6 +4,7 @@ namespace Intercom\Test;
 
 use DateTimeImmutable;
 use Http\Adapter\Guzzle6\Client;
+use Http\Client\Exception;
 use Intercom\IntercomClient;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Handler\MockHandler;
@@ -93,6 +94,50 @@ class IntercomClientTest extends TestCase
             $this->assertEquals($headers['Content-Type'][0], 'application/json');
             $this->assertEquals($headers['Custom-Header'][0], 'value');
         }
+    }
+
+    public function testClientErrorHandling()
+    {
+        $mock = new MockHandler([
+            new Response(404)
+        ]);
+
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mock);
+        $stack->push($history);
+
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+
+        $client = new IntercomClient('u', 'p');
+        $client->setHttpClient($httpClient);
+
+        $this->expectException(Exception::class);
+        $client->users->create([
+            'email' => 'test@intercom.io'
+        ]);
+    }
+
+    public function testServerErrorHandling()
+    {
+        $mock = new MockHandler([
+            new Response(500)
+        ]);
+
+        $container = [];
+        $history = Middleware::history($container);
+        $stack = HandlerStack::create($mock);
+        $stack->push($history);
+
+        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+
+        $client = new IntercomClient('u', 'p');
+        $client->setHttpClient($httpClient);
+
+        $this->expectException(Exception::class);
+        $client->users->create([
+            'email' => 'test@intercom.io'
+        ]);
     }
 
     public function testPaginationHelper()
