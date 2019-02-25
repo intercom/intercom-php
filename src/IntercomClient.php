@@ -38,12 +38,12 @@ class IntercomClient
     /**
      * @var string API user authentication
      */
-    private $usernameOrToken;
+    private $appIdOrToken;
 
     /**
      * @var string API password authentication
      */
-    private $password;
+    private $passwordPart;
 
     /**
      * @var array $extraRequestHeaders
