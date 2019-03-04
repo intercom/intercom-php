@@ -8,7 +8,7 @@ Official PHP bindings to the Intercom API
 
 This library supports PHP 7.1 and later
 
-This library uses [HTTPPlug](https://github.com/php-http/httplug) as HTTP client. HTTPPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
+This library uses [HTTPlug](https://github.com/php-http/httplug) as HTTP client. HTTPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
 
 The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
 
@@ -466,7 +466,7 @@ while (!empty($resp->scroll_param) && sizeof($resp->users) > 0) {
 
 ## Exceptions
 
-Exceptions are handled by HTTPPlug. Every exception thrown implements `Http\Client\Exception`. See the different exceptions that can be thrown [in the HTTPPlug documentation](http://docs.php-http.org/en/latest/httplug/exceptions.html).
+Exceptions are handled by HTTPlug. Every exception thrown implements `Http\Client\Exception`. See the [http client exceptions](http://docs.php-http.org/en/latest/httplug/exceptions.html) and the [client and server errors](http://docs.php-http.org/en/latest/plugins/error.html).
 The Intercom API may return an unsuccessful HTTP response, for example when a resource is not found (404).
 If you want to catch errors you can wrap your API call into a try/catch block:
 
