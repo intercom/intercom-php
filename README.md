@@ -41,6 +41,15 @@ $client->setHttpClient($myCustomHttpClient); // $myCustomHttpClient implements P
 $client->setRequestFactory($myCustomRequestFactory); // $myCustomRequestFactory implements Http\Message\RequestFactory
 $client->setUriFactory($myCustomUriFactory); // $myCustomUriFactory implements Http\Message\UriFactory
 ```
+## API Versions
+
+This library is intended to work with any API Version. By default, the version that you have configured for your App in the [Developer Hub](https://developers.intercom.com/) will be used. However, you can overwrite that version for a single request or for all the requests using this library by including the `Intercom-Version` header when initializing the client as follows:
+
+```php
+$client = new IntercomClient('<insert_token_here>', null, ['Intercom-Version' => '1.1']);
+```
+
+For more information about API Versioning, please check the [API Versioning Documentation](https://developers.intercom.com/building-apps/docs/api-versioning) and the [API changelog](https://developers.intercom.com/building-apps/docs/api-changelog).
 
 ## Users
 
