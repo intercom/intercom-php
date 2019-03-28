@@ -3,6 +3,7 @@
 namespace Intercom;
 
 use Http\Client\Exception;
+use stdClass;
 
 class IntercomCompanies
 {
