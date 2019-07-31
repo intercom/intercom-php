@@ -57,6 +57,11 @@ class IntercomClient
     public $users;
 
     /**
+     * @var IntercomCustomers $customers
+     */
+    public $customers;
+
+    /**
      * @var IntercomEvents $events
      */
     public $events;
