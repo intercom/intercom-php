@@ -136,6 +136,7 @@ class IntercomClient
     public function __construct($appIdOrToken, $password = null, $extraRequestHeaders = [])
     {
         $this->users = new IntercomUsers($this);
+        $this->customers = new IntercomCustomers($this);
         $this->events = new IntercomEvents($this);
         $this->companies = new IntercomCompanies($this);
         $this->messages = new IntercomMessages($this);

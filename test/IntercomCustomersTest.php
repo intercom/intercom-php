@@ -7,12 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 class IntercomCustomersTest extends TestCase
 {
-    public function testUserSearch()
+    public function testCustomerSearch()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $stub->method('post')->willReturn('foo');
 
-        $users = new IntercomCustomers($stub);
-        $this->assertEquals('foo', $users->search({"query": {}}));
+        $customers = new IntercomCustomers($stub);
+        $this->assertEquals('foo', $customers->search(["query": []]));
     }
 }
