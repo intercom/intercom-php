@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class IntercomCustomersTest extends TestCase
 {
-    public function testUserSearch()
+    public function testCustomerSearch()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $stub->method('post')->willReturn('foo');
