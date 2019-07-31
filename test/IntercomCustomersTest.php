@@ -2,7 +2,7 @@
 
 namespace Intercom\Test;
 
-use Intercom\IntercomUsers;
+use Intercom\IntercomCustomers;
 use PHPUnit\Framework\TestCase;
 
 class IntercomCustomersTest extends TestCase
@@ -13,6 +13,6 @@ class IntercomCustomersTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $customers = new IntercomCustomers($stub);
-        $this->assertEquals('foo', $customers->search(["query": []]));
+        $this->assertEquals('foo', $customers->search(["query" => []]));
     }
 }

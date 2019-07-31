@@ -24,14 +24,14 @@ class IntercomCustomers
     }
 
     /**
-     * Saerch Customers
+     * Search Customers
      *
      * @see    https://developers.intercom.com/intercom-api-reference/v0/reference#customers
      * @param  array query
      * @return stdClass
      * @throws Exception
      */
-    public function searchCustomers($query)
+    public function search($query)
     {
         return $this->client->post('customers/search', $query);
     }
