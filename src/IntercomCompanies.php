@@ -18,7 +18,7 @@ class IntercomCompanies
      *
      * @param IntercomClient $client
      */
-    public function __construct($client)
+    public function __construct(IntercomClient $client)
     {
         $this->client = $client;
     }
