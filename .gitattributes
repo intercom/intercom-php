@@ -1,0 +1,5 @@
+/test export-ignore
+/phpunit.xml export-ignore
+/.github export-ignore
+/.circleci export-ignore
+/.codeclimate.yml export-ignore
