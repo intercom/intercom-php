@@ -77,6 +77,39 @@ class IntercomCompanies
         return $this->client->get($path, $options);
     }
 
+
+    /**
+     * Returns a list of Users belonging to a single Company based on the Intercom ID.
+     *
+     * @see    https://developers.intercom.com/reference#list-company-users
+     * @param  string $id
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function getCompanyUsers($id, $options = [])
+    {
+        $path = $this->companyUsersPath($id);
+        return $this->client->get($path, $options);
+    }
+
+    /**
+     * Returns a list of Users belonging to a single Company based on the Company ID.
+     *
+     * @see    https://developers.intercom.com/reference#list-company-users
+     * @param  string $id
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function getCompanyUsersByCompanyId($id, $options = [])
+    {
+        $path = $this->companyUsersPath($id);
+        $options['company_id'] = $id;
+        $options['type'] = "user";
+        return $this->client->get("companies", $options);
+    }
+
     /**
      * @param string $id
      * @return string
@@ -84,5 +117,14 @@ class IntercomCompanies
     public function companyPath($id)
     {
         return 'companies/' . $id;
+    }
+
+    /**
+     * @param string $id
+     * @return string
+     */
+    public function companyUsersPath($id)
+    {
+        return 'companies/' . $id . '/users';
     }
 }
