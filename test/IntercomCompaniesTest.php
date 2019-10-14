@@ -49,4 +49,20 @@ class IntercomCompaniesTest extends TestCase
         $users = new IntercomCompanies($stub);
         $this->assertEquals('foo', $users->getCompany("foo"));
     }
+
+    public function testCompanyGetUsers()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $stub->method('get')->willReturn('foo');
+
+        $companies = new IntercomCompanies($stub);
+        $this->assertEquals('foo', $companies->getCompanyUsers("foo"));
+    }
+
+    public function testCompanyUsersPath()
+    {
+        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
+        $users = new IntercomCompanies($stub);
+        $this->assertEquals('companies/foo/users', $users->companyUsersPath("foo"));
+    }
 }
