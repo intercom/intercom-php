@@ -3,14 +3,14 @@
 namespace Intercom\Test;
 
 use DateTimeImmutable;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Response;
 use Http\Adapter\Guzzle6\Client;
 use Http\Client\Exception;
 use Intercom\IntercomClient;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -38,7 +38,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $basic = $transaction['request']->getHeaders()['Authorization'][0];
-            $this->assertTrue($basic == "Basic dTpw");
+            $this->assertsame("Basic dTpw", $basic);
         }
     }
 
@@ -163,7 +163,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $host = $transaction['request']->getUri()->getHost();
-            $this->assertTrue($host == "foo.com");
+            $this->assertSame("foo.com", $host);
         }
     }
 
