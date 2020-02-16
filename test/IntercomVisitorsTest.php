@@ -21,7 +21,7 @@ class IntercomVisitorsTest extends TestCase
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $visitors = new IntercomVisitors($stub);
-        $this->assertSame($visitors->visitorPath("foo"), "visitors/foo");
+        $this->assertSame("visitors/foo", $visitors->visitorPath("foo"));
     }
 
     public function testVisitorsGet()

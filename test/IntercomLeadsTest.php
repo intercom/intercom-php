@@ -38,7 +38,7 @@ class IntercomLeadsTest extends TestCase
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $leads = new IntercomLeads($stub);
-        $this->assertSame($leads->leadPath("foo"), "contacts/foo");
+        $this->assertSame("contacts/foo", $leads->leadPath("foo"));
     }
 
     public function testLeadsGet()

@@ -64,7 +64,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $options = $transaction['options'];
-            $this->assertSame($options['connect_timeout'], 10);
+            $this->assertSame(10, $options['connect_timeout']);
         }
     }
 
@@ -90,9 +90,9 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $headers = $transaction['request']->getHeaders();
-            $this->assertSame($headers['Accept'][0], 'application/json');
-            $this->assertSame($headers['Content-Type'][0], 'application/json');
-            $this->assertSame($headers['Custom-Header'][0], 'value');
+            $this->assertSame('application/json', $headers['Accept'][0]);
+            $this->assertSame('application/json', $headers['Content-Type'][0]);
+            $this->assertSame('value', $headers['Custom-Header'][0]);
         }
     }
 
