@@ -198,7 +198,7 @@ class IntercomClientTest extends TestCase
         ]);
 
         $rateLimitDetails = $client->getRateLimitDetails();
-        $this->assertInternalType('array', $rateLimitDetails);
+        $this->assertIsArray($rateLimitDetails);
         $this->assertArrayHasKey('limit', $rateLimitDetails);
         $this->assertArrayHasKey('remaining', $rateLimitDetails);
         $this->assertArrayHasKey('reset_at', $rateLimitDetails);
