@@ -5,24 +5,8 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomEvents
+class IntercomEvents extends IntercomResources
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomEvents constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct(IntercomClient $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Event.
      *

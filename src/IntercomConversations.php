@@ -5,24 +5,8 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomConversations
+class IntercomConversations extends IntercomResources
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomConversations constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct(IntercomClient $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Returns list of Conversations.
      *
