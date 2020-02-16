@@ -13,7 +13,7 @@ class IntercomAdminsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomAdmins($stub);
-        $this->assertEquals('foo', $users->getAdmins());
+        $this->assertSame('foo', $users->getAdmins());
     }
 
     public function testAdminsGet()
@@ -22,7 +22,7 @@ class IntercomAdminsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomAdmins($stub);
-        $this->assertEquals('foo', $users->getAdmin(1));
+        $this->assertSame('foo', $users->getAdmin(1));
     }
 
     public function testAdminsGetPath()
@@ -30,6 +30,6 @@ class IntercomAdminsTest extends TestCase
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
 
         $users = new IntercomAdmins($stub);
-        $this->assertEquals('admins/1', $users->adminPath(1));
+        $this->assertSame('admins/1', $users->adminPath(1));
     }
 }

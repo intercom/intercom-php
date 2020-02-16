@@ -13,7 +13,7 @@ class IntercomBulkTest extends TestCase
         $stub->method('post')->will($this->returnArgument(0));
 
         $bulk = new IntercomBulk($stub);
-        $this->assertEquals('bulk/users', $bulk->users([]));
+        $this->assertSame('bulk/users', $bulk->users([]));
     }
 
     public function testBulkEvents()
@@ -22,6 +22,6 @@ class IntercomBulkTest extends TestCase
         $stub->method('post')->will($this->returnArgument(0));
 
         $bulk = new IntercomBulk($stub);
-        $this->assertEquals('bulk/events', $bulk->events([]));
+        $this->assertSame('bulk/events', $bulk->events([]));
     }
 }

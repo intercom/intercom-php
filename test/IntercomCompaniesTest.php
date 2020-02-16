@@ -13,7 +13,7 @@ class IntercomCompaniesTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $companies = new IntercomCompanies($stub);
-        $this->assertEquals('foo', $companies->create([]));
+        $this->assertSame('foo', $companies->create([]));
     }
 
     public function testCompanyUpdate()
@@ -22,7 +22,7 @@ class IntercomCompaniesTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $companies = new IntercomCompanies($stub);
-        $this->assertEquals('foo', $companies->update([]));
+        $this->assertSame('foo', $companies->update([]));
     }
 
     public function testCompanyGet()
@@ -31,14 +31,14 @@ class IntercomCompaniesTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $companies = new IntercomCompanies($stub);
-        $this->assertEquals('foo', $companies->getCompanies([]));
+        $this->assertSame('foo', $companies->getCompanies([]));
     }
 
     public function testCompanyPath()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $users = new IntercomCompanies($stub);
-        $this->assertEquals('companies/foo', $users->companyPath("foo"));
+        $this->assertSame('companies/foo', $users->companyPath("foo"));
     }
 
     public function testCompanyGetById()
@@ -47,7 +47,7 @@ class IntercomCompaniesTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomCompanies($stub);
-        $this->assertEquals('foo', $users->getCompany("foo"));
+        $this->assertSame('foo', $users->getCompany("foo"));
     }
 
     public function testCompanyGetUsers()
@@ -56,13 +56,13 @@ class IntercomCompaniesTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $companies = new IntercomCompanies($stub);
-        $this->assertEquals('foo', $companies->getCompanyUsers("foo"));
+        $this->assertSame('foo', $companies->getCompanyUsers("foo"));
     }
 
     public function testCompanyUsersPath()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $users = new IntercomCompanies($stub);
-        $this->assertEquals('companies/foo/users', $users->companyUsersPath("foo"));
+        $this->assertSame('companies/foo/users', $users->companyUsersPath("foo"));
     }
 }

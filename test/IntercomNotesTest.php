@@ -13,7 +13,7 @@ class IntercomNotesTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $notes = new IntercomNotes($stub);
-        $this->assertEquals('foo', $notes->create([]));
+        $this->assertSame('foo', $notes->create([]));
     }
 
     public function testNotesList()
@@ -22,7 +22,7 @@ class IntercomNotesTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $notes = new IntercomNotes($stub);
-        $this->assertEquals('foo', $notes->getNotes([]));
+        $this->assertSame('foo', $notes->getNotes([]));
     }
 
     public function testNotesGet()
@@ -31,6 +31,6 @@ class IntercomNotesTest extends TestCase
         $stub->method('get')->will($this->returnArgument(0));
 
         $notes = new IntercomNotes($stub);
-        $this->assertEquals('notes/foo', $notes->getNote("foo"));
+        $this->assertSame('notes/foo', $notes->getNote("foo"));
     }
 }

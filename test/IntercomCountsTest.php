@@ -13,6 +13,6 @@ class IntercomCountsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $counts = new IntercomCounts($stub);
-        $this->assertEquals('foo', $counts->getCounts([]));
+        $this->assertSame('foo', $counts->getCounts([]));
     }
 }

@@ -64,7 +64,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $options = $transaction['options'];
-            $this->assertEquals($options['connect_timeout'], 10);
+            $this->assertSame($options['connect_timeout'], 10);
         }
     }
 
@@ -90,9 +90,9 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $headers = $transaction['request']->getHeaders();
-            $this->assertEquals($headers['Accept'][0], 'application/json');
-            $this->assertEquals($headers['Content-Type'][0], 'application/json');
-            $this->assertEquals($headers['Custom-Header'][0], 'value');
+            $this->assertSame($headers['Accept'][0], 'application/json');
+            $this->assertSame($headers['Content-Type'][0], 'application/json');
+            $this->assertSame($headers['Custom-Header'][0], 'value');
         }
     }
 
@@ -202,8 +202,11 @@ class IntercomClientTest extends TestCase
         $this->assertArrayHasKey('limit', $rateLimitDetails);
         $this->assertArrayHasKey('remaining', $rateLimitDetails);
         $this->assertArrayHasKey('reset_at', $rateLimitDetails);
-        $this->assertEquals(83, $rateLimitDetails['limit']);
-        $this->assertEquals(2, $rateLimitDetails['remaining']);
-        $this->assertEquals((new DateTimeImmutable)->setTimestamp($time), $rateLimitDetails['reset_at']);
+        $this->assertSame(83, $rateLimitDetails['limit']);
+        $this->assertSame(2, $rateLimitDetails['remaining']);
+        $this->assertSame(
+            (new DateTimeImmutable)->setTimestamp($time)->getTimestamp(),
+            $rateLimitDetails['reset_at']->getTimestamp()
+        );
     }
 }

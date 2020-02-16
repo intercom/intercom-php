@@ -13,14 +13,14 @@ class IntercomConversationsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomConversations($stub);
-        $this->assertEquals('foo', $users->getConversations([]));
+        $this->assertSame('foo', $users->getConversations([]));
     }
 
     public function testConversationPath()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $users = new IntercomConversations($stub);
-        $this->assertEquals('conversations/foo', $users->conversationPath("foo"));
+        $this->assertSame('conversations/foo', $users->conversationPath("foo"));
     }
 
     public function testGetConversation()
@@ -29,14 +29,14 @@ class IntercomConversationsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomConversations($stub);
-        $this->assertEquals('foo', $users->getConversation("foo"));
+        $this->assertSame('foo', $users->getConversation("foo"));
     }
 
     public function testConversationReplyPath()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $users = new IntercomConversations($stub);
-        $this->assertEquals('conversations/foo/reply', $users->conversationReplyPath("foo"));
+        $this->assertSame('conversations/foo/reply', $users->conversationReplyPath("foo"));
     }
 
     public function testReplyToConversation()
@@ -45,6 +45,6 @@ class IntercomConversationsTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $users = new IntercomConversations($stub);
-        $this->assertEquals('foo', $users->replyToConversation("bar", []));
+        $this->assertSame('foo', $users->replyToConversation("bar", []));
     }
 }

@@ -14,14 +14,14 @@ class IntercomVisitorsTest extends TestCase
         $stub->method('put')->willReturn('foo');
 
         $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('foo', $visitors->update([]));
+        $this->assertSame('foo', $visitors->update([]));
     }
 
     public function testVisitorPath()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $visitors = new IntercomVisitors($stub);
-        $this->assertEquals($visitors->visitorPath("foo"), "visitors/foo");
+        $this->assertSame($visitors->visitorPath("foo"), "visitors/foo");
     }
 
     public function testVisitorsGet()
@@ -30,7 +30,7 @@ class IntercomVisitorsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('foo', $visitors->getVisitor("bar"));
+        $this->assertSame('foo', $visitors->getVisitor("bar"));
     }
 
     public function testVisitorsConvert()
@@ -39,7 +39,7 @@ class IntercomVisitorsTest extends TestCase
         $stub->method('post')->will($this->returnArgument(0));
 
         $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('visitors/convert', $visitors->convertVisitor([]));
+        $this->assertSame('visitors/convert', $visitors->convertVisitor([]));
     }
 
     public function testVisitorsDelete()
@@ -48,6 +48,6 @@ class IntercomVisitorsTest extends TestCase
         $stub->method('delete')->willReturn('foo');
 
         $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('foo', $visitors->deleteVisitor("bar"));
+        $this->assertSame('foo', $visitors->deleteVisitor("bar"));
     }
 }

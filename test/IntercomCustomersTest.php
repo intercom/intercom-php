@@ -13,6 +13,6 @@ class IntercomCustomersTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $customers = new IntercomCustomers($stub);
-        $this->assertEquals('foo', $customers->search(["query" => []]));
+        $this->assertSame('foo', $customers->search(["query" => []]));
     }
 }

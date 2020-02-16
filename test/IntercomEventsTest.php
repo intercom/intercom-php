@@ -13,7 +13,7 @@ class IntercomEventsTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $users = new IntercomEvents($stub);
-        $this->assertEquals('foo', $users->create([]));
+        $this->assertSame('foo', $users->create([]));
     }
 
     public function testEventsGet()
@@ -22,6 +22,6 @@ class IntercomEventsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomEvents($stub);
-        $this->assertEquals('foo', $users->getEvents([]));
+        $this->assertSame('foo', $users->getEvents([]));
     }
 }

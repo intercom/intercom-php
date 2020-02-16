@@ -13,6 +13,6 @@ class IntercomMessagesTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $messages = new IntercomMessages($stub);
-        $this->assertEquals('foo', $messages->create([]));
+        $this->assertSame('foo', $messages->create([]));
     }
 }

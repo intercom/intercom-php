@@ -13,7 +13,7 @@ class IntercomLeadsTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('foo', $leads->create([]));
+        $this->assertSame('foo', $leads->create([]));
     }
 
     public function testLeadUpdate()
@@ -22,7 +22,7 @@ class IntercomLeadsTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('foo', $leads->update([]));
+        $this->assertSame('foo', $leads->update([]));
     }
 
     public function testLeadsList()
@@ -31,14 +31,14 @@ class IntercomLeadsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('foo', $leads->getLeads([]));
+        $this->assertSame('foo', $leads->getLeads([]));
     }
 
     public function testLeadPath()
     {
         $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
         $leads = new IntercomLeads($stub);
-        $this->assertEquals($leads->leadPath("foo"), "contacts/foo");
+        $this->assertSame($leads->leadPath("foo"), "contacts/foo");
     }
 
     public function testLeadsGet()
@@ -47,7 +47,7 @@ class IntercomLeadsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('foo', $leads->getLead("bar"));
+        $this->assertSame('foo', $leads->getLead("bar"));
     }
 
     public function testLeadsConvert()
@@ -56,7 +56,7 @@ class IntercomLeadsTest extends TestCase
         $stub->method('post')->will($this->returnArgument(0));
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('contacts/convert', $leads->convertLead([]));
+        $this->assertSame('contacts/convert', $leads->convertLead([]));
     }
 
     public function testLeadsDelete()
@@ -65,7 +65,7 @@ class IntercomLeadsTest extends TestCase
         $stub->method('delete')->willReturn('foo');
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('foo', $leads->deleteLead("bar"));
+        $this->assertSame('foo', $leads->deleteLead("bar"));
     }
 
     public function testLeadsScroll()
@@ -74,6 +74,6 @@ class IntercomLeadsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $leads = new IntercomLeads($stub);
-        $this->assertEquals('foo', $leads->scrollLeads([]));
+        $this->assertSame('foo', $leads->scrollLeads([]));
     }
 }

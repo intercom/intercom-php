@@ -14,6 +14,6 @@ class IntercomSegmentTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $segments = new IntercomSegments($stub);
-        $this->assertEquals('foo', $segments->getSegments());
+        $this->assertSame('foo', $segments->getSegments());
     }
 }

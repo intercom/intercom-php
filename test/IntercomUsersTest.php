@@ -13,7 +13,7 @@ class IntercomUsersTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $users = new IntercomUsers($stub);
-        $this->assertEquals('foo', $users->create([]));
+        $this->assertSame('foo', $users->create([]));
     }
 
     public function testUserUpdate()
@@ -22,7 +22,7 @@ class IntercomUsersTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $users = new IntercomUsers($stub);
-        $this->assertEquals('foo', $users->update([]));
+        $this->assertSame('foo', $users->update([]));
     }
 
     public function testUserGet()
@@ -31,7 +31,7 @@ class IntercomUsersTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $users = new IntercomUsers($stub);
-        $this->assertEquals('foo', $users->getUsers([]));
+        $this->assertSame('foo', $users->getUsers([]));
     }
 
     public function testArchiveUser()
@@ -40,7 +40,7 @@ class IntercomUsersTest extends TestCase
         $stub->method('delete')->willReturn('foo');
 
         $users = new IntercomUsers($stub);
-        $this->assertEquals('foo', $users->archiveUser(''));
+        $this->assertSame('foo', $users->archiveUser(''));
     }
 
     public function testDeleteUser()
@@ -49,7 +49,7 @@ class IntercomUsersTest extends TestCase
         $stub->method('delete')->willReturn('foo');
 
         $users = new IntercomUsers($stub);
-        $this->assertEquals('foo', $users->deleteUser(''));
+        $this->assertSame('foo', $users->deleteUser(''));
     }
 
     public function testPermanentlyDeleteUser()
@@ -58,6 +58,6 @@ class IntercomUsersTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $users = new IntercomUsers($stub);
-        $this->assertEquals('foo', $users->permanentlyDeleteUser(''));
+        $this->assertSame('foo', $users->permanentlyDeleteUser(''));
     }
 }

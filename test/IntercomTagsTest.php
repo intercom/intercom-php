@@ -13,7 +13,7 @@ class IntercomTagsTest extends TestCase
         $stub->method('post')->willReturn('foo');
 
         $tags = new IntercomTags($stub);
-        $this->assertEquals('foo', $tags->tag([]));
+        $this->assertSame('foo', $tags->tag([]));
     }
 
     public function testTagsList()
@@ -22,6 +22,6 @@ class IntercomTagsTest extends TestCase
         $stub->method('get')->willReturn('foo');
 
         $tags = new IntercomTags($stub);
-        $this->assertEquals('foo', $tags->getTags());
+        $this->assertSame('foo', $tags->getTags());
     }
 }
