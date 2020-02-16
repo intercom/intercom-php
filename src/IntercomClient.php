@@ -6,8 +6,7 @@ use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\HttpClient;
 use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\Authentication;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Authentication\Bearer;
@@ -155,8 +154,8 @@ class IntercomClient
         $this->extraRequestHeaders = $extraRequestHeaders;
 
         $this->httpClient = $this->getDefaultHttpClient();
-        $this->requestFactory = MessageFactoryDiscovery::find();
-        $this->uriFactory = UriFactoryDiscovery::find();
+        $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
+        $this->uriFactory = Psr17FactoryDiscovery::findUrlFactory();
     }
 
     /**
