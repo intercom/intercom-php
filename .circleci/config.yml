@@ -8,6 +8,7 @@ jobs:
 
     steps:
       - checkout
+      - run: composer require guzzlehttp/psr7  --no-interaction --no-update
       - run: composer install --no-interaction
       - run: vendor/bin/phpunit
       - run: vendor/bin/phpcs --standard=PSR2 src test
