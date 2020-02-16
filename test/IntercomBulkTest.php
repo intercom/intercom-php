@@ -3,25 +3,22 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomBulk;
-use PHPUnit\Framework\TestCase;
 
 class IntercomBulkTest extends TestCase
 {
     public function testBulkUsers()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('post')->will($this->returnArgument(0));
+        $this->client->method('post')->will($this->returnArgument(0));
 
-        $bulk = new IntercomBulk($stub);
+        $bulk = new IntercomBulk($this->client);
         $this->assertSame('bulk/users', $bulk->users([]));
     }
 
     public function testBulkEvents()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('post')->will($this->returnArgument(0));
+        $this->client->method('post')->will($this->returnArgument(0));
 
-        $bulk = new IntercomBulk($stub);
+        $bulk = new IntercomBulk($this->client);
         $this->assertSame('bulk/events', $bulk->events([]));
     }
 }
