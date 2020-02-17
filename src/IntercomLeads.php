@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomLeads extends IntercomResources
+class IntercomLeads extends IntercomResource
 {
     /**
      * Creates Lead.

@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomMessages extends IntercomResources
+class IntercomMessages extends IntercomResource
 {
     /**
      * Creates Message.

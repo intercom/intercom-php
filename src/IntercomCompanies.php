@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomCompanies extends IntercomResources
+class IntercomCompanies extends IntercomResource
 {
     /**
      * Creates a Company.

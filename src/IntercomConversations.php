@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomConversations extends IntercomResources
+class IntercomConversations extends IntercomResource
 {
     /**
      * Returns list of Conversations.

@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomNotes extends IntercomResources
+class IntercomNotes extends IntercomResource
 {
     /**
      * Creates Note.

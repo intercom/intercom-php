@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomCounts extends IntercomResources
+class IntercomCounts extends IntercomResource
 {
     /**
      * Returns list of Counts.

@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomUsers extends IntercomResources
+class IntercomUsers extends IntercomResource
 {
     /**
      * Creates a User.

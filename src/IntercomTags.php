@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomTags extends IntercomResources
+class IntercomTags extends IntercomResource
 {
     /**
      * Creates a Tag.

@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomEvents extends IntercomResources
+class IntercomEvents extends IntercomResource
 {
     /**
      * Creates Event.

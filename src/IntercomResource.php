@@ -2,7 +2,7 @@
 
 namespace Intercom;
 
-abstract class IntercomResources
+abstract class IntercomResource
 {
     /**
      * @var IntercomClient
@@ -10,7 +10,7 @@ abstract class IntercomResources
     protected $client;
 
     /**
-     * IntercomBulk constructor.
+     * IntercomResource constructor.
      *
      * @param IntercomClient $client
      */

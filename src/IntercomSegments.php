@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomSegments extends IntercomResources
+class IntercomSegments extends IntercomResource
 {
     /**
      * Gets a single segment by ID.

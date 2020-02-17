@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomCustomers extends IntercomResources
+class IntercomCustomers extends IntercomResource
 {
     /**
      * Search Customers

@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomVisitors extends IntercomResources
+class IntercomVisitors extends IntercomResource
 {
      /**
      * Updates Visitor.

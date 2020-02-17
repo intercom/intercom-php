@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomAdmins extends IntercomResources
+class IntercomAdmins extends IntercomResource
 {
     /**
      * Returns list of Admins.

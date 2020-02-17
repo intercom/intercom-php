@@ -5,7 +5,7 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomBulk extends IntercomResources
+class IntercomBulk extends IntercomResource
 {
     /**
      * Creates Users in bulk.
