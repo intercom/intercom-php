@@ -2,17 +2,17 @@
 .DS_Store
 
 # PhpStorm
-.idea
+/.idea
 
 # Composer
+/vendor
 composer.lock
 composer.phar
-/vendor
 
 # PhpUnit
 phpunit.phar
-/phpunit.xml
+phpunit.xml
 
 # Extras
-build/
+/build
 *.swp
