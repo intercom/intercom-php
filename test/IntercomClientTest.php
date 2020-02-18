@@ -38,7 +38,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $basic = $transaction['request']->getHeaders()['Authorization'][0];
-            $this->assertsame("Basic dTpw", $basic);
+            $this->assertSame("Basic dTpw", $basic);
         }
     }
 
