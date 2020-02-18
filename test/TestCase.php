@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     /**
-     * @var \Intercom\IntercomClient|\PHPUnit\Framework\MockObject\MockObject
+     * @var IntercomClient|\PHPUnit\Framework\MockObject\MockObject
      */
     protected $client;
 
