@@ -3,34 +3,30 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomNotes;
-use PHPUnit\Framework\TestCase;
 
 class IntercomNotesTest extends TestCase
 {
     public function testNoteCreate()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('post')->willReturn('foo');
+        $this->client->method('post')->willReturn('foo');
 
-        $notes = new IntercomNotes($stub);
-        $this->assertEquals('foo', $notes->create([]));
+        $notes = new IntercomNotes($this->client);
+        $this->assertSame('foo', $notes->create([]));
     }
 
     public function testNotesList()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('get')->willReturn('foo');
+        $this->client->method('get')->willReturn('foo');
 
-        $notes = new IntercomNotes($stub);
-        $this->assertEquals('foo', $notes->getNotes([]));
+        $notes = new IntercomNotes($this->client);
+        $this->assertSame('foo', $notes->getNotes([]));
     }
 
     public function testNotesGet()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('get')->will($this->returnArgument(0));
+        $this->client->method('get')->will($this->returnArgument(0));
 
-        $notes = new IntercomNotes($stub);
-        $this->assertEquals('notes/foo', $notes->getNote("foo"));
+        $notes = new IntercomNotes($this->client);
+        $this->assertSame('notes/foo', $notes->getNote("foo"));
     }
 }

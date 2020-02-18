@@ -3,14 +3,14 @@
 namespace Intercom\Test;
 
 use DateTimeImmutable;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Response;
 use Http\Adapter\Guzzle6\Client;
 use Http\Client\Exception;
 use Intercom\IntercomClient;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -38,7 +38,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $basic = $transaction['request']->getHeaders()['Authorization'][0];
-            $this->assertTrue($basic == "Basic dTpw");
+            $this->assertSame("Basic dTpw", $basic);
         }
     }
 
@@ -64,7 +64,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $options = $transaction['options'];
-            $this->assertEquals($options['connect_timeout'], 10);
+            $this->assertSame(10, $options['connect_timeout']);
         }
     }
 
@@ -90,9 +90,9 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $headers = $transaction['request']->getHeaders();
-            $this->assertEquals($headers['Accept'][0], 'application/json');
-            $this->assertEquals($headers['Content-Type'][0], 'application/json');
-            $this->assertEquals($headers['Custom-Header'][0], 'value');
+            $this->assertSame('application/json', $headers['Accept'][0]);
+            $this->assertSame('application/json', $headers['Content-Type'][0]);
+            $this->assertSame('value', $headers['Custom-Header'][0]);
         }
     }
 
@@ -163,7 +163,7 @@ class IntercomClientTest extends TestCase
 
         foreach ($container as $transaction) {
             $host = $transaction['request']->getUri()->getHost();
-            $this->assertTrue($host == "foo.com");
+            $this->assertSame("foo.com", $host);
         }
     }
 
@@ -198,12 +198,15 @@ class IntercomClientTest extends TestCase
         ]);
 
         $rateLimitDetails = $client->getRateLimitDetails();
-        $this->assertInternalType('array', $rateLimitDetails);
+        $this->assertIsArray($rateLimitDetails);
         $this->assertArrayHasKey('limit', $rateLimitDetails);
         $this->assertArrayHasKey('remaining', $rateLimitDetails);
         $this->assertArrayHasKey('reset_at', $rateLimitDetails);
-        $this->assertEquals(83, $rateLimitDetails['limit']);
-        $this->assertEquals(2, $rateLimitDetails['remaining']);
-        $this->assertEquals((new DateTimeImmutable)->setTimestamp($time), $rateLimitDetails['reset_at']);
+        $this->assertSame(83, $rateLimitDetails['limit']);
+        $this->assertSame(2, $rateLimitDetails['remaining']);
+        $this->assertSame(
+            (new DateTimeImmutable)->setTimestamp($time)->getTimestamp(),
+            $rateLimitDetails['reset_at']->getTimestamp()
+        );
     }
 }

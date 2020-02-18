@@ -3,51 +3,45 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomVisitors;
-use PHPUnit\Framework\TestCase;
 
 class IntercomVisitorsTest extends TestCase
 {
-
     public function testVisitorUpdate()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('put')->willReturn('foo');
+        $this->client->method('put')->willReturn('foo');
 
-        $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('foo', $visitors->update([]));
+        $visitors = new IntercomVisitors($this->client);
+        $this->assertSame('foo', $visitors->update([]));
     }
 
     public function testVisitorPath()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $visitors = new IntercomVisitors($stub);
-        $this->assertEquals($visitors->visitorPath("foo"), "visitors/foo");
+        $visitors = new IntercomVisitors($this->client);
+        $this->assertSame("visitors/foo", $visitors->visitorPath("foo"));
     }
 
     public function testVisitorsGet()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('get')->willReturn('foo');
+        $this->client->method('get')->willReturn('foo');
 
-        $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('foo', $visitors->getVisitor("bar"));
+        $visitors = new IntercomVisitors($this->client);
+        $this->assertSame('foo', $visitors->getVisitor("bar"));
     }
 
     public function testVisitorsConvert()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('post')->will($this->returnArgument(0));
 
-        $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('visitors/convert', $visitors->convertVisitor([]));
+        $this->client->method('post')->will($this->returnArgument(0));
+
+        $visitors = new IntercomVisitors($this->client);
+        $this->assertSame('visitors/convert', $visitors->convertVisitor([]));
     }
 
     public function testVisitorsDelete()
     {
-        $stub = $this->getMockBuilder('Intercom\IntercomClient')->disableOriginalConstructor()->getMock();
-        $stub->method('delete')->willReturn('foo');
+        $this->client->method('delete')->willReturn('foo');
 
-        $visitors = new IntercomVisitors($stub);
-        $this->assertEquals('foo', $visitors->deleteVisitor("bar"));
+        $visitors = new IntercomVisitors($this->client);
+        $this->assertSame('foo', $visitors->deleteVisitor("bar"));
     }
 }
