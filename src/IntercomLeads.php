@@ -5,24 +5,8 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomLeads
+class IntercomLeads extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomLeads constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct(IntercomClient $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Lead.
      *
