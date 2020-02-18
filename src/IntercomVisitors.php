@@ -5,25 +5,9 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomVisitors
+class IntercomVisitors extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomVisitors constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct(IntercomClient $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
+     /**
      * Updates Visitor.
      *
      * @see    https://developers.intercom.com/reference#update-a-visitor

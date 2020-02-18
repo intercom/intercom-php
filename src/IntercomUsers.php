@@ -5,24 +5,8 @@ namespace Intercom;
 use Http\Client\Exception;
 use stdClass;
 
-class IntercomUsers
+class IntercomUsers extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomUsers constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct(IntercomClient $client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates a User.
      *
