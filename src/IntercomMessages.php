@@ -37,27 +37,27 @@ class IntercomMessages extends IntercomResource
      * Retrieves Export Job Status
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#checking-the-status-of-the-job
-     * @param  array $options
+     * @param  string $job_identifier
      * @return stdClass
      * @throws Exception
      */
-    public function retrieveExportStatus($options)
+    public function retrieveExportStatus($job_identifier)
     {
-        return $this->client->get("export/messages/data", $options);
+        return $this->client->get("export/messages/data/" . $job_identifier, []);
     }
 
     /**
      * Retrieves Export Job Data
      *
-     * Important: Intercom Clinet Accept Header must be application/octet-stream
+     * Important: The Intercom Client Accept Header must be application/octet-stream
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#downloading-the-data
-     * @param  array $options
+     * @param  string $job_identifier
      * @return stdClass
      * @throws Exception
      */
-    public function retrieveExportData($options)
+    public function retrieveExportData($job_identifier)
     {
-        return $this->client->get("download/messages/data", $options);
+        return $this->client->get("download/messages/data/" . $job_identifier, []);
     }
 }
