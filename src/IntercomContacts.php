@@ -1,5 +1,4 @@
 <?php
-
 namespace Intercom;
 
 use Http\Client\Exception;
@@ -25,15 +24,18 @@ class IntercomContacts extends IntercomResource
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
      * @param  string $id
+     * Updates an existing Contact
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
      * @param  array $options
      * @return stdClass
      * @throws Exception
      */
+
     public function update(string $id, array $options)
     {
         $path = $this->contactPath($id);
         return $this->client->put($path, $options);
-    }
 
     /**
      * Lists Contacts.
@@ -43,6 +45,7 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
+
     public function getContacts(array $options = [])
     {
         return $this->client->get('contacts', $options);
@@ -57,7 +60,8 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getContact(string $id, array $options = [])
+
+    public function getContact($id, $options = [])
     {
         $path = $this->contactPath($id);
         return $this->client->get($path, $options);
