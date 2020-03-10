@@ -30,7 +30,7 @@ class IntercomMessages extends IntercomResource
      */
     public function createExport($options)
     {
-        return $this->client->post("messages/data", $options);
+        return $this->client->post("export/messages/data", $options);
     }
 
     /**
@@ -43,7 +43,7 @@ class IntercomMessages extends IntercomResource
      */
     public function retrieveExportStatus($options)
     {
-        return $this->client->get("messages/data", $options);
+        return $this->client->get("export/messages/data", $options);
     }
 
     /**
@@ -58,6 +58,6 @@ class IntercomMessages extends IntercomResource
      */
     public function retrieveExportData($options)
     {
-        return $this->client->get("messages/data", $options);
+        return $this->client->get("download/messages/data", $options);
     }
 }
