@@ -129,4 +129,18 @@ class IntercomConversations extends IntercomResource
     {
         return 'conversations/' . $id . '/reply';
     }
+    
+    /**
+     * Returns the results of a conversation search
+     *
+     * @param  array $query
+     * @return stdClass
+     * @throws Exception
+     */
+    
+    public function search($query) {
+        
+        $path = 'conversations/search';
+        return $this->client->post($path, $query);
+    }
 }
