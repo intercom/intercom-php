@@ -139,7 +139,6 @@ class IntercomConversations extends IntercomResource
      */
     
     public function search($query) {
-        
         $path = 'conversations/search';
         return $this->client->post($path, $query);
     }
