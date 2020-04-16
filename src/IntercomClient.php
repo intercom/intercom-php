@@ -72,6 +72,11 @@ class IntercomClient
     public $companies;
 
     /**
+     * @var IntercomContacts $contacts
+     */
+    public $contacts;
+
+    /**
      * @var IntercomMessages $messages
      */
     public $messages;
@@ -139,6 +144,7 @@ class IntercomClient
         $this->customers = new IntercomCustomers($this);
         $this->events = new IntercomEvents($this);
         $this->companies = new IntercomCompanies($this);
+        $this->contacts = new IntercomContacts($this);
         $this->messages = new IntercomMessages($this);
         $this->conversations = new IntercomConversations($this);
         $this->leads = new IntercomLeads($this);

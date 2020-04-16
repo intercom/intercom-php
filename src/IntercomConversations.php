@@ -36,6 +36,20 @@ class IntercomConversations extends IntercomResource
     }
 
     /**
+     * Returns list of Conversations that match search query.
+     *
+     * @see     https://developers.intercom.com/reference#search-for-conversations
+     * @param   array $options
+     * @return  stdClass
+     * @throws  Exception
+     */
+    public function searchConversations(array $options)
+    {
+        $path = 'conversations/search';
+        return $this->client->post($path, $options);
+    }
+
+    /**
      * Creates Conversation Reply to Conversation with given ID.
      *
      * @see    https://developers.intercom.io/reference#replying-to-a-conversation
