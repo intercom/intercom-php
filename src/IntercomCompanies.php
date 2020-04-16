@@ -41,7 +41,7 @@ class IntercomCompanies extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getCompanies($options)
+    public function getCompanies($options = [])
     {
         return $this->client->get("companies", $options);
     }
