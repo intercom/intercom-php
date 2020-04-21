@@ -66,6 +66,22 @@ class IntercomContacts extends IntercomResource
         $path = $this->contactPath($id);
         return $this->client->get($path, $options);
     }
+    
+    /**
+     * Gets all data attributes for contacts
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#get-contact
+     * @param  string $id
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function getContactAttributes($options = [])
+    {
+        $options = array_merge($options, ["model" => "contact"]);
+        
+        return $this->client->get('data_attributes', $options);
+    }
 
     /**
      * Permenently Deletes a single Contact based on the Intercom ID.
