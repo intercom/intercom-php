@@ -66,7 +66,6 @@ class IntercomContacts extends IntercomResource
      * Gets all data attributes for contacts
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#get-contact
-     * @param  string $id
      * @param  array  $options
      * @return stdClass
      * @throws Exception
@@ -76,6 +75,19 @@ class IntercomContacts extends IntercomResource
         $options = array_merge($options, ["model" => "contact"]);
         
         return $this->client->get('data_attributes', $options);
+    }
+    
+    /**
+     * Searches for contacts
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#search-for-contact
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function searchContacts($options = [])
+    {
+        return $this->client->post('contacts/search', $options);
     }
 
     /**
