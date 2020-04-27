@@ -32,7 +32,7 @@ class IntercomContacts extends IntercomResource
     public function update($id, $options = [])
     {
         $path = $this->contactPath($id);
-        return $this->put($path, $options);
+        return $this->client->put($path, $options);
     }
 
     /**
