@@ -29,9 +29,10 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function update(array $options)
+    public function update($id, $options = [])
     {
-        return $this->put($options);
+        $path = $this->contactPath($id);
+        return $this->put($path, $options);
     }
 
     /**
