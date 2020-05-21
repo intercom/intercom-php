@@ -423,6 +423,17 @@ $client->notes->getNotes([
 $client->notes->getNote("42");
 ```
 
+## Teams
+
+```php
+/** List teams */
+$client->teams->getTeams();
+
+/** Get a single Team by id */
+$client->teams->getTeam("1188");
+```
+
+
 ## Rate Limits
 
 Rate limit info is passed via the rate limit headers.
