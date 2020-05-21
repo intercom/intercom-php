@@ -122,7 +122,7 @@ class IntercomClient
     public $notes;
 
     /**
-     * @var IntercomTeams $notes
+     * @var IntercomTeams $teams
      */
     public $teams;
 
