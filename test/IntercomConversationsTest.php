@@ -3,6 +3,7 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomConversations;
+use stdClass;
 
 class IntercomConversationsTest extends TestCase
 {
@@ -34,6 +35,19 @@ class IntercomConversationsTest extends TestCase
 
         $conversations = new IntercomConversations($this->client);
         $this->assertSame('foo', $conversations->search([]));
+    }
+
+    public function testConversationNextSearch()
+    {
+        $this->client->method('nextSearchPage')->willReturn('foo');
+        $query = [];
+        $pages = new stdClass;
+        $pages->per_page = "10";
+        $pages->next = new stdClass;
+        $pages->next->starting_after = "abc";
+
+        $conversations = new IntercomConversations($this->client);
+        $this->assertSame('foo', $conversations->nextSearch([], $pages));
     }
 
     public function testConversationReplyPath()

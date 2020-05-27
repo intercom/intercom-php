@@ -57,11 +57,6 @@ class IntercomClient
     public $users;
 
     /**
-     * @var IntercomCustomers $customers
-     */
-    public $customers;
-
-    /**
      * @var IntercomEvents $events
      */
     public $events;
@@ -75,7 +70,6 @@ class IntercomClient
      * @var IntercomContacts $contacts
      */
     public $contacts;
-
 
     /**
      * @var IntercomMessages $messages
@@ -147,7 +141,7 @@ class IntercomClient
     public function __construct(string $appIdOrToken, string $password = null, array $extraRequestHeaders = [])
     {
         $this->users = new IntercomUsers($this);
-        $this->customers = new IntercomCustomers($this);
+        $this->contacts = new IntercomContacts($this);
         $this->events = new IntercomEvents($this);
         $this->companies = new IntercomCompanies($this);
         $this->messages = new IntercomMessages($this);
@@ -268,6 +262,31 @@ class IntercomClient
     public function nextPage($pages)
     {
         $response = $this->sendRequest('GET', $pages->next);
+        return $this->handleResponse($response);
+    }
+
+        /**
+     * Returns the next page of the result for a cursor based search.
+     *
+     * @param  stdClass $pages
+     * @return stdClass
+     */
+    public function nextSearchPage($path, $query, $pages)
+    {
+        $options = [
+            "query" => $query,
+            "pagination" => [
+                "per_page" => $pages->per_page,
+                "starting_after" => $pages->next->starting_after,
+            ]
+        ];
+        $response = $this->sendRequest('POST', "https://api.intercom.io/$path", $options);
+        return $this->handleResponse($response);
+    }
+
+    public function nextCursorPage($path, $starting_after)
+    {
+        $response = $this->sendRequest('GET', "https://api.intercom.io/$path?starting_after=$starting_after");
         return $this->handleResponse($response);
     }
 

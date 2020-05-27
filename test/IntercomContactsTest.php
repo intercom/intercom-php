@@ -3,6 +3,7 @@
 namespace Intercom\Test;
 
 use Intercom\IntercomContacts;
+use stdClass;
 
 class IntercomContactsTest extends TestCase
 {
@@ -44,6 +45,31 @@ class IntercomContactsTest extends TestCase
 
         $contacts = new IntercomContacts($this->client);
         $this->assertSame('foo', $contacts->search([]));
+    }
+
+    public function testContactNextSearch()
+    {
+        $this->client->method('nextSearchPage')->willReturn('foo');
+        $query = [];
+        $pages = new stdClass;
+        $pages->per_page = "10";
+        $pages->next = new stdClass;
+        $pages->next->starting_after = "abc";
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->nextSearch([], $pages));
+    }
+
+    public function testConversationNextCursor()
+    {
+        $this->client->method('nextCursorPage')->willReturn('foo');
+        $query = [];
+        $pages = new stdClass;
+        $pages->next = new stdClass;
+        $pages->next->starting_after = "abc";
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->nextCursor($pages));
     }
 
     public function testContactDelete()

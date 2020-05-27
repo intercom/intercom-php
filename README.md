@@ -96,11 +96,15 @@ $client->contacts->create([
 ]);
 
 /** Search for contacts */
+$query = ['field' => 'name', 'operator' => '=', 'value' => 'Alice'];
 $client->contacts->search([
-    "query" => ['field' => 'name', 'operator' => '=', 'value' => 'Alice'],
+    "query" => $query,
     "sort" => ["field" => "name", "order" => "ascending"],
     "pagination" => ["per_page" => 10]
 ]);
+
+/** Get next page of conversation search results */
+$client->contacts->nextSearch($query, $response->pages);
 
 /** List all contacts */
 $client->contacts->getContacts([]);
@@ -407,12 +411,16 @@ $client->conversations->getConversation("1234", [
     "display_as" => "plaintext"
 ])
 
-/** Search for conversations */
+/** Search for conversations (API version > 2.0) */
+$query = ['field' => 'updated_at', 'operator' => '>', 'value' => '1560436784'];
 $client->conversations->search([
-    "query" => ['field' => 'updated_at', 'operator' => '>', 'value' => '1560436784'],
+    "query" => $query,
     "sort" => ["field" => "updated_at", "order" => "ascending"],
     "pagination" => ["per_page" => 10]
 ]);
+
+/** Get next page of conversation search results (API version > 2.0) */
+$client->conversations->nextSearch($query, $response->pages);
 
 /**
  * Reply to a conversation
@@ -514,6 +522,12 @@ You can grab the next page of results using the client:
 
 ```php
 $client->nextPage($response->pages);
+```
+
+In API version 2.0 subsequent pages for listing contacts can be retreived with:
+
+```php
+$client->nextCursor($response->pages);
 ```
 
 ## Scroll
