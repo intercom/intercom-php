@@ -28,6 +28,14 @@ class IntercomConversationsTest extends TestCase
         $this->assertSame('foo', $users->getConversation("foo"));
     }
 
+    public function testConversationSearch()
+    {
+        $this->client->method('post')->willReturn('foo');
+
+        $conversations = new IntercomConversations($this->client);
+        $this->assertSame('foo', $conversations->search([]));
+    }
+
     public function testConversationReplyPath()
     {
         $users = new IntercomConversations($this->client);
