@@ -51,6 +51,57 @@ $client = new IntercomClient('<insert_token_here>', null, ['Intercom-Version' =>
 
 For more information about API Versioning, please check the [API Versioning Documentation](https://developers.intercom.com/building-apps/docs/api-versioning) and the [API changelog](https://developers.intercom.com/building-apps/docs/api-changelog).
 
+## Contacts
+Warning: Only available on version 2.0 of the Intercom API! On earlier version only lead data will be returned and some methods will not work.
+
+```php
+/** Create a contact */
+$client->contacts->create([
+    "type" => "user",
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
+]);
+
+/** Update a contact */
+$client->contacts->update([
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
+]);
+
+/** Permanently delete a contact */
+$client->contacts->deleteContact("570680a8a1bcbca8a90001b9");
+
+/** Get a contact by ID */
+$client->contacts->getContact("570680a8a1bcbca8a90001b9");
+
+/** Add companies to a contact */
+$client->contacts->create([
+    "email" => "test@example.com",
+    "companies" => [
+        [
+            "company_id" => "3"
+        ]
+    ]
+]);
+
+/** Remove companies from a contact */
+$client->contacts->create([
+    "email" => "test@example.com",
+    "companies" => [
+        [
+            "company_id" => "3",
+            "remove" => true
+        ]
+    ]
+]);
+
+/** Find a single contact by email */
+$client->users->search(["email" => "bob@example.com"]);
+
+/** List all contacts */
+$client->users->getUsers([]);
+```
+
 ## Users
 
 ```php
