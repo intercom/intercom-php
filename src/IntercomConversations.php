@@ -58,7 +58,7 @@ class IntercomConversations extends IntercomResource
      * @return  stdClass
      * @throws  Exception
      */
-    public function nextSearch(array $query, object $pages)    
+    public function nextSearch(array $query, $pages)    
     {
         $path = 'conversations/search';
         return $this->client->nextSearchPage($path, $query, $pages);
