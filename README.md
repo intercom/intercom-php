@@ -95,7 +95,7 @@ $client->contacts->create([
     ]
 ]);
 
-/** Search for customers */
+/** Search for contacts */
 $client->contacts->search([
     "query" => ['field' => 'name', 'operator' => '=', 'value' => 'Alice'],
     "sort" => ["field" => "name", "order" => "ascending"],
@@ -406,6 +406,13 @@ $client->conversations->getConversation("1234")
 $client->conversations->getConversation("1234", [
     "display_as" => "plaintext"
 ])
+
+/** Search for conversations */
+$client->conversations->search([
+    "query" => ['field' => 'updated_at', 'operator' => '>', 'value' => '1560436784'],
+    "sort" => ["field" => "updated_at", "order" => "ascending"],
+    "pagination" => ["per_page" => 10]
+]);
 
 /**
  * Reply to a conversation
