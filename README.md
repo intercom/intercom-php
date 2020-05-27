@@ -227,17 +227,6 @@ $client->leads->scrollLeads();
 
 See [here](https://github.com/intercom/intercom-php#scroll) for more info on using the scroll parameter
 
-## Customers
-
-```php
-/** Search for customers */
-$client->customers->search([
-    "query" => ['field' => 'name', 'operator' => '=', 'value' => 'Alice'],
-    "sort" => ["field" => "name", "order" => "ascending"],
-    "pagination" => ["per_page" => 10]
-]);
-```
-
 ## Visitors
 
 Retrieve `user_id` of a visitor via [the JavaScript API](https://developers.intercom.com/docs/intercom-javascript#section-intercomgetvisitorid)
