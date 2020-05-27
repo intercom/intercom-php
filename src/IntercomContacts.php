@@ -84,7 +84,7 @@ class IntercomContacts extends IntercomResource
      * @return  stdClass
      * @throws  Exception
      */
-    public function search(array $options)    
+    public function search(array $options)
     {
         $path = 'contacts/search';
         return $this->client->post($path, $options);
@@ -98,7 +98,7 @@ class IntercomContacts extends IntercomResource
      * @return  stdClass
      * @throws  Exception
      */
-    public function nextSearch(array $query, $pages)    
+    public function nextSearch(array $query, $pages)
     {
         $path = 'contacts/search';
         return $this->client->nextSearchPage($path, $query, $pages);
@@ -111,7 +111,7 @@ class IntercomContacts extends IntercomResource
     * @return  stdClass
     * @throws  Exception
     */
-    public function nextCursor($pages)    
+    public function nextCursor($pages)
     {
         $path = 'contacts';
         $starting_after = $pages->next->starting_after;

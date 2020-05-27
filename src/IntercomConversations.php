@@ -44,7 +44,7 @@ class IntercomConversations extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function search(array $options)    
+    public function search(array $options)
     {
         $path = 'conversations/search';
         return $this->client->post($path, $options);
@@ -58,7 +58,7 @@ class IntercomConversations extends IntercomResource
      * @return  stdClass
      * @throws  Exception
      */
-    public function nextSearch(array $query, $pages)    
+    public function nextSearch(array $query, $pages)
     {
         $path = 'conversations/search';
         return $this->client->nextSearchPage($path, $query, $pages);
