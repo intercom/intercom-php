@@ -95,11 +95,15 @@ $client->contacts->create([
     ]
 ]);
 
-/** Find a single contact by email */
-$client->users->search(["email" => "bob@example.com"]);
+/** Search for customers */
+$client->contacts->search([
+    "query" => ['field' => 'name', 'operator' => '=', 'value' => 'Alice'],
+    "sort" => ["field" => "name", "order" => "ascending"],
+    "pagination" => ["per_page" => 10]
+]);
 
 /** List all contacts */
-$client->users->getUsers([]);
+$client->contacts->getContacts([]);
 ```
 
 ## Users
