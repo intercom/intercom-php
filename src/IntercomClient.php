@@ -150,6 +150,7 @@ class IntercomClient
         $this->leads = new IntercomLeads($this);
         $this->visitors = new IntercomVisitors($this);
         $this->admins = new IntercomAdmins($this);
+        $this->articles = new IntercomArticles($this);
         $this->tags = new IntercomTags($this);
         $this->segments = new IntercomSegments($this);
         $this->counts = new IntercomCounts($this);
