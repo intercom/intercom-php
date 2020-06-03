@@ -72,7 +72,7 @@ class IntercomArticles extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getArticles(array $options)
+    public function getArticles(array $options = [])
     {
         return $this->client->get('articles', $options);
     }
