@@ -119,7 +119,7 @@ class IntercomContacts extends IntercomResource
     {
         $path = $this->contactPath($id);
         
-        return $this->client->post($path.'/tag', ['id' => $tag_id]);
+        return $this->client->post($path.'/tags', ['id' => $tag_id]);
     }
     
     /**
@@ -135,7 +135,7 @@ class IntercomContacts extends IntercomResource
     {
         $path = $this->contactPath($id);
         
-        return $this->client->delete($path.'/tag', ['id' => $tag_id]);
+        return $this->client->delete($path.'/tags', ['id' => $tag_id]);
     }
 
     /**
