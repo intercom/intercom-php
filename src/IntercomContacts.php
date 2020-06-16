@@ -105,6 +105,38 @@ class IntercomContacts extends IntercomResource
         $path = $this->contactPath($id);
         return $this->client->delete($path, $options);
     }
+    
+    /**
+     * Applys a tag to a Contact based on the provided Tag ID
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
+     * @param  string $id
+     * @param  string  $tag_id
+     * @return stdClass
+     * @throws Exception
+     */
+    public function addTag(string $id, string $tag_id)
+    {
+        $path = $this->contactPath($id);
+        
+        return $this->client->post($path.'/tag', ['id' => $tag_id]);
+    }
+    
+    /**
+     * Removes a tag from a Contact based on the provided Tag ID
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
+     * @param  string $id
+     * @param  string  $tag_id
+     * @return stdClass
+     * @throws Exception
+     */
+    public function removeTag(string $id, string $tag_id)
+    {
+        $path = $this->contactPath($id);
+        
+        return $this->client->delete($path.'/tag', ['id' => $tag_id]);
+    }
 
     /**
      * @param string $id
