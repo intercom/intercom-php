@@ -34,6 +34,35 @@ class IntercomCompanies extends IntercomResource
     }
 
     /**
+     * Attaches a Contact to a Company.
+     * 
+     * @see    https://developers.intercom.io/reference#attach-contact-to-company
+     * @param  string $contactId
+     * @param  array $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function attachContact($contactId, $options) {
+        $path = $this->companyAssociatePath($contactId);
+        return $this->client->post($path, $options);
+    }
+
+    /**
+     * Detaches a Contact from a Company.
+     * 
+     * @see    https://developers.intercom.io/reference#detach-contact-from-company
+     * @param  string $contactId
+     * @param  string $companyId
+     * @param  array $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function detachContact($contactId, $companyId, $options = []) {
+        $path = $this->companyAssociatePath($contactId);
+        return $this->client->delete($path . '/' . $companyId, $options);
+    }
+
+    /**
      * Returns list of Companies.
      *
      * @see    https://developers.intercom.io/reference#list-companies
@@ -93,5 +122,13 @@ class IntercomCompanies extends IntercomResource
     public function companyUsersPath($id)
     {
         return 'companies/' . $id . '/users';
+    }
+
+    /**
+     * @param string $contactId
+     * @return string
+     */
+    public function companyAssociatePath($contactId) {
+        return 'contacts/' . $contactId . '/companies';
     }
 }
