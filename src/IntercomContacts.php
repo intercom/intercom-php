@@ -105,7 +105,7 @@ class IntercomContacts extends IntercomResource
         return $this->client->nextSearchPage($path, $query, $pages);
     }
 
-    /** 
+    /**
      * Returns next page of a Contacts list.
      *
      * @see     https://developers.intercom.com/intercom-api-reference/reference#pagination
