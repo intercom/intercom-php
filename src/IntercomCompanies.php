@@ -45,7 +45,7 @@ class IntercomCompanies extends IntercomResource
      */
     public function attachContact(string $contactId, string $companyId, array $options = [])
     {
-        $path = $this->companyAssociatePath($contactId);
+        $path = $this->companyAttachPath($contactId);
         $options = array_merge($options, ["id" => $companyId]);
         return $this->client->post($path, $options);
     }
@@ -60,10 +60,10 @@ class IntercomCompanies extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function detachContact($contactId, $companyId, $options = [])
+    public function detachContact(string $contactId, string $companyId, array $options = [])
     {
-        $path = $this->companyAssociatePath($contactId);
-        return $this->client->delete($path . '/' . $companyId, $options);
+        $path = $this->companyDetachPath($contactId, $companyId);
+        return $this->client->delete($path, $options);
     }
 
     /**
@@ -132,8 +132,18 @@ class IntercomCompanies extends IntercomResource
      * @param string $contactId
      * @return string
      */
-    public function companyAssociatePath($contactId)
+    public function companyAttachPath($contactId)
     {
         return 'contacts/' . $contactId . '/companies';
+    }
+    
+    /**
+     * @param string $contactId
+     * @param string $companyId
+     * @return string
+     */
+    public function companyDetachPath(string $contactId, string $companyId)
+    {
+        return 'contacts/' . $contactId . '/companies/' . $companyId;
     }
 }
