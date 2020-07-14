@@ -38,13 +38,15 @@ class IntercomCompanies extends IntercomResource
      *
      * @see    https://developers.intercom.io/reference#attach-contact-to-company
      * @param  string $contactId
+     * @param  string $companyId
      * @param  array $options
      * @return stdClass
      * @throws Exception
      */
-    public function attachContact($contactId, $options)
+    public function attachContact(string $contactId, string $companyId, array $options = [])
     {
         $path = $this->companyAssociatePath($contactId);
+        $options = array_merge($options, ["id" => $companyId]);
         return $this->client->post($path, $options);
     }
 
