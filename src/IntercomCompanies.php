@@ -132,7 +132,7 @@ class IntercomCompanies extends IntercomResource
      * @param string $contactId
      * @return string
      */
-    public function companyAttachPath($contactId)
+    public function companyAttachPath(string $contactId)
     {
         return 'contacts/' . $contactId . '/companies';
     }
