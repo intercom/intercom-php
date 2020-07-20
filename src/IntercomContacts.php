@@ -41,7 +41,7 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getContacts(array $options)
+    public function getContacts(array $options = [])
     {
         return $this->client->get('contacts', $options);
     }
@@ -55,7 +55,7 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getContact($id, $options = [])
+    public function getContact($id, array $options = [])
     {
         $path = $this->contactPath($id);
         return $this->client->get($path, $options);
@@ -94,7 +94,8 @@ class IntercomContacts extends IntercomResource
      * Returns next page of Contacts that match search query.
      *
      * @see     https://developers.intercom.com/intercom-api-reference/reference#pagination-search
-     * @param   array $options
+     * @param   array $query
+     * @param   stdClass $pages
      * @return  stdClass
      * @throws  Exception
      */
@@ -104,13 +105,14 @@ class IntercomContacts extends IntercomResource
         return $this->client->nextSearchPage($path, $query, $pages);
     }
 
-    /** Returns next page of a Contacts list.
-    *
-    * @see     https://developers.intercom.com/intercom-api-reference/reference#pagination
-    * @param   array $options
-    * @return  stdClass
-    * @throws  Exception
-    */
+    /**
+     * Returns next page of a Contacts list.
+     *
+     * @see     https://developers.intercom.com/intercom-api-reference/reference#pagination
+     * @param   stdClass $pages
+     * @return  stdClass
+     * @throws  Exception
+     */
     public function nextCursor($pages)
     {
         $path = 'contacts';

@@ -74,27 +74,6 @@ $client->contacts->deleteContact("570680a8a1bcbca8a90001b9");
 /** Get a contact by ID */
 $client->contacts->getContact("570680a8a1bcbca8a90001b9");
 
-/** Add companies to a contact */
-$client->contacts->create([
-    "email" => "test@example.com",
-    "companies" => [
-        [
-            "company_id" => "3"
-        ]
-    ]
-]);
-
-/** Remove companies from a contact */
-$client->contacts->create([
-    "email" => "test@example.com",
-    "companies" => [
-        [
-            "company_id" => "3",
-            "remove" => true
-        ]
-    ]
-]);
-
 /** Search for contacts */
 $query = ['field' => 'name', 'operator' => '=', 'value' => 'Alice'];
 $client->contacts->search([
@@ -359,6 +338,20 @@ $client->companies->getCompanyUsers("531ee472cce572a6ec000006");
 
 /** List users belonging to a company by company_id */
 $client->companies->getCompanies(["type" => "user", "company_id" => "3"]);
+
+/** 
+ * Add companies to a contact with IDs 
+ * First parameter is contact ID, second $options must contain company ID (id)
+ */
+$client->companies->attachContact("570680a8a1bcbca8a90001b9", [
+    "id" => "531ee472cce572a6ec000006"
+]);
+
+/** 
+ * Detach company from contact
+ * First parameter is contact ID, second is company ID
+ */
+$client->companies->detachContact("570680a8a1bcbca8a90001b9", "531ee472cce572a6ec000006");
 
 ```
 

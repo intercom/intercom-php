@@ -280,13 +280,13 @@ class IntercomClient
                 "starting_after" => $pages->next->starting_after,
             ]
         ];
-        $response = $this->sendRequest('POST', "https://api.intercom.io/$path", $options);
+        $response = $this->post($path, $options);
         return $this->handleResponse($response);
     }
 
     public function nextCursorPage($path, $starting_after)
     {
-        $response = $this->sendRequest('GET', "https://api.intercom.io/$path?starting_after=$starting_after");
+        $response = $this->get($path . "?starting_after=" . $starting_after);
         return $this->handleResponse($response);
     }
 
