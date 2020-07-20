@@ -52,7 +52,7 @@ $client = new IntercomClient('<insert_token_here>', null, ['Intercom-Version' =>
 For more information about API Versioning, please check the [API Versioning Documentation](https://developers.intercom.com/building-apps/docs/api-versioning) and the [API changelog](https://developers.intercom.com/building-apps/docs/api-changelog).
 
 ## Contacts
-Warning: Only available on version 2.0 of the Intercom API! On earlier version only lead data will be returned and some methods will not work.
+Warning: This resource is only available on version 2.0 of the Intercom API.
 
 ```php
 /** Create a contact */
@@ -404,7 +404,7 @@ $client->conversations->getConversation("1234", [
     "display_as" => "plaintext"
 ])
 
-/** Search for conversations (API version > 2.0) */
+/** Search for conversations (API version >= 2.0) */
 $query = ['field' => 'updated_at', 'operator' => '>', 'value' => '1560436784'];
 $client->conversations->search([
     "query" => $query,

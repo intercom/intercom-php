@@ -265,9 +265,11 @@ class IntercomClient
         return $this->handleResponse($response);
     }
 
-        /**
+    /**
      * Returns the next page of the result for a cursor based search.
      *
+     * @param  string $path
+     * @param  stdClass $query
      * @param  stdClass $pages
      * @return stdClass
      */
