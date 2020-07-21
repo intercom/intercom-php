@@ -266,14 +266,14 @@ class IntercomClient
     }
 
     /**
-     * Returns the next page of the result for a cursor based search.
+     * Returns the next page of the result for a search query.
      *
      * @param  string $path
-     * @param  stdClass $query
+     * @param  array $query
      * @param  stdClass $pages
      * @return stdClass
      */
-    public function nextSearchPage($path, $query, $pages)
+    public function nextSearchPage(string $path, array $query, $pages)
     {
         $options = [
             "query" => $query,
@@ -286,9 +286,16 @@ class IntercomClient
         return $this->handleResponse($response);
     }
 
-    public function nextCursorPage($path, $starting_after)
+    /**
+     * Returns the next page of the result for a cursor based search.
+     *
+     * @param string $path
+     * @param string $startingAfter
+     * @return stdClass
+     */
+    public function nextCursorPage(string $path, string $startingAfter)
     {
-        $response = $this->get($path . "?starting_after=" . $starting_after);
+        $response = $this->get($path . "?starting_after=" . $startingAfter);
         return $this->handleResponse($response);
     }
 

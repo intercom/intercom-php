@@ -39,6 +39,14 @@ class IntercomContactsTest extends TestCase
         $this->assertSame('foo', $contacts->getContact("123"));
     }
 
+    public function testContactDelete()
+    {
+        $this->client->method('delete')->willReturn('foo');
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->deleteContact(''));
+    }
+
     public function testContactSearch()
     {
         $this->client->method('post')->willReturn('foo');
@@ -70,13 +78,5 @@ class IntercomContactsTest extends TestCase
 
         $contacts = new IntercomContacts($this->client);
         $this->assertSame('foo', $contacts->nextCursor($pages));
-    }
-
-    public function testContactDelete()
-    {
-        $this->client->method('delete')->willReturn('foo');
-
-        $contacts = new IntercomContacts($this->client);
-        $this->assertSame('foo', $contacts->deleteContact(''));
     }
 }

@@ -39,7 +39,6 @@ class IntercomConversations extends IntercomResource
      * Returns list of Conversations that match search query.
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#search-for-conversations
-     * @param  string $id
      * @param  array  $options
      * @return stdClass
      * @throws Exception
@@ -53,10 +52,11 @@ class IntercomConversations extends IntercomResource
     /**
      * Returns next page of Conversations that match search query.
      *
-     * @see     https://developers.intercom.com/intercom-api-reference/reference#pagination-search
-     * @param   array $options
-     * @return  stdClass
-     * @throws  Exception
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#pagination-search
+     * @param  array $query
+     * @param  stdClass $pages
+     * @return stdClass
+     * @throws Exception
      */
     public function nextSearch(array $query, $pages)
     {

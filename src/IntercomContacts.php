@@ -55,7 +55,7 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getContact($id, array $options = [])
+    public function getContact(string $id, array $options = [])
     {
         $path = $this->contactPath($id);
         return $this->client->get($path, $options);
