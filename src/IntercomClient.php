@@ -21,6 +21,8 @@ use stdClass;
 
 class IntercomClient
 {
+    const SDK_VERSION = '4.4.0';
+
     /**
      * @var HttpClient $httpClient
      */
@@ -328,7 +330,8 @@ class IntercomClient
         return array_merge(
             [
                 'Accept' => 'application/json',
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
+                'User-Agent' => 'Intercom-PHP/' . self::SDK_VERSION,
             ],
             $this->extraRequestHeaders
         );

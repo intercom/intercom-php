@@ -51,8 +51,11 @@ $client = new IntercomClient('<insert_token_here>', null, ['Intercom-Version' =>
 
 For more information about API Versioning, please check the [API Versioning Documentation](https://developers.intercom.com/building-apps/docs/api-versioning) and the [API changelog](https://developers.intercom.com/building-apps/docs/api-changelog).
 
+**Important**: Not all the resources supported by this API are supported by all API versions. See the notes below or the [API Reference](https://developers.intercom.com/intercom-api-reference/reference) for more information about the resources supported by each API version.
+
 ## Contacts
-Warning: This resource is only available on version 2.0 of the Intercom API.
+
+This resource is only available in API Versions 2.0 and above
 
 ```php
 /** Create a contact */
@@ -90,6 +93,8 @@ $client->contacts->getContacts([]);
 ```
 
 ## Users
+
+This resource is only available in API Versions 1.0 to 1.4. Newer versions use the [Contacts](#contacts) resource instead.
 
 ```php
 /** Create a user */
@@ -157,6 +162,8 @@ $client->users->scrollUsers();
 See [here](https://github.com/intercom/intercom-php#scroll) for more info on using the scroll parameter
 
 ## Leads
+
+This resource is only available in API Versions 1.0 to 1.4. Newer versions use the [Contacts](#contacts) resource instead.
 
 ```php
 /**
@@ -309,15 +316,14 @@ $client->companies->create([
 ]);
 
 /**
- * Update a company (Note: This method is an alias to the create method.
- * In practice you can use create to update companies if you wish)
+ * Update a company
  */
 $client->companies->update([
     "name" => "foocorp",
     "id" => "3"
 ]);
 
-/** Creating or Update a company with custom attributes. */
+/** Create or update a company with custom attributes. */
 $client->companies->update([
     "name" => "foocorp",
     "id" => "3",
@@ -410,7 +416,7 @@ $client->conversations->search([
     "pagination" => ["per_page" => 10]
 ]);
 
-/** Get next page of conversation search results (API version > 2.0) */
+/** Get next page of conversation search results (API version >= 2.0) */
 $client->conversations->nextSearch($query, $response->pages);
 
 /**
@@ -515,7 +521,7 @@ You can grab the next page of results using the client:
 $client->nextPage($response->pages);
 ```
 
-In API version 2.0 subsequent pages for listing contacts can be retreived with:
+In API versions 2.0 and above subsequent pages for listing contacts can be retreived with:
 
 ```php
 $client->nextCursor($response->pages);
