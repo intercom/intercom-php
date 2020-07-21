@@ -57,11 +57,6 @@ class IntercomClient
     public $users;
 
     /**
-     * @var IntercomCustomers $customers
-     */
-    public $customers;
-
-    /**
      * @var IntercomEvents $events
      */
     public $events;
@@ -70,6 +65,11 @@ class IntercomClient
      * @var IntercomCompanies $companies
      */
     public $companies;
+
+    /**
+     * @var IntercomContacts $contacts
+     */
+    public $contacts;
 
     /**
      * @var IntercomMessages $messages
@@ -141,7 +141,7 @@ class IntercomClient
     public function __construct(string $appIdOrToken, string $password = null, array $extraRequestHeaders = [])
     {
         $this->users = new IntercomUsers($this);
-        $this->customers = new IntercomCustomers($this);
+        $this->contacts = new IntercomContacts($this);
         $this->events = new IntercomEvents($this);
         $this->companies = new IntercomCompanies($this);
         $this->messages = new IntercomMessages($this);
@@ -262,6 +262,40 @@ class IntercomClient
     public function nextPage($pages)
     {
         $response = $this->sendRequest('GET', $pages->next);
+        return $this->handleResponse($response);
+    }
+
+    /**
+     * Returns the next page of the result for a search query.
+     *
+     * @param  string $path
+     * @param  array $query
+     * @param  stdClass $pages
+     * @return stdClass
+     */
+    public function nextSearchPage(string $path, array $query, $pages)
+    {
+        $options = [
+            "query" => $query,
+            "pagination" => [
+                "per_page" => $pages->per_page,
+                "starting_after" => $pages->next->starting_after,
+            ]
+        ];
+        $response = $this->post($path, $options);
+        return $this->handleResponse($response);
+    }
+
+    /**
+     * Returns the next page of the result for a cursor based search.
+     *
+     * @param string $path
+     * @param string $startingAfter
+     * @return stdClass
+     */
+    public function nextCursorPage(string $path, string $startingAfter)
+    {
+        $response = $this->get($path . "?starting_after=" . $startingAfter);
         return $this->handleResponse($response);
     }
 

@@ -51,6 +51,44 @@ $client = new IntercomClient('<insert_token_here>', null, ['Intercom-Version' =>
 
 For more information about API Versioning, please check the [API Versioning Documentation](https://developers.intercom.com/building-apps/docs/api-versioning) and the [API changelog](https://developers.intercom.com/building-apps/docs/api-changelog).
 
+## Contacts
+Warning: This resource is only available on version 2.0 of the Intercom API.
+
+```php
+/** Create a contact */
+$client->contacts->create([
+    "type" => "user",
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
+]);
+
+/** Update a contact */
+$client->contacts->update([
+    "email" => "test@example.com",
+    "custom_attributes" => ['foo' => 'bar']
+]);
+
+/** Permanently delete a contact */
+$client->contacts->deleteContact("570680a8a1bcbca8a90001b9");
+
+/** Get a contact by ID */
+$client->contacts->getContact("570680a8a1bcbca8a90001b9");
+
+/** Search for contacts */
+$query = ['field' => 'name', 'operator' => '=', 'value' => 'Alice'];
+$client->contacts->search([
+    "query" => $query,
+    "sort" => ["field" => "name", "order" => "ascending"],
+    "pagination" => ["per_page" => 10]
+]);
+
+/** Get next page of conversation search results */
+$client->contacts->nextSearch($query, $response->pages);
+
+/** List all contacts */
+$client->contacts->getContacts([]);
+```
+
 ## Users
 
 ```php
@@ -171,17 +209,6 @@ $client->leads->scrollLeads();
 ```
 
 See [here](https://github.com/intercom/intercom-php#scroll) for more info on using the scroll parameter
-
-## Customers
-
-```php
-/** Search for customers */
-$client->customers->search([
-    "query" => ['field' => 'name', 'operator' => '=', 'value' => 'Alice'],
-    "sort" => ["field" => "name", "order" => "ascending"],
-    "pagination" => ["per_page" => 10]
-]);
-```
 
 ## Visitors
 
@@ -312,6 +339,18 @@ $client->companies->getCompanyUsers("531ee472cce572a6ec000006");
 /** List users belonging to a company by company_id */
 $client->companies->getCompanies(["type" => "user", "company_id" => "3"]);
 
+/**
+ * Add companies to a contact with IDs
+ * First parameter is contact ID, second is company ID
+ */
+$client->companies->attachContact("570680a8a1bcbca8a90001b9", "531ee472cce572a6ec000006");
+
+/**
+ * Detach company from contact
+ * First parameter is contact ID, second is company ID
+ */
+$client->companies->detachContact("570680a8a1bcbca8a90001b9", "531ee472cce572a6ec000006");
+
 ```
 
 ## Admins
@@ -362,6 +401,17 @@ $client->conversations->getConversation("1234")
 $client->conversations->getConversation("1234", [
     "display_as" => "plaintext"
 ])
+
+/** Search for conversations (API version >= 2.0) */
+$query = ['field' => 'updated_at', 'operator' => '>', 'value' => '1560436784'];
+$client->conversations->search([
+    "query" => $query,
+    "sort" => ["field" => "updated_at", "order" => "ascending"],
+    "pagination" => ["per_page" => 10]
+]);
+
+/** Get next page of conversation search results (API version > 2.0) */
+$client->conversations->nextSearch($query, $response->pages);
 
 /**
  * Reply to a conversation
@@ -463,6 +513,12 @@ You can grab the next page of results using the client:
 
 ```php
 $client->nextPage($response->pages);
+```
+
+In API version 2.0 subsequent pages for listing contacts can be retreived with:
+
+```php
+$client->nextCursor($response->pages);
 ```
 
 ## Scroll

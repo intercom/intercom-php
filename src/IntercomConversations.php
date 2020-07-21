@@ -36,6 +36,35 @@ class IntercomConversations extends IntercomResource
     }
 
     /**
+     * Returns list of Conversations that match search query.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#search-for-conversations
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function search(array $options)
+    {
+        $path = 'conversations/search';
+        return $this->client->post($path, $options);
+    }
+
+    /**
+     * Returns next page of Conversations that match search query.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#pagination-search
+     * @param  array $query
+     * @param  stdClass $pages
+     * @return stdClass
+     * @throws Exception
+     */
+    public function nextSearch(array $query, $pages)
+    {
+        $path = 'conversations/search';
+        return $this->client->nextSearchPage($path, $query, $pages);
+    }
+
+    /**
      * Creates Conversation Reply to Conversation with given ID.
      *
      * @see    https://developers.intercom.io/reference#replying-to-a-conversation
