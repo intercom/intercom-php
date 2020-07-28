@@ -496,7 +496,7 @@ Rate limit info is passed via the rate limit headers.
 You can access this information as follows:
 
 ```php
-$rate_limit = $intercom->getRateLimitDetails();
+$rate_limit = $client->getRateLimitDetails();
 print("{$rate_limit['remaining']} {$rate_limit['limit']} \n");
 print_r($rate_limit['reset_at']->format(DateTime::ISO8601));
 ```
@@ -542,14 +542,14 @@ require "vendor/autoload.php";
 
 use Intercom\IntercomClient;
 
-$intercom = new IntercomClient(getenv('AT'), null);
-$resp = $intercom->users->scrollUsers([]);
+$client = new IntercomClient(getenv('AT'), null);
+$resp = $client->users->scrollUsers([]);
 $count = 1;
 echo "PAGE $count: " . sizeof($resp->users);
 echo "\n";
 while (!empty($resp->scroll_param) && sizeof($resp->users) > 0) {
     $count = ++$count;
-    $resp = $intercom->users->scrollUsers(["scroll_param" => $resp->scroll_param]);
+    $resp = $client->users->scrollUsers(["scroll_param" => $resp->scroll_param]);
     echo "PAGE $count: " . sizeof($resp->users);
     echo "\n";
 }
