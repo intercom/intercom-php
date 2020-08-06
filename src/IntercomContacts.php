@@ -24,13 +24,15 @@ class IntercomContacts extends IntercomResource
      * Updates a Contact.
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
+     * @param  string $id
      * @param  array $options
      * @return stdClass
      * @throws Exception
      */
-    public function update(array $options)
+    public function update(string $id, array $options)
     {
-        return $this->client->put("contacts", $options);
+        $path = $this->contactPath($id);
+        return $this->client->put($path, $options);
     }
 
     /**

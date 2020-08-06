@@ -66,7 +66,7 @@ $client->contacts->create([
 ]);
 
 /** Update a contact */
-$client->contacts->update([
+$client->contacts->update("570680a8a1bcbca8a90001b9", [
     "email" => "test@example.com",
     "custom_attributes" => ['foo' => 'bar']
 ]);

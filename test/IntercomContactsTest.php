@@ -20,7 +20,7 @@ class IntercomContactsTest extends TestCase
         $this->client->method('put')->willReturn('foo');
 
         $contacts = new IntercomContacts($this->client);
-        $this->assertSame('foo', $contacts->update([]));
+        $this->assertSame('foo', $contacts->update('', []));
     }
 
     public function testContactsGet()
