@@ -35,7 +35,9 @@ class IntercomContacts extends IntercomResource
     public function update(string $id, array $options)
     {
         $path = $this->contactPath($id);
+
         return $this->client->put($path, $options);
+    }
 
     /**
      * Lists Contacts.

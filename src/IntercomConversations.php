@@ -109,6 +109,40 @@ class IntercomConversations extends IntercomResource
     }
 
     /**
+     * Adds a tag to a Conversation based on the provided Tag and Admin ID
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#attach-a-tag-to-a-conversation
+     * @param string $id
+     * @param string $tagId
+     * @param string $adminId
+     * @return stdClass
+     */
+
+    public function addTag($id, $tagId, $adminId) {
+
+        $path = $this->conversationPath($id);
+
+        return $this->client->post($path.'/tags', ['id' => $tagId, 'admin' => $adminId]);
+    }
+
+    /**
+     * Removes a tag to a Conversation based on the provided Tag and Admin ID
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#attach-a-tag-to-a-conversation
+     * @param string $id
+     * @param string $tagId
+     * @param string $adminId
+     * @return stdClass
+     */
+
+    public function removeTag($id, $tagId) {
+
+        $path = $this->conversationPath($id);
+
+        return $this->client->delete($path.'/tags', ['id' => $tagId]);
+    }
+
+    /**
      * Returns endpoint path to Conversation with given ID.
      *
      * @param  string $id
@@ -128,18 +162,5 @@ class IntercomConversations extends IntercomResource
     public function conversationReplyPath($id)
     {
         return 'conversations/' . $id . '/reply';
-    }
-    
-    /**
-     * Returns the results of a conversation search
-     *
-     * @param  array $query
-     * @return stdClass
-     * @throws Exception
-     */
-    
-    public function search($query) {
-        $path = 'conversations/search';
-        return $this->client->post($path, $query);
     }
 }
