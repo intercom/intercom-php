@@ -1,9 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
 namespace Intercom;
 
 use Http\Client\Exception;
@@ -25,13 +20,10 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
-<<<<<<< HEAD
      * Updates a Contact.
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
      * @param  string $id
-=======
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
      * Updates an existing Contact
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
@@ -39,25 +31,11 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     public function update(string $id, array $options)
     {
         $path = $this->contactPath($id);
         return $this->client->put($path, $options);
-=======
-=======
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
-    public function update($id, $options = [])
-    {
-        $path = $this->contactPath($id);
-        return $this->client->put($path, $options);
-    }
-<<<<<<< HEAD
->>>>>>> fixed contact update method
-=======
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
 
     /**
      * Lists Contacts.
@@ -67,12 +45,8 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-<<<<<<< HEAD
 
     public function getContacts(array $options = [])
-=======
-    public function getContacts(array $options)
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
     {
         return $this->client->get('contacts', $options);
     }
@@ -86,50 +60,15 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-<<<<<<< HEAD
 
-=======
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
     public function getContact($id, $options = [])
     {
         $path = $this->contactPath($id);
         return $this->client->get($path, $options);
     }
-    
-    /**
-     * Gets all data attributes for contacts
-     *
-     * @see    https://developers.intercom.com/intercom-api-reference/reference#get-contact
-     * @param  array  $options
-     * @return stdClass
-     * @throws Exception
-     */
-    public function getContactAttributes($options = [])
-    {
-        $options = array_merge($options, ["model" => "contact"]);
-        
-        return $this->client->get('data_attributes', $options);
-    }
-    
-    /**
-     * Searches for contacts
-     *
-     * @see    https://developers.intercom.com/intercom-api-reference/reference#search-for-contact
-     * @param  array  $options
-     * @return stdClass
-     * @throws Exception
-     */
-    public function searchContacts($options = [])
-    {
-        return $this->client->post('contacts/search', $options);
-    }
 
     /**
-<<<<<<< HEAD
      * Permenently Deletes a single Contact based on the Intercom ID.
-=======
-     * Deletes a single Contact based on the Intercom ID.
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
      * @param  string $id
@@ -142,41 +81,40 @@ class IntercomContacts extends IntercomResource
         $path = $this->contactPath($id);
         return $this->client->delete($path, $options);
     }
-    
-    /**
-     * Applys a tag to a Contact based on the provided Tag ID
-     *
-     * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
-     * @param  string $id
-     * @param  string  $tag_id
-     * @return stdClass
-     * @throws Exception
-     */
-    public function addTag(string $id, string $tag_id)
-    {
+
+        /**
+         * Applys a tag to a Contact based on the provided Tag ID
+         *
+         * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
+         * @param  string $id
+         * @param  string  $tag_id
+         * @return stdClass
+         * @throws Exception
+         */
+        public function addTag(string $id, string $tag_id)
+        {
         $path = $this->contactPath($id);
-        
+
         return $this->client->post($path.'/tags', ['id' => $tag_id]);
-    }
-    
-    /**
-     * Removes a tag from a Contact based on the provided Tag ID
-     *
-     * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
-     * @param  string $id
-     * @param  string  $tag_id
-     * @return stdClass
-     * @throws Exception
-     */
-    public function removeTag(string $id, string $tag_id)
+        }
+
+        /**
+         * Removes a tag from a Contact based on the provided Tag ID
+         *
+         * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
+         * @param  string $id
+         * @param  string  $tag_id
+         * @return stdClass
+         * @throws Exception
+         */
+        public function removeTag(string $id, string $tag_id)
     {
         $path = $this->contactPath($id);
-        
+
         return $this->client->delete($path.'/tags', ['id' => $tag_id]);
     }
 
     /**
-<<<<<<< HEAD
      * Returns list of Contacts that match search query.
      *
      * @see     https://developers.intercom.com/reference#search-for-contacts
@@ -221,8 +159,6 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
-=======
->>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
      * @param string $id
      * @return string
      */
