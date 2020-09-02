@@ -1,4 +1,9 @@
 <?php
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
 namespace Intercom;
 
 use Http\Client\Exception;
@@ -20,10 +25,13 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+<<<<<<< HEAD
      * Updates a Contact.
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
      * @param  string $id
+=======
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
      * Updates an existing Contact
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
@@ -32,18 +40,24 @@ class IntercomContacts extends IntercomResource
      * @throws Exception
      */
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public function update(string $id, array $options)
     {
         $path = $this->contactPath($id);
         return $this->client->put($path, $options);
 =======
+=======
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
     public function update($id, $options = [])
     {
         $path = $this->contactPath($id);
         return $this->client->put($path, $options);
     }
+<<<<<<< HEAD
 >>>>>>> fixed contact update method
+=======
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
 
     /**
      * Lists Contacts.
@@ -53,8 +67,12 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
+<<<<<<< HEAD
 
     public function getContacts(array $options = [])
+=======
+    public function getContacts(array $options)
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
     {
         return $this->client->get('contacts', $options);
     }
@@ -68,7 +86,10 @@ class IntercomContacts extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
     public function getContact($id, $options = [])
     {
         $path = $this->contactPath($id);
@@ -104,7 +125,11 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+<<<<<<< HEAD
      * Permenently Deletes a single Contact based on the Intercom ID.
+=======
+     * Deletes a single Contact based on the Intercom ID.
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#delete-contact
      * @param  string $id
@@ -151,6 +176,7 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+<<<<<<< HEAD
      * Returns list of Contacts that match search query.
      *
      * @see     https://developers.intercom.com/reference#search-for-contacts
@@ -195,6 +221,8 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+=======
+>>>>>>> 3adef45b1b56bdfb7e54254ea21288144cacc82a
      * @param string $id
      * @return string
      */
