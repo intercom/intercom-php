@@ -284,8 +284,7 @@ class IntercomClient
                 "starting_after" => $pages->next->starting_after,
             ]
         ];
-        $response = $this->post($path, $options);
-        return $this->handleResponse($response);
+        return $this->post($path, $options);
     }
 
     /**
