@@ -19,7 +19,7 @@ class IntercomArticles extends IntercomResource
     {
         return $this->client->post("articles", $options);
     }
-    
+
     /**
      * Gets a single Article based on the Article ID.
      *
@@ -29,7 +29,7 @@ class IntercomArticles extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getArticle($id, $options = [])
+    public function getArticle(string $id, array $options = [])
     {
         $path = $this->articlePath($id);
         return $this->client->get($path, $options);
@@ -39,16 +39,16 @@ class IntercomArticles extends IntercomResource
      * Updates an existing Article
      *
      * @see    https://developers.intercom.com/intercom-api-reference/v0/reference#update-an-article
-     * @param  array $options
+     * @param string $id
+     * @param array $options
      * @return stdClass
-     * @throws Exception
      */
-    public function update($id, $options = [])
+    public function update(string $id, array $options = [])
     {
         $path = $this->articlePath($id);
         return $this->client->put($path, $options);
     }
-    
+
      /**
      * Deletes a single article based on the Article ID.
      *

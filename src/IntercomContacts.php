@@ -20,10 +20,6 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
-     * Updates a Contact.
-     *
-     * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
-     * @param  string $id
      * Updates an existing Contact
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#update-contact
@@ -63,7 +59,7 @@ class IntercomContacts extends IntercomResource
      * @throws Exception
      */
 
-    public function getContact($id, $options = [])
+    public function getContact(string $id, array $options = [])
     {
         $path = $this->contactPath($id);
         return $this->client->get($path, $options);
@@ -89,15 +85,15 @@ class IntercomContacts extends IntercomResource
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#tag-contact
      * @param  string $id
-     * @param  string  $tag_id
+     * @param  string  $tagId
      * @return stdClass
      * @throws Exception
      */
-    public function addTag(string $id, string $tag_id)
+    public function addTag(string $id, string $tagId)
     {
-        $path = $this->contactPath($id);
+        $path = $this->contactTagsPath($id);
 
-        return $this->client->post($path.'/tags', ['id' => $tag_id]);
+        return $this->client->post($path, ['id' => $tagId]);
     }
 
     /**
@@ -105,15 +101,15 @@ class IntercomContacts extends IntercomResource
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#untag-contact
      * @param  string $id
-     * @param  string  $tag_id
+     * @param  string  $tagId
      * @return stdClass
      * @throws Exception
      */
-    public function removeTag(string $id, string $tag_id)
+    public function removeTag(string $id, string $tagId)
     {
-        $path = $this->contactPath($id);
+        $path = $this->contactTagsPath($id);
 
-        return $this->client->delete($path.'/tags', ['id' => $tag_id]);
+        return $this->client->delete($path, ['id' => $tagId]);
     }
 
     /**
@@ -167,5 +163,16 @@ class IntercomContacts extends IntercomResource
     public function contactPath(string $id)
     {
         return 'contacts/' . $id;
+    }
+
+    /**
+     * Returns the path for adding/removing a tag for a given contact
+     *
+     * @param string $id Contact ID
+     * @return string
+     */
+    public function contactTagsPath(string $id)
+    {
+        return 'contacts/' . $id . '/tags';
     }
 }

@@ -90,6 +90,12 @@ $client->contacts->nextSearch($query, $response->pages);
 
 /** List all contacts */
 $client->contacts->getContacts([]);
+
+/** Tag a Contact */
+$client->contacts->addTag("570680a8a1bcbca8a90001b9", "2084335");
+
+/** Remove a Tag from a Contact */
+$client->contacts->removeTag("570680a8a1bcbca8a90001b9", "2084335");
 ```
 
 ## Users
@@ -487,6 +493,25 @@ $client->teams->getTeams();
 
 /** Get a single Team by id */
 $client->teams->getTeam("1188");
+```
+
+## Articles
+
+```php
+/** Create an Article */
+$client->articles->create(["title" => "How To Use the Intercom API", "description" => "A quick guide to the universe of the Intercom API", "body" => "<p>This is the body in html</p>", "author_id" => 1]);
+
+/** Retrieve an Article */
+$client->articles->getArticle("123456");
+
+/** Update an Article */
+$client->articles->update("123456", ["title" => "How To Use the Intercom API", "description" => "A quick guide to the universe of the Intercom API", "body" => "<p>This is the body in html</p>");
+
+/** Delete an Article */
+$client->articles->deleteArticle("123456");
+
+/** List Articles */
+$client->articles->getArticles();
 ```
 
 
