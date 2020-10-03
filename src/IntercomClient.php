@@ -79,11 +79,6 @@ class IntercomClient
     public $companies;
 
     /**
-     * @var IntercomContacts $contacts
-     */
-    public $contacts;
-
-    /**
      * @var IntercomMessages $messages
      */
     public $messages;
