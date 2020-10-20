@@ -125,6 +125,21 @@ class IntercomContacts extends IntercomResource
         $path = 'contacts/search';
         return $this->client->post($path, $options);
     }
+    
+    /**
+     * Gets all data attributes for the Contact model
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#list-data-attributes
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function getAttributes($options = [])
+    {
+        $options = array_merge($options, ["model" => "contact"]);
+
+        return $this->client->get('data_attributes', $options);
+    }
 
     /**
      * Returns next page of Contacts that match search query.
