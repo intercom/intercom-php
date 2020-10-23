@@ -296,8 +296,7 @@ class IntercomClient
      */
     public function nextCursorPage(string $path, string $startingAfter)
     {
-        $response = $this->get($path . "?starting_after=" . $startingAfter);
-        return $this->handleResponse($response);
+        return $this->get($path . "?starting_after=" . $startingAfter);
     }
 
     /**
