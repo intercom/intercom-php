@@ -32,21 +32,52 @@ $client = new IntercomClient('<insert_token_here>');
 
 For most use cases the code snippet above should suffice. However, if needed, you can customize the Intercom client as follows:
 
+### Add custom headers
+
 ```php
 use Intercom\IntercomClient;
 
-$client = new IntercomClient('<insert_token_here>', null, ['Custom-Header' => 'value']);
-
-$client->setHttpClient($myCustomHttpClient); // $myCustomHttpClient implements Psr\Http\Client\ClientInterface
-$client->setRequestFactory($myCustomRequestFactory); // $myCustomRequestFactory implements Http\Message\RequestFactory
-$client->setUriFactory($myCustomUriFactory); // $myCustomUriFactory implements Http\Message\UriFactory
+$client = new IntercomClient(
+    '<insert_token_here>',
+    null,
+    ['Custom-Header' => 'value']
+);
 ```
+
+### Use a custom HTTP client
+
+This client needs to implement `Psr\Http\Client\ClientInterface`
+
+```php
+$client->setHttpClient($yourHttpClient);
+```
+
+### Use a custom request factory
+
+This factory needs to implement `Http\Message\RequestFactory`
+
+```php
+$client->setRequestFactory($yourRequestFactory);
+```
+
+### Use a custom URI factory
+
+This factory needs to implement `Http\Message\UriFactory`
+
+```php
+$client->setUriFactory($yourUriFactory); 
+```
+
 ## API Versions
 
 This library is intended to work with any API Version. By default, the version that you have configured for your App in the [Developer Hub](https://developers.intercom.com/) will be used. However, you can overwrite that version for a single request or for all the requests using this library by including the `Intercom-Version` header when initializing the client as follows:
 
 ```php
-$client = new IntercomClient('<insert_token_here>', null, ['Intercom-Version' => '1.1']);
+$client = new IntercomClient(
+    '<insert_token_here>',
+    null,
+    ['Intercom-Version' => '1.1']
+);
 ```
 
 For more information about API Versioning, please check the [API Versioning Documentation](https://developers.intercom.com/building-apps/docs/api-versioning) and the [API changelog](https://developers.intercom.com/building-apps/docs/api-changelog).
