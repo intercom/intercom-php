@@ -3,7 +3,7 @@
 composer.lock
 composer.phar
 
-# PhpUnit
+# PHPUnit
 phpunit.phar
 phpunit.xml
 
