@@ -1,18 +1,6 @@
-# OSX
-.DS_Store
-
-# PhpStorm
-/.idea
-
-# Composer
 /vendor
 composer.lock
-composer.phar
 
 # PHPUnit
 phpunit.phar
 phpunit.xml
-
-# Extras
-/build
-*.swp
