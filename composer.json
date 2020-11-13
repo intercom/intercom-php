@@ -1,6 +1,6 @@
 {
     "name": "intercom/intercom-php",
-    "description": "Intercom API client built on top of Guzzle 6",
+    "description": "Intercom API client built on top of HTTPlug",
     "keywords": [
         "api",
         "guzzle",
