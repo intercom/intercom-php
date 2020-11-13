@@ -93,29 +93,29 @@ This resource is only available in API Versions 2.0 and above
 ```php
 /** Create a contact */
 $client->contacts->create([
-    "type" => "user",
-    "email" => "test@example.com",
-    "custom_attributes" => ['foo' => 'bar']
+    'type' => 'user',
+    'email' => 'test@example.com',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /** Update a contact */
-$client->contacts->update("570680a8a1bcbca8a90001b9", [
-    "email" => "test@example.com",
-    "custom_attributes" => ['foo' => 'bar']
+$client->contacts->update('570680a8a1bcbca8a90001b9', [
+    'email' => 'test@example.com',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /** Permanently delete a contact */
-$client->contacts->deleteContact("570680a8a1bcbca8a90001b9");
+$client->contacts->deleteContact('570680a8a1bcbca8a90001b9');
 
 /** Get a contact by ID */
-$client->contacts->getContact("570680a8a1bcbca8a90001b9");
+$client->contacts->getContact('570680a8a1bcbca8a90001b9');
 
 /** Search for contacts */
 $query = ['field' => 'name', 'operator' => '=', 'value' => 'Alice'];
 $client->contacts->search([
-    "query" => $query,
-    "sort" => ["field" => "name", "order" => "ascending"],
-    "pagination" => ["per_page" => 10]
+    'query' => $query,
+    'sort' => ['field' => 'name', 'order' => 'ascending'],
+    'pagination' => ['per_page' => 10]
 ]);
 
 /** Get next page of conversation search results */
@@ -132,8 +132,8 @@ This resource is only available in API Versions 1.0 to 1.4. Newer versions use t
 ```php
 /** Create a user */
 $client->users->create([
-    "email" => "test@example.com",
-    "custom_attributes" => ['foo' => 'bar']
+    'email' => 'test@example.com',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /**
@@ -141,44 +141,44 @@ $client->users->create([
  * can use create to update users if you wish)
  */
 $client->users->update([
-    "email" => "test@example.com",
-    "custom_attributes" => ['foo' => 'bar']
+    'email' => 'test@example.com',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /** Archive a user by ID (i.e. soft delete) */
-$client->users->archiveUser("570680a8a1bcbca8a90001b9");
+$client->users->archiveUser('570680a8a1bcbca8a90001b9');
 
 /** Permanently delete a user */
-$client->users->permanentlyDeleteUser("570680a8a1bcbca8a90001b9");
+$client->users->permanentlyDeleteUser('570680a8a1bcbca8a90001b9');
 
 /** For more on the difference between archive and permanently deleting a user please see https://developers.intercom.com/reference#archive-a-user. */
 
 /** Get a user by ID */
-$client->users->getUser("570680a8a1bcbca8a90001b9");
+$client->users->getUser('570680a8a1bcbca8a90001b9');
 
 /** Add companies to a user */
 $client->users->create([
-    "email" => "test@example.com",
-    "companies" => [
+    'email' => 'test@example.com',
+    'companies' => [
         [
-            "company_id" => "3"
+            'company_id' => '3'
         ]
     ]
 ]);
 
 /** Remove companies from a user */
 $client->users->create([
-    "email" => "test@example.com",
-    "companies" => [
+    'email' => 'test@example.com',
+    'companies' => [
         [
-            "company_id" => "3",
-            "remove" => true
+            'company_id' => '3',
+            'remove' => true
         ]
     ]
 ]);
 
 /** Find a single user by email */
-$client->users->getUsers(["email" => "bob@example.com"]);
+$client->users->getUsers(['email' => 'bob@example.com']);
 
 /** List all users up to 10k records */
 $client->users->getUsers([]);
@@ -204,8 +204,8 @@ This resource is only available in API Versions 1.0 to 1.4. Newer versions use t
  * See more options here: https://developers.intercom.io/reference#create-lead
  */
 $client->leads->create([
-    "email" => "test@example.com",
-    "custom_attributes" => ['foo' => 'bar']
+    'email' => 'test@example.com',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /**
@@ -213,8 +213,8 @@ $client->leads->create([
  * In practice you can use create to update leads if you wish)
  */
 $client->leads->update([
-    "email" => "test@example.com",
-    "custom_attributes" => ['foo' => 'bar']
+    'email' => 'test@example.com',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /**
@@ -224,18 +224,18 @@ $client->leads->update([
 $client->leads->getLeads([]);
 
 /** Find a lead by ID */
-$client->leads->getLead("570680a8a1bcbca8a90000a9");
+$client->leads->getLead('570680a8a1bcbca8a90000a9');
 
 /** Delete a lead by ID */
-$client->leads->deleteLead("570680a8a1bcbca8a90000a9");
+$client->leads->deleteLead('570680a8a1bcbca8a90000a9');
 
 /** Convert a Lead to a User */
 $client->leads->convertLead([
-    "contact" => [
-        "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+    'contact' => [
+        'user_id' => '8a88a590-e1c3-41e2-a502-e0649dbf721c'
     ],
-    "user" => [
-        "email" => "winstonsmith@truth.org"
+    'user' => [
+        'email' => 'winstonsmith@truth.org'
     ]
 ]);
 
@@ -257,36 +257,36 @@ Retrieve `user_id` of a visitor via [the JavaScript API](https://developers.inte
 ```php
 /** Update a visitor */
 $client->visitors->update([
-    "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c",
-    "custom_attributes" => ['foo' => 'bar']
+    'user_id' => '8a88a590-e1c3-41e2-a502-e0649dbf721c',
+    'custom_attributes' => ['foo' => 'bar']
 ]);
 
 /** Find a visitor by ID */
-$client->visitors->getVisitor("570680a8a1bcbca8a90000a9");
+$client->visitors->getVisitor('570680a8a1bcbca8a90000a9');
 
 /** Find a visitor by User ID */
-$client->visitors->getVisitor("", ["user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"]);
+$client->visitors->getVisitor('', ['user_id' => '8a88a590-e1c3-41e2-a502-e0649dbf721c']);
 
 /** Delete a visitor by ID */
-$client->visitors->deleteVisitor("570680a8a1bcbca8a90000a9");
+$client->visitors->deleteVisitor('570680a8a1bcbca8a90000a9');
 
 /** Convert a Visitor to a Lead */
 $client->visitors->convertVisitor([
-    "visitor" => [
-        "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+    'visitor' => [
+        'user_id' => '8a88a590-e1c3-41e2-a502-e0649dbf721c'
     ],
-    "type" => "lead"
+    'type' => 'lead'
 ]);
 
 /** Convert a Visitor to a User */
 $client->visitors->convertVisitor([
-    "visitor" => [
-        "user_id" => "8a88a590-e1c3-41e2-a502-e0649dbf721c"
+    'visitor' => [
+        'user_id' => '8a88a590-e1c3-41e2-a502-e0649dbf721c'
     ],
-    "user" => [
-        "email" => "winstonsmith@truth.org"
+    'user' => [
+        'email' => 'winstonsmith@truth.org'
     ],
-    "type" => "user"
+    'type' => 'user'
 ]);
 ```
 
@@ -301,9 +301,9 @@ $client->tags->getTags();
  * See more options here: https://developers.intercom.io/reference#tag-or-untag-users-companies-leads-contacts
  */
 $client->tags->tag([
-    "name" => "Test",
-    "users" => [
-        ["id" => "1234"]
+    'name' => 'Test',
+    'users' => [
+        ['id' => '1234']
     ]
 ]);
 ```
@@ -315,10 +315,10 @@ $client->tags->tag([
 $client->segments->getSegments();
 
 /** View a segment */
-$client->segments->getSegment("58a707924f6651b07b94376c");
+$client->segments->getSegment('58a707924f6651b07b94376c');
 
 /** View a segment with count */
-$client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"true"]);
+$client->segments->getSegment('59c124f770e00fd819b9ce81', ['include_count' => 'true']);
 ```
 
 ## Events
@@ -326,17 +326,17 @@ $client->segments->getSegment("59c124f770e00fd819b9ce81", ["include_count"=>"tru
 ```php
 /** Create an event */
 $client->events->create([
-    "event_name" => "testing",
-    "created_at" => 1391691571,
-    "email" => "test@example.com",
-    "metadata" => [
-        "order_date" => 1392036272,
-        "stripe_invoice" => "inv_3434343434"
+    'event_name' => 'testing',
+    'created_at' => 1391691571,
+    'email' => 'test@example.com',
+    'metadata' => [
+        'order_date' => 1392036272,
+        'stripe_invoice' => 'inv_3434343434'
     ]
 ]);
 
 /** View events for a user */
-$client->events->getEvents(["email" => "bob@example.com"]);
+$client->events->getEvents(['email' => 'bob@example.com']);
 ```
 
 ## Companies
@@ -344,25 +344,25 @@ $client->events->getEvents(["email" => "bob@example.com"]);
 ```php
 /** Create a company */
 $client->companies->create([
-    "name" => "foocorp",
-    "company_id" => "3"
+    'name' => 'foocorp',
+    'company_id' => '3'
 ]);
 
 /**
  * Update a company
  */
 $client->companies->update([
-    "name" => "foocorp",
-    "id" => "3"
+    'name' => 'foocorp',
+    'id' => '3'
 ]);
 
 /** Create or update a company with custom attributes. */
 $client->companies->update([
-    "name" => "foocorp",
-    "id" => "3",
-    "custom_attributes" => [
-        "foo" => "bar",
-        "baz" => "qux"
+    'name' => 'foocorp',
+    'id' => '3',
+    'custom_attributes' => [
+        'foo' => 'bar',
+        'baz' => 'qux'
     ]
 ]);
 
@@ -370,25 +370,25 @@ $client->companies->update([
 $client->companies->getCompanies([]);
 
 /** Get a company by ID */
-$client->companies->getCompany("531ee472cce572a6ec000006");
+$client->companies->getCompany('531ee472cce572a6ec000006');
 
 /** List users belonging to a company by ID */
-$client->companies->getCompanyUsers("531ee472cce572a6ec000006");
+$client->companies->getCompanyUsers('531ee472cce572a6ec000006');
 
 /** List users belonging to a company by company_id */
-$client->companies->getCompanies(["type" => "user", "company_id" => "3"]);
+$client->companies->getCompanies(['type' => 'user', 'company_id' => '3']);
 
 /**
  * Add companies to a contact with IDs
  * First parameter is contact ID, second is company ID
  */
-$client->companies->attachContact("570680a8a1bcbca8a90001b9", "531ee472cce572a6ec000006");
+$client->companies->attachContact('570680a8a1bcbca8a90001b9', '531ee472cce572a6ec000006');
 
 /**
  * Detach company from contact
  * First parameter is contact ID, second is company ID
  */
-$client->companies->detachContact("570680a8a1bcbca8a90001b9", "531ee472cce572a6ec000006");
+$client->companies->detachContact('570680a8a1bcbca8a90001b9', '531ee472cce572a6ec000006');
 
 ```
 
@@ -407,16 +407,16 @@ $client->admins->getAdmins();
  * See more options here: https://developers.intercom.io/reference#conversations
  */
 $client->messages->create([
-    "message_type" => "inapp",
-    "subject" => "Hey",
-    "body" => "Ponies, cute small horses or something more sinister?",
-    "from" => [
-        "type" => "admin",
-        "id" => "1234"
+    'message_type' => 'inapp',
+    'subject' => 'Hey',
+    'body' => 'Ponies, cute small horses or something more sinister?',
+    'from' => [
+        'type' => 'admin',
+        'id' => '1234'
     ],
-    "to" => [
-        "type" => "user",
-        "email" => "bob@example.com"
+    'to' => [
+        'type' => 'user',
+        'email' => 'bob@example.com'
     ]
 ]);
 ```
@@ -429,24 +429,24 @@ $client->messages->create([
  * See more options here: https://developers.intercom.io/reference#list-conversations
  */
 $client->conversations->getConversations([
-    "type" => "admin",
-    "admin_id" => "25610"
+    'type' => 'admin',
+    'admin_id' => '25610'
 ]);
 
 /** Get a single conversation */
-$client->conversations->getConversation("1234")
+$client->conversations->getConversation('1234')
 
 /** Get a single conversation with plaintext comments */
-$client->conversations->getConversation("1234", [
-    "display_as" => "plaintext"
+$client->conversations->getConversation('1234', [
+    'display_as' => 'plaintext'
 ])
 
 /** Search for conversations (API version >= 2.0) */
 $query = ['field' => 'updated_at', 'operator' => '>', 'value' => '1560436784'];
 $client->conversations->search([
-    "query" => $query,
-    "sort" => ["field" => "updated_at", "order" => "ascending"],
-    "pagination" => ["per_page" => 10]
+    'query' => $query,
+    'sort' => ['field' => 'updated_at', 'order' => 'ascending'],
+    'pagination' => ['per_page' => 10]
 ]);
 
 /** Get next page of conversation search results (API version >= 2.0) */
@@ -456,11 +456,11 @@ $client->conversations->nextSearch($query, $response->pages);
  * Reply to a conversation
  * See more options here: https://developers.intercom.io/reference#replying-to-a-conversation
  */
-$client->conversations->replyToConversation("5678", [
-    "email" => "test@example.com",
-    "body" => "Thanks :)",
-    "type" => "user",
-    "message_type" => "comment"
+$client->conversations->replyToConversation('5678', [
+    'email' => 'test@example.com',
+    'body' => 'Thanks :)',
+    'type' => 'user',
+    'message_type' => 'comment'
 ]);
 
 /**
@@ -468,17 +468,17 @@ $client->conversations->replyToConversation("5678", [
  * See more options here: https://developers.intercom.com/reference#replying-to-users-last-conversation
  */
 $client->conversations->replyToLastConversation([
-    "email" => "test@example.com",
-    "body" => "Thanks :)",
-    "type" => "user",
-    "message_type" => "comment"
+    'email' => 'test@example.com',
+    'body' => 'Thanks :)',
+    'type' => 'user',
+    'message_type' => 'comment'
 ]);
 
 /**
  * Mark a conversation as read
  * See API documentation here: https://developers.intercom.io/reference#marking-a-conversation-as-read
  */
-$client->conversations->markConversationAsRead("7890");
+$client->conversations->markConversationAsRead('7890');
 ```
 
 ## Counts
@@ -496,20 +496,20 @@ $client->counts->getCounts([])
 ```php
 /** Create a note */
 $client->notes->create([
-    "admin_id" => "21",
-    "body" => "Text for my note",
-    "user" => [
-        "id" => "5310d8e8598c9a0b24000005"
+    'admin_id' => '21',
+    'body' => 'Text for my note',
+    'user' => [
+        'id' => '5310d8e8598c9a0b24000005'
     ]
 ]);
 
 /** List notes for a user */
 $client->notes->getNotes([
-  "user_id" => "25"
+  'user_id' => '25'
 ]);
 
 /** Get a single Note by id */
-$client->notes->getNote("42");
+$client->notes->getNote('42');
 ```
 
 ## Teams
@@ -519,7 +519,7 @@ $client->notes->getNote("42");
 $client->teams->getTeams();
 
 /** Get a single Team by id */
-$client->teams->getTeam("1188");
+$client->teams->getTeam('1188');
 ```
 
 
@@ -596,7 +596,7 @@ If you want to catch errors you can wrap your API call into a try/catch block:
 
 ```php
 try {
-    $user = $client->users->getUser("570680a8a1bcbca8a90001b9");
+    $user = $client->users->getUser('570680a8a1bcbca8a90001b9');
 } catch(Http\Client\Exception $e) {
     if ($e->getCode() == '404') {
         // Handle 404 error
