@@ -8,6 +8,7 @@ jobs:
 
     steps:
       - checkout
+      - run: composer validate --strict
       - run: composer install --no-interaction --no-suggest --prefer-dist
       - run: vendor/bin/phpunit
       - run: vendor/bin/phpcs --standard=PSR2 src tests
