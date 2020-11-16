@@ -59,6 +59,16 @@ class IntercomClient
     public $users;
 
     /**
+     * @var IntercomContacts $contacts
+     */
+    public $contacts;
+
+    /**
+     * @var IntercomCustomers $customers
+     */
+    //public $customers;
+
+    /**
      * @var IntercomEvents $events
      */
     public $events;
@@ -67,11 +77,6 @@ class IntercomClient
      * @var IntercomCompanies $companies
      */
     public $companies;
-
-    /**
-     * @var IntercomContacts $contacts
-     */
-    public $contacts;
 
     /**
      * @var IntercomMessages $messages
@@ -144,6 +149,7 @@ class IntercomClient
     {
         $this->users = new IntercomUsers($this);
         $this->contacts = new IntercomContacts($this);
+        //$this->customers = new IntercomCustomers($this);
         $this->events = new IntercomEvents($this);
         $this->companies = new IntercomCompanies($this);
         $this->messages = new IntercomMessages($this);
@@ -151,6 +157,7 @@ class IntercomClient
         $this->leads = new IntercomLeads($this);
         $this->visitors = new IntercomVisitors($this);
         $this->admins = new IntercomAdmins($this);
+        $this->articles = new IntercomArticles($this);
         $this->tags = new IntercomTags($this);
         $this->segments = new IntercomSegments($this);
         $this->counts = new IntercomCounts($this);
