@@ -2,7 +2,7 @@
 
 /.circleci        export-ignore
 /.github          export-ignore
-/test             export-ignore
+/tests            export-ignore
 .codeclimate.yml  export-ignore
 .editorconfig     export-ignore
 .gitattributes    export-ignore
