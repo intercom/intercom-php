@@ -8,10 +8,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use Http\Adapter\Guzzle6\Client;
 use Http\Client\Exception;
 use Intercom\IntercomClient;
-use PHPUnit\Framework\TestCase;
 use stdClass;
 
 class IntercomClientTest extends TestCase
@@ -27,7 +25,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -53,7 +51,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack, 'connect_timeout' => 10]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack, 'connect_timeout' => 10]));
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -79,7 +77,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p', ['Custom-Header' => 'value']);
         $client->setHttpClient($httpClient);
@@ -107,7 +105,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -129,7 +127,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -151,7 +149,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -188,7 +186,7 @@ class IntercomClientTest extends TestCase
         $stack = HandlerStack::create($mock);
         $stack->push($history);
 
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        $httpClient = $this->httpClient(new GuzzleClient(['handler' => $stack]));
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
