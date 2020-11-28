@@ -43,33 +43,11 @@
         "psr/http-message": "^1.0"
     },
     "require-dev": {
-        "meta/guzzle-adapter": "^6.0 || ^7.0",
+        "guzzlehttp/psr7": "^1.7.0",
+        "php-http/mock-client": "^1.4",
         "phpunit/phpunit": "^7.5 || ^8.5 || ^9.3",
         "squizlabs/php_codesniffer": "^3.1"
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": [
-                {
-                    "name": "meta/guzzle-adapter",
-                    "version": "7.0",
-                    "type": "metapackage",
-                    "require": {
-                        "php-http/guzzle7-adapter": "^0.1.1"
-                    }
-                },
-                {
-                    "name": "meta/guzzle-adapter",
-                    "version": "6.0",
-                    "type": "metapackage",
-                    "require": {
-                        "php-http/guzzle6-adapter": "^1.0 || ^2.0"
-                    }
-                }
-            ]
-        }
-    ],
     "config": {
         "sort-packages": true
     }
