@@ -3,57 +3,29 @@
 namespace Intercom\Test;
 
 use DateTimeImmutable;
-use GuzzleHttp\Client as GuzzleClient;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
-use Http\Adapter\Guzzle6\Client;
+use Http\Client\Common\Plugin\ErrorPlugin;
+use Http\Client\Common\PluginClient;
 use Http\Client\Exception;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Strategy\MockClientStrategy;
+use Http\Mock\Client;
 use Intercom\IntercomClient;
-use PHPUnit\Framework\TestCase;
 use stdClass;
 
 class IntercomClientTest extends TestCase
 {
-    public function testBasicClient()
+    protected function setUp(): void
     {
-        $mock = new MockHandler([
-            new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
-
-        $client = new IntercomClient('u', 'p');
-        $client->setHttpClient($httpClient);
-
-        $client->users->create([
-            'email' => 'test@intercom.io'
-        ]);
-
-        foreach ($container as $transaction) {
-            $basic = $transaction['request']->getHeaders()['Authorization'][0];
-            $this->assertSame("Basic dTpw", $basic);
-        }
+        HttpClientDiscovery::prependStrategy(MockClientStrategy::class);
     }
 
-    public function testExtendedClient()
+    public function testBasicClient()
     {
-        $mock = new MockHandler([
+        $httpClient = new Client();
+        $httpClient->addResponse(
             new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack, 'connect_timeout' => 10]));
+        );
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -62,24 +34,18 @@ class IntercomClientTest extends TestCase
             'email' => 'test@intercom.io'
         ]);
 
-        foreach ($container as $transaction) {
-            $options = $transaction['options'];
-            $this->assertSame(10, $options['connect_timeout']);
+        foreach ($httpClient->getRequests() as $request) {
+            $basic = $request->getHeaders()['Authorization'][0];
+            $this->assertSame("Basic dTpw", $basic);
         }
     }
 
     public function testClientWithExtraHeaders()
     {
-        $mock = new MockHandler([
+        $httpClient = new Client();
+        $httpClient->addResponse(
             new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        );
 
         $client = new IntercomClient('u', 'p', ['Custom-Header' => 'value']);
         $client->setHttpClient($httpClient);
@@ -88,8 +54,8 @@ class IntercomClientTest extends TestCase
             'email' => 'test@intercom.io'
         ]);
 
-        foreach ($container as $transaction) {
-            $headers = $transaction['request']->getHeaders();
+        foreach ($httpClient->getRequests() as $request) {
+            $headers = $request->getHeaders();
             $this->assertSame('application/json', $headers['Accept'][0]);
             $this->assertSame('application/json', $headers['Content-Type'][0]);
             $this->assertSame('value', $headers['Custom-Header'][0]);
@@ -98,16 +64,11 @@ class IntercomClientTest extends TestCase
 
     public function testClientErrorHandling()
     {
-        $mock = new MockHandler([
+        $httpClient = new Client();
+        $httpClient->addResponse(
             new Response(404)
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        );
+        $httpClient = new PluginClient($httpClient, [new ErrorPlugin()]);
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -120,16 +81,11 @@ class IntercomClientTest extends TestCase
 
     public function testServerErrorHandling()
     {
-        $mock = new MockHandler([
+        $httpClient = new Client();
+        $httpClient->addResponse(
             new Response(500)
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        );
+        $httpClient = new PluginClient($httpClient, [new ErrorPlugin()]);
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -142,16 +98,10 @@ class IntercomClientTest extends TestCase
 
     public function testPaginationHelper()
     {
-        $mock = new MockHandler([
+        $httpClient = new Client();
+        $httpClient->addResponse(
             new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        );
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
@@ -161,8 +111,8 @@ class IntercomClientTest extends TestCase
 
         $client->nextPage($pages);
 
-        foreach ($container as $transaction) {
-            $host = $transaction['request']->getUri()->getHost();
+        foreach ($httpClient->getRequests() as $request) {
+            $host = $request->getUri()->getHost();
             $this->assertSame("foo.com", $host);
         }
     }
@@ -171,7 +121,9 @@ class IntercomClientTest extends TestCase
     {
         date_default_timezone_set('UTC');
         $time = time() + 7;
-        $mock = new MockHandler([
+
+        $httpClient = new Client();
+        $httpClient->addResponse(
             new Response(
                 200,
                 [
@@ -181,14 +133,7 @@ class IntercomClientTest extends TestCase
                 ],
                 "{\"foo\":\"bar\"}"
             )
-        ]);
-
-        $container = [];
-        $history = Middleware::history($container);
-        $stack = HandlerStack::create($mock);
-        $stack->push($history);
-
-        $httpClient = new Client(new GuzzleClient(['handler' => $stack]));
+        );
 
         $client = new IntercomClient('u', 'p');
         $client->setHttpClient($httpClient);
