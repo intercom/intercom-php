@@ -4,3 +4,4 @@ composer.lock
 # PHPUnit
 phpunit.phar
 phpunit.xml
+.phpunit.result.cache
