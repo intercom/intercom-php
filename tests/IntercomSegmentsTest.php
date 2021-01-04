@@ -4,7 +4,7 @@ namespace Intercom\Test;
 
 use Intercom\IntercomSegments;
 
-class IntercomSegmentTest extends TestCase
+class IntercomSegmentsTest extends TestCase
 {
     public function testSegmentList()
     {
