@@ -7,6 +7,14 @@ use stdClass;
 
 class IntercomConversationsTest extends TestCase
 {
+    public function testConversationCreate()
+    {
+        $this->client->method('post')->willReturn('foo');
+
+        $conversations = new IntercomConversations($this->client);
+        $this->assertSame('foo', $conversations->create([]));
+    }
+
     public function testConversationsList()
     {
         $this->client->method('get')->willReturn('foo');
