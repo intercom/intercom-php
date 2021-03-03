@@ -32,6 +32,20 @@ class IntercomCompanies extends IntercomResource
     {
         return $this->create($options);
     }
+    
+    /**
+     * Deletes a Company.
+     *
+     * @see https://developers.intercom.com/intercom-api-reference/reference#delete-a-company
+     * @param array $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function delete($id, $options = [])
+    {
+        $path = $this->companyPath($id);
+        return $this->client->delete($path, $options);
+    }
 
     /**
      * Attaches a Contact to a Company.
