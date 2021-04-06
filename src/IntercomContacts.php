@@ -81,6 +81,21 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+     * List attached tags
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#list-tags-of-contact
+     * @param  string $id
+     * @return stdClass
+     * @throws Exception
+     */
+    public function tags(string $id)
+    {
+        $path = $this->contactTagsPath($id);
+
+        return $this->client->get($path);
+    }
+
+    /**
      * Applys a tag to a Contact based on the provided Tag ID
      *
      * @see    https://developers.intercom.com/intercom-api-reference/reference#tag-contact
@@ -113,6 +128,36 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+     * List attached segments
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#list-attached-segments
+     * @param  string $id
+     * @return stdClass
+     * @throws Exception
+     */
+    public function segments(string $id)
+    {
+        $path = $this->contactSegmentsPath($id);
+
+        return $this->client->get($path);
+    }
+
+    /**
+     * List attached companies
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#list-companies-of-contact
+     * @param  string $id
+     * @return stdClass
+     * @throws Exception
+     */
+    public function companies(string $id)
+    {
+        $path = $this->contactCompaniesPath($id);
+
+        return $this->client->get($path);
+    }
+
+    /**
      * Returns list of Contacts that match search query.
      *
      * @see     https://developers.intercom.com/reference#search-for-contacts
@@ -125,7 +170,7 @@ class IntercomContacts extends IntercomResource
         $path = 'contacts/search';
         return $this->client->post($path, $options);
     }
-    
+
     /**
      * Gets all data attributes for the Contact model
      *
@@ -181,7 +226,7 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
-     * Returns the path for adding/removing a tag for a given contact
+     * Returns the path for viewing/adding/removing a tag for a given contact
      *
      * @param string $id Contact ID
      * @return string
@@ -190,4 +235,28 @@ class IntercomContacts extends IntercomResource
     {
         return 'contacts/' . $id . '/tags';
     }
+
+    /**
+     * Returns the path for viewing segments for a given contact
+     *
+     * @param string $id Contact ID
+     * @return string
+     */
+    public function contactSegmentsPath(string $id)
+    {
+        return 'contacts/' . $id . '/segments';
+    }
+
+    /**
+     * Returns the path for viewing companies for a given contact
+     *
+     * @param string $id Contact ID
+     * @return string
+     */
+    public function contactCompaniesPath(string $id)
+    {
+        return 'contacts/' . $id . '/companies';
+    }
+
+
 }
