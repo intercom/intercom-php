@@ -433,6 +433,18 @@ $client->messages->create([
 
 ```php
 /**
+ * Create a conversation
+ * See more options here: https://developers.intercom.com/intercom-api-reference/reference#create-a-conversation
+ */
+$client->conversations->create([
+    'body' => 'Hello.',
+    'from' => [
+        'id' => '1234',
+        'type' => 'user',
+    ],
+]);
+
+/**
  * List conversations for an admin
  * See more options here: https://developers.intercom.io/reference#list-conversations
  */

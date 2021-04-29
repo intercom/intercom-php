@@ -8,6 +8,19 @@ use stdClass;
 class IntercomConversations extends IntercomResource
 {
     /**
+     * Creates a Conversation.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#create-a-conversation
+     * @param  array $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function create(array $options)
+    {
+        return $this->client->post('conversations', $options);
+    }
+
+    /**
      * Returns list of Conversations.
      *
      * @see    https://developers.intercom.io/reference#list-conversations
