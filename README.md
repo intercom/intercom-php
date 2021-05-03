@@ -1,8 +1,20 @@
 # intercom-php
 
-[![Code Climate](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/badges/2aa25d4736f09f40282e/gpa.svg)](https://codeclimate.com/repos/537da4a7e30ba062b101be9c/feed) [![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=badge)](https://circleci.com/gh/intercom/intercom-php)
+[![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=shield)](https://circleci.com/gh/intercom/intercom-php)
+[![packagist](https://img.shields.io/packagist/v/intercom/intercom-php.svg)](https://packagist.org/packages/intercom/intercom-php)
+![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-1.3-blue)
 
-Official PHP bindings to the Intercom API
+> Official PHP bindings to the [Intercom API](https://api.intercom.io/docs)
+
+## Project Updates
+
+### Maintenance
+
+We're currently building a new team to provide in-depth and dedicated SDK support.
+
+In the meantime, we'll be operating on limited capacity, meaning all pull requests will be evaluated on a best effort basis and will be limited to critical issues.
+
+We'll communicate all relevant updates as we build this new team and support strategy in the coming months.
 
 ## Installation
 
