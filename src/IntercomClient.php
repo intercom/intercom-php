@@ -129,6 +129,11 @@ class IntercomClient
     public $teams;
 
     /**
+     * @var IntercomDataAttribute $dataAttribute
+     */
+    public $dataAttribute;
+
+    /**
      * @var array $rateLimitDetails
      */
     protected $rateLimitDetails = [];
@@ -157,6 +162,7 @@ class IntercomClient
         $this->bulk = new IntercomBulk($this);
         $this->notes = new IntercomNotes($this);
         $this->teams = new IntercomTeams($this);
+        $this->dataAttribute = new IntercomDataAttribute($this);
 
         $this->appIdOrToken = $appIdOrToken;
         $this->passwordPart = $password;
