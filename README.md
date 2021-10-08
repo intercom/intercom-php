@@ -554,6 +554,39 @@ $client->teams->getTeams();
 $client->teams->getTeam('1188');
 ```
 
+## Data Attributes
+```php
+
+// Create a Data Attribute
+// See more options here: https://developers.intercom.com/intercom-api-reference/reference#create-data-attributes
+$client->dataAttribute->create([
+    'name' => 'list_cda',
+    'description' => 'You are either alive or dead',
+    'data_type' => 'string',
+    'model' => 'contact',
+    'options' => [
+        (object)['value' => 'alive'],
+        (object)['value' => 'dead'],
+    ]
+]);
+
+// Update a Data Attribute
+// See more options here: https://developers.intercom.com/intercom-api-reference/reference#update-data-attributes
+$client->dataAttribute->update('123', [
+    'description' => 'Here is a new description'
+]);
+
+// List all Data Attributes
+// See more options here: https://developers.intercom.com/intercom-api-reference/reference#list-data-attributes
+$client->dataAttribute->getDataAttributes();
+
+// List all Data Attributes for specific model type
+$client->dataAttribute->getDataAttributes([
+    'model' => 'contact'
+]);
+
+```
+
 ## Rate Limits
 
 Rate limit info is passed via the rate limit headers.
