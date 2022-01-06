@@ -31,14 +31,14 @@ class IntercomCompanies extends IntercomResource
     public function update($id, array $options = null)
     {
         // BC layer
+        // TODO: Next Major : Remove this.
         if (func_num_args() < 2 || is_array($id)) {
-            @trigger_deprecation('intercom/intercom-php', '4.4', 'Specify an id or use create method');
+            @trigger_error('Specify an id or use create method to update the company', E_USER_DEPRECATED);
 
             return $this->create($id);
         }
 
         return $this->client->put($this->companyPath($id), $options);
-
     }
 
     /**
