@@ -47,6 +47,14 @@ class IntercomContactsTest extends TestCase
         $this->assertSame('foo', $contacts->deleteContact(''));
     }
 
+    public function testContactMerge()
+    {
+        $this->client->method('post')->willReturn('foo');
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->mergeContact([]));
+    }
+
     public function testContactSearch()
     {
         $this->client->method('post')->willReturn('foo');
