@@ -98,6 +98,21 @@ For more information about API Versioning, please check the [API Versioning Docu
 
 **Important**: Not all the resources supported by this API are supported by all API versions. See the notes below or the [API Reference](https://developers.intercom.com/intercom-api-reference/reference) for more information about the resources supported by each API version.
 
+## Regional Endpoint
+
+This SDK allows to work in a different region than the US. Intercom provides [different endpoints](https://developers.intercom.com/building-apps/docs/rest-apis#available-endpoints).
+
+```php
+use Intercom\IntercomClient;
+
+$client = new IntercomClient(
+    '<insert_token_here>',
+    null,
+    [],
+    IntercomClient::BASE_URI_EU
+);
+```
+
 ## Contacts
 
 This resource is only available in API Versions 2.0 and above

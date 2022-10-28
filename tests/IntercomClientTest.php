@@ -37,6 +37,7 @@ class IntercomClientTest extends TestCase
         foreach ($httpClient->getRequests() as $request) {
             $basic = $request->getHeaders()['Authorization'][0];
             $this->assertSame("Basic dTpw", $basic);
+            $this->assertEquals('api.intercom.io', $request->getUri()->getHost());
         }
     }
 
@@ -59,6 +60,27 @@ class IntercomClientTest extends TestCase
             $this->assertSame('application/json', $headers['Accept'][0]);
             $this->assertSame('application/json', $headers['Content-Type'][0]);
             $this->assertSame('value', $headers['Custom-Header'][0]);
+        }
+    }
+
+    public function testClientWithDifferentBaseUri()
+    {
+        $httpClient = new Client();
+        $httpClient->addResponse(
+            new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
+        );
+
+        $client = new IntercomClient('u', 'p', [], 'https://example.com//');
+        $client->setHttpClient($httpClient);
+
+        $client->users->create([
+            'email' => 'test@intercom.io'
+        ]);
+
+        foreach ($httpClient->getRequests() as $request) {
+            $basic = $request->getHeaders()['Authorization'][0];
+            $this->assertSame("Basic dTpw", $basic);
+            $this->assertEquals('example.com', $request->getUri()->getHost());
         }
     }
 
