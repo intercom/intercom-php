@@ -2,31 +2,18 @@
 
 namespace Intercom;
 
-class IntercomLeads
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomLeads extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomLeads constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Lead.
      *
      * @see    https://developers.intercom.io/reference#create-lead
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {
@@ -38,8 +25,8 @@ class IntercomLeads
      *
      * @see    https://developers.intercom.io/reference#create-lead
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function update($options)
     {
@@ -51,8 +38,8 @@ class IntercomLeads
      *
      * @see    https://developers.intercom.io/reference#list-leads
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getLeads($options)
     {
@@ -65,8 +52,8 @@ class IntercomLeads
      * @see    https://developers.intercom.io/reference#view-a-lead
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getLead($id, $options = [])
     {
@@ -80,8 +67,8 @@ class IntercomLeads
      * @see    https://developers.intercom.io/reference#delete-a-lead
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function deleteLead($id, $options = [])
     {
@@ -94,8 +81,8 @@ class IntercomLeads
      *
      * @see    https://developers.intercom.io/reference#convert-a-lead
      * @param  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function convertLead($options)
     {
@@ -118,8 +105,8 @@ class IntercomLeads
      *
      * @see    https://developers.intercom.com/v2.0/reference#iterating-over-all-leads
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function scrollLeads($options = [])
     {

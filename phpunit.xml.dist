@@ -8,10 +8,10 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false">
+>
     <testsuites>
         <testsuite name="Intercom Test Suite">
-            <directory suffix=".php">./test/</directory>
+            <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

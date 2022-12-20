@@ -2,31 +2,18 @@
 
 namespace Intercom;
 
-class IntercomCounts
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomCounts extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomCounts constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Returns list of Counts.
      *
      * @see    https://developers.intercom.io/reference#getting-counts
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getCounts($options = [])
     {

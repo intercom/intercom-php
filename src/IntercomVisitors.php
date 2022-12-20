@@ -2,31 +2,18 @@
 
 namespace Intercom;
 
-class IntercomVisitors
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomVisitors extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomVisitors constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
-    /**
+     /**
      * Updates Visitor.
      *
      * @see    https://developers.intercom.com/reference#update-a-visitor
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function update($options)
     {
@@ -40,8 +27,8 @@ class IntercomVisitors
      * @see    https://developers.intercom.com/reference#view-a-visitor
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getVisitor($id, $options = [])
     {
@@ -55,8 +42,8 @@ class IntercomVisitors
      * @see    https://developers.intercom.com/reference#delete-a-visitor
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function deleteVisitor($id, $options = [])
     {
@@ -69,8 +56,8 @@ class IntercomVisitors
      *
      * @see    https://developers.intercom.io/reference#convert-a-lead
      * @param  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function convertVisitor($options)
     {

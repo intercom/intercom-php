@@ -2,31 +2,18 @@
 
 namespace Intercom;
 
-class IntercomNotes
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomNotes extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomNotes constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Note.
      *
      * @see    https://developers.intercom.io/reference#create-a-note
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {
@@ -38,8 +25,8 @@ class IntercomNotes
      *
      * @see    https://developers.intercom.io/reference#list-notes-for-a-user
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getNotes($options)
     {
@@ -51,8 +38,8 @@ class IntercomNotes
      *
      * @see    https://developers.intercom.io/reference#view-a-note
      * @param  string $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getNote($id)
     {

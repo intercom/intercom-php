@@ -2,33 +2,20 @@
 
 namespace Intercom;
 
-class IntercomUsers
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomUsers extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomUsers constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates a User.
      *
      * @see    https://developers.intercom.io/reference#create-or-update-user
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
-    public function create($options)
+    public function create(array $options)
     {
         return $this->client->post("users", $options);
     }
@@ -38,10 +25,10 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.io/reference#create-or-update-user
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
-    public function update($options)
+    public function update(array $options)
     {
         return $this->create($options);
     }
@@ -51,10 +38,10 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.io/reference#list-users
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
-    public function getUsers($options)
+    public function getUsers(array $options)
     {
         return $this->client->get('users', $options);
     }
@@ -65,8 +52,8 @@ class IntercomUsers
      * @see    https://developers.intercom.com/reference#view-a-user
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getUser($id, $options = [])
     {
@@ -79,10 +66,10 @@ class IntercomUsers
      *
      * @see    https://developers.intercom.com/reference#iterating-over-all-users
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
-    public function scrollUsers($options = [])
+    public function scrollUsers(array $options = [])
     {
         return $this->client->get('users/scroll', $options);
     }
@@ -90,23 +77,52 @@ class IntercomUsers
     /**
      * Deletes a single User based on the Intercom ID.
      *
-     * @see    https://developers.intercom.com/reference#delete-a-user
+     * @see    https://developers.intercom.com/reference#archive-a-user
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
-    public function deleteUser($id, $options = [])
+    public function archiveUser(string $id, array $options = [])
     {
         $path = $this->userPath($id);
         return $this->client->delete($path, $options);
     }
 
     /**
+     * Deletes a single User based on the Intercom ID.
+     *
+     * @see    https://developers.intercom.com/reference#archive-a-user
+     * @param  string $id
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function deleteUser(string $id, array $options = [])
+    {
+        return $this->archiveUser($id, $options);
+    }
+
+    /**
+     * Permanently deletes a single User based on the Intercom ID.
+     *
+     * @see   https://developers.intercom.com/reference#delete-users
+     * @param string $id
+     * @return stdClass
+     * @throws Exception
+     */
+    public function permanentlyDeleteUser(string $id)
+    {
+        return $this->client->post('user_delete_requests', [
+            'intercom_user_id' => $id
+        ]);
+    }
+
+    /**
      * @param string $id
      * @return string
      */
-    public function userPath($id)
+    public function userPath(string $id)
     {
         return 'users/' . $id;
     }

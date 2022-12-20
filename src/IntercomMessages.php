@@ -2,31 +2,18 @@
 
 namespace Intercom;
 
-class IntercomMessages
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomMessages extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomMessages constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Message.
      *
      * @see    https://developers.intercom.io/reference#conversations
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {

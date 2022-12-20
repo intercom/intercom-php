@@ -2,32 +2,19 @@
 
 namespace Intercom;
 
-class IntercomSegments
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomSegments extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomTags constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Gets a single segment by ID.
      *
      * @see    https://developers.intercom.com/reference#view-a-segment
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getSegment($id, array $options = [])
     {
@@ -39,8 +26,8 @@ class IntercomSegments
      *
      * @see    https://developers.intercom.com/reference#list-segments
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getSegments($options = [])
     {

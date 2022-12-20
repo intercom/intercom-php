@@ -5,6 +5,7 @@ For feature requests please contact us at team@intercom.io
 
 ## Version info
   - intercom-php version:
+  - Intercom API version:
   - PHP version:
 
 ## Expected behavior

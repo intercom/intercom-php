@@ -2,30 +2,17 @@
 
 namespace Intercom;
 
-class IntercomBulk
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomBulk extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomBulk constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Users in bulk.
      *
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function users($options)
     {
@@ -36,8 +23,8 @@ class IntercomBulk
      * Creates Events in bulk.
      *
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function events($options)
     {

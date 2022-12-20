@@ -2,22 +2,22 @@
 
 namespace Intercom;
 
-class IntercomConversations
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomConversations extends IntercomResource
 {
-
     /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomConversations constructor.
+     * Creates a Conversation.
      *
-     * @param IntercomClient $client
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#create-a-conversation
+     * @param  array $options
+     * @return stdClass
+     * @throws Exception
      */
-    public function __construct($client)
+    public function create(array $options)
     {
-        $this->client = $client;
+        return $this->client->post('conversations', $options);
     }
 
     /**
@@ -25,8 +25,8 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#list-conversations
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getConversations($options)
     {
@@ -38,8 +38,9 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#get-a-single-conversation
      * @param  string $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
      */
     public function getConversation($id, $options = [])
     {
@@ -48,13 +49,42 @@ class IntercomConversations
     }
 
     /**
+     * Returns list of Conversations that match search query.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#search-for-conversations
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function search(array $options)
+    {
+        $path = 'conversations/search';
+        return $this->client->post($path, $options);
+    }
+
+    /**
+     * Returns next page of Conversations that match search query.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#pagination-search
+     * @param  array $query
+     * @param  stdClass $pages
+     * @return stdClass
+     * @throws Exception
+     */
+    public function nextSearch(array $query, $pages)
+    {
+        $path = 'conversations/search';
+        return $this->client->nextSearchPage($path, $query, $pages);
+    }
+
+    /**
      * Creates Conversation Reply to Conversation with given ID.
      *
      * @see    https://developers.intercom.io/reference#replying-to-a-conversation
      * @param  string $id
      * @param  array  $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function replyToConversation($id, $options)
     {
@@ -67,8 +97,8 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#replying-to-users-last-conversation
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function replyToLastConversation($options)
     {
@@ -81,8 +111,8 @@ class IntercomConversations
      *
      * @see    https://developers.intercom.io/reference#marking-a-conversation-as-read
      * @param  string $id
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function markConversationAsRead($id)
     {

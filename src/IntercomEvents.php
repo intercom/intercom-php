@@ -2,31 +2,18 @@
 
 namespace Intercom;
 
-class IntercomEvents
+use Http\Client\Exception;
+use stdClass;
+
+class IntercomEvents extends IntercomResource
 {
-
-    /**
-     * @var IntercomClient
-     */
-    private $client;
-
-    /**
-     * IntercomEvents constructor.
-     *
-     * @param IntercomClient $client
-     */
-    public function __construct($client)
-    {
-        $this->client = $client;
-    }
-
     /**
      * Creates Event.
      *
      * @see    https://developers.intercom.io/reference#submitting-events
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function create($options)
     {
@@ -38,8 +25,8 @@ class IntercomEvents
      *
      * @see    https://developers.intercom.io/reference#list-user-events
      * @param  array $options
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return stdClass
+     * @throws Exception
      */
     public function getEvents($options)
     {
