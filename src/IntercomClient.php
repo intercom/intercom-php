@@ -312,7 +312,7 @@ class IntercomClient
     /**
      * @return HttpClient
      */
-    private function getDefaultHttpClient()
+    protected function getDefaultHttpClient()
     {
         return new PluginClient(
             HttpClientDiscovery::find(),
@@ -323,7 +323,7 @@ class IntercomClient
     /**
      * @return array
      */
-    private function getRequestHeaders()
+    protected function getRequestHeaders()
     {
         return array_merge(
             [
@@ -340,7 +340,7 @@ class IntercomClient
      *
      * @return Authentication
      */
-    private function getAuth()
+    protected function getAuth()
     {
         if (!empty($this->appIdOrToken) && !empty($this->passwordPart)) {
             return new BasicAuth($this->appIdOrToken, $this->passwordPart);
@@ -356,7 +356,7 @@ class IntercomClient
      *
      * @return RequestInterface
      */
-    private function authenticateRequest(RequestInterface $request)
+    protected function authenticateRequest(RequestInterface $request)
     {
         $auth = $this->getAuth();
         return $auth ? $auth->authenticate($request) : $request;
@@ -370,7 +370,7 @@ class IntercomClient
      * @return ResponseInterface
      * @throws ClientExceptionInterface
      */
-    private function sendRequest($method, $uri, $body = null)
+    protected function sendRequest($method, $uri, $body = null)
     {
         $headers = $this->getRequestHeaders();
         $body = is_array($body) ? json_encode($body) : $body;
@@ -386,7 +386,7 @@ class IntercomClient
      *
      * @return stdClass
      */
-    private function handleResponse(ResponseInterface $response)
+    protected function handleResponse(ResponseInterface $response)
     {
         $this->setRateLimitDetails($response);
 
@@ -398,7 +398,7 @@ class IntercomClient
     /**
      * @param ResponseInterface $response
      */
-    private function setRateLimitDetails(ResponseInterface $response)
+    protected function setRateLimitDetails(ResponseInterface $response)
     {
         $this->rateLimitDetails = [
             'limit' => $response->hasHeader('X-RateLimit-Limit')
