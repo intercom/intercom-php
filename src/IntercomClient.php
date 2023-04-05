@@ -26,32 +26,32 @@ class IntercomClient
     /**
      * @var HttpClient $httpClient
      */
-    private $httpClient;
+    protected $httpClient;
 
     /**
      * @var RequestFactory $requestFactory
      */
-    private $requestFactory;
+    protected $requestFactory;
 
     /**
      * @var UriFactory $uriFactory
      */
-    private $uriFactory;
+    protected $uriFactory;
 
     /**
      * @var string API user authentication
      */
-    private $appIdOrToken;
+    protected $appIdOrToken;
 
     /**
      * @var string API password authentication
      */
-    private $passwordPart;
+    protected $passwordPart;
 
     /**
      * @var array $extraRequestHeaders
      */
-    private $extraRequestHeaders;
+    protected $extraRequestHeaders;
 
     /**
      * @var IntercomUsers $users
