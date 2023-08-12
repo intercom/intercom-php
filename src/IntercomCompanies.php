@@ -129,6 +129,15 @@ class IntercomCompanies extends IntercomResource
     }
 
     /**
+     * @param string $id
+     * @return string
+     */
+    public function companyContactsPath($id)
+    {
+        return 'companies/' . $id . '/contacts';
+    }
+
+    /**
      * @param string $contactId
      * @return string
      */
