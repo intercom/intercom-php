@@ -3,21 +3,21 @@
 namespace Intercom\Test;
 
 use DateTimeImmutable;
-use GuzzleHttp\Psr7\Response;
 use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Client\Exception;
-use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Http\Discovery\Strategy\MockClientStrategy;
 use Http\Mock\Client;
 use Intercom\IntercomClient;
+use Nyholm\Psr7\Response;
 use stdClass;
 
 class IntercomClientTest extends TestCase
 {
     protected function setUp(): void
     {
-        HttpClientDiscovery::prependStrategy(MockClientStrategy::class);
+        Psr18ClientDiscovery::prependStrategy(MockClientStrategy::class);
     }
 
     public function testBasicClient()
