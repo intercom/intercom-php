@@ -52,6 +52,14 @@ class IntercomCompaniesTest extends TestCase
         $this->assertSame('foo', $companies->getCompanyUsers("foo"));
     }
 
+    public function testCompanyGetContacts()
+    {
+        $this->client->method('get')->willReturn('foo');
+
+        $companies = new IntercomCompanies($this->client);
+        $this->assertSame('foo', $companies->getCompanyContacts("foo"));
+    }
+
     public function testCompanyUsersPath()
     {
         $users = new IntercomCompanies($this->client);
