@@ -107,7 +107,7 @@ This resource is only available in API Versions 2.0 and above
 $client->contacts->create([
     'custom_attributes' => ['nickname' => 'Teddy'],
     'email' => 'test@example.com',
-    'type' => 'user',
+    'role' => 'user',
 ]);
 
 /** Update a contact */
