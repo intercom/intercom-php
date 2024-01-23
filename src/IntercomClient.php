@@ -23,6 +23,15 @@ class IntercomClient
 {
     const SDK_VERSION = '4.4.0';
 
+    const BASE_URI_US = 'https://api.intercom.io';
+    const BASE_URI_EU = 'https://api.eu.intercom.io';
+    const BASE_URI_AU = 'https://api.au.intercom.io';
+
+    /**
+     * @var string
+     */
+    private $baseUri;
+
     /**
      * @var ClientInterface $httpClient
      */
@@ -144,9 +153,14 @@ class IntercomClient
      * @param string $appIdOrToken App ID.
      * @param string|null $password Api Key.
      * @param array $extraRequestHeaders Extra request headers to be sent in every api request
+     * @param string $baseUri The Intercom API base URI
      */
-    public function __construct(string $appIdOrToken, string $password = null, array $extraRequestHeaders = [])
-    {
+    public function __construct(
+        string $appIdOrToken,
+        string $password = null,
+        array $extraRequestHeaders = [],
+        string $baseUri = self::BASE_URI_US
+    ) {
         $this->users = new IntercomUsers($this);
         $this->contacts = new IntercomContacts($this);
         $this->events = new IntercomEvents($this);
@@ -163,6 +177,7 @@ class IntercomClient
         $this->notes = new IntercomNotes($this);
         $this->teams = new IntercomTeams($this);
 
+        $this->baseUri = rtrim($baseUri, '/');
         $this->appIdOrToken = $appIdOrToken;
         $this->passwordPart = $password;
         $this->extraRequestHeaders = $extraRequestHeaders;
@@ -222,7 +237,7 @@ class IntercomClient
      */
     public function post($endpoint, $json)
     {
-        $response = $this->sendRequest('POST', "https://api.intercom.io/$endpoint", $json);
+        $response = $this->sendRequest('POST', "{$this->baseUri}/$endpoint", $json);
         return $this->handleResponse($response);
     }
 
@@ -235,7 +250,7 @@ class IntercomClient
      */
     public function put($endpoint, $json)
     {
-        $response = $this->sendRequest('PUT', "https://api.intercom.io/$endpoint", $json);
+        $response = $this->sendRequest('PUT', "{$this->baseUri}/$endpoint", $json);
         return $this->handleResponse($response);
     }
 
@@ -248,7 +263,7 @@ class IntercomClient
      */
     public function delete($endpoint, $json)
     {
-        $response = $this->sendRequest('DELETE', "https://api.intercom.io/$endpoint", $json);
+        $response = $this->sendRequest('DELETE', "{$this->baseUri}/$endpoint", $json);
         return $this->handleResponse($response);
     }
 
@@ -261,7 +276,7 @@ class IntercomClient
      */
     public function get($endpoint, $queryParams = [])
     {
-        $uri = $this->uriFactory->createUri("https://api.intercom.io/$endpoint");
+        $uri = $this->uriFactory->createUri("{$this->baseUri}/$endpoint");
         if (!empty($queryParams)) {
             $uri = $uri->withQuery(http_build_query($queryParams));
         }
