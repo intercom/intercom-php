@@ -28,9 +28,17 @@ class IntercomCompanies extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function update($options)
+    public function update($id, array $options = null)
     {
-        return $this->create($options);
+        // BC layer
+        // TODO: Next Major : Remove this.
+        if (func_num_args() < 2 || is_array($id)) {
+            @trigger_error('Specify an id or use create method to update the company', E_USER_DEPRECATED);
+
+            return $this->create($id);
+        }
+
+        return $this->client->put($this->companyPath($id), $options);
     }
 
     /**
