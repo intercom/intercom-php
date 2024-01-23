@@ -117,6 +117,29 @@ class IntercomClientTest extends TestCase
         }
     }
 
+    public function testCursorHelper()
+    {
+        $httpClient = new Client();
+        $httpClient->addResponse(
+            new Response(200, ['X-Foo' => 'Bar'], "{\"foo\":\"bar\"}")
+        );
+
+        $client = new IntercomClient('u', 'p');
+        $client->setHttpClient($httpClient);
+
+        $pages = new stdClass;
+        $pages->per_page = 150;
+        $pages->next = new stdClass;
+        $pages->next->starting_after = "abc";
+
+        $client->nextCursorPage('path', $pages);
+
+        foreach ($httpClient->getRequests() as $request) {
+            $query = $request->getUri()->getQuery();
+            $this->assertSame("starting_after=abc&per_page=150", $query);
+        }
+    }
+
     public function testRateLimitDetails()
     {
         date_default_timezone_set('UTC');
