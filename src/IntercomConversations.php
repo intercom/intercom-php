@@ -28,7 +28,7 @@ class IntercomConversations extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function getConversations($options)
+    public function getConversations(array $options)
     {
         return $this->client->get('conversations', $options);
     }
@@ -38,11 +38,11 @@ class IntercomConversations extends IntercomResource
      *
      * @see    https://developers.intercom.io/reference#get-a-single-conversation
      * @param  string $id
-     * @param  array  $options
+     * @param  array $options
      * @return stdClass
      * @throws Exception
      */
-    public function getConversation($id, $options = [])
+    public function getConversation(string $id, array $options = [])
     {
         $path = $this->conversationPath($id);
         return $this->client->get($path, $options);
@@ -82,11 +82,11 @@ class IntercomConversations extends IntercomResource
      *
      * @see    https://developers.intercom.io/reference#replying-to-a-conversation
      * @param  string $id
-     * @param  array  $options
+     * @param  array $options
      * @return stdClass
      * @throws Exception
      */
-    public function replyToConversation($id, $options)
+    public function replyToConversation(string $id, array $options)
     {
         $path = $this->conversationReplyPath($id);
         return $this->client->post($path, $options);
@@ -100,7 +100,7 @@ class IntercomConversations extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function replyToLastConversation($options)
+    public function replyToLastConversation(array $options)
     {
         $path = 'conversations/last/reply';
         return $this->client->post($path, $options);
@@ -114,7 +114,7 @@ class IntercomConversations extends IntercomResource
      * @return stdClass
      * @throws Exception
      */
-    public function markConversationAsRead($id)
+    public function markConversationAsRead(string $id)
     {
         $path = $this->conversationPath($id);
         $data = ['read' => true];
@@ -127,7 +127,7 @@ class IntercomConversations extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function conversationPath($id)
+    public function conversationPath(string $id)
     {
         return 'conversations/' . $id;
     }
@@ -138,7 +138,7 @@ class IntercomConversations extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function conversationReplyPath($id)
+    public function conversationReplyPath(string $id)
     {
         return 'conversations/' . $id . '/reply';
     }
