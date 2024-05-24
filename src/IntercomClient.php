@@ -4,18 +4,18 @@ namespace Intercom;
 
 use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\UriFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Http\Message\Authentication;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Authentication\Bearer;
-use Http\Message\RequestFactory;
-use Http\Message\UriFactory;
 use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\UriFactoryInterface;
 use Psr\Http\Message\UriInterface;
 use stdClass;
 
@@ -24,19 +24,24 @@ class IntercomClient
     const SDK_VERSION = '4.4.0';
 
     /**
-     * @var HttpClient $httpClient
+     * @var ClientInterface $httpClient
      */
     private $httpClient;
 
     /**
-     * @var RequestFactory $requestFactory
+     * @var RequestFactoryInterface $requestFactory
      */
     private $requestFactory;
 
     /**
-     * @var UriFactory $uriFactory
+     * @var UriFactoryInterface $uriFactory
      */
     private $uriFactory;
+
+    /**
+     * @var StreamFactoryInterface $streamFactory
+     */
+    private $streamFactory;
 
     /**
      * @var string API user authentication
@@ -163,16 +168,17 @@ class IntercomClient
         $this->extraRequestHeaders = $extraRequestHeaders;
 
         $this->httpClient = $this->getDefaultHttpClient();
-        $this->requestFactory = MessageFactoryDiscovery::find();
-        $this->uriFactory = UriFactoryDiscovery::find();
+        $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
+        $this->uriFactory = Psr17FactoryDiscovery::findUriFactory();
+        $this->streamFactory =  Psr17FactoryDiscovery::findStreamFactory();
     }
 
     /**
      * Sets the HTTP client.
      *
-     * @param HttpClient $httpClient
+     * @param ClientInterface  $httpClient
      */
-    public function setHttpClient(HttpClient $httpClient)
+    public function setHttpClient(ClientInterface $httpClient)
     {
         $this->httpClient = $httpClient;
     }
@@ -180,9 +186,9 @@ class IntercomClient
     /**
      * Sets the request factory.
      *
-     * @param RequestFactory $requestFactory
+     * @param RequestFactoryInterface $requestFactory
      */
-    public function setRequestFactory(RequestFactory $requestFactory)
+    public function setRequestFactory(RequestFactoryInterface $requestFactory)
     {
         $this->requestFactory = $requestFactory;
     }
@@ -190,11 +196,21 @@ class IntercomClient
     /**
      * Sets the URI factory.
      *
-     * @param UriFactory $uriFactory
+     * @param UriFactoryInterface $uriFactory
      */
-    public function setUriFactory(UriFactory $uriFactory)
+    public function setUriFactory(UriFactoryInterface $uriFactory)
     {
         $this->uriFactory = $uriFactory;
+    }
+
+    /**
+     * Sets the stream factory.
+     *
+     * @param StreamFactoryInterface $streamFactory
+     */
+    public function setStreamFactory(StreamFactoryInterface $streamFactory)
+    {
+        $this->streamFactory = $streamFactory;
     }
 
     /**
@@ -315,12 +331,12 @@ class IntercomClient
     }
 
     /**
-     * @return HttpClient
+     * @return ClientInterface
      */
     private function getDefaultHttpClient()
     {
         return new PluginClient(
-            HttpClientDiscovery::find(),
+            Psr18ClientDiscovery::find(),
             [new ErrorPlugin()]
         );
     }
@@ -377,11 +393,21 @@ class IntercomClient
      */
     private function sendRequest($method, $uri, $body = null)
     {
-        $headers = $this->getRequestHeaders();
         $body = is_array($body) ? json_encode($body) : $body;
-        $request = $this->authenticateRequest(
-            $this->requestFactory->createRequest($method, $uri, $headers, $body)
-        );
+        $request = $this->requestFactory
+            ->createRequest($method, $uri);
+
+        if ($body !== null) {
+            $request = $request
+                ->withBody($this->streamFactory->createStream($body));
+        }
+
+        foreach ($this->getRequestHeaders() as $name => $value) {
+            $request = $request
+                ->withHeader($name, $value);
+        }
+
+        $request = $this->authenticateRequest($request);
 
         return $this->httpClient->sendRequest($request);
     }
