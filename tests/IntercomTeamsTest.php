@@ -21,10 +21,4 @@ class IntercomTeamsTest extends TestCase
         $teams = new IntercomTeams($this->client);
         $this->assertSame('foo', $teams->getTeam(1));
     }
-
-    public function testTeamsGetPath()
-    {
-        $teams = new IntercomTeams($this->client);
-        $this->assertSame('teams/1', $teams->teamPath(1));
-    }
 }

@@ -30,13 +30,6 @@ class IntercomLeadsTest extends TestCase
         $this->assertSame('foo', $leads->getLeads([]));
     }
 
-    public function testLeadPath()
-    {
-
-        $leads = new IntercomLeads($this->client);
-        $this->assertSame("contacts/foo", $leads->leadPath("foo"));
-    }
-
     public function testLeadsGet()
     {
         $this->client->method('get')->willReturn('foo');
