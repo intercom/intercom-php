@@ -145,7 +145,7 @@ class IntercomClient
      * @param string|null $password Api Key.
      * @param array $extraRequestHeaders Extra request headers to be sent in every api request
      */
-    public function __construct(string $appIdOrToken, string $password = null, array $extraRequestHeaders = [])
+    public function __construct(string $appIdOrToken, ?string $password = null, array $extraRequestHeaders = [])
     {
         $this->users = new IntercomUsers($this);
         $this->contacts = new IntercomContacts($this);
