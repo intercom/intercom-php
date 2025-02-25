@@ -41,7 +41,7 @@ class IntercomAdmins extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function adminPath($id)
+    private function adminPath($id)
     {
         return 'admins/' . $id;
     }

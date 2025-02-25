@@ -21,10 +21,4 @@ class IntercomAdminsTest extends TestCase
         $users = new IntercomAdmins($this->client);
         $this->assertSame('foo', $users->getAdmin(1));
     }
-
-    public function testAdminsGetPath()
-    {
-        $users = new IntercomAdmins($this->client);
-        $this->assertSame('admins/1', $users->adminPath(1));
-    }
 }

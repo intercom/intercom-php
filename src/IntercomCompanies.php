@@ -114,7 +114,7 @@ class IntercomCompanies extends IntercomResource
      * @param string $id
      * @return string
      */
-    public function companyPath($id)
+    private function companyPath($id)
     {
         return 'companies/' . $id;
     }
@@ -123,7 +123,7 @@ class IntercomCompanies extends IntercomResource
      * @param string $id
      * @return string
      */
-    public function companyUsersPath($id)
+    private function companyUsersPath($id)
     {
         return 'companies/' . $id . '/users';
     }
@@ -132,17 +132,17 @@ class IntercomCompanies extends IntercomResource
      * @param string $contactId
      * @return string
      */
-    public function companyAttachPath(string $contactId)
+    private function companyAttachPath(string $contactId)
     {
         return 'contacts/' . $contactId . '/companies';
     }
-    
+
     /**
      * @param string $contactId
      * @param string $companyId
      * @return string
      */
-    public function companyDetachPath(string $contactId, string $companyId)
+    private function companyDetachPath(string $contactId, string $companyId)
     {
         return 'contacts/' . $contactId . '/companies/' . $companyId;
     }
