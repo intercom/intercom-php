@@ -392,6 +392,9 @@ $client->companies->getCompany('531ee472cce572a6ec000006');
 /** List users belonging to a company by ID */
 $client->companies->getCompanyUsers('531ee472cce572a6ec000006');
 
+/** List attached contacts belonging to a company by ID */
+$client->companies->getCompanyContacts('531ee472cce572a6ec000006');
+
 /** List users belonging to a company by company_id */
 $client->companies->getCompanies([
     'company_id' => '3',
