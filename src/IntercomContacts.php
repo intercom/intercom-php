@@ -79,6 +79,19 @@ class IntercomContacts extends IntercomResource
     }
 
     /**
+     * Merge a contact to a User.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference#merge-contact
+     * @param  array $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function mergeContact(array $options)
+    {
+        return $this->client->post("contacts/merge", $options);
+    }
+
+    /**
      * Returns list of Contacts that match search query.
      *
      * @see     https://developers.intercom.com/reference#search-for-contacts
