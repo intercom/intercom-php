@@ -68,11 +68,12 @@ class IntercomContactsTest extends TestCase
         $this->assertSame('foo', $contacts->nextSearch([], $pages));
     }
 
-    public function testConversationNextCursor()
+    public function testContactNextCursor()
     {
         $this->client->method('nextCursorPage')->willReturn('foo');
         $query = [];
         $pages = new stdClass;
+        $pages->per_page = 150;
         $pages->next = new stdClass;
         $pages->next->starting_after = "abc";
 
