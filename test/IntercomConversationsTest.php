@@ -63,4 +63,20 @@ class IntercomConversationsTest extends TestCase
         $users = new IntercomConversations($this->client);
         $this->assertSame('foo', $users->replyToConversation("bar", []));
     }
+
+    public function testConversationRemoveTag()
+    {
+        $this->client->method('delete')->willReturn('foo');
+
+        $conversations = new IntercomConversations($this->client);
+        $this->assertSame('foo', $conversations->removeTag('conv123', 'tag456'));
+    }
+
+    public function testConversationAddTag()
+    {
+        $this->client->method('post')->willReturn('foo');
+
+        $conversations = new IntercomConversations($this->client);
+        $this->assertSame('foo', $conversations->addTag('conv123', 'tag456', 'admin789'));
+    }
 }

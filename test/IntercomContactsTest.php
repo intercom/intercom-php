@@ -79,4 +79,28 @@ class IntercomContactsTest extends TestCase
         $contacts = new IntercomContacts($this->client);
         $this->assertSame('foo', $contacts->nextCursor($pages));
     }
+
+    public function testContactRemoveTag()
+    {
+        $this->client->method('delete')->willReturn('foo');
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->removeTag('contact123', 'tag456'));
+    }
+
+    public function testContactTags()
+    {
+        $this->client->method('get')->willReturn('foo');
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->tags('contact123'));
+    }
+
+    public function testContactAddTag()
+    {
+        $this->client->method('post')->willReturn('foo');
+
+        $contacts = new IntercomContacts($this->client);
+        $this->assertSame('foo', $contacts->addTag('contact123', 'tag456'));
+    }
 }

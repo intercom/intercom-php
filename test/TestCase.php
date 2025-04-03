@@ -12,10 +12,11 @@ abstract class TestCase extends BaseTestCase
      */
     protected $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-
-        $this->client = $this->getMockBuilder(IntercomClient::class)->disableOriginalConstructor()->getMock();
+        $this->client = $this->getMockBuilder(IntercomClient::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

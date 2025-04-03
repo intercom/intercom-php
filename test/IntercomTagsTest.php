@@ -6,19 +6,29 @@ use Intercom\IntercomTags;
 
 class IntercomTagsTest extends TestCase
 {
-    public function testTagUsers()
+    public function testCreateTag()
     {
         $this->client->method('post')->willReturn('foo');
-
         $tags = new IntercomTags($this->client);
-        $this->assertSame('foo', $tags->tag([]));
+        
+        $options = [
+            'name' => 'TestTag',
+            'contacts' => [['id' => 'abc123']]
+        ];
+        
+        $this->assertSame('foo', $tags->tag($options));
     }
 
-    public function testTagsList()
+    public function testListTags()
     {
         $this->client->method('get')->willReturn('foo');
-
         $tags = new IntercomTags($this->client);
+        
+        // Test without options
         $this->assertSame('foo', $tags->getTags());
+        
+        // Test with options
+        $options = ['type' => 'contact'];
+        $this->assertSame('foo', $tags->getTags($options));
     }
 }
