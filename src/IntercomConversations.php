@@ -127,7 +127,7 @@ class IntercomConversations extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function conversationPath($id)
+    private function conversationPath($id)
     {
         return 'conversations/' . $id;
     }
@@ -138,7 +138,7 @@ class IntercomConversations extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function conversationReplyPath($id)
+    private function conversationReplyPath($id)
     {
         return 'conversations/' . $id . '/reply';
     }

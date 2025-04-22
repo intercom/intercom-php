@@ -90,17 +90,6 @@ class IntercomLeads extends IntercomResource
     }
 
     /**
-     * Returns endpoint path to Lead with given ID.
-     *
-     * @param  string $id
-     * @return string
-     */
-    public function leadPath($id)
-    {
-        return "contacts/" . $id;
-    }
-
-    /**
      * Gets a list of Leads through the contacts scroll API.
      *
      * @see    https://developers.intercom.com/v2.0/reference#iterating-over-all-leads
@@ -111,5 +100,16 @@ class IntercomLeads extends IntercomResource
     public function scrollLeads($options = [])
     {
         return $this->client->get('contacts/scroll', $options);
+    }
+
+    /**
+     * Returns endpoint path to Lead with given ID.
+     *
+     * @param  string $id
+     * @return string
+     */
+    private function leadPath($id)
+    {
+        return "contacts/" . $id;
     }
 }

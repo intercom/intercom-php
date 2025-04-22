@@ -23,12 +23,6 @@ class IntercomConversationsTest extends TestCase
         $this->assertSame('foo', $users->getConversations([]));
     }
 
-    public function testConversationPath()
-    {
-        $users = new IntercomConversations($this->client);
-        $this->assertSame('conversations/foo', $users->conversationPath("foo"));
-    }
-
     public function testGetConversation()
     {
         $this->client->method('get')->willReturn('foo');
@@ -56,12 +50,6 @@ class IntercomConversationsTest extends TestCase
 
         $conversations = new IntercomConversations($this->client);
         $this->assertSame('foo', $conversations->nextSearch([], $pages));
-    }
-
-    public function testConversationReplyPath()
-    {
-        $users = new IntercomConversations($this->client);
-        $this->assertSame('conversations/foo/reply', $users->conversationReplyPath("foo"));
     }
 
     public function testReplyToConversation()

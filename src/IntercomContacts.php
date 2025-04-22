@@ -126,7 +126,7 @@ class IntercomContacts extends IntercomResource
      * @param string $id
      * @return string
      */
-    public function contactPath(string $id)
+    private function contactPath(string $id)
     {
         return 'contacts/' . $id;
     }

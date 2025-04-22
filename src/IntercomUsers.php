@@ -122,7 +122,7 @@ class IntercomUsers extends IntercomResource
      * @param string $id
      * @return string
      */
-    public function userPath(string $id)
+    private function userPath(string $id)
     {
         return 'users/' . $id;
     }
