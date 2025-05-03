@@ -374,7 +374,7 @@ $client->companies->update([
     'name' => 'foocorp',
 ]);
 
-/** Create or update a company with custom attributes. */
+/** Create or update a company with custom attributes. 💁 TIP: First you need to create custom attributes via your company settings. */
 $client->companies->update([
     'custom_attributes' => [
         'short_name' => 'ABC Inc.',
