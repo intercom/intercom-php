@@ -122,6 +122,12 @@ $client->contacts->deleteContact('570680a8a1bcbca8a90001b9');
 /** Get a contact by ID */
 $client->contacts->getContact('570680a8a1bcbca8a90001b9');
 
+/** Merge a contact to a User */
+$client->contacts->mergeContact([
+    'from' => '570680a8a1bcbca8a90001b9',
+    'into' => '59c124f770e00fd819b9ce81',
+]);
+
 /** Search for contacts */
 $query = ['field' => 'name', 'operator' => '=', 'value' => 'Alice'];
 $client->contacts->search([
