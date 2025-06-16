@@ -310,9 +310,14 @@ class IntercomClient
      * @param string $startingAfter
      * @return stdClass
      */
-    public function nextCursorPage(string $path, string $startingAfter)
+    public function nextCursorPage(string $path, $pages)
     {
-        return $this->get($path . "?starting_after=" . $startingAfter);
+        $queryParams = [
+            "starting_after" => $pages->next->starting_after,
+            "per_page" => $pages->per_page,
+        ];
+
+        return $this->get($path, $queryParams);
     }
 
     /**

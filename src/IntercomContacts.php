@@ -118,8 +118,7 @@ class IntercomContacts extends IntercomResource
     public function nextCursor($pages)
     {
         $path = 'contacts';
-        $starting_after = $pages->next->starting_after;
-        return $this->client->nextCursorPage($path, $starting_after);
+        return $this->client->nextCursorPage($path, $pages);
     }
 
     /**
