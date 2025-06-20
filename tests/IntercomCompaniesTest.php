@@ -29,6 +29,14 @@ class IntercomCompaniesTest extends TestCase
         $companies = new IntercomCompanies($this->client);
         $this->assertSame('foo', $companies->getCompanies([]));
     }
+    
+    public function testCompanyDelete()
+    {
+        $this->client->method('delete')->willReturn('foo');
+        
+        $companies = new IntercomCompanies($this->client);
+        $this->assertSame('foo', $companies->delete(''));
+    }
 
     public function testCompanyPath()
     {

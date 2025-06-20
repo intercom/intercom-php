@@ -383,6 +383,9 @@ $client->companies->update([
     'name' => 'foocorp',
 ]);
 
+/** Delete a company by ID */
+$client->companies->delete('531ee472cce572a6ec000006');
+
 /** List Companies */
 $client->companies->getCompanies([]);
 
