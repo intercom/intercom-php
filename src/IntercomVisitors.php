@@ -70,7 +70,7 @@ class IntercomVisitors extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function visitorPath($id)
+    private function visitorPath($id)
     {
         return "visitors/" . $id;
     }

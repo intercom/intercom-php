@@ -41,7 +41,7 @@ class IntercomTeams extends IntercomResource
      * @param  string $id
      * @return string
      */
-    public function teamPath($id)
+    private function teamPath($id)
     {
         return 'teams/' . $id;
     }

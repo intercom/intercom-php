@@ -14,12 +14,6 @@ class IntercomVisitorsTest extends TestCase
         $this->assertSame('foo', $visitors->update([]));
     }
 
-    public function testVisitorPath()
-    {
-        $visitors = new IntercomVisitors($this->client);
-        $this->assertSame("visitors/foo", $visitors->visitorPath("foo"));
-    }
-
     public function testVisitorsGet()
     {
         $this->client->method('get')->willReturn('foo');
