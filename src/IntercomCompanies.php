@@ -111,6 +111,21 @@ class IntercomCompanies extends IntercomResource
     }
 
     /**
+     * Returns a list of contacts belonging to a single Company based on the Intercom ID.
+     *
+     * @see    https://developers.intercom.com/intercom-api-reference/reference/listattachedcontacts
+     * @param  string $id
+     * @param  array  $options
+     * @return stdClass
+     * @throws Exception
+     */
+    public function getCompanyContacts($id, $options = [])
+    {
+        $path = $this->companyContactsPath($id);
+        return $this->client->get($path, $options);
+    }
+
+    /**
      * @param string $id
      * @return string
      */
@@ -126,6 +141,15 @@ class IntercomCompanies extends IntercomResource
     public function companyUsersPath($id)
     {
         return 'companies/' . $id . '/users';
+    }
+
+    /**
+     * @param string $id
+     * @return string
+     */
+    public function companyContactsPath($id)
+    {
+        return 'companies/' . $id . '/contacts';
     }
 
     /**
