@@ -1,10 +1,9 @@
-# intercom-php
+# Intercom PHP Library
 
-[![Circle CI](https://circleci.com/gh/intercom/intercom-php.png?style=shield)](https://circleci.com/gh/intercom/intercom-php)
-[![packagist](https://img.shields.io/packagist/v/intercom/intercom-php.svg)](https://packagist.org/packages/intercom/intercom-php)
-![Intercom API Version](https://img.shields.io/badge/Intercom%20API%20Version-1.3-blue)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-php)
+[![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/intercom/intercom-php)
 
-> Official PHP bindings to the [Intercom API](https://api.intercom.io/docs)
+The Intercom PHP library provides convenient access to the Intercom API from PHP.
 
 ## Project Updates
 
@@ -18,14 +17,8 @@ We'll communicate all relevant updates as we build this new team and support str
 
 ## Installation
 
-This library supports PHP 7.1 and later
-
-This library uses [HTTPlug](https://github.com/php-http/httplug) as HTTP client. HTTPlug is an abstraction that allows this library to support many different HTTP Clients. Therefore, you need to provide it with an adapter for the HTTP library you prefer. You can find all the available adapters [in Packagist](https://packagist.org/providers/php-http/client-implementation). This documentation assumes you use the Guzzle6 Client, but you can replace it with any adapter that you prefer.
-
-The recommended way to install intercom-php is through [Composer](https://getcomposer.org):
-
 ```sh
-composer require intercom/intercom-php php-http/guzzle6-adapter
+composer require intercom/intercom-php
 ```
 
 ## Clients
@@ -569,27 +562,32 @@ For more info on rate limits and these headers please see the [API reference doc
 
 ## Pagination
 
-When listing, the Intercom API may return a pagination object:
+List endpoints return a `Pager<T>` which lets you loop over all items and the SDK will automatically make multiple HTTP requests for you.
 
-```json
-{
-  "pages": {
-    "next": "..."
-  }
+```php
+use Intercom\IntercomClient;
+
+$client = new IntercomClient(
+    '<token>',
+    ['baseUrl' => 'https://api.example.com'],
+);
+
+$items = $client->articles->list(['limit' => 10]);
+
+foreach ($items as $item) {
+    var_dump($item);
+}
+```
+You can also iterate page-by-page:
+
+```php
+foreach ($items->getPages() as $page) {
+    foreach ($page->getItems() as $pageItem) {
+        var_dump($pageItem);
+    }
 }
 ```
 
-You can grab the next page of results using the client:
-
-```php
-$client->nextPage($response->pages);
-```
-
-In API versions 2.0 and above subsequent pages for listing contacts can be retreived with:
-
-```php
-$client->nextCursor($response->pages);
-```
 
 ## Scroll
 
@@ -653,3 +651,131 @@ try {
 - **Send coherent history**. Make sure each individual commit in your pull
   request is meaningful. If you had to make multiple intermediate commits while
   developing, please squash them before sending them to us.
+
+## Requirements
+
+This SDK requires PHP ^8.1.
+
+## Usage
+
+Instantiate and use the client with the following:
+
+```php
+<?php
+
+namespace Example;
+
+use Intercom\IntercomClient;
+use Intercom\Articles\Requests\CreateArticleRequest;
+use Intercom\Articles\Types\CreateArticleRequestState;
+
+$client = new IntercomClient(
+    token: '<token>',
+);
+$client->articles->create(
+    new CreateArticleRequest([
+        'title' => 'Thanks for everything',
+        'description' => 'Description of the Article',
+        'body' => 'Body of the Article',
+        'authorId' => 1295,
+        'state' => CreateArticleRequestState::Published->value,
+    ]),
+);
+
+```
+
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), an exception will be thrown.
+
+```php
+use Intercom\Exceptions\IntercomApiException;
+use Intercom\Exceptions\IntercomException;
+
+try {
+    $response = $client->articles->create(...);
+} catch (IntercomApiException $e) {
+    echo 'API Exception occurred: ' . $e->getMessage() . "\n";
+    echo 'Status Code: ' . $e->getCode() . "\n";
+    echo 'Response Body: ' . $e->getBody() . "\n";
+    // Optionally, rethrow the exception or handle accordingly.
+}
+```
+
+## Advanced
+
+### Custom Client
+
+This SDK is built to work with any HTTP client that implements Guzzle's `ClientInterface`.
+By default, if no client is provided, the SDK will use Guzzle's default HTTP client.
+However, you can pass your own client that adheres to `ClientInterface`:
+
+```php
+use Intercom\IntercomClient;
+
+// Create a custom Guzzle client with specific configuration.
+$customClient = new \GuzzleHttp\Client([
+    'timeout' => 5.0,
+]);
+
+// Pass the custom client when creating an instance of the class.
+$client = new IntercomClient(options: [
+    'client' => $customClient
+]);
+
+// You can also utilize the same technique to leverage advanced customizations to the client such as adding middleware
+$handlerStack = \GuzzleHttp\HandlerStack::create();
+$handlerStack->push(MyCustomMiddleware::create());
+$customClient = new \GuzzleHttp\Client(['handler' => $handlerStack]);
+
+// Pass the custom client when creating an instance of the class.
+$client = new IntercomClient(options: [
+    'client' => $customClient
+]);
+```
+
+### Retries
+
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
+
+A request is deemed retryable when any of the following HTTP status codes is returned:
+
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+
+Use the `maxRetries` request option to configure this behavior.
+
+```php
+$response = $client->articles->create(
+    ...,
+    options: [
+        'maxRetries' => 0 // Override maxRetries at the request level
+    ]
+);
+```
+
+### Timeouts
+
+The SDK defaults to a 30 second timeout. Use the `timeout` option to configure this behavior.
+
+```php
+$response = $client->articles->create(
+    ...,
+    options: [
+        'timeout' => 3.0 // Override timeout to 3 seconds
+    ]
+);
+```
+
+## Contributing
+
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!

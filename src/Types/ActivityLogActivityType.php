@@ -1,0 +1,74 @@
+<?php
+
+namespace Intercom\Types;
+
+enum ActivityLogActivityType: string
+{
+    case AdminAssignmentLimitChange = "admin_assignment_limit_change";
+    case AdminAwayModeChange = "admin_away_mode_change";
+    case AdminDeletion = "admin_deletion";
+    case AdminDeprovisioned = "admin_deprovisioned";
+    case AdminImpersonationEnd = "admin_impersonation_end";
+    case AdminImpersonationStart = "admin_impersonation_start";
+    case AdminInviteChange = "admin_invite_change";
+    case AdminInviteCreation = "admin_invite_creation";
+    case AdminInviteDeletion = "admin_invite_deletion";
+    case AdminLoginFailure = "admin_login_failure";
+    case AdminLoginSuccess = "admin_login_success";
+    case AdminLogout = "admin_logout";
+    case AdminPasswordResetRequest = "admin_password_reset_request";
+    case AdminPasswordResetSuccess = "admin_password_reset_success";
+    case AdminPermissionChange = "admin_permission_change";
+    case AdminProvisioned = "admin_provisioned";
+    case AdminTwoFactorAuthChange = "admin_two_factor_auth_change";
+    case AdminUnauthorizedSignInMethod = "admin_unauthorized_sign_in_method";
+    case AppAdminJoin = "app_admin_join";
+    case AppAuthenticationMethodChange = "app_authentication_method_change";
+    case AppDataDeletion = "app_data_deletion";
+    case AppDataExport = "app_data_export";
+    case AppGoogleSsoDomainChange = "app_google_sso_domain_change";
+    case AppIdentityVerificationChange = "app_identity_verification_change";
+    case AppNameChange = "app_name_change";
+    case AppOutboundAddressChange = "app_outbound_address_change";
+    case AppPackageInstallation = "app_package_installation";
+    case AppPackageTokenRegeneration = "app_package_token_regeneration";
+    case AppPackageUninstallation = "app_package_uninstallation";
+    case AppTeamCreation = "app_team_creation";
+    case AppTeamDeletion = "app_team_deletion";
+    case AppTeamMembershipModification = "app_team_membership_modification";
+    case AppTimezoneChange = "app_timezone_change";
+    case AppWebhookCreation = "app_webhook_creation";
+    case AppWebhookDeletion = "app_webhook_deletion";
+    case ArticlesInMessengerEnabledChange = "articles_in_messenger_enabled_change";
+    case BulkDelete = "bulk_delete";
+    case BulkExport = "bulk_export";
+    case CampaignDeletion = "campaign_deletion";
+    case CampaignStateChange = "campaign_state_change";
+    case ConversationPartDeletion = "conversation_part_deletion";
+    case ConversationTopicChange = "conversation_topic_change";
+    case ConversationTopicCreation = "conversation_topic_creation";
+    case ConversationTopicDeletion = "conversation_topic_deletion";
+    case HelpCenterSettingsChange = "help_center_settings_change";
+    case InboundConversationsChange = "inbound_conversations_change";
+    case InboxAccessChange = "inbox_access_change";
+    case MessageDeletion = "message_deletion";
+    case MessageStateChange = "message_state_change";
+    case MessengerLookAndFeelChange = "messenger_look_and_feel_change";
+    case MessengerSearchRequiredChange = "messenger_search_required_change";
+    case MessengerSpacesChange = "messenger_spaces_change";
+    case OfficeHoursChange = "office_hours_change";
+    case RoleChange = "role_change";
+    case RoleCreation = "role_creation";
+    case RoleDeletion = "role_deletion";
+    case RulesetActivationTitlePreview = "ruleset_activation_title_preview";
+    case RulesetCreation = "ruleset_creation";
+    case RulesetDeletion = "ruleset_deletion";
+    case SearchBrowseEnabledChange = "search_browse_enabled_change";
+    case SearchBrowseRequiredChange = "search_browse_required_change";
+    case SeatChange = "seat_change";
+    case SeatRevoke = "seat_revoke";
+    case SecuritySettingsChange = "security_settings_change";
+    case TemporaryExpectationChange = "temporary_expectation_change";
+    case UpfrontEmailCollectionChange = "upfront_email_collection_change";
+    case WelcomeMessageChange = "welcome_message_change";
+}

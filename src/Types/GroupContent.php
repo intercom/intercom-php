@@ -1,0 +1,104 @@
+<?php
+
+namespace Intercom\Types;
+
+use Intercom\Core\Json\JsonSerializableType;
+use Intercom\Core\Json\JsonProperty;
+
+/**
+ * The Content of a Group.
+ */
+class GroupContent extends JsonSerializableType
+{
+    /**
+     * @var 'group_content' $type The type of object - `group_content` .
+     */
+    #[JsonProperty('type')]
+    private string $type;
+
+    /**
+     * @var string $name The name of the collection or section.
+     */
+    #[JsonProperty('name')]
+    private string $name;
+
+    /**
+     * @var string $description The description of the collection. Only available for collections.
+     */
+    #[JsonProperty('description')]
+    private string $description;
+
+    /**
+     * @param array{
+     *   type: 'group_content',
+     *   name: string,
+     *   description: string,
+     * } $values
+     */
+    public function __construct(
+        array $values,
+    ) {
+        $this->type = $values['type'];
+        $this->name = $values['name'];
+        $this->description = $values['description'];
+    }
+
+    /**
+     * @return 'group_content'
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param 'group_content' $value
+     */
+    public function setType(string $value): self
+    {
+        $this->type = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setName(string $value): self
+    {
+        $this->name = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setDescription(string $value): self
+    {
+        $this->description = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}

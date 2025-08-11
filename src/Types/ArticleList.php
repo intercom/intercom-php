@@ -1,0 +1,131 @@
+<?php
+
+namespace Intercom\Types;
+
+use Intercom\Core\Json\JsonSerializableType;
+use Intercom\Core\Json\JsonProperty;
+use Intercom\Articles\Types\ArticleListItem;
+use Intercom\Core\Types\ArrayType;
+
+/**
+ * This will return a list of articles for the App.
+ */
+class ArticleList extends JsonSerializableType
+{
+    /**
+     * @var 'list' $type The type of the object - `list`.
+     */
+    #[JsonProperty('type')]
+    private string $type;
+
+    /**
+     * @var mixed $pages
+     */
+    #[JsonProperty('pages')]
+    private mixed $pages;
+
+    /**
+     * @var int $totalCount A count of the total number of articles.
+     */
+    #[JsonProperty('total_count')]
+    private int $totalCount;
+
+    /**
+     * @var array<ArticleListItem> $data An array of Article objects
+     */
+    #[JsonProperty('data'), ArrayType([ArticleListItem::class])]
+    private array $data;
+
+    /**
+     * @param array{
+     *   type: 'list',
+     *   totalCount: int,
+     *   data: array<ArticleListItem>,
+     *   pages?: mixed,
+     * } $values
+     */
+    public function __construct(
+        array $values,
+    ) {
+        $this->type = $values['type'];
+        $this->pages = $values['pages'] ?? null;
+        $this->totalCount = $values['totalCount'];
+        $this->data = $values['data'];
+    }
+
+    /**
+     * @return 'list'
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param 'list' $value
+     */
+    public function setType(string $value): self
+    {
+        $this->type = $value;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPages(): mixed
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public function setPages(mixed $value = null): self
+    {
+        $this->pages = $value;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalCount(): int
+    {
+        return $this->totalCount;
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setTotalCount(int $value): self
+    {
+        $this->totalCount = $value;
+        return $this;
+    }
+
+    /**
+     * @return array<ArticleListItem>
+     */
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array<ArticleListItem> $value
+     */
+    public function setData(array $value): self
+    {
+        $this->data = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}

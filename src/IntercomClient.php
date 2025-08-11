@@ -2,440 +2,219 @@
 
 namespace Intercom;
 
-use Http\Client\Common\Plugin\ErrorPlugin;
-use Http\Client\Common\PluginClient;
-use Http\Discovery\Psr17FactoryDiscovery;
-use Http\Discovery\Psr18ClientDiscovery;
-use Http\Message\Authentication;
-use Http\Message\Authentication\BasicAuth;
-use Http\Message\Authentication\Bearer;
-use Psr\Http\Client\ClientExceptionInterface;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
-use stdClass;
+use Intercom\Admins\AdminsClient;
+use Intercom\Articles\ArticlesClient;
+use Intercom\HelpCenters\HelpCentersClient;
+use Intercom\Companies\CompaniesClient;
+use Intercom\Contacts\ContactsClient;
+use Intercom\Notes\NotesClient;
+use Intercom\Tags\TagsClient;
+use Intercom\Conversations\ConversationsClient;
+use Intercom\DataAttributes\DataAttributesClient;
+use Intercom\Events\EventsClient;
+use Intercom\DataExport\DataExportClient;
+use Intercom\Messages\MessagesClient;
+use Intercom\Segments\SegmentsClient;
+use Intercom\SubscriptionTypes\SubscriptionTypesClient;
+use Intercom\PhoneCallRedirects\PhoneCallRedirectsClient;
+use Intercom\Teams\TeamsClient;
+use Intercom\TicketTypes\TicketTypesClient;
+use Intercom\Tickets\TicketsClient;
+use Intercom\Visitors\VisitorsClient;
+use Intercom\News\NewsClient;
+use Intercom\Unstable\UnstableClient;
+use GuzzleHttp\ClientInterface;
+use Intercom\Core\Client\RawClient;
+use Exception;
 
 class IntercomClient
 {
-    const SDK_VERSION = '4.4.0';
+    /**
+     * @var AdminsClient $admins
+     */
+    public AdminsClient $admins;
 
     /**
-     * @var ClientInterface $httpClient
+     * @var ArticlesClient $articles
      */
-    private $httpClient;
+    public ArticlesClient $articles;
 
     /**
-     * @var RequestFactoryInterface $requestFactory
+     * @var HelpCentersClient $helpCenters
      */
-    private $requestFactory;
+    public HelpCentersClient $helpCenters;
 
     /**
-     * @var UriFactoryInterface $uriFactory
+     * @var CompaniesClient $companies
      */
-    private $uriFactory;
+    public CompaniesClient $companies;
 
     /**
-     * @var StreamFactoryInterface $streamFactory
+     * @var ContactsClient $contacts
      */
-    private $streamFactory;
+    public ContactsClient $contacts;
 
     /**
-     * @var string API user authentication
+     * @var NotesClient $notes
      */
-    private $appIdOrToken;
+    public NotesClient $notes;
 
     /**
-     * @var string API password authentication
+     * @var TagsClient $tags
      */
-    private $passwordPart;
+    public TagsClient $tags;
 
     /**
-     * @var array $extraRequestHeaders
+     * @var ConversationsClient $conversations
      */
-    private $extraRequestHeaders;
+    public ConversationsClient $conversations;
 
     /**
-     * @var IntercomUsers $users
+     * @var DataAttributesClient $dataAttributes
      */
-    public $users;
+    public DataAttributesClient $dataAttributes;
 
     /**
-     * @var IntercomEvents $events
+     * @var EventsClient $events
      */
-    public $events;
+    public EventsClient $events;
 
     /**
-     * @var IntercomCompanies $companies
+     * @var DataExportClient $dataExport
      */
-    public $companies;
+    public DataExportClient $dataExport;
 
     /**
-     * @var IntercomContacts $contacts
+     * @var MessagesClient $messages
      */
-    public $contacts;
+    public MessagesClient $messages;
 
     /**
-     * @var IntercomMessages $messages
+     * @var SegmentsClient $segments
      */
-    public $messages;
+    public SegmentsClient $segments;
 
     /**
-     * @var IntercomConversations $conversations
+     * @var SubscriptionTypesClient $subscriptionTypes
      */
-    public $conversations;
+    public SubscriptionTypesClient $subscriptionTypes;
 
     /**
-     * @var IntercomLeads $leads
+     * @var PhoneCallRedirectsClient $phoneCallRedirects
      */
-    public $leads;
+    public PhoneCallRedirectsClient $phoneCallRedirects;
 
     /**
-     * @var IntercomVisitors $visitors
+     * @var TeamsClient $teams
      */
-    public $visitors;
+    public TeamsClient $teams;
 
     /**
-     * @var IntercomAdmins $admins
+     * @var TicketTypesClient $ticketTypes
      */
-    public $admins;
+    public TicketTypesClient $ticketTypes;
 
     /**
-     * @var IntercomTags $tags
+     * @var TicketsClient $tickets
      */
-    public $tags;
+    public TicketsClient $tickets;
 
     /**
-     * @var IntercomSegments $segments
+     * @var VisitorsClient $visitors
      */
-    public $segments;
+    public VisitorsClient $visitors;
 
     /**
-     * @var IntercomCounts $counts
+     * @var NewsClient $news
      */
-    public $counts;
+    public NewsClient $news;
 
     /**
-     * @var IntercomBulk $bulk
+     * @var UnstableClient $unstable
      */
-    public $bulk;
+    public UnstableClient $unstable;
 
     /**
-     * @var IntercomNotes $notes
+     * @var array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
-    public $notes;
+    private array $options;
 
     /**
-     * @var IntercomTeams $teams
+     * @var RawClient $client
      */
-    public $teams;
+    private RawClient $client;
 
     /**
-     * @var array $rateLimitDetails
+     * @param ?string $token The token to use for authentication.
+     * @param ?array{
+     *   baseUrl?: string,
+     *   client?: ClientInterface,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     * } $options
      */
-    protected $rateLimitDetails = [];
-
-    /**
-     * IntercomClient constructor.
-     *
-     * @param string $appIdOrToken App ID.
-     * @param string|null $password Api Key.
-     * @param array $extraRequestHeaders Extra request headers to be sent in every api request
-     */
-    public function __construct(string $appIdOrToken, ?string $password = null, array $extraRequestHeaders = [])
-    {
-        $this->users = new IntercomUsers($this);
-        $this->contacts = new IntercomContacts($this);
-        $this->events = new IntercomEvents($this);
-        $this->companies = new IntercomCompanies($this);
-        $this->messages = new IntercomMessages($this);
-        $this->conversations = new IntercomConversations($this);
-        $this->leads = new IntercomLeads($this);
-        $this->visitors = new IntercomVisitors($this);
-        $this->admins = new IntercomAdmins($this);
-        $this->tags = new IntercomTags($this);
-        $this->segments = new IntercomSegments($this);
-        $this->counts = new IntercomCounts($this);
-        $this->bulk = new IntercomBulk($this);
-        $this->notes = new IntercomNotes($this);
-        $this->teams = new IntercomTeams($this);
-
-        $this->appIdOrToken = $appIdOrToken;
-        $this->passwordPart = $password;
-        $this->extraRequestHeaders = $extraRequestHeaders;
-
-        $this->httpClient = $this->getDefaultHttpClient();
-        $this->requestFactory = Psr17FactoryDiscovery::findRequestFactory();
-        $this->uriFactory = Psr17FactoryDiscovery::findUriFactory();
-        $this->streamFactory =  Psr17FactoryDiscovery::findStreamFactory();
-    }
-
-    /**
-     * Sets the HTTP client.
-     *
-     * @param ClientInterface  $httpClient
-     */
-    public function setHttpClient(ClientInterface $httpClient)
-    {
-        $this->httpClient = $httpClient;
-    }
-
-    /**
-     * Sets the request factory.
-     *
-     * @param RequestFactoryInterface $requestFactory
-     */
-    public function setRequestFactory(RequestFactoryInterface $requestFactory)
-    {
-        $this->requestFactory = $requestFactory;
-    }
-
-    /**
-     * Sets the URI factory.
-     *
-     * @param UriFactoryInterface $uriFactory
-     */
-    public function setUriFactory(UriFactoryInterface $uriFactory)
-    {
-        $this->uriFactory = $uriFactory;
-    }
-
-    /**
-     * Sets the stream factory.
-     *
-     * @param StreamFactoryInterface $streamFactory
-     */
-    public function setStreamFactory(StreamFactoryInterface $streamFactory)
-    {
-        $this->streamFactory = $streamFactory;
-    }
-
-    /**
-     * Sends POST request to Intercom API.
-     *
-     * @param  string $endpoint
-     * @param  array $json
-     * @return stdClass
-     */
-    public function post($endpoint, $json)
-    {
-        $response = $this->sendRequest('POST', "https://api.intercom.io/$endpoint", $json);
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Sends PUT request to Intercom API.
-     *
-     * @param  string $endpoint
-     * @param  array $json
-     * @return stdClass
-     */
-    public function put($endpoint, $json)
-    {
-        $response = $this->sendRequest('PUT', "https://api.intercom.io/$endpoint", $json);
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Sends DELETE request to Intercom API.
-     *
-     * @param  string $endpoint
-     * @param  array $json
-     * @return stdClass
-     */
-    public function delete($endpoint, $json)
-    {
-        $response = $this->sendRequest('DELETE', "https://api.intercom.io/$endpoint", $json);
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Sends GET request to Intercom API.
-     *
-     * @param string $endpoint
-     * @param array  $queryParams
-     * @return stdClass
-     */
-    public function get($endpoint, $queryParams = [])
-    {
-        $uri = $this->uriFactory->createUri("https://api.intercom.io/$endpoint");
-        if (!empty($queryParams)) {
-            $uri = $uri->withQuery(http_build_query($queryParams));
-        }
-
-        $response = $this->sendRequest('GET', $uri);
-
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Returns the next page of the result.
-     *
-     * @param  stdClass $pages
-     * @return stdClass
-     */
-    public function nextPage($pages)
-    {
-        $response = $this->sendRequest('GET', $pages->next);
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Returns the next page of the result for a search query.
-     *
-     * @param  string $path
-     * @param  array $query
-     * @param  stdClass $pages
-     * @return stdClass
-     */
-    public function nextSearchPage(string $path, array $query, $pages)
-    {
-        $options = [
-            "query" => $query,
-            "pagination" => [
-                "per_page" => $pages->per_page,
-                "starting_after" => $pages->next->starting_after,
-            ]
+    public function __construct(
+        ?string $token = null,
+        ?array $options = null,
+    ) {
+        $token ??= $this->getFromEnvOrThrow('INTERCOM_API_KEY', 'Please pass in token or set the environment variable INTERCOM_API_KEY.');
+        $defaultHeaders = [
+            'Authorization' => "Bearer $token",
+            'X-Fern-Language' => 'PHP',
+            'X-Fern-SDK-Name' => 'Intercom',
+            'X-Fern-SDK-Version' => '0.0.325',
+            'User-Agent' => 'intercom/intercom-php/0.0.325',
+            'Intercom-Version' => '2.11',
         ];
-        return $this->post($path, $options);
-    }
 
-    /**
-     * Returns the next page of the result for a cursor based search.
-     *
-     * @param string $path
-     * @param string $startingAfter
-     * @return stdClass
-     */
-    public function nextCursorPage(string $path, string $startingAfter)
-    {
-        return $this->get($path . "?starting_after=" . $startingAfter);
-    }
-
-    /**
-     * Gets the rate limit details.
-     *
-     * @return array
-     */
-    public function getRateLimitDetails()
-    {
-        return $this->rateLimitDetails;
-    }
-
-    /**
-     * @return ClientInterface
-     */
-    private function getDefaultHttpClient()
-    {
-        return new PluginClient(
-            Psr18ClientDiscovery::find(),
-            [new ErrorPlugin()]
+        $this->options = $options ?? [];
+        $this->options['headers'] = array_merge(
+            $defaultHeaders,
+            $this->options['headers'] ?? [],
         );
-    }
 
-    /**
-     * @return array
-     */
-    private function getRequestHeaders()
-    {
-        return array_merge(
-            [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'User-Agent' => 'Intercom-PHP/' . self::SDK_VERSION,
-            ],
-            $this->extraRequestHeaders
+        $this->client = new RawClient(
+            options: $this->options,
         );
+
+        $this->admins = new AdminsClient($this->client, $this->options);
+        $this->articles = new ArticlesClient($this->client, $this->options);
+        $this->helpCenters = new HelpCentersClient($this->client, $this->options);
+        $this->companies = new CompaniesClient($this->client, $this->options);
+        $this->contacts = new ContactsClient($this->client, $this->options);
+        $this->notes = new NotesClient($this->client, $this->options);
+        $this->tags = new TagsClient($this->client, $this->options);
+        $this->conversations = new ConversationsClient($this->client, $this->options);
+        $this->dataAttributes = new DataAttributesClient($this->client, $this->options);
+        $this->events = new EventsClient($this->client, $this->options);
+        $this->dataExport = new DataExportClient($this->client, $this->options);
+        $this->messages = new MessagesClient($this->client, $this->options);
+        $this->segments = new SegmentsClient($this->client, $this->options);
+        $this->subscriptionTypes = new SubscriptionTypesClient($this->client, $this->options);
+        $this->phoneCallRedirects = new PhoneCallRedirectsClient($this->client, $this->options);
+        $this->teams = new TeamsClient($this->client, $this->options);
+        $this->ticketTypes = new TicketTypesClient($this->client, $this->options);
+        $this->tickets = new TicketsClient($this->client, $this->options);
+        $this->visitors = new VisitorsClient($this->client, $this->options);
+        $this->news = new NewsClient($this->client, $this->options);
+        $this->unstable = new UnstableClient($this->client, $this->options);
     }
 
     /**
-     * Returns authentication parameters
-     *
-     * @return Authentication
+     * @param string $env
+     * @param string $message
+     * @return string
      */
-    private function getAuth()
+    private function getFromEnvOrThrow(string $env, string $message): string
     {
-        if (!empty($this->appIdOrToken) && !empty($this->passwordPart)) {
-            return new BasicAuth($this->appIdOrToken, $this->passwordPart);
-        } elseif (!empty($this->appIdOrToken)) {
-            return new Bearer($this->appIdOrToken);
-        }
-        return null;
-    }
-
-    /**
-     * Authenticates a request object
-     * @param RequestInterface $request
-     *
-     * @return RequestInterface
-     */
-    private function authenticateRequest(RequestInterface $request)
-    {
-        $auth = $this->getAuth();
-        return $auth ? $auth->authenticate($request) : $request;
-    }
-
-    /**
-     * @param string              $method
-     * @param string|UriInterface $uri
-     * @param array|string|null   $body
-     *
-     * @return ResponseInterface
-     * @throws ClientExceptionInterface
-     */
-    private function sendRequest($method, $uri, $body = null)
-    {
-        $body = is_array($body) ? json_encode($body) : $body;
-        $request = $this->requestFactory
-            ->createRequest($method, $uri);
-
-        if ($body !== null) {
-            $request = $request
-                ->withBody($this->streamFactory->createStream($body));
-        }
-
-        foreach ($this->getRequestHeaders() as $name => $value) {
-            $request = $request
-                ->withHeader($name, $value);
-        }
-
-        $request = $this->authenticateRequest($request);
-
-        return $this->httpClient->sendRequest($request);
-    }
-
-    /**
-     * @param ResponseInterface $response
-     *
-     * @return stdClass
-     */
-    private function handleResponse(ResponseInterface $response)
-    {
-        $this->setRateLimitDetails($response);
-
-        $stream = $response->getBody()->getContents();
-
-        return json_decode($stream);
-    }
-
-    /**
-     * @param ResponseInterface $response
-     */
-    private function setRateLimitDetails(ResponseInterface $response)
-    {
-        $this->rateLimitDetails = [
-            'limit' => $response->hasHeader('X-RateLimit-Limit')
-                ? (int)$response->getHeader('X-RateLimit-Limit')[0]
-                : null,
-            'remaining' => $response->hasHeader('X-RateLimit-Remaining')
-                ? (int)$response->getHeader('X-RateLimit-Remaining')[0]
-                : null,
-            'reset_at' => $response->hasHeader('X-RateLimit-Reset')
-                ? (new \DateTimeImmutable())->setTimestamp((int)$response->getHeader('X-RateLimit-Reset')[0])
-                : null,
-        ];
+        $value = getenv($env);
+        return $value ? (string) $value : throw new Exception($message);
     }
 }

@@ -1,7 +1,5 @@
-/vendor
-composer.lock
-
-# PHPUnit
-phpunit.phar
-phpunit.xml
+.idea
+.php-cs-fixer.cache
 .phpunit.result.cache
+composer.lock
+vendor/

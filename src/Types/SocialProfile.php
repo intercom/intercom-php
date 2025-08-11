@@ -1,0 +1,104 @@
+<?php
+
+namespace Intercom\Types;
+
+use Intercom\Core\Json\JsonSerializableType;
+use Intercom\Core\Json\JsonProperty;
+
+/**
+ * A Social Profile allows you to label your contacts, companies, and conversations and list them using that Social Profile.
+ */
+class SocialProfile extends JsonSerializableType
+{
+    /**
+     * @var 'social_profile' $type value is "social_profile"
+     */
+    #[JsonProperty('type')]
+    private string $type;
+
+    /**
+     * @var string $name The name of the Social media profile
+     */
+    #[JsonProperty('name')]
+    private string $name;
+
+    /**
+     * @var string $url The name of the Social media profile
+     */
+    #[JsonProperty('url')]
+    private string $url;
+
+    /**
+     * @param array{
+     *   type: 'social_profile',
+     *   name: string,
+     *   url: string,
+     * } $values
+     */
+    public function __construct(
+        array $values,
+    ) {
+        $this->type = $values['type'];
+        $this->name = $values['name'];
+        $this->url = $values['url'];
+    }
+
+    /**
+     * @return 'social_profile'
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param 'social_profile' $value
+     */
+    public function setType(string $value): self
+    {
+        $this->type = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setName(string $value): self
+    {
+        $this->name = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setUrl(string $value): self
+    {
+        $this->url = $value;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}

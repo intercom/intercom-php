@@ -1,57 +1,44 @@
 {
-    "name": "intercom/intercom-php",
-    "description": "Intercom API client built on top of HTTPlug",
-    "keywords": [
-        "api",
-        "guzzle",
-        "intercom",
-        "intercom.io"
-    ],
-    "license": "Apache-2.0",
-    "authors": [
-        {
-            "name": "Intercom Platform Team",
-            "homepage": "https://www.intercom.com"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/intercom/intercom-php/issues",
-        "source": "https://github.com/intercom/intercom-php"
-    },
-    "autoload": {
-        "psr-4": {
-            "Intercom\\": [
-                "src"
-            ]
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Intercom\\Test\\": [
-                "tests"
-            ]
-        }
-    },
-    "require": {
-        "php": ">= 7.1",
-        "ext-json": "*",
-        "php-http/client-common": "^1.9 || ^2.0",
-        "php-http/client-implementation": "^1.0",
-        "php-http/discovery": "^1.4",
-        "php-http/httplug": "^1.0 || ^2.0",
-        "php-http/message": "^1.7",
-        "psr/http-message": "^1.0 || ^2.0"
-    },
-    "require-dev": {
-        "nyholm/psr7": "^1.6.1",
-        "php-http/mock-client": "^1.4",
-        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.3",
-        "squizlabs/php_codesniffer": "^3.1"
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "php-http/discovery": false
-        }
+  "name": "intercom/intercom-php",
+  "version": "0.0.325",
+  "description": "Intercom API client.",
+  "keywords": [
+    "intercom",
+    "api",
+    "sdk"
+  ],
+  "license": [],
+  "require": {
+    "php": "^8.1",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^7.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "friendsofphp/php-cs-fixer": "3.5.0",
+    "phpstan/phpstan": "^1.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "Intercom\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Intercom\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "build": [
+      "@php -l src",
+      "@php -l tests"
+    ],
+    "test": "phpunit",
+    "analyze": "phpstan analyze src tests --memory-limit=1G"
+  },
+  "author": {
+    "name": "Intercom Platform Team",
+    "url": "https://www.intercom.com"
+  },
+  "homepage": "https://developers.intercom.com/docs"
 }
