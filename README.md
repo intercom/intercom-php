@@ -5,16 +5,6 @@
 
 The Intercom PHP library provides convenient access to the Intercom API from PHP.
 
-## Project Updates
-
-### Maintenance
-
-We're currently building a new team to provide in-depth and dedicated SDK support.
-
-In the meantime, we'll be operating on limited capacity, meaning all pull requests will be evaluated on a best effort basis and will be limited to critical issues.
-
-We'll communicate all relevant updates as we build this new team and support strategy in the coming months.
-
 ## Installation
 
 ```sh
