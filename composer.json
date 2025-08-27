@@ -1,13 +1,13 @@
 {
   "name": "intercom/intercom-php",
-  "version": "0.0.325",
+
   "description": "Intercom API client.",
   "keywords": [
     "intercom",
     "api",
     "sdk"
   ],
-  "license": [],
+  "license": "MIT",
   "require": {
     "php": "^8.1",
     "ext-json": "*",
@@ -36,9 +36,11 @@
     "test": "phpunit",
     "analyze": "phpstan analyze src tests --memory-limit=1G"
   },
-  "author": {
-    "name": "Intercom Platform Team",
-    "url": "https://www.intercom.com"
-  },
+  "authors": [
+    {
+      "name": "Intercom Platform Team",
+      "homepage": "https://www.intercom.com"
+    }
+  ],
   "homepage": "https://developers.intercom.com/docs"
 }
