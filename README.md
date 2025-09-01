@@ -34,8 +34,7 @@ use Intercom\IntercomClient;
 
 $client = new IntercomClient(
     '<insert_token_here>',
-    null,
-    ['Custom-Header' => 'value']
+    ['headers' => ['Customer-Header' => 'value']]
 );
 ```
 
@@ -72,8 +71,7 @@ use Intercom\IntercomClient;
 
 $client = new IntercomClient(
     '<insert_token_here>',
-    null,
-    ['Intercom-Version' => '1.1']
+    ['headers' => [['Intercom-Version' => '1.1']]
 );
 ```
 
