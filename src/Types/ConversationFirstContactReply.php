@@ -11,16 +11,16 @@ use Intercom\Core\Json\JsonProperty;
 class ConversationFirstContactReply extends JsonSerializableType
 {
     /**
-     * @var int $createdAt
+     * @var ?int $createdAt
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
-     * @var string $type
+     * @var ?string $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var ?string $url
@@ -30,48 +30,48 @@ class ConversationFirstContactReply extends JsonSerializableType
 
     /**
      * @param array{
-     *   createdAt: int,
-     *   type: string,
+     *   createdAt?: ?int,
+     *   type?: ?string,
      *   url?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->createdAt = $values['createdAt'];
-        $this->type = $values['type'];
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->type = $values['type'] ?? null;
         $this->url = $values['url'] ?? null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;

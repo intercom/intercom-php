@@ -11,16 +11,16 @@ use Intercom\Core\Json\JsonProperty;
 class ContactReference extends JsonSerializableType
 {
     /**
-     * @var 'contact' $type always contact
+     * @var ?'contact' $type always contact
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The unique identifier for the contact which is given by Intercom.
+     * @var ?string $id The unique identifier for the contact which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
      * @var ?string $externalId The unique identifier for the contact which is provided by the Client.
@@ -30,48 +30,48 @@ class ContactReference extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'contact',
-     *   id: string,
+     *   type?: ?'contact',
+     *   id?: ?string,
      *   externalId?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
         $this->externalId = $values['externalId'] ?? null;
     }
 
     /**
-     * @return 'contact'
+     * @return ?'contact'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'contact' $value
+     * @param ?'contact' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;

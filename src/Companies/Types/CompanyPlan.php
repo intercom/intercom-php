@@ -8,7 +8,7 @@ use Intercom\Core\Json\JsonProperty;
 class CompanyPlan extends JsonSerializableType
 {
     /**
-     * @var ?'plan' $type Value is always "plan"
+     * @var ?string $type Value is always "plan"
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -27,7 +27,7 @@ class CompanyPlan extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'plan',
+     *   type?: ?string,
      *   id?: ?string,
      *   name?: ?string,
      * } $values
@@ -41,7 +41,7 @@ class CompanyPlan extends JsonSerializableType
     }
 
     /**
-     * @return ?'plan'
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -49,7 +49,7 @@ class CompanyPlan extends JsonSerializableType
     }
 
     /**
-     * @param ?'plan' $value
+     * @param ?string $value
      */
     public function setType(?string $value = null): self
     {

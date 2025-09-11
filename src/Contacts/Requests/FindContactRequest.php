@@ -7,7 +7,7 @@ use Intercom\Core\Json\JsonSerializableType;
 class FindContactRequest extends JsonSerializableType
 {
     /**
-     * @var string $contactId id
+     * @var string $contactId contact_id
      */
     private string $contactId;
 

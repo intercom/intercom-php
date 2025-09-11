@@ -12,59 +12,59 @@ use Intercom\Core\Types\ArrayType;
 class ConversationContacts extends JsonSerializableType
 {
     /**
-     * @var 'contact.list' $type
+     * @var ?'contact.list' $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<ContactReference> $contacts The list of contacts (users or leads) involved in this conversation. This will only contain one customer unless more were added via the group conversation feature.
+     * @var ?array<ContactReference> $contacts The list of contacts (users or leads) involved in this conversation. This will only contain one customer unless more were added via the group conversation feature.
      */
     #[JsonProperty('contacts'), ArrayType([ContactReference::class])]
-    private array $contacts;
+    private ?array $contacts;
 
     /**
      * @param array{
-     *   type: 'contact.list',
-     *   contacts: array<ContactReference>,
+     *   type?: ?'contact.list',
+     *   contacts?: ?array<ContactReference>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->contacts = $values['contacts'];
+        $this->type = $values['type'] ?? null;
+        $this->contacts = $values['contacts'] ?? null;
     }
 
     /**
-     * @return 'contact.list'
+     * @return ?'contact.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'contact.list' $value
+     * @param ?'contact.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<ContactReference>
+     * @return ?array<ContactReference>
      */
-    public function getContacts(): array
+    public function getContacts(): ?array
     {
         return $this->contacts;
     }
 
     /**
-     * @param array<ContactReference> $value
+     * @param ?array<ContactReference> $value
      */
-    public function setContacts(array $value): self
+    public function setContacts(?array $value = null): self
     {
         $this->contacts = $value;
         return $this;

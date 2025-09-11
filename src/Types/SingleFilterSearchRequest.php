@@ -27,11 +27,13 @@ class SingleFilterSearchRequest extends JsonSerializableType
      * @var (
      *    string
      *   |int
-     *   |array<string>
-     *   |array<int>
+     *   |array<(
+     *    string
+     *   |int
+     * )>
      * )|null $value The value that you want to search on.
      */
-    #[JsonProperty('value'), Union('string', 'integer', ['string'], ['integer'], 'null')]
+    #[JsonProperty('value'), Union('string', 'integer', [new Union('string', 'integer')], 'null')]
     private string|int|array|null $value;
 
     /**
@@ -41,8 +43,10 @@ class SingleFilterSearchRequest extends JsonSerializableType
      *   value?: (
      *    string
      *   |int
-     *   |array<string>
-     *   |array<int>
+     *   |array<(
+     *    string
+     *   |int
+     * )>
      * )|null,
      * } $values
      */
@@ -92,8 +96,10 @@ class SingleFilterSearchRequest extends JsonSerializableType
      * @return (
      *    string
      *   |int
-     *   |array<string>
-     *   |array<int>
+     *   |array<(
+     *    string
+     *   |int
+     * )>
      * )|null
      */
     public function getValue(): string|int|array|null
@@ -105,8 +111,10 @@ class SingleFilterSearchRequest extends JsonSerializableType
      * @param (
      *    string
      *   |int
-     *   |array<string>
-     *   |array<int>
+     *   |array<(
+     *    string
+     *   |int
+     * )>
      * )|null $value
      */
     public function setValue(string|int|array|null $value = null): self

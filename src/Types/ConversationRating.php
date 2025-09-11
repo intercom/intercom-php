@@ -11,134 +11,159 @@ use Intercom\Core\Json\JsonProperty;
 class ConversationRating extends JsonSerializableType
 {
     /**
-     * @var int $rating The rating, between 1 and 5, for the conversation.
+     * @var ?int $rating The rating, between 1 and 5, for the conversation.
      */
     #[JsonProperty('rating')]
-    private int $rating;
+    private ?int $rating;
 
     /**
-     * @var string $remark An optional field to add a remark to correspond to the number rating
+     * @var ?string $remark An optional field to add a remark to correspond to the number rating
      */
     #[JsonProperty('remark')]
-    private string $remark;
+    private ?string $remark;
 
     /**
-     * @var int $createdAt The time the rating was requested in the conversation being rated.
+     * @var ?int $createdAt The time the rating was requested in the conversation being rated.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
-     * @var ContactReference $contact
+     * @var ?int $updatedAt The time the rating was last updated.
+     */
+    #[JsonProperty('updated_at')]
+    private ?int $updatedAt;
+
+    /**
+     * @var ?ContactReference $contact
      */
     #[JsonProperty('contact')]
-    private ContactReference $contact;
+    private ?ContactReference $contact;
 
     /**
-     * @var Reference $teammate
+     * @var ?Reference $teammate
      */
     #[JsonProperty('teammate')]
-    private Reference $teammate;
+    private ?Reference $teammate;
 
     /**
      * @param array{
-     *   rating: int,
-     *   remark: string,
-     *   createdAt: int,
-     *   contact: ContactReference,
-     *   teammate: Reference,
+     *   rating?: ?int,
+     *   remark?: ?string,
+     *   createdAt?: ?int,
+     *   updatedAt?: ?int,
+     *   contact?: ?ContactReference,
+     *   teammate?: ?Reference,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->rating = $values['rating'];
-        $this->remark = $values['remark'];
-        $this->createdAt = $values['createdAt'];
-        $this->contact = $values['contact'];
-        $this->teammate = $values['teammate'];
+        $this->rating = $values['rating'] ?? null;
+        $this->remark = $values['remark'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->updatedAt = $values['updatedAt'] ?? null;
+        $this->contact = $values['contact'] ?? null;
+        $this->teammate = $values['teammate'] ?? null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getRating(): int
+    public function getRating(): ?int
     {
         return $this->rating;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setRating(int $value): self
+    public function setRating(?int $value = null): self
     {
         $this->rating = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getRemark(): string
+    public function getRemark(): ?string
     {
         return $this->remark;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setRemark(string $value): self
+    public function setRemark(?string $value = null): self
     {
         $this->remark = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
     }
 
     /**
-     * @return ContactReference
+     * @return ?int
      */
-    public function getContact(): ContactReference
+    public function getUpdatedAt(): ?int
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setUpdatedAt(?int $value = null): self
+    {
+        $this->updatedAt = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?ContactReference
+     */
+    public function getContact(): ?ContactReference
     {
         return $this->contact;
     }
 
     /**
-     * @param ContactReference $value
+     * @param ?ContactReference $value
      */
-    public function setContact(ContactReference $value): self
+    public function setContact(?ContactReference $value = null): self
     {
         $this->contact = $value;
         return $this;
     }
 
     /**
-     * @return Reference
+     * @return ?Reference
      */
-    public function getTeammate(): Reference
+    public function getTeammate(): ?Reference
     {
         return $this->teammate;
     }
 
     /**
-     * @param Reference $value
+     * @param ?Reference $value
      */
-    public function setTeammate(Reference $value): self
+    public function setTeammate(?Reference $value = null): self
     {
         $this->teammate = $value;
         return $this;

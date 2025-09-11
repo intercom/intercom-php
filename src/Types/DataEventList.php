@@ -13,16 +13,16 @@ use Intercom\Core\Types\ArrayType;
 class DataEventList extends JsonSerializableType
 {
     /**
-     * @var 'event.list' $type The type of the object
+     * @var ?'event.list' $type The type of the object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<DataEvent> $events A list of data events
+     * @var ?array<DataEvent> $events A list of data events
      */
     #[JsonProperty('events'), ArrayType([DataEvent::class])]
-    private array $events;
+    private ?array $events;
 
     /**
      * @var ?DataEventListPages $pages Pagination
@@ -32,48 +32,48 @@ class DataEventList extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'event.list',
-     *   events: array<DataEvent>,
+     *   type?: ?'event.list',
+     *   events?: ?array<DataEvent>,
      *   pages?: ?DataEventListPages,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->events = $values['events'];
+        $this->type = $values['type'] ?? null;
+        $this->events = $values['events'] ?? null;
         $this->pages = $values['pages'] ?? null;
     }
 
     /**
-     * @return 'event.list'
+     * @return ?'event.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'event.list' $value
+     * @param ?'event.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<DataEvent>
+     * @return ?array<DataEvent>
      */
-    public function getEvents(): array
+    public function getEvents(): ?array
     {
         return $this->events;
     }
 
     /**
-     * @param array<DataEvent> $value
+     * @param ?array<DataEvent> $value
      */
-    public function setEvents(array $value): self
+    public function setEvents(?array $value = null): self
     {
         $this->events = $value;
         return $this;

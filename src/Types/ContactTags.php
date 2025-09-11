@@ -12,109 +12,109 @@ use Intercom\Core\Types\ArrayType;
 class ContactTags extends JsonSerializableType
 {
     /**
-     * @var array<AddressableList> $data This object represents the tags attached to a contact.
+     * @var ?array<AddressableList> $data This object represents the tags attached to a contact.
      */
     #[JsonProperty('data'), ArrayType([AddressableList::class])]
-    private array $data;
+    private ?array $data;
 
     /**
-     * @var string $url url to get more tag resources for this contact
+     * @var ?string $url url to get more tag resources for this contact
      */
     #[JsonProperty('url')]
-    private string $url;
+    private ?string $url;
 
     /**
-     * @var int $totalCount Int representing the total number of tags attached to this contact
+     * @var ?int $totalCount Int representing the total number of tags attached to this contact
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
-     * @var bool $hasMore Whether there's more Addressable Objects to be viewed. If true, use the url to view all
+     * @var ?bool $hasMore Whether there's more Addressable Objects to be viewed. If true, use the url to view all
      */
     #[JsonProperty('has_more')]
-    private bool $hasMore;
+    private ?bool $hasMore;
 
     /**
      * @param array{
-     *   data: array<AddressableList>,
-     *   url: string,
-     *   totalCount: int,
-     *   hasMore: bool,
+     *   data?: ?array<AddressableList>,
+     *   url?: ?string,
+     *   totalCount?: ?int,
+     *   hasMore?: ?bool,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->data = $values['data'];
-        $this->url = $values['url'];
-        $this->totalCount = $values['totalCount'];
-        $this->hasMore = $values['hasMore'];
+        $this->data = $values['data'] ?? null;
+        $this->url = $values['url'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
+        $this->hasMore = $values['hasMore'] ?? null;
     }
 
     /**
-     * @return array<AddressableList>
+     * @return ?array<AddressableList>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<AddressableList> $value
+     * @param ?array<AddressableList> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUrl(string $value): self
+    public function setUrl(?string $value = null): self
     {
         $this->url = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getHasMore(): bool
+    public function getHasMore(): ?bool
     {
         return $this->hasMore;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setHasMore(bool $value): self
+    public function setHasMore(?bool $value = null): self
     {
         $this->hasMore = $value;
         return $this;

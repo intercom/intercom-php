@@ -4,8 +4,8 @@ namespace Intercom\DataExport;
 
 use GuzzleHttp\ClientInterface;
 use Intercom\Core\Client\RawClient;
-use Intercom\DataExport\Requests\CreateDataExportRequest;
-use Intercom\DataExport\Types\DataExport;
+use Intercom\DataExport\Requests\ExportReportingDataRequest;
+use Intercom\DataExport\Types\DataExportExportReportingDataResponse;
 use Intercom\Exceptions\IntercomException;
 use Intercom\Exceptions\IntercomApiException;
 use Intercom\Core\Json\JsonApiRequest;
@@ -14,6 +14,9 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
+use Intercom\DataExport\Requests\DownloadReportingDataExportRequest;
+use Intercom\DataExport\Requests\CreateDataExportRequest;
+use Intercom\DataExport\Types\DataExport;
 use Intercom\DataExport\Requests\FindDataExportRequest;
 use Intercom\DataExport\Requests\CancelDataExportRequest;
 use Intercom\DataExport\Requests\DownloadDataExportRequest;
@@ -52,6 +55,115 @@ class DataExportClient
     ) {
         $this->client = $client;
         $this->options = $options ?? [];
+    }
+
+    /**
+     * @param ExportReportingDataRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return DataExportExportReportingDataResponse
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function exportReportingData(ExportReportingDataRequest $request, ?array $options = null): DataExportExportReportingDataResponse
+    {
+        $options = array_merge($this->options, $options ?? []);
+        $query = [];
+        $query['app_id'] = $request->getAppId();
+        $query['client_id'] = $request->getClientId();
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "export/reporting_data/{$request->getJobIdentifier()}",
+                    method: HttpMethod::GET,
+                    query: $query,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return DataExportExportReportingDataResponse::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * @param DownloadReportingDataExportRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function downloadReportingDataExport(DownloadReportingDataExportRequest $request, ?array $options = null): void
+    {
+        $options = array_merge($this->options, $options ?? []);
+        $query = [];
+        $query['app_id'] = $request->getAppId();
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "download/reporting_data/{$request->getJobIdentifier()}",
+                    method: HttpMethod::GET,
+                    query: $query,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                return;
+            }
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
     }
 
     /**

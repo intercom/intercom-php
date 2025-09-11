@@ -21,5 +21,8 @@ enum IntercomVersion: string
     case Two9 = "2.9";
     case Two10 = "2.10";
     case Two11 = "2.11";
+    case Two12 = "2.12";
+    case Two13 = "2.13";
+    case Two14 = "2.14";
     case Unstable = "Unstable";
 }

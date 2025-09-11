@@ -6,6 +6,7 @@ use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Tickets\Types\Ticket;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 
 /**
  * Tickets are how you track requests from your users.
@@ -13,22 +14,22 @@ use Intercom\Core\Types\ArrayType;
 class TicketList extends JsonSerializableType
 {
     /**
-     * @var 'ticket.list' $type Always ticket.list
+     * @var ?'ticket.list' $type Always ticket.list
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Ticket> $tickets The list of ticket objects
+     * @var ?array<?Ticket> $tickets The list of ticket objects
      */
-    #[JsonProperty('tickets'), ArrayType([Ticket::class])]
-    private array $tickets;
+    #[JsonProperty('tickets'), ArrayType([new Union(Ticket::class, 'null')])]
+    private ?array $tickets;
 
     /**
-     * @var int $totalCount A count of the total number of objects.
+     * @var ?int $totalCount A count of the total number of objects.
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
      * @var ?CursorPages $pages
@@ -38,67 +39,67 @@ class TicketList extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'ticket.list',
-     *   tickets: array<Ticket>,
-     *   totalCount: int,
+     *   type?: ?'ticket.list',
+     *   tickets?: ?array<?Ticket>,
+     *   totalCount?: ?int,
      *   pages?: ?CursorPages,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->tickets = $values['tickets'];
-        $this->totalCount = $values['totalCount'];
+        $this->type = $values['type'] ?? null;
+        $this->tickets = $values['tickets'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
         $this->pages = $values['pages'] ?? null;
     }
 
     /**
-     * @return 'ticket.list'
+     * @return ?'ticket.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'ticket.list' $value
+     * @param ?'ticket.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Ticket>
+     * @return ?array<?Ticket>
      */
-    public function getTickets(): array
+    public function getTickets(): ?array
     {
         return $this->tickets;
     }
 
     /**
-     * @param array<Ticket> $value
+     * @param ?array<?Ticket> $value
      */
-    public function setTickets(array $value): self
+    public function setTickets(?array $value = null): self
     {
         $this->tickets = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;

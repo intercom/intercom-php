@@ -13,59 +13,59 @@ use Intercom\Core\Types\ArrayType;
 class Tags extends JsonSerializableType
 {
     /**
-     * @var 'tag.list' $type The type of the object
+     * @var ?'tag.list' $type The type of the object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Tag> $tags A list of tags objects associated with the conversation.
+     * @var ?array<Tag> $tags A list of tags objects associated with the conversation.
      */
     #[JsonProperty('tags'), ArrayType([Tag::class])]
-    private array $tags;
+    private ?array $tags;
 
     /**
      * @param array{
-     *   type: 'tag.list',
-     *   tags: array<Tag>,
+     *   type?: ?'tag.list',
+     *   tags?: ?array<Tag>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->tags = $values['tags'];
+        $this->type = $values['type'] ?? null;
+        $this->tags = $values['tags'] ?? null;
     }
 
     /**
-     * @return 'tag.list'
+     * @return ?'tag.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'tag.list' $value
+     * @param ?'tag.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Tag>
+     * @return ?array<Tag>
      */
-    public function getTags(): array
+    public function getTags(): ?array
     {
         return $this->tags;
     }
 
     /**
-     * @param array<Tag> $value
+     * @param ?array<Tag> $value
      */
-    public function setTags(array $value): self
+    public function setTags(?array $value = null): self
     {
         $this->tags = $value;
         return $this;

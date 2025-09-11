@@ -13,16 +13,16 @@ use Intercom\Core\Types\ArrayType;
 class CompanyScroll extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of object - `list`
+     * @var ?'list' $type The type of object - `list`
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Company> $data
+     * @var ?array<Company> $data
      */
     #[JsonProperty('data'), ArrayType([Company::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @var ?CursorPages $pages
@@ -44,52 +44,52 @@ class CompanyScroll extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'list',
-     *   data: array<Company>,
+     *   type?: ?'list',
+     *   data?: ?array<Company>,
      *   pages?: ?CursorPages,
      *   totalCount?: ?int,
      *   scrollParam?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->data = $values['data'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
         $this->pages = $values['pages'] ?? null;
         $this->totalCount = $values['totalCount'] ?? null;
         $this->scrollParam = $values['scrollParam'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Company>
+     * @return ?array<Company>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<Company> $value
+     * @param ?array<Company> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

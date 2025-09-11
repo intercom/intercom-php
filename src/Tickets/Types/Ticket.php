@@ -14,52 +14,52 @@ use Intercom\Types\TicketParts;
 class Ticket extends JsonSerializableType
 {
     /**
-     * @var 'ticket' $type Always ticket
+     * @var ?'ticket' $type Always ticket
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The unique identifier for the ticket which is given by Intercom.
+     * @var ?string $id The unique identifier for the ticket which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $ticketId The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries.
+     * @var ?string $ticketId The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries.
      */
     #[JsonProperty('ticket_id')]
-    private string $ticketId;
+    private ?string $ticketId;
 
     /**
-     * @var value-of<TicketCategory> $category Category of the Ticket.
+     * @var ?value-of<TicketCategory> $category Category of the Ticket.
      */
     #[JsonProperty('category')]
-    private string $category;
+    private ?string $category;
 
     /**
-     * @var array<string, mixed> $ticketAttributes
+     * @var ?array<string, mixed> $ticketAttributes
      */
     #[JsonProperty('ticket_attributes'), ArrayType(['string' => 'mixed'])]
-    private array $ticketAttributes;
+    private ?array $ticketAttributes;
 
     /**
-     * @var value-of<TicketTicketState> $ticketState The state the ticket is currently in
+     * @var ?TicketState $ticketState
      */
     #[JsonProperty('ticket_state')]
-    private string $ticketState;
+    private ?TicketState $ticketState;
 
     /**
-     * @var TicketType $ticketType
+     * @var ?TicketType $ticketType
      */
     #[JsonProperty('ticket_type')]
-    private TicketType $ticketType;
+    private ?TicketType $ticketType;
 
     /**
-     * @var TicketContacts $contacts
+     * @var ?TicketContacts $contacts
      */
     #[JsonProperty('contacts')]
-    private TicketContacts $contacts;
+    private ?TicketContacts $contacts;
 
     /**
      * @var ?string $adminAssigneeId The id representing the admin assigned to the ticket.
@@ -116,27 +116,15 @@ class Ticket extends JsonSerializableType
     private ?bool $isShared;
 
     /**
-     * @var ?string $ticketStateInternalLabel The state the ticket is currently in, in a human readable form - visible in Intercom
-     */
-    #[JsonProperty('ticket_state_internal_label')]
-    private ?string $ticketStateInternalLabel;
-
-    /**
-     * @var ?string $ticketStateExternalLabel The state the ticket is currently in, in a human readable form - visible to customers, in the messenger, email and tickets portal.
-     */
-    #[JsonProperty('ticket_state_external_label')]
-    private ?string $ticketStateExternalLabel;
-
-    /**
      * @param array{
-     *   type: 'ticket',
-     *   id: string,
-     *   ticketId: string,
-     *   category: value-of<TicketCategory>,
-     *   ticketAttributes: array<string, mixed>,
-     *   ticketState: value-of<TicketTicketState>,
-     *   ticketType: TicketType,
-     *   contacts: TicketContacts,
+     *   type?: ?'ticket',
+     *   id?: ?string,
+     *   ticketId?: ?string,
+     *   category?: ?value-of<TicketCategory>,
+     *   ticketAttributes?: ?array<string, mixed>,
+     *   ticketState?: ?TicketState,
+     *   ticketType?: ?TicketType,
+     *   contacts?: ?TicketContacts,
      *   adminAssigneeId?: ?string,
      *   teamAssigneeId?: ?string,
      *   createdAt?: ?int,
@@ -146,21 +134,19 @@ class Ticket extends JsonSerializableType
      *   linkedObjects?: ?LinkedObjectList,
      *   ticketParts?: ?TicketParts,
      *   isShared?: ?bool,
-     *   ticketStateInternalLabel?: ?string,
-     *   ticketStateExternalLabel?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->ticketId = $values['ticketId'];
-        $this->category = $values['category'];
-        $this->ticketAttributes = $values['ticketAttributes'];
-        $this->ticketState = $values['ticketState'];
-        $this->ticketType = $values['ticketType'];
-        $this->contacts = $values['contacts'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->ticketId = $values['ticketId'] ?? null;
+        $this->category = $values['category'] ?? null;
+        $this->ticketAttributes = $values['ticketAttributes'] ?? null;
+        $this->ticketState = $values['ticketState'] ?? null;
+        $this->ticketType = $values['ticketType'] ?? null;
+        $this->contacts = $values['contacts'] ?? null;
         $this->adminAssigneeId = $values['adminAssigneeId'] ?? null;
         $this->teamAssigneeId = $values['teamAssigneeId'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
@@ -170,141 +156,139 @@ class Ticket extends JsonSerializableType
         $this->linkedObjects = $values['linkedObjects'] ?? null;
         $this->ticketParts = $values['ticketParts'] ?? null;
         $this->isShared = $values['isShared'] ?? null;
-        $this->ticketStateInternalLabel = $values['ticketStateInternalLabel'] ?? null;
-        $this->ticketStateExternalLabel = $values['ticketStateExternalLabel'] ?? null;
     }
 
     /**
-     * @return 'ticket'
+     * @return ?'ticket'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'ticket' $value
+     * @param ?'ticket' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getTicketId(): string
+    public function getTicketId(): ?string
     {
         return $this->ticketId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setTicketId(string $value): self
+    public function setTicketId(?string $value = null): self
     {
         $this->ticketId = $value;
         return $this;
     }
 
     /**
-     * @return value-of<TicketCategory>
+     * @return ?value-of<TicketCategory>
      */
-    public function getCategory(): string
+    public function getCategory(): ?string
     {
         return $this->category;
     }
 
     /**
-     * @param value-of<TicketCategory> $value
+     * @param ?value-of<TicketCategory> $value
      */
-    public function setCategory(string $value): self
+    public function setCategory(?string $value = null): self
     {
         $this->category = $value;
         return $this;
     }
 
     /**
-     * @return array<string, mixed>
+     * @return ?array<string, mixed>
      */
-    public function getTicketAttributes(): array
+    public function getTicketAttributes(): ?array
     {
         return $this->ticketAttributes;
     }
 
     /**
-     * @param array<string, mixed> $value
+     * @param ?array<string, mixed> $value
      */
-    public function setTicketAttributes(array $value): self
+    public function setTicketAttributes(?array $value = null): self
     {
         $this->ticketAttributes = $value;
         return $this;
     }
 
     /**
-     * @return value-of<TicketTicketState>
+     * @return ?TicketState
      */
-    public function getTicketState(): string
+    public function getTicketState(): ?TicketState
     {
         return $this->ticketState;
     }
 
     /**
-     * @param value-of<TicketTicketState> $value
+     * @param ?TicketState $value
      */
-    public function setTicketState(string $value): self
+    public function setTicketState(?TicketState $value = null): self
     {
         $this->ticketState = $value;
         return $this;
     }
 
     /**
-     * @return TicketType
+     * @return ?TicketType
      */
-    public function getTicketType(): TicketType
+    public function getTicketType(): ?TicketType
     {
         return $this->ticketType;
     }
 
     /**
-     * @param TicketType $value
+     * @param ?TicketType $value
      */
-    public function setTicketType(TicketType $value): self
+    public function setTicketType(?TicketType $value = null): self
     {
         $this->ticketType = $value;
         return $this;
     }
 
     /**
-     * @return TicketContacts
+     * @return ?TicketContacts
      */
-    public function getContacts(): TicketContacts
+    public function getContacts(): ?TicketContacts
     {
         return $this->contacts;
     }
 
     /**
-     * @param TicketContacts $value
+     * @param ?TicketContacts $value
      */
-    public function setContacts(TicketContacts $value): self
+    public function setContacts(?TicketContacts $value = null): self
     {
         $this->contacts = $value;
         return $this;
@@ -460,40 +444,6 @@ class Ticket extends JsonSerializableType
     public function setIsShared(?bool $value = null): self
     {
         $this->isShared = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getTicketStateInternalLabel(): ?string
-    {
-        return $this->ticketStateInternalLabel;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setTicketStateInternalLabel(?string $value = null): self
-    {
-        $this->ticketStateInternalLabel = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getTicketStateExternalLabel(): ?string
-    {
-        return $this->ticketStateExternalLabel;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setTicketStateExternalLabel(?string $value = null): self
-    {
-        $this->ticketStateExternalLabel = $value;
         return $this;
     }
 

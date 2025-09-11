@@ -11,84 +11,84 @@ use Intercom\Core\Json\JsonProperty;
 class VisitorDeletedObject extends JsonSerializableType
 {
     /**
-     * @var string $id The unique identifier for the visitor which is given by Intercom.
+     * @var ?string $id The unique identifier for the visitor which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var 'visitor' $type The type of object which was deleted
+     * @var ?'visitor' $type The type of object which was deleted
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $userId Automatically generated identifier for the Visitor.
+     * @var ?string $userId Automatically generated identifier for the Visitor.
      */
     #[JsonProperty('user_id')]
-    private string $userId;
+    private ?string $userId;
 
     /**
      * @param array{
-     *   id: string,
-     *   type: 'visitor',
-     *   userId: string,
+     *   id?: ?string,
+     *   type?: ?'visitor',
+     *   userId?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->id = $values['id'];
-        $this->type = $values['type'];
-        $this->userId = $values['userId'];
+        $this->id = $values['id'] ?? null;
+        $this->type = $values['type'] ?? null;
+        $this->userId = $values['userId'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return 'visitor'
+     * @return ?'visitor'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'visitor' $value
+     * @param ?'visitor' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUserId(string $value): self
+    public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
         return $this;

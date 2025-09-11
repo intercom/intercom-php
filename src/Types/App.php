@@ -11,184 +11,184 @@ use Intercom\Core\Json\JsonProperty;
 class App extends JsonSerializableType
 {
     /**
-     * @var string $type
+     * @var ?string $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $idCode The id of the app.
+     * @var ?string $idCode The id of the app.
      */
     #[JsonProperty('id_code')]
-    private string $idCode;
+    private ?string $idCode;
 
     /**
-     * @var string $name The name of the app.
+     * @var ?string $name The name of the app.
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $region The Intercom region the app is located in.
+     * @var ?string $region The Intercom region the app is located in.
      */
     #[JsonProperty('region')]
-    private string $region;
+    private ?string $region;
 
     /**
-     * @var string $timezone The timezone of the region where the app is located.
+     * @var ?string $timezone The timezone of the region where the app is located.
      */
     #[JsonProperty('timezone')]
-    private string $timezone;
+    private ?string $timezone;
 
     /**
-     * @var int $createdAt When the app was created.
+     * @var ?int $createdAt When the app was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
-     * @var bool $identityVerification Whether or not the app uses identity verification.
+     * @var ?bool $identityVerification Whether or not the app uses identity verification.
      */
     #[JsonProperty('identity_verification')]
-    private bool $identityVerification;
+    private ?bool $identityVerification;
 
     /**
      * @param array{
-     *   type: string,
-     *   idCode: string,
-     *   name: string,
-     *   region: string,
-     *   timezone: string,
-     *   createdAt: int,
-     *   identityVerification: bool,
+     *   type?: ?string,
+     *   idCode?: ?string,
+     *   name?: ?string,
+     *   region?: ?string,
+     *   timezone?: ?string,
+     *   createdAt?: ?int,
+     *   identityVerification?: ?bool,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->idCode = $values['idCode'];
-        $this->name = $values['name'];
-        $this->region = $values['region'];
-        $this->timezone = $values['timezone'];
-        $this->createdAt = $values['createdAt'];
-        $this->identityVerification = $values['identityVerification'];
+        $this->type = $values['type'] ?? null;
+        $this->idCode = $values['idCode'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->region = $values['region'] ?? null;
+        $this->timezone = $values['timezone'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->identityVerification = $values['identityVerification'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getIdCode(): string
+    public function getIdCode(): ?string
     {
         return $this->idCode;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setIdCode(string $value): self
+    public function setIdCode(?string $value = null): self
     {
         $this->idCode = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getRegion(): string
+    public function getRegion(): ?string
     {
         return $this->region;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setRegion(string $value): self
+    public function setRegion(?string $value = null): self
     {
         $this->region = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getTimezone(): string
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setTimezone(string $value): self
+    public function setTimezone(?string $value = null): self
     {
         $this->timezone = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getIdentityVerification(): bool
+    public function getIdentityVerification(): ?bool
     {
         return $this->identityVerification;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setIdentityVerification(bool $value): self
+    public function setIdentityVerification(?bool $value = null): self
     {
         $this->identityVerification = $value;
         return $this;

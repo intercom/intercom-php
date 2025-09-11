@@ -53,6 +53,18 @@ class HelpCenter extends JsonSerializableType
     private ?string $displayName;
 
     /**
+     * @var ?string $url The URL for the help center, if you have a custom domain then this will show the URL using the custom domain.
+     */
+    #[JsonProperty('url')]
+    private ?string $url;
+
+    /**
+     * @var ?string $customDomain Custom domain configured for the help center
+     */
+    #[JsonProperty('custom_domain')]
+    private ?string $customDomain;
+
+    /**
      * @param array{
      *   id?: ?string,
      *   workspaceId?: ?string,
@@ -61,6 +73,8 @@ class HelpCenter extends JsonSerializableType
      *   identifier?: ?string,
      *   websiteTurnedOn?: ?bool,
      *   displayName?: ?string,
+     *   url?: ?string,
+     *   customDomain?: ?string,
      * } $values
      */
     public function __construct(
@@ -73,6 +87,8 @@ class HelpCenter extends JsonSerializableType
         $this->identifier = $values['identifier'] ?? null;
         $this->websiteTurnedOn = $values['websiteTurnedOn'] ?? null;
         $this->displayName = $values['displayName'] ?? null;
+        $this->url = $values['url'] ?? null;
+        $this->customDomain = $values['customDomain'] ?? null;
     }
 
     /**
@@ -191,6 +207,40 @@ class HelpCenter extends JsonSerializableType
     public function setDisplayName(?string $value = null): self
     {
         $this->displayName = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setUrl(?string $value = null): self
+    {
+        $this->url = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getCustomDomain(): ?string
+    {
+        return $this->customDomain;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setCustomDomain(?string $value = null): self
+    {
+        $this->customDomain = $value;
         return $this;
     }
 

@@ -7,13 +7,13 @@ use Intercom\Core\Json\JsonSerializableType;
 class FindAdminRequest extends JsonSerializableType
 {
     /**
-     * @var string $adminId The unique identifier of a given admin
+     * @var int $adminId The unique identifier of a given admin
      */
-    private string $adminId;
+    private int $adminId;
 
     /**
      * @param array{
-     *   adminId: string,
+     *   adminId: int,
      * } $values
      */
     public function __construct(
@@ -23,17 +23,17 @@ class FindAdminRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getAdminId(): string
+    public function getAdminId(): int
     {
         return $this->adminId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setAdminId(string $value): self
+    public function setAdminId(int $value): self
     {
         $this->adminId = $value;
         return $this;

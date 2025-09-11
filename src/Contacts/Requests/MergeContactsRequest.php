@@ -8,59 +8,59 @@ use Intercom\Core\Json\JsonProperty;
 class MergeContactsRequest extends JsonSerializableType
 {
     /**
-     * @var string $leadId The unique identifier for the contact to merge away from. Must be a lead.
+     * @var ?string $leadId The unique identifier for the contact to merge away from. Must be a lead.
      */
     #[JsonProperty('from')]
-    private string $leadId;
+    private ?string $leadId;
 
     /**
-     * @var string $contactId The unique identifier for the contact to merge into. Must be a user.
+     * @var ?string $contactId The unique identifier for the contact to merge into. Must be a user.
      */
     #[JsonProperty('into')]
-    private string $contactId;
+    private ?string $contactId;
 
     /**
      * @param array{
-     *   leadId: string,
-     *   contactId: string,
+     *   leadId?: ?string,
+     *   contactId?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->leadId = $values['leadId'];
-        $this->contactId = $values['contactId'];
+        $this->leadId = $values['leadId'] ?? null;
+        $this->contactId = $values['contactId'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getLeadId(): string
+    public function getLeadId(): ?string
     {
         return $this->leadId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setLeadId(string $value): self
+    public function setLeadId(?string $value = null): self
     {
         $this->leadId = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getContactId(): string
+    public function getContactId(): ?string
     {
         return $this->contactId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setContactId(string $value): self
+    public function setContactId(?string $value = null): self
     {
         $this->contactId = $value;
         return $this;

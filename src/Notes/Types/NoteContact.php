@@ -11,7 +11,7 @@ use Intercom\Core\Json\JsonProperty;
 class NoteContact extends JsonSerializableType
 {
     /**
-     * @var ?'contact' $type String representing the object's type. Always has the value `contact`.
+     * @var ?string $type String representing the object's type. Always has the value `contact`.
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -24,7 +24,7 @@ class NoteContact extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'contact',
+     *   type?: ?string,
      *   id?: ?string,
      * } $values
      */
@@ -36,7 +36,7 @@ class NoteContact extends JsonSerializableType
     }
 
     /**
-     * @return ?'contact'
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -44,7 +44,7 @@ class NoteContact extends JsonSerializableType
     }
 
     /**
-     * @param ?'contact' $value
+     * @param ?string $value
      */
     public function setType(?string $value = null): self
     {

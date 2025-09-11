@@ -13,28 +13,28 @@ use Intercom\Types\AdminPriorityLevel;
 class Team extends JsonSerializableType
 {
     /**
-     * @var 'team' $type Value is always "team"
+     * @var ?string $type Value is always "team"
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The id of the team
+     * @var ?string $id The id of the team
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $name The name of the team
+     * @var ?string $name The name of the team
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var array<int> $adminIds The list of admin IDs that are a part of the team.
+     * @var ?array<int> $adminIds The list of admin IDs that are a part of the team.
      */
     #[JsonProperty('admin_ids'), ArrayType(['integer'])]
-    private array $adminIds;
+    private ?array $adminIds;
 
     /**
      * @var ?AdminPriorityLevel $adminPriorityLevel
@@ -44,86 +44,86 @@ class Team extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'team',
-     *   id: string,
-     *   name: string,
-     *   adminIds: array<int>,
+     *   type?: ?string,
+     *   id?: ?string,
+     *   name?: ?string,
+     *   adminIds?: ?array<int>,
      *   adminPriorityLevel?: ?AdminPriorityLevel,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->name = $values['name'];
-        $this->adminIds = $values['adminIds'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->adminIds = $values['adminIds'] ?? null;
         $this->adminPriorityLevel = $values['adminPriorityLevel'] ?? null;
     }
 
     /**
-     * @return 'team'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'team' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return array<int>
+     * @return ?array<int>
      */
-    public function getAdminIds(): array
+    public function getAdminIds(): ?array
     {
         return $this->adminIds;
     }
 
     /**
-     * @param array<int> $value
+     * @param ?array<int> $value
      */
-    public function setAdminIds(array $value): self
+    public function setAdminIds(?array $value = null): self
     {
         $this->adminIds = $value;
         return $this;

@@ -11,7 +11,7 @@ use Intercom\Core\Json\JsonProperty;
 class AdminWithAppAvatar extends JsonSerializableType
 {
     /**
-     * @var ?'avatar' $type This is a string that identifies the type of the object. It will always have the value `avatar`.
+     * @var ?string $type This is a string that identifies the type of the object. It will always have the value `avatar`.
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -24,7 +24,7 @@ class AdminWithAppAvatar extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'avatar',
+     *   type?: ?string,
      *   imageUrl?: ?string,
      * } $values
      */
@@ -36,7 +36,7 @@ class AdminWithAppAvatar extends JsonSerializableType
     }
 
     /**
-     * @return ?'avatar'
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -44,7 +44,7 @@ class AdminWithAppAvatar extends JsonSerializableType
     }
 
     /**
-     * @param ?'avatar' $value
+     * @param ?string $value
      */
     public function setType(?string $value = null): self
     {

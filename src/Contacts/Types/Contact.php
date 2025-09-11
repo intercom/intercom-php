@@ -12,7 +12,7 @@ use Intercom\Types\ContactLocation;
 use Intercom\Types\ContactSocialProfiles;
 
 /**
- * Contact are the objects that represent your leads and users in Intercom.
+ * Contacts represent your leads and users in Intercom.
  */
 class Contact extends JsonSerializableType
 {
@@ -23,10 +23,10 @@ class Contact extends JsonSerializableType
     private ?string $type;
 
     /**
-     * @var string $id The unique identifier for the contact which is given by Intercom.
+     * @var ?string $id The unique identifier for the contact which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
      * @var ?string $externalId The unique identifier for the contact which is provided by the Client.
@@ -35,16 +35,16 @@ class Contact extends JsonSerializableType
     private ?string $externalId;
 
     /**
-     * @var string $workspaceId The id of the workspace which the contact belongs to.
+     * @var ?string $workspaceId The id of the workspace which the contact belongs to.
      */
     #[JsonProperty('workspace_id')]
-    private string $workspaceId;
+    private ?string $workspaceId;
 
     /**
-     * @var string $role The role of the contact.
+     * @var ?string $role The role of the contact.
      */
     #[JsonProperty('role')]
-    private string $role;
+    private ?string $role;
 
     /**
      * @var ?string $email The contact's email.
@@ -65,12 +65,6 @@ class Contact extends JsonSerializableType
     private ?string $phone;
 
     /**
-     * @var ?string $formattedPhone The contacts phone number normalized to the E164 format
-     */
-    #[JsonProperty('formatted_phone')]
-    private ?string $formattedPhone;
-
-    /**
      * @var ?string $name The contacts name.
      */
     #[JsonProperty('name')]
@@ -83,34 +77,34 @@ class Contact extends JsonSerializableType
     private ?int $ownerId;
 
     /**
-     * @var bool $hasHardBounced Whether the contact has had an email sent to them hard bounce.
+     * @var ?bool $hasHardBounced Whether the contact has had an email sent to them hard bounce.
      */
     #[JsonProperty('has_hard_bounced')]
-    private bool $hasHardBounced;
+    private ?bool $hasHardBounced;
 
     /**
-     * @var bool $markedEmailAsSpam Whether the contact has marked an email sent to them as spam.
+     * @var ?bool $markedEmailAsSpam Whether the contact has marked an email sent to them as spam.
      */
     #[JsonProperty('marked_email_as_spam')]
-    private bool $markedEmailAsSpam;
+    private ?bool $markedEmailAsSpam;
 
     /**
-     * @var bool $unsubscribedFromEmails Whether the contact is unsubscribed from emails.
+     * @var ?bool $unsubscribedFromEmails Whether the contact is unsubscribed from emails.
      */
     #[JsonProperty('unsubscribed_from_emails')]
-    private bool $unsubscribedFromEmails;
+    private ?bool $unsubscribedFromEmails;
 
     /**
-     * @var int $createdAt (UNIX timestamp) The time when the contact was created.
+     * @var ?int $createdAt (UNIX timestamp) The time when the contact was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
-     * @var int $updatedAt (UNIX timestamp) The time when the contact was last updated.
+     * @var ?int $updatedAt (UNIX timestamp) The time when the contact was last updated.
      */
     #[JsonProperty('updated_at')]
-    private int $updatedAt;
+    private ?int $updatedAt;
 
     /**
      * @var ?int $signedUpAt (UNIX timestamp) The time specified for when a contact signed up.
@@ -281,37 +275,34 @@ class Contact extends JsonSerializableType
     private ?ContactCompanies $companies;
 
     /**
-     * @var ContactLocation $location
+     * @var ?ContactLocation $location
      */
     #[JsonProperty('location')]
-    private ContactLocation $location;
+    private ?ContactLocation $location;
 
     /**
-     * @var ContactSocialProfiles $socialProfiles
+     * @var ?ContactSocialProfiles $socialProfiles
      */
     #[JsonProperty('social_profiles')]
-    private ContactSocialProfiles $socialProfiles;
+    private ?ContactSocialProfiles $socialProfiles;
 
     /**
      * @param array{
-     *   id: string,
-     *   workspaceId: string,
-     *   role: string,
-     *   hasHardBounced: bool,
-     *   markedEmailAsSpam: bool,
-     *   unsubscribedFromEmails: bool,
-     *   createdAt: int,
-     *   updatedAt: int,
-     *   location: ContactLocation,
-     *   socialProfiles: ContactSocialProfiles,
      *   type?: ?'contact',
+     *   id?: ?string,
      *   externalId?: ?string,
+     *   workspaceId?: ?string,
+     *   role?: ?string,
      *   email?: ?string,
      *   emailDomain?: ?string,
      *   phone?: ?string,
-     *   formattedPhone?: ?string,
      *   name?: ?string,
      *   ownerId?: ?int,
+     *   hasHardBounced?: ?bool,
+     *   markedEmailAsSpam?: ?bool,
+     *   unsubscribedFromEmails?: ?bool,
+     *   createdAt?: ?int,
+     *   updatedAt?: ?int,
      *   signedUpAt?: ?int,
      *   lastSeenAt?: ?int,
      *   lastRepliedAt?: ?int,
@@ -340,27 +331,28 @@ class Contact extends JsonSerializableType
      *   tags?: ?ContactTags,
      *   notes?: ?ContactNotes,
      *   companies?: ?ContactCompanies,
+     *   location?: ?ContactLocation,
+     *   socialProfiles?: ?ContactSocialProfiles,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
         $this->type = $values['type'] ?? null;
-        $this->id = $values['id'];
+        $this->id = $values['id'] ?? null;
         $this->externalId = $values['externalId'] ?? null;
-        $this->workspaceId = $values['workspaceId'];
-        $this->role = $values['role'];
+        $this->workspaceId = $values['workspaceId'] ?? null;
+        $this->role = $values['role'] ?? null;
         $this->email = $values['email'] ?? null;
         $this->emailDomain = $values['emailDomain'] ?? null;
         $this->phone = $values['phone'] ?? null;
-        $this->formattedPhone = $values['formattedPhone'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->ownerId = $values['ownerId'] ?? null;
-        $this->hasHardBounced = $values['hasHardBounced'];
-        $this->markedEmailAsSpam = $values['markedEmailAsSpam'];
-        $this->unsubscribedFromEmails = $values['unsubscribedFromEmails'];
-        $this->createdAt = $values['createdAt'];
-        $this->updatedAt = $values['updatedAt'];
+        $this->hasHardBounced = $values['hasHardBounced'] ?? null;
+        $this->markedEmailAsSpam = $values['markedEmailAsSpam'] ?? null;
+        $this->unsubscribedFromEmails = $values['unsubscribedFromEmails'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->updatedAt = $values['updatedAt'] ?? null;
         $this->signedUpAt = $values['signedUpAt'] ?? null;
         $this->lastSeenAt = $values['lastSeenAt'] ?? null;
         $this->lastRepliedAt = $values['lastRepliedAt'] ?? null;
@@ -389,8 +381,8 @@ class Contact extends JsonSerializableType
         $this->tags = $values['tags'] ?? null;
         $this->notes = $values['notes'] ?? null;
         $this->companies = $values['companies'] ?? null;
-        $this->location = $values['location'];
-        $this->socialProfiles = $values['socialProfiles'];
+        $this->location = $values['location'] ?? null;
+        $this->socialProfiles = $values['socialProfiles'] ?? null;
     }
 
     /**
@@ -411,17 +403,17 @@ class Contact extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
@@ -445,34 +437,34 @@ class Contact extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getWorkspaceId(): string
+    public function getWorkspaceId(): ?string
     {
         return $this->workspaceId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setWorkspaceId(string $value): self
+    public function setWorkspaceId(?string $value = null): self
     {
         $this->workspaceId = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getRole(): string
+    public function getRole(): ?string
     {
         return $this->role;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setRole(string $value): self
+    public function setRole(?string $value = null): self
     {
         $this->role = $value;
         return $this;
@@ -532,23 +524,6 @@ class Contact extends JsonSerializableType
     /**
      * @return ?string
      */
-    public function getFormattedPhone(): ?string
-    {
-        return $this->formattedPhone;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setFormattedPhone(?string $value = null): self
-    {
-        $this->formattedPhone = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
     public function getName(): ?string
     {
         return $this->name;
@@ -581,85 +556,85 @@ class Contact extends JsonSerializableType
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getHasHardBounced(): bool
+    public function getHasHardBounced(): ?bool
     {
         return $this->hasHardBounced;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setHasHardBounced(bool $value): self
+    public function setHasHardBounced(?bool $value = null): self
     {
         $this->hasHardBounced = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getMarkedEmailAsSpam(): bool
+    public function getMarkedEmailAsSpam(): ?bool
     {
         return $this->markedEmailAsSpam;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setMarkedEmailAsSpam(bool $value): self
+    public function setMarkedEmailAsSpam(?bool $value = null): self
     {
         $this->markedEmailAsSpam = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getUnsubscribedFromEmails(): bool
+    public function getUnsubscribedFromEmails(): ?bool
     {
         return $this->unsubscribedFromEmails;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setUnsubscribedFromEmails(bool $value): self
+    public function setUnsubscribedFromEmails(?bool $value = null): self
     {
         $this->unsubscribedFromEmails = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getUpdatedAt(): int
+    public function getUpdatedAt(): ?int
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setUpdatedAt(int $value): self
+    public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
         return $this;
@@ -1142,34 +1117,34 @@ class Contact extends JsonSerializableType
     }
 
     /**
-     * @return ContactLocation
+     * @return ?ContactLocation
      */
-    public function getLocation(): ContactLocation
+    public function getLocation(): ?ContactLocation
     {
         return $this->location;
     }
 
     /**
-     * @param ContactLocation $value
+     * @param ?ContactLocation $value
      */
-    public function setLocation(ContactLocation $value): self
+    public function setLocation(?ContactLocation $value = null): self
     {
         $this->location = $value;
         return $this;
     }
 
     /**
-     * @return ContactSocialProfiles
+     * @return ?ContactSocialProfiles
      */
-    public function getSocialProfiles(): ContactSocialProfiles
+    public function getSocialProfiles(): ?ContactSocialProfiles
     {
         return $this->socialProfiles;
     }
 
     /**
-     * @param ContactSocialProfiles $value
+     * @param ?ContactSocialProfiles $value
      */
-    public function setSocialProfiles(ContactSocialProfiles $value): self
+    public function setSocialProfiles(?ContactSocialProfiles $value = null): self
     {
         $this->socialProfiles = $value;
         return $this;

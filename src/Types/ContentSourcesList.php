@@ -10,84 +10,84 @@ use Intercom\Core\Types\ArrayType;
 class ContentSourcesList extends JsonSerializableType
 {
     /**
-     * @var 'content_source.list' $type
+     * @var ?'content_source.list' $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var int $totalCount The total number of content sources used by AI Agent in the conversation.
+     * @var ?int $totalCount The total number of content sources used by AI Agent in the conversation.
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
-     * @var array<ContentSource> $contentSources The content sources used by AI Agent in the conversation.
+     * @var ?array<ContentSource> $contentSources The content sources used by AI Agent in the conversation.
      */
     #[JsonProperty('content_sources'), ArrayType([ContentSource::class])]
-    private array $contentSources;
+    private ?array $contentSources;
 
     /**
      * @param array{
-     *   type: 'content_source.list',
-     *   totalCount: int,
-     *   contentSources: array<ContentSource>,
+     *   type?: ?'content_source.list',
+     *   totalCount?: ?int,
+     *   contentSources?: ?array<ContentSource>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->totalCount = $values['totalCount'];
-        $this->contentSources = $values['contentSources'];
+        $this->type = $values['type'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
+        $this->contentSources = $values['contentSources'] ?? null;
     }
 
     /**
-     * @return 'content_source.list'
+     * @return ?'content_source.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'content_source.list' $value
+     * @param ?'content_source.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;
     }
 
     /**
-     * @return array<ContentSource>
+     * @return ?array<ContentSource>
      */
-    public function getContentSources(): array
+    public function getContentSources(): ?array
     {
         return $this->contentSources;
     }
 
     /**
-     * @param array<ContentSource> $value
+     * @param ?array<ContentSource> $value
      */
-    public function setContentSources(array $value): self
+    public function setContentSources(?array $value = null): self
     {
         $this->contentSources = $value;
         return $this;

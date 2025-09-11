@@ -13,16 +13,16 @@ use Intercom\Core\Types\ArrayType;
 class SegmentList extends JsonSerializableType
 {
     /**
-     * @var 'segment.list' $type The type of the object
+     * @var ?'segment.list' $type The type of the object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Segment> $segments A list of Segment objects
+     * @var ?array<Segment> $segments A list of Segment objects
      */
     #[JsonProperty('segments'), ArrayType([Segment::class])]
-    private array $segments;
+    private ?array $segments;
 
     /**
      * @var ?array<string, mixed> $pages A pagination object, which may be empty, indicating no further pages to fetch.
@@ -32,48 +32,48 @@ class SegmentList extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'segment.list',
-     *   segments: array<Segment>,
+     *   type?: ?'segment.list',
+     *   segments?: ?array<Segment>,
      *   pages?: ?array<string, mixed>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->segments = $values['segments'];
+        $this->type = $values['type'] ?? null;
+        $this->segments = $values['segments'] ?? null;
         $this->pages = $values['pages'] ?? null;
     }
 
     /**
-     * @return 'segment.list'
+     * @return ?'segment.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'segment.list' $value
+     * @param ?'segment.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Segment>
+     * @return ?array<Segment>
      */
-    public function getSegments(): array
+    public function getSegments(): ?array
     {
         return $this->segments;
     }
 
     /**
-     * @param array<Segment> $value
+     * @param ?array<Segment> $value
      */
-    public function setSegments(array $value): self
+    public function setSegments(?array $value = null): self
     {
         $this->segments = $value;
         return $this;

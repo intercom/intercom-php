@@ -8,10 +8,10 @@ use Intercom\Core\Json\JsonProperty;
 class StartingAfterPaging extends JsonSerializableType
 {
     /**
-     * @var int $perPage The number of results to fetch per page.
+     * @var ?int $perPage The number of results to fetch per page.
      */
     #[JsonProperty('per_page')]
-    private int $perPage;
+    private ?int $perPage;
 
     /**
      * @var ?string $startingAfter The cursor to use in the next request to get the next page of results.
@@ -21,29 +21,29 @@ class StartingAfterPaging extends JsonSerializableType
 
     /**
      * @param array{
-     *   perPage: int,
+     *   perPage?: ?int,
      *   startingAfter?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->perPage = $values['perPage'];
+        $this->perPage = $values['perPage'] ?? null;
         $this->startingAfter = $values['startingAfter'] ?? null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getPerPage(): int
+    public function getPerPage(): ?int
     {
         return $this->perPage;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setPerPage(int $value): self
+    public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
         return $this;

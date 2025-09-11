@@ -4,7 +4,6 @@ namespace Intercom\Types;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\Core\Types\ArrayType;
 use Intercom\Core\Types\Union;
 
 /**
@@ -19,21 +18,21 @@ class MultipleFilterSearchRequest extends JsonSerializableType
     private ?string $operator;
 
     /**
-     * @var ?array<(
-     *    MultipleFilterSearchRequest
-     *   |SingleFilterSearchRequest
-     * )> $value
+     * @var (
+     *    array<MultipleFilterSearchRequest>
+     *   |array<SingleFilterSearchRequest>
+     * )|null $value
      */
-    #[JsonProperty('value'), ArrayType([new Union(MultipleFilterSearchRequest::class, SingleFilterSearchRequest::class)])]
-    private ?array $value;
+    #[JsonProperty('value'), Union([MultipleFilterSearchRequest::class], [SingleFilterSearchRequest::class], 'null')]
+    private array|null $value;
 
     /**
      * @param array{
      *   operator?: ?value-of<MultipleFilterSearchRequestOperator>,
-     *   value?: ?array<(
-     *    MultipleFilterSearchRequest
-     *   |SingleFilterSearchRequest
-     * )>,
+     *   value?: (
+     *    array<MultipleFilterSearchRequest>
+     *   |array<SingleFilterSearchRequest>
+     * )|null,
      * } $values
      */
     public function __construct(
@@ -61,23 +60,23 @@ class MultipleFilterSearchRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?array<(
-     *    MultipleFilterSearchRequest
-     *   |SingleFilterSearchRequest
-     * )>
+     * @return (
+     *    array<MultipleFilterSearchRequest>
+     *   |array<SingleFilterSearchRequest>
+     * )|null
      */
-    public function getValue(): ?array
+    public function getValue(): array|null
     {
         return $this->value;
     }
 
     /**
-     * @param ?array<(
-     *    MultipleFilterSearchRequest
-     *   |SingleFilterSearchRequest
-     * )> $value
+     * @param (
+     *    array<MultipleFilterSearchRequest>
+     *   |array<SingleFilterSearchRequest>
+     * )|null $value
      */
-    public function setValue(?array $value = null): self
+    public function setValue(array|null $value = null): self
     {
         $this->value = $value;
         return $this;

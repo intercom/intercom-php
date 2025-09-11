@@ -13,59 +13,59 @@ use Intercom\Core\Types\ArrayType;
 class CompanyAttachedSegments extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of object - `list`
+     * @var ?'list' $type The type of object - `list`
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Segment> $data An array containing Segment Objects
+     * @var ?array<Segment> $data An array containing Segment Objects
      */
     #[JsonProperty('data'), ArrayType([Segment::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @param array{
-     *   type: 'list',
-     *   data: array<Segment>,
+     *   type?: ?'list',
+     *   data?: ?array<Segment>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->data = $values['data'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Segment>
+     * @return ?array<Segment>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<Segment> $value
+     * @param ?array<Segment> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

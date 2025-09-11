@@ -8,9 +8,9 @@ use Intercom\Core\Json\JsonProperty;
 class AttachContactToCompanyRequest extends JsonSerializableType
 {
     /**
-     * @var string $contactId The unique identifier for the contact which is given by Intercom
+     * @var int $contactId The unique identifier for the contact which is given by Intercom
      */
-    private string $contactId;
+    private int $contactId;
 
     /**
      * @var string $companyId The unique identifier for the company which is given by Intercom
@@ -20,7 +20,7 @@ class AttachContactToCompanyRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   contactId: string,
+     *   contactId: int,
      *   companyId: string,
      * } $values
      */
@@ -32,17 +32,17 @@ class AttachContactToCompanyRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getContactId(): string
+    public function getContactId(): int
     {
         return $this->contactId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setContactId(string $value): self
+    public function setContactId(int $value): self
     {
         $this->contactId = $value;
         return $this;

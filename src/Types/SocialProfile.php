@@ -11,84 +11,84 @@ use Intercom\Core\Json\JsonProperty;
 class SocialProfile extends JsonSerializableType
 {
     /**
-     * @var 'social_profile' $type value is "social_profile"
+     * @var ?'social_profile' $type value is "social_profile"
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $name The name of the Social media profile
+     * @var ?string $name The name of the Social media profile
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $url The name of the Social media profile
+     * @var ?string $url The name of the Social media profile
      */
     #[JsonProperty('url')]
-    private string $url;
+    private ?string $url;
 
     /**
      * @param array{
-     *   type: 'social_profile',
-     *   name: string,
-     *   url: string,
+     *   type?: ?'social_profile',
+     *   name?: ?string,
+     *   url?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->name = $values['name'];
-        $this->url = $values['url'];
+        $this->type = $values['type'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->url = $values['url'] ?? null;
     }
 
     /**
-     * @return 'social_profile'
+     * @return ?'social_profile'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'social_profile' $value
+     * @param ?'social_profile' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUrl(string $value): self
+    public function setUrl(?string $value = null): self
     {
         $this->url = $value;
         return $this;

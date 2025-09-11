@@ -29,6 +29,12 @@ class ConversationRating extends JsonSerializableType
     private ?int $createdAt;
 
     /**
+     * @var ?int $updatedAt The time the rating was last updated.
+     */
+    #[JsonProperty('updated_at')]
+    private ?int $updatedAt;
+
+    /**
      * @var ?ContactReference $contact
      */
     #[JsonProperty('contact')]
@@ -45,6 +51,7 @@ class ConversationRating extends JsonSerializableType
      *   rating?: ?int,
      *   remark?: ?string,
      *   createdAt?: ?int,
+     *   updatedAt?: ?int,
      *   contact?: ?ContactReference,
      *   teammate?: ?Reference,
      * } $values
@@ -55,6 +62,7 @@ class ConversationRating extends JsonSerializableType
         $this->rating = $values['rating'] ?? null;
         $this->remark = $values['remark'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
+        $this->updatedAt = $values['updatedAt'] ?? null;
         $this->contact = $values['contact'] ?? null;
         $this->teammate = $values['teammate'] ?? null;
     }
@@ -107,6 +115,23 @@ class ConversationRating extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getUpdatedAt(): ?int
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setUpdatedAt(?int $value = null): self
+    {
+        $this->updatedAt = $value;
         return $this;
     }
 

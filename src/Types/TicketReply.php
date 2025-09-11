@@ -12,22 +12,22 @@ use Intercom\Core\Types\ArrayType;
 class TicketReply extends JsonSerializableType
 {
     /**
-     * @var 'ticket_part' $type Always ticket_part
+     * @var ?'ticket_part' $type Always ticket_part
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The id representing the part.
+     * @var ?string $id The id representing the part.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var value-of<TicketReplyPartType> $partType Type of the part
+     * @var ?value-of<TicketReplyPartType> $partType Type of the part
      */
     #[JsonProperty('part_type')]
-    private string $partType;
+    private ?string $partType;
 
     /**
      * @var ?string $body The message body, which may contain HTML.
@@ -36,10 +36,10 @@ class TicketReply extends JsonSerializableType
     private ?string $body;
 
     /**
-     * @var int $createdAt The time the note was created.
+     * @var ?int $createdAt The time the note was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?int $updatedAt The last time the note was updated.
@@ -67,11 +67,11 @@ class TicketReply extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'ticket_part',
-     *   id: string,
-     *   partType: value-of<TicketReplyPartType>,
-     *   createdAt: int,
+     *   type?: ?'ticket_part',
+     *   id?: ?string,
+     *   partType?: ?value-of<TicketReplyPartType>,
      *   body?: ?string,
+     *   createdAt?: ?int,
      *   updatedAt?: ?int,
      *   author?: ?TicketPartAuthor,
      *   attachments?: ?array<PartAttachment>,
@@ -79,13 +79,13 @@ class TicketReply extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->partType = $values['partType'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->partType = $values['partType'] ?? null;
         $this->body = $values['body'] ?? null;
-        $this->createdAt = $values['createdAt'];
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
         $this->author = $values['author'] ?? null;
         $this->attachments = $values['attachments'] ?? null;
@@ -93,51 +93,51 @@ class TicketReply extends JsonSerializableType
     }
 
     /**
-     * @return 'ticket_part'
+     * @return ?'ticket_part'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'ticket_part' $value
+     * @param ?'ticket_part' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return value-of<TicketReplyPartType>
+     * @return ?value-of<TicketReplyPartType>
      */
-    public function getPartType(): string
+    public function getPartType(): ?string
     {
         return $this->partType;
     }
 
     /**
-     * @param value-of<TicketReplyPartType> $value
+     * @param ?value-of<TicketReplyPartType> $value
      */
-    public function setPartType(string $value): self
+    public function setPartType(?string $value = null): self
     {
         $this->partType = $value;
         return $this;
@@ -161,17 +161,17 @@ class TicketReply extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;

@@ -13,16 +13,16 @@ use Intercom\Core\Json\JsonProperty;
 class PagesLink extends JsonSerializableType
 {
     /**
-     * @var 'pages' $type
+     * @var ?'pages' $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var int $page
+     * @var ?int $page
      */
     #[JsonProperty('page')]
-    private int $page;
+    private ?int $page;
 
     /**
      * @var ?string $next A link to the next page of results. A response that does not contain a next link does not have further data to fetch.
@@ -31,65 +31,65 @@ class PagesLink extends JsonSerializableType
     private ?string $next;
 
     /**
-     * @var int $perPage
+     * @var ?int $perPage
      */
     #[JsonProperty('per_page')]
-    private int $perPage;
+    private ?int $perPage;
 
     /**
-     * @var int $totalPages
+     * @var ?int $totalPages
      */
     #[JsonProperty('total_pages')]
-    private int $totalPages;
+    private ?int $totalPages;
 
     /**
      * @param array{
-     *   type: 'pages',
-     *   page: int,
-     *   perPage: int,
-     *   totalPages: int,
+     *   type?: ?'pages',
+     *   page?: ?int,
      *   next?: ?string,
+     *   perPage?: ?int,
+     *   totalPages?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->page = $values['page'];
+        $this->type = $values['type'] ?? null;
+        $this->page = $values['page'] ?? null;
         $this->next = $values['next'] ?? null;
-        $this->perPage = $values['perPage'];
-        $this->totalPages = $values['totalPages'];
+        $this->perPage = $values['perPage'] ?? null;
+        $this->totalPages = $values['totalPages'] ?? null;
     }
 
     /**
-     * @return 'pages'
+     * @return ?'pages'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'pages' $value
+     * @param ?'pages' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getPage(): int
+    public function getPage(): ?int
     {
         return $this->page;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setPage(int $value): self
+    public function setPage(?int $value = null): self
     {
         $this->page = $value;
         return $this;
@@ -113,34 +113,34 @@ class PagesLink extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getPerPage(): int
+    public function getPerPage(): ?int
     {
         return $this->perPage;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setPerPage(int $value): self
+    public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalPages(): int
+    public function getTotalPages(): ?int
     {
         return $this->totalPages;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalPages(int $value): self
+    public function setTotalPages(?int $value = null): self
     {
         $this->totalPages = $value;
         return $this;

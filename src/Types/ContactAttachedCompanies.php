@@ -13,22 +13,22 @@ use Intercom\Core\Types\ArrayType;
 class ContactAttachedCompanies extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of object
+     * @var ?'list' $type The type of object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Company> $companies An array containing Company Objects
+     * @var ?array<Company> $companies An array containing Company Objects
      */
     #[JsonProperty('companies'), ArrayType([Company::class])]
-    private array $companies;
+    private ?array $companies;
 
     /**
-     * @var int $totalCount The total number of companies associated to this contact
+     * @var ?int $totalCount The total number of companies associated to this contact
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
      * @var ?PagesLink $pages
@@ -38,67 +38,67 @@ class ContactAttachedCompanies extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'list',
-     *   companies: array<Company>,
-     *   totalCount: int,
+     *   type?: ?'list',
+     *   companies?: ?array<Company>,
+     *   totalCount?: ?int,
      *   pages?: ?PagesLink,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->companies = $values['companies'];
-        $this->totalCount = $values['totalCount'];
+        $this->type = $values['type'] ?? null;
+        $this->companies = $values['companies'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
         $this->pages = $values['pages'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Company>
+     * @return ?array<Company>
      */
-    public function getCompanies(): array
+    public function getCompanies(): ?array
     {
         return $this->companies;
     }
 
     /**
-     * @param array<Company> $value
+     * @param ?array<Company> $value
      */
-    public function setCompanies(array $value): self
+    public function setCompanies(?array $value = null): self
     {
         $this->companies = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;

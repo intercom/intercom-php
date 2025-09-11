@@ -4,16 +4,15 @@ namespace Intercom\Articles\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\Articles\Types\UpdateArticleRequestBodyState;
-use Intercom\Articles\Types\UpdateArticleRequestBodyParentType;
+use Intercom\Articles\Types\UpdateArticleRequestState;
 use Intercom\Types\ArticleTranslatedContent;
 
 class UpdateArticleRequest extends JsonSerializableType
 {
     /**
-     * @var string $articleId The unique identifier for the article which is given by Intercom.
+     * @var int $articleId The unique identifier for the article which is given by Intercom.
      */
-    private string $articleId;
+    private int $articleId;
 
     /**
      * @var ?string $title The title of the article.For multilingual articles, this will be the title of the default language's content.
@@ -40,7 +39,7 @@ class UpdateArticleRequest extends JsonSerializableType
     private ?int $authorId;
 
     /**
-     * @var ?value-of<UpdateArticleRequestBodyState> $state Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content.
+     * @var ?value-of<UpdateArticleRequestState> $state Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content.
      */
     #[JsonProperty('state')]
     private ?string $state;
@@ -52,7 +51,7 @@ class UpdateArticleRequest extends JsonSerializableType
     private ?string $parentId;
 
     /**
-     * @var ?value-of<UpdateArticleRequestBodyParentType> $parentType The type of parent, which can either be a `collection` or `section`.
+     * @var ?string $parentType The type of parent, which can either be a `collection` or `section`.
      */
     #[JsonProperty('parent_type')]
     private ?string $parentType;
@@ -65,14 +64,14 @@ class UpdateArticleRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   articleId: string,
+     *   articleId: int,
      *   title?: ?string,
      *   description?: ?string,
      *   body?: ?string,
      *   authorId?: ?int,
-     *   state?: ?value-of<UpdateArticleRequestBodyState>,
+     *   state?: ?value-of<UpdateArticleRequestState>,
      *   parentId?: ?string,
-     *   parentType?: ?value-of<UpdateArticleRequestBodyParentType>,
+     *   parentType?: ?string,
      *   translatedContent?: ?ArticleTranslatedContent,
      * } $values
      */
@@ -91,17 +90,17 @@ class UpdateArticleRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getArticleId(): string
+    public function getArticleId(): int
     {
         return $this->articleId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setArticleId(string $value): self
+    public function setArticleId(int $value): self
     {
         $this->articleId = $value;
         return $this;
@@ -176,7 +175,7 @@ class UpdateArticleRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?value-of<UpdateArticleRequestBodyState>
+     * @return ?value-of<UpdateArticleRequestState>
      */
     public function getState(): ?string
     {
@@ -184,7 +183,7 @@ class UpdateArticleRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?value-of<UpdateArticleRequestBodyState> $value
+     * @param ?value-of<UpdateArticleRequestState> $value
      */
     public function setState(?string $value = null): self
     {
@@ -210,7 +209,7 @@ class UpdateArticleRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?value-of<UpdateArticleRequestBodyParentType>
+     * @return ?string
      */
     public function getParentType(): ?string
     {
@@ -218,7 +217,7 @@ class UpdateArticleRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?value-of<UpdateArticleRequestBodyParentType> $value
+     * @param ?string $value
      */
     public function setParentType(?string $value = null): self
     {

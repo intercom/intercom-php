@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-php)
 [![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/intercom/intercom-php)
 
-The Intercom PHP library provides convenient access to the Intercom API from PHP.
+The Intercom PHP library provides convenient access to the Intercom APIs from PHP.
 
 ## Installation
 
@@ -656,19 +656,15 @@ Instantiate and use the client with the following:
 namespace Example;
 
 use Intercom\IntercomClient;
-use Intercom\Articles\Requests\CreateArticleRequest;
-use Intercom\Articles\Types\CreateArticleRequestState;
+use Intercom\AiContent\Requests\CreateContentImportSourceRequest;
 
 $client = new IntercomClient(
     token: '<token>',
 );
-$client->articles->create(
-    new CreateArticleRequest([
-        'title' => 'Thanks for everything',
-        'description' => 'Description of the Article',
-        'body' => 'Body of the Article',
-        'authorId' => 1295,
-        'state' => CreateArticleRequestState::Published->value,
+$client->aiContent->createContentImportSource(
+    new CreateContentImportSourceRequest([
+        'syncBehavior' => 'api',
+        'url' => 'https://www.example.com',
     ]),
 );
 
@@ -683,7 +679,7 @@ use Intercom\Exceptions\IntercomApiException;
 use Intercom\Exceptions\IntercomException;
 
 try {
-    $response = $client->articles->create(...);
+    $response = $client->aiContent->createContentImportSource(...);
 } catch (IntercomApiException $e) {
     echo 'API Exception occurred: ' . $e->getMessage() . "\n";
     echo 'Status Code: ' . $e->getCode() . "\n";
@@ -739,7 +735,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```php
-$response = $client->articles->create(
+$response = $client->aiContent->createContentImportSource(
     ...,
     options: [
         'maxRetries' => 0 // Override maxRetries at the request level
@@ -752,7 +748,7 @@ $response = $client->articles->create(
 The SDK defaults to a 30 second timeout. Use the `timeout` option to configure this behavior.
 
 ```php
-$response = $client->articles->create(
+$response = $client->aiContent->createContentImportSource(
     ...,
     options: [
         'timeout' => 3.0 // Override timeout to 3 seconds

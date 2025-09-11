@@ -11,7 +11,7 @@ use Intercom\Core\Json\JsonProperty;
 class ActivityLogPerformedBy extends JsonSerializableType
 {
     /**
-     * @var ?'admin' $type String representing the object's type. Always has the value `admin`.
+     * @var ?string $type String representing the object's type. Always has the value `admin`.
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -36,7 +36,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'admin',
+     *   type?: ?string,
      *   id?: ?string,
      *   email?: ?string,
      *   ip?: ?string,
@@ -52,7 +52,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
     }
 
     /**
-     * @return ?'admin'
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -60,7 +60,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
     }
 
     /**
-     * @param ?'admin' $value
+     * @param ?string $value
      */
     public function setType(?string $value = null): self
     {
