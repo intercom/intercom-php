@@ -135,7 +135,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```php
-$response = $client->aiContent->createContentImportSource(
+$response = $client->articles->create(
     ...,
     options: [
         'maxRetries' => 0 // Override maxRetries at the request level
@@ -148,7 +148,7 @@ $response = $client->aiContent->createContentImportSource(
 The SDK defaults to a 30 second timeout. Use the `timeout` option to configure this behavior.
 
 ```php
-$response = $client->aiContent->createContentImportSource(
+$response = $client->articles->create(
     ...,
     options: [
         'timeout' => 3.0 // Override timeout to 3 seconds
