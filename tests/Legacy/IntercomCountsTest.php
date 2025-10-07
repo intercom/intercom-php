@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomCounts;
+use Intercom\Legacy\IntercomCounts;
 
 class IntercomCountsTest extends TestCase
 {

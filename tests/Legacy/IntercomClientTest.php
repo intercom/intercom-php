@@ -1,6 +1,6 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
 use DateTimeImmutable;
 use Http\Client\Common\Plugin\ErrorPlugin;
@@ -9,7 +9,7 @@ use Http\Client\Exception;
 use Http\Discovery\Psr18ClientDiscovery;
 use Http\Discovery\Strategy\MockClientStrategy;
 use Http\Mock\Client;
-use Intercom\IntercomClient;
+use Intercom\Legacy\IntercomClient;
 use Nyholm\Psr7\Response;
 use stdClass;
 

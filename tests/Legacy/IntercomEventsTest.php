@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomEvents;
+use Intercom\Legacy\IntercomEvents;
 
 class IntercomEventsTest extends TestCase
 {

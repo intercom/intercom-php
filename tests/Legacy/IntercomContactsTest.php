@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomContacts;
+use Intercom\Legacy\IntercomContacts;
 use stdClass;
 
 class IntercomContactsTest extends TestCase

@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomSegments;
+use Intercom\Legacy\IntercomSegments;
 
 class IntercomSegmentsTest extends TestCase
 {

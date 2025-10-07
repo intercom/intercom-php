@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomVisitors;
+use Intercom\Legacy\IntercomVisitors;
 
 class IntercomVisitorsTest extends TestCase
 {

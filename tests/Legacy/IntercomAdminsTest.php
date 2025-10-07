@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomAdmins;
+use Intercom\Legacy\IntercomAdmins;
 
 class IntercomAdminsTest extends TestCase
 {

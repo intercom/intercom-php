@@ -1,8 +1,8 @@
 <?php
 
-namespace Intercom\Test;
+namespace Intercom\Legacy\Test;
 
-use Intercom\IntercomLeads;
+use Intercom\Legacy\IntercomLeads;
 
 class IntercomLeadsTest extends TestCase
 {
