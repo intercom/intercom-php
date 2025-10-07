@@ -87,6 +87,27 @@ foreach ($items->getPages() as $page) {
 }
 ```
 
+## Legacy SDK
+
+While the new SDK has a lot of improvements, we at Intercom understand that it takes time to upgrade when there are breaking changes.
+To make the migration easier, the new SDK also exports the legacy SDK as `Intercom\Legacy\...`. Here's an example of how you can use the
+legacy SDK alongside the new SDK inside a single file:
+
+```php
+use Intercom\IntercomClient;
+use Intercom\Legacy\IntercomClient as LegacyIntercomClient;
+
+$intercom = new IntercomClient();
+$legacyClient = new LegacyIntercomClient();
+```
+
+We recommend migrating to the new SDK using the following steps:
+
+1. Upgrade the package to `^5.0.1`
+2. Search and replace all requires and imports from `Intercom\...` to `Intercom\Legacy\...`
+
+3. Gradually move over to use the new SDK by importing it from the `Intercom\...` import.
+
 
 ## Advanced
 
