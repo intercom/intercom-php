@@ -4,3 +4,6 @@ parameters:
     paths:
         - src
         - tests
+    excludePaths:
+        - src/Legacy
+        - tests/Legacy
