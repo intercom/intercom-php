@@ -103,7 +103,7 @@ $legacyClient = new LegacyIntercomClient();
 
 We recommend migrating to the new SDK using the following steps:
 
-1. Upgrade the package to `^5.0.1`
+1. Upgrade the package to `^5.1.0`
 2. Search and replace all requires and imports from `Intercom\...` to `Intercom\Legacy\...`
 
 3. Gradually move over to use the new SDK by importing it from the `Intercom\...` import.
