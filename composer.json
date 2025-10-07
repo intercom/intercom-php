@@ -48,5 +48,10 @@
       "homepage": "https://www.intercom.com"
     }
   ],
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  },
   "homepage": "https://developers.intercom.com/docs"
 }
