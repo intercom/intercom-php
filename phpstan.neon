@@ -6,4 +6,3 @@ parameters:
         - tests
     excludePaths:
         - src/Legacy
-        - tests/Legacy
