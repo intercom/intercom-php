@@ -17,7 +17,7 @@ class UpdateConversationRequest extends JsonSerializableType
     private int $id;
 
     /**
-     * @var ?string $displayAs Set to plaintext to retrieve conversation messages in plain text.
+     * @var ?string $displayAs Set to plaintext to retrieve conversation messages in plain text. This affects both the body and subject fields.
      */
     private ?string $displayAs;
 

@@ -12,34 +12,34 @@ use Intercom\Core\Types\ArrayType;
 class Visitor extends JsonSerializableType
 {
     /**
-     * @var 'visitor' $type Value is 'visitor'
+     * @var ?'visitor' $type Value is 'visitor'
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The Intercom defined id representing the Visitor.
+     * @var ?string $id The Intercom defined id representing the Visitor.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $userId Automatically generated identifier for the Visitor.
+     * @var ?string $userId Automatically generated identifier for the Visitor.
      */
     #[JsonProperty('user_id')]
-    private string $userId;
+    private ?string $userId;
 
     /**
-     * @var bool $anonymous Identifies if this visitor is anonymous.
+     * @var ?bool $anonymous Identifies if this visitor is anonymous.
      */
     #[JsonProperty('anonymous')]
-    private bool $anonymous;
+    private ?bool $anonymous;
 
     /**
-     * @var string $email The email of the visitor.
+     * @var ?string $email The email of the visitor.
      */
     #[JsonProperty('email')]
-    private string $email;
+    private ?string $email;
 
     /**
      * @var ?string $phone The phone number of the visitor.
@@ -66,10 +66,10 @@ class Visitor extends JsonSerializableType
     private ?VisitorAvatar $avatar;
 
     /**
-     * @var string $appId The id of the app the visitor is associated with.
+     * @var ?string $appId The id of the app the visitor is associated with.
      */
     #[JsonProperty('app_id')]
-    private string $appId;
+    private ?string $appId;
 
     /**
      * @var ?VisitorCompanies $companies
@@ -90,10 +90,10 @@ class Visitor extends JsonSerializableType
     private ?int $lasRequestAt;
 
     /**
-     * @var int $createdAt The time the Visitor was added to Intercom.
+     * @var ?int $createdAt The time the Visitor was added to Intercom.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?int $remoteCreatedAt The time the Visitor was added to Intercom.
@@ -102,10 +102,10 @@ class Visitor extends JsonSerializableType
     private ?int $remoteCreatedAt;
 
     /**
-     * @var int $signedUpAt The time the Visitor signed up for your product.
+     * @var ?int $signedUpAt The time the Visitor signed up for your product.
      */
     #[JsonProperty('signed_up_at')]
-    private int $signedUpAt;
+    private ?int $signedUpAt;
 
     /**
      * @var ?int $updatedAt The last time the Visitor was updated.
@@ -211,22 +211,22 @@ class Visitor extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'visitor',
-     *   id: string,
-     *   userId: string,
-     *   anonymous: bool,
-     *   email: string,
-     *   appId: string,
-     *   createdAt: int,
-     *   signedUpAt: int,
+     *   type?: ?'visitor',
+     *   id?: ?string,
+     *   userId?: ?string,
+     *   anonymous?: ?bool,
+     *   email?: ?string,
      *   phone?: ?string,
      *   name?: ?string,
      *   pseudonym?: ?string,
      *   avatar?: ?VisitorAvatar,
+     *   appId?: ?string,
      *   companies?: ?VisitorCompanies,
      *   locationData?: ?VisitorLocationData,
      *   lasRequestAt?: ?int,
+     *   createdAt?: ?int,
      *   remoteCreatedAt?: ?int,
+     *   signedUpAt?: ?int,
      *   updatedAt?: ?int,
      *   sessionCount?: ?int,
      *   socialProfiles?: ?VisitorSocialProfiles,
@@ -247,24 +247,24 @@ class Visitor extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->userId = $values['userId'];
-        $this->anonymous = $values['anonymous'];
-        $this->email = $values['email'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->userId = $values['userId'] ?? null;
+        $this->anonymous = $values['anonymous'] ?? null;
+        $this->email = $values['email'] ?? null;
         $this->phone = $values['phone'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->pseudonym = $values['pseudonym'] ?? null;
         $this->avatar = $values['avatar'] ?? null;
-        $this->appId = $values['appId'];
+        $this->appId = $values['appId'] ?? null;
         $this->companies = $values['companies'] ?? null;
         $this->locationData = $values['locationData'] ?? null;
         $this->lasRequestAt = $values['lasRequestAt'] ?? null;
-        $this->createdAt = $values['createdAt'];
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->remoteCreatedAt = $values['remoteCreatedAt'] ?? null;
-        $this->signedUpAt = $values['signedUpAt'];
+        $this->signedUpAt = $values['signedUpAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
         $this->sessionCount = $values['sessionCount'] ?? null;
         $this->socialProfiles = $values['socialProfiles'] ?? null;
@@ -285,85 +285,85 @@ class Visitor extends JsonSerializableType
     }
 
     /**
-     * @return 'visitor'
+     * @return ?'visitor'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'visitor' $value
+     * @param ?'visitor' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUserId(string $value): self
+    public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getAnonymous(): bool
+    public function getAnonymous(): ?bool
     {
         return $this->anonymous;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setAnonymous(bool $value): self
+    public function setAnonymous(?bool $value = null): self
     {
         $this->anonymous = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setEmail(string $value): self
+    public function setEmail(?string $value = null): self
     {
         $this->email = $value;
         return $this;
@@ -438,17 +438,17 @@ class Visitor extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getAppId(): string
+    public function getAppId(): ?string
     {
         return $this->appId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setAppId(string $value): self
+    public function setAppId(?string $value = null): self
     {
         $this->appId = $value;
         return $this;
@@ -506,17 +506,17 @@ class Visitor extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
@@ -540,17 +540,17 @@ class Visitor extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getSignedUpAt(): int
+    public function getSignedUpAt(): ?int
     {
         return $this->signedUpAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setSignedUpAt(int $value): self
+    public function setSignedUpAt(?int $value = null): self
     {
         $this->signedUpAt = $value;
         return $this;

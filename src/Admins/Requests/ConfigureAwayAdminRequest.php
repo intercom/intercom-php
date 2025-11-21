@@ -8,9 +8,9 @@ use Intercom\Core\Json\JsonProperty;
 class ConfigureAwayAdminRequest extends JsonSerializableType
 {
     /**
-     * @var string $adminId The unique identifier of a given admin
+     * @var int $adminId The unique identifier of a given admin
      */
-    private string $adminId;
+    private int $adminId;
 
     /**
      * @var bool $awayModeEnabled Set to "true" to change the status of the admin to away.
@@ -25,10 +25,17 @@ class ConfigureAwayAdminRequest extends JsonSerializableType
     private bool $awayModeReassign;
 
     /**
+     * @var ?int $awayStatusReasonId The unique identifier of the away status reason
+     */
+    #[JsonProperty('away_status_reason_id')]
+    private ?int $awayStatusReasonId;
+
+    /**
      * @param array{
-     *   adminId: string,
+     *   adminId: int,
      *   awayModeEnabled: bool,
      *   awayModeReassign: bool,
+     *   awayStatusReasonId?: ?int,
      * } $values
      */
     public function __construct(
@@ -37,20 +44,21 @@ class ConfigureAwayAdminRequest extends JsonSerializableType
         $this->adminId = $values['adminId'];
         $this->awayModeEnabled = $values['awayModeEnabled'];
         $this->awayModeReassign = $values['awayModeReassign'];
+        $this->awayStatusReasonId = $values['awayStatusReasonId'] ?? null;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getAdminId(): string
+    public function getAdminId(): int
     {
         return $this->adminId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setAdminId(string $value): self
+    public function setAdminId(int $value): self
     {
         $this->adminId = $value;
         return $this;
@@ -87,6 +95,23 @@ class ConfigureAwayAdminRequest extends JsonSerializableType
     public function setAwayModeReassign(bool $value): self
     {
         $this->awayModeReassign = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getAwayStatusReasonId(): ?int
+    {
+        return $this->awayStatusReasonId;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setAwayStatusReasonId(?int $value = null): self
+    {
+        $this->awayStatusReasonId = $value;
         return $this;
     }
 }

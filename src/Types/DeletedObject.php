@@ -11,84 +11,84 @@ use Intercom\Core\Json\JsonProperty;
 class DeletedObject extends JsonSerializableType
 {
     /**
-     * @var string $id The unique identifier for the news item which you provided in the URL.
+     * @var ?string $id The unique identifier for the news item which you provided in the URL.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var 'news-item' $object The type of object which was deleted - news-item.
+     * @var ?'news-item' $object The type of object which was deleted - news-item.
      */
     #[JsonProperty('object')]
-    private string $object;
+    private ?string $object;
 
     /**
-     * @var bool $deleted Whether the news item was deleted successfully or not.
+     * @var ?bool $deleted Whether the news item was deleted successfully or not.
      */
     #[JsonProperty('deleted')]
-    private bool $deleted;
+    private ?bool $deleted;
 
     /**
      * @param array{
-     *   id: string,
-     *   object: 'news-item',
-     *   deleted: bool,
+     *   id?: ?string,
+     *   object?: ?'news-item',
+     *   deleted?: ?bool,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->id = $values['id'];
-        $this->object = $values['object'];
-        $this->deleted = $values['deleted'];
+        $this->id = $values['id'] ?? null;
+        $this->object = $values['object'] ?? null;
+        $this->deleted = $values['deleted'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return 'news-item'
+     * @return ?'news-item'
      */
-    public function getObject(): string
+    public function getObject(): ?string
     {
         return $this->object;
     }
 
     /**
-     * @param 'news-item' $value
+     * @param ?'news-item' $value
      */
-    public function setObject(string $value): self
+    public function setObject(?string $value = null): self
     {
         $this->object = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getDeleted(): bool
+    public function getDeleted(): ?bool
     {
         return $this->deleted;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setDeleted(bool $value): self
+    public function setDeleted(?bool $value = null): self
     {
         $this->deleted = $value;
         return $this;

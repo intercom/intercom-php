@@ -5,6 +5,20 @@
 
 The Intercom PHP library provides convenient access to the Intercom APIs from PHP.
 
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Exception Handling](#exception-handling)
+- [Pagination](#pagination)
+- [Legacy Sdk](#legacy-sdk)
+- [Advanced](#advanced)
+  - [Custom Client](#custom-client)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+- [Contributing](#contributing)
+
 ## Requirements
 
 This SDK requires PHP ^8.1.
@@ -26,7 +40,6 @@ namespace Example;
 
 use Intercom\IntercomClient;
 use Intercom\AiContent\Requests\CreateContentImportSourceRequest;
-use Intercom\AiContent\Types\CreateContentImportSourceRequestStatus;
 
 $client = new IntercomClient(
     token: '<token>',
@@ -34,8 +47,7 @@ $client = new IntercomClient(
 $client->aiContent->createContentImportSource(
     new CreateContentImportSourceRequest([
         'syncBehavior' => 'api',
-        'status' => CreateContentImportSourceRequestStatus::Active->value,
-        'url' => 'url',
+        'url' => 'https://www.example.com',
     ]),
 );
 
@@ -86,6 +98,7 @@ foreach ($items->getPages() as $page) {
     }
 }
 ```
+
 
 ## Legacy SDK
 
@@ -156,7 +169,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```php
-$response = $client->articles->create(
+$response = $client->aiContent->createContentImportSource(
     ...,
     options: [
         'maxRetries' => 0 // Override maxRetries at the request level
@@ -169,7 +182,7 @@ $response = $client->articles->create(
 The SDK defaults to a 30 second timeout. Use the `timeout` option to configure this behavior.
 
 ```php
-$response = $client->articles->create(
+$response = $client->aiContent->createContentImportSource(
     ...,
     options: [
         'timeout' => 3.0 // Override timeout to 3 seconds

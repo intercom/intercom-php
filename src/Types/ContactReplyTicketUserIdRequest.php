@@ -27,6 +27,7 @@ class ContactReplyTicketUserIdRequest extends JsonSerializableType
      *   userId: string,
      *   createdAt?: ?int,
      *   attachmentUrls?: ?array<string>,
+     *   replyOptions?: ?array<ContactReplyBaseRequestReplyOptionsItem>,
      * } $values
      */
     public function __construct(
@@ -37,6 +38,7 @@ class ContactReplyTicketUserIdRequest extends JsonSerializableType
         $this->body = $values['body'];
         $this->createdAt = $values['createdAt'] ?? null;
         $this->attachmentUrls = $values['attachmentUrls'] ?? null;
+        $this->replyOptions = $values['replyOptions'] ?? null;
         $this->userId = $values['userId'];
     }
 

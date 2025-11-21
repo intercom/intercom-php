@@ -11,59 +11,59 @@ use Intercom\Core\Json\JsonProperty;
 class NewsfeedAssignment extends JsonSerializableType
 {
     /**
-     * @var int $newsfeedId The unique identifier for the newsfeed which is given by Intercom. Publish dates cannot be in the future, to schedule news items use the dedicated feature in app (see this article).
+     * @var ?int $newsfeedId The unique identifier for the newsfeed which is given by Intercom. Publish dates cannot be in the future, to schedule news items use the dedicated feature in app (see this article).
      */
     #[JsonProperty('newsfeed_id')]
-    private int $newsfeedId;
+    private ?int $newsfeedId;
 
     /**
-     * @var int $publishedAt Publish date of the news item on the newsfeed, use this field if you want to set a publish date in the past (e.g. when importing existing news items). On write, this field will be ignored if the news item state is "draft".
+     * @var ?int $publishedAt Publish date of the news item on the newsfeed, use this field if you want to set a publish date in the past (e.g. when importing existing news items). On write, this field will be ignored if the news item state is "draft".
      */
     #[JsonProperty('published_at')]
-    private int $publishedAt;
+    private ?int $publishedAt;
 
     /**
      * @param array{
-     *   newsfeedId: int,
-     *   publishedAt: int,
+     *   newsfeedId?: ?int,
+     *   publishedAt?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->newsfeedId = $values['newsfeedId'];
-        $this->publishedAt = $values['publishedAt'];
+        $this->newsfeedId = $values['newsfeedId'] ?? null;
+        $this->publishedAt = $values['publishedAt'] ?? null;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getNewsfeedId(): int
+    public function getNewsfeedId(): ?int
     {
         return $this->newsfeedId;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setNewsfeedId(int $value): self
+    public function setNewsfeedId(?int $value = null): self
     {
         $this->newsfeedId = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getPublishedAt(): int
+    public function getPublishedAt(): ?int
     {
         return $this->publishedAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setPublishedAt(int $value): self
+    public function setPublishedAt(?int $value = null): self
     {
         $this->publishedAt = $value;
         return $this;

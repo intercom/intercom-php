@@ -12,84 +12,84 @@ use Intercom\Core\Types\ArrayType;
 class ConversationParts extends JsonSerializableType
 {
     /**
-     * @var 'conversation_part.list' $type
+     * @var ?'conversation_part.list' $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<ConversationPart> $conversationParts A list of Conversation Part objects for each part message in the conversation. This is only returned when Retrieving a Conversation, and ignored when Listing all Conversations. There is a limit of 500 parts.
+     * @var ?array<ConversationPart> $conversationParts A list of Conversation Part objects for each part message in the conversation. This is only returned when Retrieving a Conversation, and ignored when Listing all Conversations. There is a limit of 500 parts.
      */
     #[JsonProperty('conversation_parts'), ArrayType([ConversationPart::class])]
-    private array $conversationParts;
+    private ?array $conversationParts;
 
     /**
-     * @var int $totalCount
+     * @var ?int $totalCount
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
      * @param array{
-     *   type: 'conversation_part.list',
-     *   conversationParts: array<ConversationPart>,
-     *   totalCount: int,
+     *   type?: ?'conversation_part.list',
+     *   conversationParts?: ?array<ConversationPart>,
+     *   totalCount?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->conversationParts = $values['conversationParts'];
-        $this->totalCount = $values['totalCount'];
+        $this->type = $values['type'] ?? null;
+        $this->conversationParts = $values['conversationParts'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
     }
 
     /**
-     * @return 'conversation_part.list'
+     * @return ?'conversation_part.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'conversation_part.list' $value
+     * @param ?'conversation_part.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<ConversationPart>
+     * @return ?array<ConversationPart>
      */
-    public function getConversationParts(): array
+    public function getConversationParts(): ?array
     {
         return $this->conversationParts;
     }
 
     /**
-     * @param array<ConversationPart> $value
+     * @param ?array<ConversationPart> $value
      */
-    public function setConversationParts(array $value): self
+    public function setConversationParts(?array $value = null): self
     {
         $this->conversationParts = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;

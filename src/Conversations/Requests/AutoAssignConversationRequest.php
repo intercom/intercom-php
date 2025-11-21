@@ -7,7 +7,7 @@ use Intercom\Core\Json\JsonSerializableType;
 class AutoAssignConversationRequest extends JsonSerializableType
 {
     /**
-     * @var string $conversationId The identifier for the conversation as given by Intercom.
+     * @var string $conversationId
      */
     private string $conversationId;
 

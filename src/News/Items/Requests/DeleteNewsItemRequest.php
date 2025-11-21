@@ -7,13 +7,13 @@ use Intercom\Core\Json\JsonSerializableType;
 class DeleteNewsItemRequest extends JsonSerializableType
 {
     /**
-     * @var string $newsItemId The unique identifier for the news item which is given by Intercom.
+     * @var int $newsItemId The unique identifier for the news item which is given by Intercom.
      */
-    private string $newsItemId;
+    private int $newsItemId;
 
     /**
      * @param array{
-     *   newsItemId: string,
+     *   newsItemId: int,
      * } $values
      */
     public function __construct(
@@ -23,17 +23,17 @@ class DeleteNewsItemRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getNewsItemId(): string
+    public function getNewsItemId(): int
     {
         return $this->newsItemId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setNewsItemId(string $value): self
+    public function setNewsItemId(int $value): self
     {
         $this->newsItemId = $value;
         return $this;

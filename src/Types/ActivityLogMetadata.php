@@ -65,6 +65,36 @@ class ActivityLogMetadata extends JsonSerializableType
     private ?string $updateByName;
 
     /**
+     * @var ?int $conversationAssignmentLimit The conversation assignment limit value for an admin.
+     */
+    #[JsonProperty('conversation_assignment_limit')]
+    private ?int $conversationAssignmentLimit;
+
+    /**
+     * @var ?int $ticketAssignmentLimit The ticket assignment limit value for an admin.
+     */
+    #[JsonProperty('ticket_assignment_limit')]
+    private ?int $ticketAssignmentLimit;
+
+    /**
+     * @var ?ActivityLogMetadataTeam $team Details about the team whose assignment limit was changed.
+     */
+    #[JsonProperty('team')]
+    private ?ActivityLogMetadataTeam $team;
+
+    /**
+     * @var ?int $teamAssignmentLimit The team assignment limit value (null if limit was removed).
+     */
+    #[JsonProperty('team_assignment_limit')]
+    private ?int $teamAssignmentLimit;
+
+    /**
+     * @var ?bool $enabled Indicates if the setting is enabled or disabled.
+     */
+    #[JsonProperty('enabled')]
+    private ?bool $enabled;
+
+    /**
      * @param array{
      *   signInMethod?: ?string,
      *   externalId?: ?string,
@@ -75,6 +105,11 @@ class ActivityLogMetadata extends JsonSerializableType
      *   autoChanged?: ?string,
      *   updateBy?: ?int,
      *   updateByName?: ?string,
+     *   conversationAssignmentLimit?: ?int,
+     *   ticketAssignmentLimit?: ?int,
+     *   team?: ?ActivityLogMetadataTeam,
+     *   teamAssignmentLimit?: ?int,
+     *   enabled?: ?bool,
      * } $values
      */
     public function __construct(
@@ -89,6 +124,11 @@ class ActivityLogMetadata extends JsonSerializableType
         $this->autoChanged = $values['autoChanged'] ?? null;
         $this->updateBy = $values['updateBy'] ?? null;
         $this->updateByName = $values['updateByName'] ?? null;
+        $this->conversationAssignmentLimit = $values['conversationAssignmentLimit'] ?? null;
+        $this->ticketAssignmentLimit = $values['ticketAssignmentLimit'] ?? null;
+        $this->team = $values['team'] ?? null;
+        $this->teamAssignmentLimit = $values['teamAssignmentLimit'] ?? null;
+        $this->enabled = $values['enabled'] ?? null;
     }
 
     /**
@@ -241,6 +281,91 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setUpdateByName(?string $value = null): self
     {
         $this->updateByName = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getConversationAssignmentLimit(): ?int
+    {
+        return $this->conversationAssignmentLimit;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setConversationAssignmentLimit(?int $value = null): self
+    {
+        $this->conversationAssignmentLimit = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getTicketAssignmentLimit(): ?int
+    {
+        return $this->ticketAssignmentLimit;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setTicketAssignmentLimit(?int $value = null): self
+    {
+        $this->ticketAssignmentLimit = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?ActivityLogMetadataTeam
+     */
+    public function getTeam(): ?ActivityLogMetadataTeam
+    {
+        return $this->team;
+    }
+
+    /**
+     * @param ?ActivityLogMetadataTeam $value
+     */
+    public function setTeam(?ActivityLogMetadataTeam $value = null): self
+    {
+        $this->team = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getTeamAssignmentLimit(): ?int
+    {
+        return $this->teamAssignmentLimit;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setTeamAssignmentLimit(?int $value = null): self
+    {
+        $this->teamAssignmentLimit = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?bool
+     */
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param ?bool $value
+     */
+    public function setEnabled(?bool $value = null): self
+    {
+        $this->enabled = $value;
         return $this;
     }
 

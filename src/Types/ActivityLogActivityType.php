@@ -4,7 +4,8 @@ namespace Intercom\Types;
 
 enum ActivityLogActivityType: string
 {
-    case AdminAssignmentLimitChange = "admin_assignment_limit_change";
+    case AdminConversationAssignmentLimitChange = "admin_conversation_assignment_limit_change";
+    case AdminTicketAssignmentLimitChange = "admin_ticket_assignment_limit_change";
     case AdminAwayModeChange = "admin_away_mode_change";
     case AdminDeletion = "admin_deletion";
     case AdminDeprovisioned = "admin_deprovisioned";
@@ -68,7 +69,9 @@ enum ActivityLogActivityType: string
     case SeatChange = "seat_change";
     case SeatRevoke = "seat_revoke";
     case SecuritySettingsChange = "security_settings_change";
+    case TeamAssignmentLimitChange = "team_assignment_limit_change";
     case TemporaryExpectationChange = "temporary_expectation_change";
+    case UnassignUnsnoozedAtCapacitySettingChange = "unassign_unsnoozed_at_capacity_setting_change";
     case UpfrontEmailCollectionChange = "upfront_email_collection_change";
     case WelcomeMessageChange = "welcome_message_change";
 }

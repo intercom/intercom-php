@@ -7,13 +7,13 @@ use Intercom\Core\Json\JsonSerializableType;
 class FindHelpCenterRequest extends JsonSerializableType
 {
     /**
-     * @var string $helpCenterId The unique identifier for the Help Center which is given by Intercom.
+     * @var int $helpCenterId The unique identifier for the collection which is given by Intercom.
      */
-    private string $helpCenterId;
+    private int $helpCenterId;
 
     /**
      * @param array{
-     *   helpCenterId: string,
+     *   helpCenterId: int,
      * } $values
      */
     public function __construct(
@@ -23,17 +23,17 @@ class FindHelpCenterRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getHelpCenterId(): string
+    public function getHelpCenterId(): int
     {
         return $this->helpCenterId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setHelpCenterId(string $value): self
+    public function setHelpCenterId(int $value): self
     {
         $this->helpCenterId = $value;
         return $this;

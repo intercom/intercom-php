@@ -9,9 +9,9 @@ use Intercom\Types\GroupTranslatedContent;
 class UpdateCollectionRequest extends JsonSerializableType
 {
     /**
-     * @var string $collectionId The unique identifier for the collection which is given by Intercom.
+     * @var int $collectionId The unique identifier for the collection which is given by Intercom.
      */
-    private string $collectionId;
+    private int $collectionId;
 
     /**
      * @var ?string $name The name of the collection. For multilingual collections, this will be the name of the default language's content.
@@ -39,7 +39,7 @@ class UpdateCollectionRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   collectionId: string,
+     *   collectionId: int,
      *   name?: ?string,
      *   description?: ?string,
      *   translatedContent?: ?GroupTranslatedContent,
@@ -57,17 +57,17 @@ class UpdateCollectionRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCollectionId(): string
+    public function getCollectionId(): int
     {
         return $this->collectionId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setCollectionId(string $value): self
+    public function setCollectionId(int $value): self
     {
         $this->collectionId = $value;
         return $this;

@@ -11,28 +11,28 @@ use Intercom\Core\Json\JsonProperty;
 class Segment extends JsonSerializableType
 {
     /**
-     * @var 'segment' $type The type of object.
+     * @var ?'segment' $type The type of object.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The unique identifier representing the segment.
+     * @var ?string $id The unique identifier representing the segment.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $name The name of the segment.
+     * @var ?string $name The name of the segment.
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var int $createdAt The time the segment was created.
+     * @var ?int $createdAt The time the segment was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?int $updatedAt The time the segment was updated.
@@ -41,10 +41,10 @@ class Segment extends JsonSerializableType
     private ?int $updatedAt;
 
     /**
-     * @var value-of<SegmentPersonType> $personType Type of the contact: contact (lead) or user.
+     * @var ?value-of<SegmentPersonType> $personType Type of the contact: contact (lead) or user.
      */
     #[JsonProperty('person_type')]
-    private string $personType;
+    private ?string $personType;
 
     /**
      * @var ?int $count The number of items in the user segment. It's returned when `include_count=true` is included in the request.
@@ -54,90 +54,90 @@ class Segment extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'segment',
-     *   id: string,
-     *   name: string,
-     *   createdAt: int,
-     *   personType: value-of<SegmentPersonType>,
+     *   type?: ?'segment',
+     *   id?: ?string,
+     *   name?: ?string,
+     *   createdAt?: ?int,
      *   updatedAt?: ?int,
+     *   personType?: ?value-of<SegmentPersonType>,
      *   count?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->name = $values['name'];
-        $this->createdAt = $values['createdAt'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
-        $this->personType = $values['personType'];
+        $this->personType = $values['personType'] ?? null;
         $this->count = $values['count'] ?? null;
     }
 
     /**
-     * @return 'segment'
+     * @return ?'segment'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'segment' $value
+     * @param ?'segment' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
@@ -161,17 +161,17 @@ class Segment extends JsonSerializableType
     }
 
     /**
-     * @return value-of<SegmentPersonType>
+     * @return ?value-of<SegmentPersonType>
      */
-    public function getPersonType(): string
+    public function getPersonType(): ?string
     {
         return $this->personType;
     }
 
     /**
-     * @param value-of<SegmentPersonType> $value
+     * @param ?value-of<SegmentPersonType> $value
      */
-    public function setPersonType(string $value): self
+    public function setPersonType(?string $value = null): self
     {
         $this->personType = $value;
         return $this;

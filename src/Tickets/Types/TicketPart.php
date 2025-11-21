@@ -15,22 +15,22 @@ use Intercom\Core\Types\ArrayType;
 class TicketPart extends JsonSerializableType
 {
     /**
-     * @var 'ticket_part' $type Always ticket_part
+     * @var ?string $type Always ticket_part
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The id representing the ticket part.
+     * @var ?string $id The id representing the ticket part.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $partType The type of ticket part.
+     * @var ?string $partType The type of ticket part.
      */
     #[JsonProperty('part_type')]
-    private string $partType;
+    private ?string $partType;
 
     /**
      * @var ?string $body The message body, which may contain HTML.
@@ -45,16 +45,16 @@ class TicketPart extends JsonSerializableType
     private ?string $previousTicketState;
 
     /**
-     * @var value-of<TicketPartTicketState> $ticketState The state of the ticket.
+     * @var ?value-of<TicketPartTicketState> $ticketState The state of the ticket.
      */
     #[JsonProperty('ticket_state')]
-    private string $ticketState;
+    private ?string $ticketState;
 
     /**
-     * @var int $createdAt The time the ticket part was created.
+     * @var ?int $createdAt The time the ticket part was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?int $updatedAt The last time the ticket part was updated.
@@ -93,86 +93,102 @@ class TicketPart extends JsonSerializableType
     private ?bool $redacted;
 
     /**
+     * @var ?string $appPackageCode The app package code if this part was created via API. Note this field won't show if the part was not created via API.
+     */
+    #[JsonProperty('app_package_code')]
+    private ?string $appPackageCode;
+
+    /**
+     * @var ?TicketPartUpdatedAttributeData $updatedAttributeData The updated attribute data of the ticket part. Only present for attribute update parts.
+     */
+    #[JsonProperty('updated_attribute_data')]
+    private ?TicketPartUpdatedAttributeData $updatedAttributeData;
+
+    /**
      * @param array{
-     *   type: 'ticket_part',
-     *   id: string,
-     *   partType: string,
-     *   ticketState: value-of<TicketPartTicketState>,
-     *   createdAt: int,
+     *   type?: ?string,
+     *   id?: ?string,
+     *   partType?: ?string,
      *   body?: ?string,
      *   previousTicketState?: ?value-of<TicketPartPreviousTicketState>,
+     *   ticketState?: ?value-of<TicketPartTicketState>,
+     *   createdAt?: ?int,
      *   updatedAt?: ?int,
      *   assignedTo?: ?Reference,
      *   author?: ?TicketPartAuthor,
      *   attachments?: ?array<PartAttachment>,
      *   externalId?: ?string,
      *   redacted?: ?bool,
+     *   appPackageCode?: ?string,
+     *   updatedAttributeData?: ?TicketPartUpdatedAttributeData,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->partType = $values['partType'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->partType = $values['partType'] ?? null;
         $this->body = $values['body'] ?? null;
         $this->previousTicketState = $values['previousTicketState'] ?? null;
-        $this->ticketState = $values['ticketState'];
-        $this->createdAt = $values['createdAt'];
+        $this->ticketState = $values['ticketState'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
         $this->assignedTo = $values['assignedTo'] ?? null;
         $this->author = $values['author'] ?? null;
         $this->attachments = $values['attachments'] ?? null;
         $this->externalId = $values['externalId'] ?? null;
         $this->redacted = $values['redacted'] ?? null;
+        $this->appPackageCode = $values['appPackageCode'] ?? null;
+        $this->updatedAttributeData = $values['updatedAttributeData'] ?? null;
     }
 
     /**
-     * @return 'ticket_part'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'ticket_part' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getPartType(): string
+    public function getPartType(): ?string
     {
         return $this->partType;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setPartType(string $value): self
+    public function setPartType(?string $value = null): self
     {
         $this->partType = $value;
         return $this;
@@ -213,34 +229,34 @@ class TicketPart extends JsonSerializableType
     }
 
     /**
-     * @return value-of<TicketPartTicketState>
+     * @return ?value-of<TicketPartTicketState>
      */
-    public function getTicketState(): string
+    public function getTicketState(): ?string
     {
         return $this->ticketState;
     }
 
     /**
-     * @param value-of<TicketPartTicketState> $value
+     * @param ?value-of<TicketPartTicketState> $value
      */
-    public function setTicketState(string $value): self
+    public function setTicketState(?string $value = null): self
     {
         $this->ticketState = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
@@ -345,6 +361,40 @@ class TicketPart extends JsonSerializableType
     public function setRedacted(?bool $value = null): self
     {
         $this->redacted = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getAppPackageCode(): ?string
+    {
+        return $this->appPackageCode;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setAppPackageCode(?string $value = null): self
+    {
+        $this->appPackageCode = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?TicketPartUpdatedAttributeData
+     */
+    public function getUpdatedAttributeData(): ?TicketPartUpdatedAttributeData
+    {
+        return $this->updatedAttributeData;
+    }
+
+    /**
+     * @param ?TicketPartUpdatedAttributeData $value
+     */
+    public function setUpdatedAttributeData(?TicketPartUpdatedAttributeData $value = null): self
+    {
+        $this->updatedAttributeData = $value;
         return $this;
     }
 

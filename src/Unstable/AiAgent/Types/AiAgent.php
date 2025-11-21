@@ -48,6 +48,18 @@ class AiAgent extends JsonSerializableType
     private ?string $ratingRemark;
 
     /**
+     * @var ?int $createdAt The time when the AI agent rating was created.
+     */
+    #[JsonProperty('created_at')]
+    private ?int $createdAt;
+
+    /**
+     * @var ?int $updatedAt The time when the AI agent rating was last updated.
+     */
+    #[JsonProperty('updated_at')]
+    private ?int $updatedAt;
+
+    /**
      * @var ?ContentSourcesList $contentSources
      */
     #[JsonProperty('content_sources')]
@@ -61,6 +73,8 @@ class AiAgent extends JsonSerializableType
      *   resolutionState?: ?string,
      *   rating?: ?int,
      *   ratingRemark?: ?string,
+     *   createdAt?: ?int,
+     *   updatedAt?: ?int,
      *   contentSources?: ?ContentSourcesList,
      * } $values
      */
@@ -73,6 +87,8 @@ class AiAgent extends JsonSerializableType
         $this->resolutionState = $values['resolutionState'] ?? null;
         $this->rating = $values['rating'] ?? null;
         $this->ratingRemark = $values['ratingRemark'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->updatedAt = $values['updatedAt'] ?? null;
         $this->contentSources = $values['contentSources'] ?? null;
     }
 
@@ -175,6 +191,40 @@ class AiAgent extends JsonSerializableType
     public function setRatingRemark(?string $value = null): self
     {
         $this->ratingRemark = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getCreatedAt(): ?int
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setCreatedAt(?int $value = null): self
+    {
+        $this->createdAt = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getUpdatedAt(): ?int
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setUpdatedAt(?int $value = null): self
+    {
+        $this->updatedAt = $value;
         return $this;
     }
 

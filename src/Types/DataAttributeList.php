@@ -13,59 +13,59 @@ use Intercom\Core\Types\ArrayType;
 class DataAttributeList extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of the object
+     * @var ?'list' $type The type of the object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<DataAttribute> $data A list of data attributes
+     * @var ?array<DataAttribute> $data A list of data attributes
      */
     #[JsonProperty('data'), ArrayType([DataAttribute::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @param array{
-     *   type: 'list',
-     *   data: array<DataAttribute>,
+     *   type?: ?'list',
+     *   data?: ?array<DataAttribute>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->data = $values['data'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<DataAttribute>
+     * @return ?array<DataAttribute>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<DataAttribute> $value
+     * @param ?array<DataAttribute> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

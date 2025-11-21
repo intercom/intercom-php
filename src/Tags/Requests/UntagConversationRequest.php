@@ -13,7 +13,7 @@ class UntagConversationRequest extends JsonSerializableType
     private string $conversationId;
 
     /**
-     * @var string $tagId id
+     * @var string $tagId tag_id
      */
     private string $tagId;
 

@@ -11,16 +11,16 @@ use Intercom\Core\Json\JsonProperty;
 class ActivityLog extends JsonSerializableType
 {
     /**
-     * @var string $id The id representing the activity.
+     * @var ?string $id The id representing the activity.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var ActivityLogPerformedBy $performedBy Details about the Admin involved in the activity.
+     * @var ?ActivityLogPerformedBy $performedBy Details about the Admin involved in the activity.
      */
     #[JsonProperty('performed_by')]
-    private ActivityLogPerformedBy $performedBy;
+    private ?ActivityLogPerformedBy $performedBy;
 
     /**
      * @var ?ActivityLogMetadata $metadata
@@ -35,10 +35,10 @@ class ActivityLog extends JsonSerializableType
     private ?int $createdAt;
 
     /**
-     * @var value-of<ActivityLogActivityType> $activityType
+     * @var ?value-of<ActivityLogActivityType> $activityType
      */
     #[JsonProperty('activity_type')]
-    private string $activityType;
+    private ?string $activityType;
 
     /**
      * @var ?string $activityDescription A sentence or two describing the activity.
@@ -48,54 +48,54 @@ class ActivityLog extends JsonSerializableType
 
     /**
      * @param array{
-     *   id: string,
-     *   performedBy: ActivityLogPerformedBy,
-     *   activityType: value-of<ActivityLogActivityType>,
+     *   id?: ?string,
+     *   performedBy?: ?ActivityLogPerformedBy,
      *   metadata?: ?ActivityLogMetadata,
      *   createdAt?: ?int,
+     *   activityType?: ?value-of<ActivityLogActivityType>,
      *   activityDescription?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->id = $values['id'];
-        $this->performedBy = $values['performedBy'];
+        $this->id = $values['id'] ?? null;
+        $this->performedBy = $values['performedBy'] ?? null;
         $this->metadata = $values['metadata'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
-        $this->activityType = $values['activityType'];
+        $this->activityType = $values['activityType'] ?? null;
         $this->activityDescription = $values['activityDescription'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ActivityLogPerformedBy
+     * @return ?ActivityLogPerformedBy
      */
-    public function getPerformedBy(): ActivityLogPerformedBy
+    public function getPerformedBy(): ?ActivityLogPerformedBy
     {
         return $this->performedBy;
     }
 
     /**
-     * @param ActivityLogPerformedBy $value
+     * @param ?ActivityLogPerformedBy $value
      */
-    public function setPerformedBy(ActivityLogPerformedBy $value): self
+    public function setPerformedBy(?ActivityLogPerformedBy $value = null): self
     {
         $this->performedBy = $value;
         return $this;
@@ -136,17 +136,17 @@ class ActivityLog extends JsonSerializableType
     }
 
     /**
-     * @return value-of<ActivityLogActivityType>
+     * @return ?value-of<ActivityLogActivityType>
      */
-    public function getActivityType(): string
+    public function getActivityType(): ?string
     {
         return $this->activityType;
     }
 
     /**
-     * @param value-of<ActivityLogActivityType> $value
+     * @param ?value-of<ActivityLogActivityType> $value
      */
-    public function setActivityType(string $value): self
+    public function setActivityType(?string $value = null): self
     {
         $this->activityType = $value;
         return $this;

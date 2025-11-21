@@ -11,184 +11,184 @@ use Intercom\Core\Json\JsonProperty;
 class PartAttachment extends JsonSerializableType
 {
     /**
-     * @var string $type The type of attachment
+     * @var ?string $type The type of attachment
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $name The name of the attachment
+     * @var ?string $name The name of the attachment
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $url The URL of the attachment
+     * @var ?string $url The URL of the attachment
      */
     #[JsonProperty('url')]
-    private string $url;
+    private ?string $url;
 
     /**
-     * @var string $contentType The content type of the attachment
+     * @var ?string $contentType The content type of the attachment
      */
     #[JsonProperty('content_type')]
-    private string $contentType;
+    private ?string $contentType;
 
     /**
-     * @var int $filesize The size of the attachment
+     * @var ?int $filesize The size of the attachment
      */
     #[JsonProperty('filesize')]
-    private int $filesize;
+    private ?int $filesize;
 
     /**
-     * @var int $width The width of the attachment
+     * @var ?int $width The width of the attachment
      */
     #[JsonProperty('width')]
-    private int $width;
+    private ?int $width;
 
     /**
-     * @var int $height The height of the attachment
+     * @var ?int $height The height of the attachment
      */
     #[JsonProperty('height')]
-    private int $height;
+    private ?int $height;
 
     /**
      * @param array{
-     *   type: string,
-     *   name: string,
-     *   url: string,
-     *   contentType: string,
-     *   filesize: int,
-     *   width: int,
-     *   height: int,
+     *   type?: ?string,
+     *   name?: ?string,
+     *   url?: ?string,
+     *   contentType?: ?string,
+     *   filesize?: ?int,
+     *   width?: ?int,
+     *   height?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->name = $values['name'];
-        $this->url = $values['url'];
-        $this->contentType = $values['contentType'];
-        $this->filesize = $values['filesize'];
-        $this->width = $values['width'];
-        $this->height = $values['height'];
+        $this->type = $values['type'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->url = $values['url'] ?? null;
+        $this->contentType = $values['contentType'] ?? null;
+        $this->filesize = $values['filesize'] ?? null;
+        $this->width = $values['width'] ?? null;
+        $this->height = $values['height'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUrl(string $value): self
+    public function setUrl(?string $value = null): self
     {
         $this->url = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getContentType(): string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setContentType(string $value): self
+    public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getFilesize(): int
+    public function getFilesize(): ?int
     {
         return $this->filesize;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setFilesize(int $value): self
+    public function setFilesize(?int $value = null): self
     {
         $this->filesize = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getWidth(): int
+    public function getWidth(): ?int
     {
         return $this->width;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setWidth(int $value): self
+    public function setWidth(?int $value = null): self
     {
         $this->width = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getHeight(): int
+    public function getHeight(): ?int
     {
         return $this->height;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setHeight(int $value): self
+    public function setHeight(?int $value = null): self
     {
         $this->height = $value;
         return $this;

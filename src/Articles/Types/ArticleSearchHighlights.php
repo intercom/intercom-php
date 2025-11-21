@@ -12,84 +12,84 @@ use Intercom\Core\Types\ArrayType;
 class ArticleSearchHighlights extends JsonSerializableType
 {
     /**
-     * @var string $articleId The ID of the corresponding article.
+     * @var ?string $articleId The ID of the corresponding article.
      */
     #[JsonProperty('article_id')]
-    private string $articleId;
+    private ?string $articleId;
 
     /**
-     * @var array<ArticleSearchHighlightsHighlightedTitleItem> $highlightedTitle An Article title highlighted.
+     * @var ?array<ArticleSearchHighlightsHighlightedTitleItem> $highlightedTitle An Article title highlighted.
      */
     #[JsonProperty('highlighted_title'), ArrayType([ArticleSearchHighlightsHighlightedTitleItem::class])]
-    private array $highlightedTitle;
+    private ?array $highlightedTitle;
 
     /**
-     * @var array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>> $highlightedSummary An Article description and body text highlighted.
+     * @var ?array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>> $highlightedSummary An Article description and body text highlighted.
      */
     #[JsonProperty('highlighted_summary'), ArrayType([[ArticleSearchHighlightsHighlightedSummaryItemItem::class]])]
-    private array $highlightedSummary;
+    private ?array $highlightedSummary;
 
     /**
      * @param array{
-     *   articleId: string,
-     *   highlightedTitle: array<ArticleSearchHighlightsHighlightedTitleItem>,
-     *   highlightedSummary: array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>>,
+     *   articleId?: ?string,
+     *   highlightedTitle?: ?array<ArticleSearchHighlightsHighlightedTitleItem>,
+     *   highlightedSummary?: ?array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->articleId = $values['articleId'];
-        $this->highlightedTitle = $values['highlightedTitle'];
-        $this->highlightedSummary = $values['highlightedSummary'];
+        $this->articleId = $values['articleId'] ?? null;
+        $this->highlightedTitle = $values['highlightedTitle'] ?? null;
+        $this->highlightedSummary = $values['highlightedSummary'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getArticleId(): string
+    public function getArticleId(): ?string
     {
         return $this->articleId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setArticleId(string $value): self
+    public function setArticleId(?string $value = null): self
     {
         $this->articleId = $value;
         return $this;
     }
 
     /**
-     * @return array<ArticleSearchHighlightsHighlightedTitleItem>
+     * @return ?array<ArticleSearchHighlightsHighlightedTitleItem>
      */
-    public function getHighlightedTitle(): array
+    public function getHighlightedTitle(): ?array
     {
         return $this->highlightedTitle;
     }
 
     /**
-     * @param array<ArticleSearchHighlightsHighlightedTitleItem> $value
+     * @param ?array<ArticleSearchHighlightsHighlightedTitleItem> $value
      */
-    public function setHighlightedTitle(array $value): self
+    public function setHighlightedTitle(?array $value = null): self
     {
         $this->highlightedTitle = $value;
         return $this;
     }
 
     /**
-     * @return array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>>
+     * @return ?array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>>
      */
-    public function getHighlightedSummary(): array
+    public function getHighlightedSummary(): ?array
     {
         return $this->highlightedSummary;
     }
 
     /**
-     * @param array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>> $value
+     * @param ?array<array<ArticleSearchHighlightsHighlightedSummaryItemItem>> $value
      */
-    public function setHighlightedSummary(array $value): self
+    public function setHighlightedSummary(?array $value = null): self
     {
         $this->highlightedSummary = $value;
         return $this;

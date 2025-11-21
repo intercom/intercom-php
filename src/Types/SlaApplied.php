@@ -12,16 +12,16 @@ use Intercom\Core\Json\JsonProperty;
 class SlaApplied extends JsonSerializableType
 {
     /**
-     * @var string $type object type
+     * @var ?string $type object type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $slaName The name of the SLA as given by the teammate when it was created.
+     * @var ?string $slaName The name of the SLA as given by the teammate when it was created.
      */
     #[JsonProperty('sla_name')]
-    private string $slaName;
+    private ?string $slaName;
 
     /**
      * SLA statuses:
@@ -29,72 +29,72 @@ class SlaApplied extends JsonSerializableType
      *             - `missed`: If there are any missed sla_events for the conversation and no canceled events. If there’s even a single missed sla event, the status will always be missed. A missed status is not applied when the SLA expires, only the next time a teammate replies.
      *             - `active`: An SLA has been applied to a conversation, but has not yet been fulfilled. SLA status is active only if there are no “hit, “missed”, or “canceled” events.
      *
-     * @var value-of<SlaAppliedSlaStatus> $slaStatus
+     * @var ?value-of<SlaAppliedSlaStatus> $slaStatus
      */
     #[JsonProperty('sla_status')]
-    private string $slaStatus;
+    private ?string $slaStatus;
 
     /**
      * @param array{
-     *   type: string,
-     *   slaName: string,
-     *   slaStatus: value-of<SlaAppliedSlaStatus>,
+     *   type?: ?string,
+     *   slaName?: ?string,
+     *   slaStatus?: ?value-of<SlaAppliedSlaStatus>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->slaName = $values['slaName'];
-        $this->slaStatus = $values['slaStatus'];
+        $this->type = $values['type'] ?? null;
+        $this->slaName = $values['slaName'] ?? null;
+        $this->slaStatus = $values['slaStatus'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getSlaName(): string
+    public function getSlaName(): ?string
     {
         return $this->slaName;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setSlaName(string $value): self
+    public function setSlaName(?string $value = null): self
     {
         $this->slaName = $value;
         return $this;
     }
 
     /**
-     * @return value-of<SlaAppliedSlaStatus>
+     * @return ?value-of<SlaAppliedSlaStatus>
      */
-    public function getSlaStatus(): string
+    public function getSlaStatus(): ?string
     {
         return $this->slaStatus;
     }
 
     /**
-     * @param value-of<SlaAppliedSlaStatus> $value
+     * @param ?value-of<SlaAppliedSlaStatus> $value
      */
-    public function setSlaStatus(string $value): self
+    public function setSlaStatus(?string $value = null): self
     {
         $this->slaStatus = $value;
         return $this;

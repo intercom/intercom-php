@@ -13,10 +13,10 @@ use Intercom\Core\Types\ArrayType;
 class ArticleList extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of the object - `list`.
+     * @var ?'list' $type The type of the object - `list`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var mixed $pages
@@ -25,46 +25,46 @@ class ArticleList extends JsonSerializableType
     private mixed $pages;
 
     /**
-     * @var int $totalCount A count of the total number of articles.
+     * @var ?int $totalCount A count of the total number of articles.
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
-     * @var array<ArticleListItem> $data An array of Article objects
+     * @var ?array<ArticleListItem> $data An array of Article objects
      */
     #[JsonProperty('data'), ArrayType([ArticleListItem::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @param array{
-     *   type: 'list',
-     *   totalCount: int,
-     *   data: array<ArticleListItem>,
+     *   type?: ?'list',
      *   pages?: mixed,
+     *   totalCount?: ?int,
+     *   data?: ?array<ArticleListItem>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
+        $this->type = $values['type'] ?? null;
         $this->pages = $values['pages'] ?? null;
-        $this->totalCount = $values['totalCount'];
-        $this->data = $values['data'];
+        $this->totalCount = $values['totalCount'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
@@ -88,34 +88,34 @@ class ArticleList extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;
     }
 
     /**
-     * @return array<ArticleListItem>
+     * @return ?array<ArticleListItem>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<ArticleListItem> $value
+     * @param ?array<ArticleListItem> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

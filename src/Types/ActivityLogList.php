@@ -5,6 +5,7 @@ namespace Intercom\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 
 /**
  * A paginated list of activity logs.
@@ -12,10 +13,10 @@ use Intercom\Core\Types\ArrayType;
 class ActivityLogList extends JsonSerializableType
 {
     /**
-     * @var 'activity_log.list' $type String representing the object's type. Always has the value `activity_log.list`.
+     * @var ?string $type String representing the object's type. Always has the value `activity_log.list`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var ?CursorPages $pages
@@ -24,38 +25,38 @@ class ActivityLogList extends JsonSerializableType
     private ?CursorPages $pages;
 
     /**
-     * @var array<ActivityLog> $activityLogs An array of activity logs
+     * @var ?array<?ActivityLog> $activityLogs An array of activity logs
      */
-    #[JsonProperty('activity_logs'), ArrayType([ActivityLog::class])]
-    private array $activityLogs;
+    #[JsonProperty('activity_logs'), ArrayType([new Union(ActivityLog::class, 'null')])]
+    private ?array $activityLogs;
 
     /**
      * @param array{
-     *   type: 'activity_log.list',
-     *   activityLogs: array<ActivityLog>,
+     *   type?: ?string,
      *   pages?: ?CursorPages,
+     *   activityLogs?: ?array<?ActivityLog>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
+        $this->type = $values['type'] ?? null;
         $this->pages = $values['pages'] ?? null;
-        $this->activityLogs = $values['activityLogs'];
+        $this->activityLogs = $values['activityLogs'] ?? null;
     }
 
     /**
-     * @return 'activity_log.list'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'activity_log.list' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
@@ -79,17 +80,17 @@ class ActivityLogList extends JsonSerializableType
     }
 
     /**
-     * @return array<ActivityLog>
+     * @return ?array<?ActivityLog>
      */
-    public function getActivityLogs(): array
+    public function getActivityLogs(): ?array
     {
         return $this->activityLogs;
     }
 
     /**
-     * @param array<ActivityLog> $value
+     * @param ?array<?ActivityLog> $value
      */
-    public function setActivityLogs(array $value): self
+    public function setActivityLogs(?array $value = null): self
     {
         $this->activityLogs = $value;
         return $this;

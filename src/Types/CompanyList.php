@@ -19,30 +19,30 @@ class CompanyList extends JsonSerializableType
     private ?OffsetPages $pages;
 
     /**
-     * @var int $totalCount The total number of companies.
+     * @var ?int $totalCount The total number of companies.
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
-     * @var array<Company> $data An array containing Company Objects.
+     * @var ?array<Company> $data An array containing Company Objects.
      */
     #[JsonProperty('data'), ArrayType([Company::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @param array{
-     *   totalCount: int,
-     *   data: array<Company>,
      *   pages?: ?OffsetPages,
+     *   totalCount?: ?int,
+     *   data?: ?array<Company>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
         $this->pages = $values['pages'] ?? null;
-        $this->totalCount = $values['totalCount'];
-        $this->data = $values['data'];
+        $this->totalCount = $values['totalCount'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
@@ -63,34 +63,34 @@ class CompanyList extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;
     }
 
     /**
-     * @return array<Company>
+     * @return ?array<Company>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<Company> $value
+     * @param ?array<Company> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

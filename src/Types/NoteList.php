@@ -13,84 +13,84 @@ use Intercom\Core\Types\ArrayType;
 class NoteList extends JsonSerializableType
 {
     /**
-     * @var 'list' $type String representing the object's type. Always has the value `list`.
+     * @var ?string $type String representing the object's type. Always has the value `list`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Note> $data An array of notes.
+     * @var ?array<Note> $data An array of notes.
      */
     #[JsonProperty('data'), ArrayType([Note::class])]
-    private array $data;
+    private ?array $data;
 
     /**
-     * @var int $totalCount A count of the total number of notes.
+     * @var ?int $totalCount A count of the total number of notes.
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
      * @param array{
-     *   type: 'list',
-     *   data: array<Note>,
-     *   totalCount: int,
+     *   type?: ?string,
+     *   data?: ?array<Note>,
+     *   totalCount?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->data = $values['data'];
-        $this->totalCount = $values['totalCount'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Note>
+     * @return ?array<Note>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<Note> $value
+     * @param ?array<Note> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;

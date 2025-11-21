@@ -13,59 +13,59 @@ use Intercom\Core\Types\ArrayType;
 class TagList extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of the object
+     * @var ?'list' $type The type of the object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Tag> $data A list of tags objects associated with the workspace .
+     * @var ?array<Tag> $data A list of tags objects associated with the workspace .
      */
     #[JsonProperty('data'), ArrayType([Tag::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @param array{
-     *   type: 'list',
-     *   data: array<Tag>,
+     *   type?: ?'list',
+     *   data?: ?array<Tag>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->data = $values['data'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Tag>
+     * @return ?array<Tag>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<Tag> $value
+     * @param ?array<Tag> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

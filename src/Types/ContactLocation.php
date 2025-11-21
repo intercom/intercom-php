@@ -11,10 +11,10 @@ use Intercom\Core\Json\JsonProperty;
 class ContactLocation extends JsonSerializableType
 {
     /**
-     * @var 'location' $type Always location
+     * @var ?string $type Always location
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var ?string $country The country that the contact is located in
@@ -36,33 +36,33 @@ class ContactLocation extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'location',
+     *   type?: ?string,
      *   country?: ?string,
      *   region?: ?string,
      *   city?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
+        $this->type = $values['type'] ?? null;
         $this->country = $values['country'] ?? null;
         $this->region = $values['region'] ?? null;
         $this->city = $values['city'] ?? null;
     }
 
     /**
-     * @return 'location'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'location' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;

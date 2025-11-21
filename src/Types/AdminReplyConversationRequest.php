@@ -42,6 +42,12 @@ class AdminReplyConversationRequest extends JsonSerializableType
     private ?int $createdAt;
 
     /**
+     * @var ?array<QuickReplyOption> $replyOptions The quick reply options to display to the end user. Must be present for quick_reply message types.
+     */
+    #[JsonProperty('reply_options'), ArrayType([QuickReplyOption::class])]
+    private ?array $replyOptions;
+
+    /**
      * @var ?array<string> $attachmentUrls A list of image URLs that will be added as attachments. You can include up to 10 URLs.
      */
     #[JsonProperty('attachment_urls'), ArrayType(['string'])]
@@ -60,6 +66,7 @@ class AdminReplyConversationRequest extends JsonSerializableType
      *   adminId: string,
      *   body?: ?string,
      *   createdAt?: ?int,
+     *   replyOptions?: ?array<QuickReplyOption>,
      *   attachmentUrls?: ?array<string>,
      *   attachmentFiles?: ?array<ConversationAttachmentFiles>,
      * } $values
@@ -72,6 +79,7 @@ class AdminReplyConversationRequest extends JsonSerializableType
         $this->body = $values['body'] ?? null;
         $this->adminId = $values['adminId'];
         $this->createdAt = $values['createdAt'] ?? null;
+        $this->replyOptions = $values['replyOptions'] ?? null;
         $this->attachmentUrls = $values['attachmentUrls'] ?? null;
         $this->attachmentFiles = $values['attachmentFiles'] ?? null;
     }
@@ -158,6 +166,23 @@ class AdminReplyConversationRequest extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<QuickReplyOption>
+     */
+    public function getReplyOptions(): ?array
+    {
+        return $this->replyOptions;
+    }
+
+    /**
+     * @param ?array<QuickReplyOption> $value
+     */
+    public function setReplyOptions(?array $value = null): self
+    {
+        $this->replyOptions = $value;
         return $this;
     }
 

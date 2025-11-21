@@ -231,6 +231,9 @@ class ConversationsClient
         if ($request->getDisplayAs() != null) {
             $query['display_as'] = $request->getDisplayAs();
         }
+        if ($request->getIncludeTranslations() != null) {
+            $query['include_translations'] = $request->getIncludeTranslations();
+        }
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(

@@ -12,10 +12,10 @@ use Intercom\Core\Json\JsonProperty;
 class CursorPages extends JsonSerializableType
 {
     /**
-     * @var 'pages' $type the type of object `pages`.
+     * @var ?'pages' $type the type of object `pages`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var ?int $page The current page
@@ -43,7 +43,7 @@ class CursorPages extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'pages',
+     *   type?: ?'pages',
      *   page?: ?int,
      *   next?: ?StartingAfterPaging,
      *   perPage?: ?int,
@@ -51,9 +51,9 @@ class CursorPages extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
+        $this->type = $values['type'] ?? null;
         $this->page = $values['page'] ?? null;
         $this->next = $values['next'] ?? null;
         $this->perPage = $values['perPage'] ?? null;
@@ -61,17 +61,17 @@ class CursorPages extends JsonSerializableType
     }
 
     /**
-     * @return 'pages'
+     * @return ?'pages'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'pages' $value
+     * @param ?'pages' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
