@@ -13,46 +13,46 @@ use Intercom\Core\Types\Union;
 class NewsItem extends JsonSerializableType
 {
     /**
-     * @var 'news-item' $type The type of object.
+     * @var ?'news-item' $type The type of object.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The unique identifier for the news item which is given by Intercom.
+     * @var ?string $id The unique identifier for the news item which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $workspaceId The id of the workspace which the news item belongs to.
+     * @var ?string $workspaceId The id of the workspace which the news item belongs to.
      */
     #[JsonProperty('workspace_id')]
-    private string $workspaceId;
+    private ?string $workspaceId;
 
     /**
-     * @var string $title The title of the news item.
+     * @var ?string $title The title of the news item.
      */
     #[JsonProperty('title')]
-    private string $title;
+    private ?string $title;
 
     /**
-     * @var string $body The news item body, which may contain HTML.
+     * @var ?string $body The news item body, which may contain HTML.
      */
     #[JsonProperty('body')]
-    private string $body;
+    private ?string $body;
 
     /**
-     * @var int $senderId The id of the sender of the news item. Must be a teammate on the workspace.
+     * @var ?int $senderId The id of the sender of the news item. Must be a teammate on the workspace.
      */
     #[JsonProperty('sender_id')]
-    private int $senderId;
+    private ?int $senderId;
 
     /**
-     * @var value-of<NewsItemState> $state News items will not be visible to your users in the assigned newsfeeds until they are set live.
+     * @var ?value-of<NewsItemState> $state News items will not be visible to your users in the assigned newsfeeds until they are set live.
      */
     #[JsonProperty('state')]
-    private string $state;
+    private ?string $state;
 
     /**
      * @var ?array<NewsfeedAssignment> $newsfeedAssignments A list of newsfeed_assignments to assign to the specified newsfeed.
@@ -85,10 +85,10 @@ class NewsItem extends JsonSerializableType
     private ?bool $deliverSilently;
 
     /**
-     * @var int $createdAt Timestamp for when the news item was created.
+     * @var ?int $createdAt Timestamp for when the news item was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?int $updatedAt Timestamp for when the news item was last updated.
@@ -98,155 +98,155 @@ class NewsItem extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'news-item',
-     *   id: string,
-     *   workspaceId: string,
-     *   title: string,
-     *   body: string,
-     *   senderId: int,
-     *   state: value-of<NewsItemState>,
-     *   createdAt: int,
+     *   type?: ?'news-item',
+     *   id?: ?string,
+     *   workspaceId?: ?string,
+     *   title?: ?string,
+     *   body?: ?string,
+     *   senderId?: ?int,
+     *   state?: ?value-of<NewsItemState>,
      *   newsfeedAssignments?: ?array<NewsfeedAssignment>,
      *   labels?: ?array<?string>,
      *   coverImageUrl?: ?string,
      *   reactions?: ?array<?string>,
      *   deliverSilently?: ?bool,
+     *   createdAt?: ?int,
      *   updatedAt?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->workspaceId = $values['workspaceId'];
-        $this->title = $values['title'];
-        $this->body = $values['body'];
-        $this->senderId = $values['senderId'];
-        $this->state = $values['state'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->workspaceId = $values['workspaceId'] ?? null;
+        $this->title = $values['title'] ?? null;
+        $this->body = $values['body'] ?? null;
+        $this->senderId = $values['senderId'] ?? null;
+        $this->state = $values['state'] ?? null;
         $this->newsfeedAssignments = $values['newsfeedAssignments'] ?? null;
         $this->labels = $values['labels'] ?? null;
         $this->coverImageUrl = $values['coverImageUrl'] ?? null;
         $this->reactions = $values['reactions'] ?? null;
         $this->deliverSilently = $values['deliverSilently'] ?? null;
-        $this->createdAt = $values['createdAt'];
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
     }
 
     /**
-     * @return 'news-item'
+     * @return ?'news-item'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'news-item' $value
+     * @param ?'news-item' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getWorkspaceId(): string
+    public function getWorkspaceId(): ?string
     {
         return $this->workspaceId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setWorkspaceId(string $value): self
+    public function setWorkspaceId(?string $value = null): self
     {
         $this->workspaceId = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setTitle(string $value): self
+    public function setTitle(?string $value = null): self
     {
         $this->title = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getBody(): string
+    public function getBody(): ?string
     {
         return $this->body;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setBody(string $value): self
+    public function setBody(?string $value = null): self
     {
         $this->body = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getSenderId(): int
+    public function getSenderId(): ?int
     {
         return $this->senderId;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setSenderId(int $value): self
+    public function setSenderId(?int $value = null): self
     {
         $this->senderId = $value;
         return $this;
     }
 
     /**
-     * @return value-of<NewsItemState>
+     * @return ?value-of<NewsItemState>
      */
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
 
     /**
-     * @param value-of<NewsItemState> $value
+     * @param ?value-of<NewsItemState> $value
      */
-    public function setState(string $value): self
+    public function setState(?string $value = null): self
     {
         $this->state = $value;
         return $this;
@@ -338,17 +338,17 @@ class NewsItem extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;

@@ -24,13 +24,13 @@ class AiAgent extends JsonSerializableType
     private ?string $sourceTitle;
 
     /**
-     * @var ?string $lastAnswerType The type of the last answer delivered by AI Agent. If no answer was delivered then this will return `null`
+     * @var ?value-of<AiAgentLastAnswerType> $lastAnswerType The type of the last answer delivered by AI Agent. If no answer was delivered then this will return `null`
      */
     #[JsonProperty('last_answer_type')]
     private ?string $lastAnswerType;
 
     /**
-     * @var ?string $resolutionState The resolution state of AI Agent. If no AI or custom answer has been delivered then this will return `null`.
+     * @var ?value-of<AiAgentResolutionState> $resolutionState The resolution state of AI Agent. If no AI or custom answer has been delivered then this will return `null`.
      */
     #[JsonProperty('resolution_state')]
     private ?string $resolutionState;
@@ -48,6 +48,18 @@ class AiAgent extends JsonSerializableType
     private ?string $ratingRemark;
 
     /**
+     * @var ?int $createdAt The time when the AI agent rating was created.
+     */
+    #[JsonProperty('created_at')]
+    private ?int $createdAt;
+
+    /**
+     * @var ?int $updatedAt The time when the AI agent rating was last updated.
+     */
+    #[JsonProperty('updated_at')]
+    private ?int $updatedAt;
+
+    /**
      * @var ?ContentSourcesList $contentSources
      */
     #[JsonProperty('content_sources')]
@@ -57,10 +69,12 @@ class AiAgent extends JsonSerializableType
      * @param array{
      *   sourceType?: ?value-of<AiAgentSourceType>,
      *   sourceTitle?: ?string,
-     *   lastAnswerType?: ?string,
-     *   resolutionState?: ?string,
+     *   lastAnswerType?: ?value-of<AiAgentLastAnswerType>,
+     *   resolutionState?: ?value-of<AiAgentResolutionState>,
      *   rating?: ?int,
      *   ratingRemark?: ?string,
+     *   createdAt?: ?int,
+     *   updatedAt?: ?int,
      *   contentSources?: ?ContentSourcesList,
      * } $values
      */
@@ -73,6 +87,8 @@ class AiAgent extends JsonSerializableType
         $this->resolutionState = $values['resolutionState'] ?? null;
         $this->rating = $values['rating'] ?? null;
         $this->ratingRemark = $values['ratingRemark'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->updatedAt = $values['updatedAt'] ?? null;
         $this->contentSources = $values['contentSources'] ?? null;
     }
 
@@ -111,7 +127,7 @@ class AiAgent extends JsonSerializableType
     }
 
     /**
-     * @return ?string
+     * @return ?value-of<AiAgentLastAnswerType>
      */
     public function getLastAnswerType(): ?string
     {
@@ -119,7 +135,7 @@ class AiAgent extends JsonSerializableType
     }
 
     /**
-     * @param ?string $value
+     * @param ?value-of<AiAgentLastAnswerType> $value
      */
     public function setLastAnswerType(?string $value = null): self
     {
@@ -128,7 +144,7 @@ class AiAgent extends JsonSerializableType
     }
 
     /**
-     * @return ?string
+     * @return ?value-of<AiAgentResolutionState>
      */
     public function getResolutionState(): ?string
     {
@@ -136,7 +152,7 @@ class AiAgent extends JsonSerializableType
     }
 
     /**
-     * @param ?string $value
+     * @param ?value-of<AiAgentResolutionState> $value
      */
     public function setResolutionState(?string $value = null): self
     {
@@ -175,6 +191,40 @@ class AiAgent extends JsonSerializableType
     public function setRatingRemark(?string $value = null): self
     {
         $this->ratingRemark = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getCreatedAt(): ?int
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setCreatedAt(?int $value = null): self
+    {
+        $this->createdAt = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getUpdatedAt(): ?int
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setUpdatedAt(?int $value = null): self
+    {
+        $this->updatedAt = $value;
         return $this;
     }
 

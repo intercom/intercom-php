@@ -5,6 +5,7 @@ namespace Intercom\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 
 /**
  * This will return a summary of data events for the App.
@@ -36,14 +37,14 @@ class DataEventSummary extends JsonSerializableType
     private ?string $userId;
 
     /**
-     * @var array<DataEventSummaryItem> $events A summary of data events
+     * @var array<?DataEventSummaryItem> $events A summary of data events
      */
-    #[JsonProperty('events'), ArrayType([DataEventSummaryItem::class])]
+    #[JsonProperty('events'), ArrayType([new Union(DataEventSummaryItem::class, 'null')])]
     private array $events;
 
     /**
      * @param array{
-     *   events: array<DataEventSummaryItem>,
+     *   events: array<?DataEventSummaryItem>,
      *   type?: ?'event.summary',
      *   email?: ?string,
      *   intercomUserId?: ?string,
@@ -129,7 +130,7 @@ class DataEventSummary extends JsonSerializableType
     }
 
     /**
-     * @return array<DataEventSummaryItem>
+     * @return array<?DataEventSummaryItem>
      */
     public function getEvents(): array
     {
@@ -137,7 +138,7 @@ class DataEventSummary extends JsonSerializableType
     }
 
     /**
-     * @param array<DataEventSummaryItem> $value
+     * @param array<?DataEventSummaryItem> $value
      */
     public function setEvents(array $value): self
     {

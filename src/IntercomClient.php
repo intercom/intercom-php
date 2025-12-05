@@ -3,21 +3,30 @@
 namespace Intercom;
 
 use Intercom\Admins\AdminsClient;
+use Intercom\AiContent\AiContentClient;
 use Intercom\Articles\ArticlesClient;
+use Intercom\AwayStatusReasons\AwayStatusReasonsClient;
+use Intercom\Export\ExportClient;
+use Intercom\DataExport\DataExportClient;
 use Intercom\HelpCenters\HelpCentersClient;
+use Intercom\InternalArticles\InternalArticlesClient;
 use Intercom\Companies\CompaniesClient;
 use Intercom\Contacts\ContactsClient;
 use Intercom\Notes\NotesClient;
 use Intercom\Tags\TagsClient;
 use Intercom\Conversations\ConversationsClient;
+use Intercom\CustomChannelEvents\CustomChannelEventsClient;
+use Intercom\CustomObjectInstances\CustomObjectInstancesClient;
 use Intercom\DataAttributes\DataAttributesClient;
 use Intercom\Events\EventsClient;
-use Intercom\DataExport\DataExportClient;
+use Intercom\Jobs\JobsClient;
 use Intercom\Messages\MessagesClient;
 use Intercom\Segments\SegmentsClient;
 use Intercom\SubscriptionTypes\SubscriptionTypesClient;
 use Intercom\PhoneCallRedirects\PhoneCallRedirectsClient;
+use Intercom\Calls\CallsClient;
 use Intercom\Teams\TeamsClient;
+use Intercom\TicketStates\TicketStatesClient;
 use Intercom\TicketTypes\TicketTypesClient;
 use Intercom\Tickets\TicketsClient;
 use Intercom\Visitors\VisitorsClient;
@@ -35,14 +44,39 @@ class IntercomClient
     public AdminsClient $admins;
 
     /**
+     * @var AiContentClient $aiContent
+     */
+    public AiContentClient $aiContent;
+
+    /**
      * @var ArticlesClient $articles
      */
     public ArticlesClient $articles;
 
     /**
+     * @var AwayStatusReasonsClient $awayStatusReasons
+     */
+    public AwayStatusReasonsClient $awayStatusReasons;
+
+    /**
+     * @var ExportClient $export
+     */
+    public ExportClient $export;
+
+    /**
+     * @var DataExportClient $dataExport
+     */
+    public DataExportClient $dataExport;
+
+    /**
      * @var HelpCentersClient $helpCenters
      */
     public HelpCentersClient $helpCenters;
+
+    /**
+     * @var InternalArticlesClient $internalArticles
+     */
+    public InternalArticlesClient $internalArticles;
 
     /**
      * @var CompaniesClient $companies
@@ -70,6 +104,16 @@ class IntercomClient
     public ConversationsClient $conversations;
 
     /**
+     * @var CustomChannelEventsClient $customChannelEvents
+     */
+    public CustomChannelEventsClient $customChannelEvents;
+
+    /**
+     * @var CustomObjectInstancesClient $customObjectInstances
+     */
+    public CustomObjectInstancesClient $customObjectInstances;
+
+    /**
      * @var DataAttributesClient $dataAttributes
      */
     public DataAttributesClient $dataAttributes;
@@ -80,9 +124,9 @@ class IntercomClient
     public EventsClient $events;
 
     /**
-     * @var DataExportClient $dataExport
+     * @var JobsClient $jobs
      */
-    public DataExportClient $dataExport;
+    public JobsClient $jobs;
 
     /**
      * @var MessagesClient $messages
@@ -105,9 +149,19 @@ class IntercomClient
     public PhoneCallRedirectsClient $phoneCallRedirects;
 
     /**
+     * @var CallsClient $calls
+     */
+    public CallsClient $calls;
+
+    /**
      * @var TeamsClient $teams
      */
     public TeamsClient $teams;
+
+    /**
+     * @var TicketStatesClient $ticketStates
+     */
+    public TicketStatesClient $ticketStates;
 
     /**
      * @var TicketTypesClient $ticketTypes
@@ -141,7 +195,7 @@ class IntercomClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -169,12 +223,13 @@ class IntercomClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Intercom',
-            'X-Fern-SDK-Version' => '0.0.325',
-            'User-Agent' => 'intercom/intercom-php/0.0.325',
-            'Intercom-Version' => '2.11',
+            'X-Fern-SDK-Version' => '6.0.0',
+            'User-Agent' => 'intercom/intercom-php/6.0.0',
+            'Intercom-Version' => '2.14',
         ];
 
         $this->options = $options ?? [];
+
         $this->options['headers'] = array_merge(
             $defaultHeaders,
             $this->options['headers'] ?? [],
@@ -185,21 +240,30 @@ class IntercomClient
         );
 
         $this->admins = new AdminsClient($this->client, $this->options);
+        $this->aiContent = new AiContentClient($this->client, $this->options);
         $this->articles = new ArticlesClient($this->client, $this->options);
+        $this->awayStatusReasons = new AwayStatusReasonsClient($this->client, $this->options);
+        $this->export = new ExportClient($this->client, $this->options);
+        $this->dataExport = new DataExportClient($this->client, $this->options);
         $this->helpCenters = new HelpCentersClient($this->client, $this->options);
+        $this->internalArticles = new InternalArticlesClient($this->client, $this->options);
         $this->companies = new CompaniesClient($this->client, $this->options);
         $this->contacts = new ContactsClient($this->client, $this->options);
         $this->notes = new NotesClient($this->client, $this->options);
         $this->tags = new TagsClient($this->client, $this->options);
         $this->conversations = new ConversationsClient($this->client, $this->options);
+        $this->customChannelEvents = new CustomChannelEventsClient($this->client, $this->options);
+        $this->customObjectInstances = new CustomObjectInstancesClient($this->client, $this->options);
         $this->dataAttributes = new DataAttributesClient($this->client, $this->options);
         $this->events = new EventsClient($this->client, $this->options);
-        $this->dataExport = new DataExportClient($this->client, $this->options);
+        $this->jobs = new JobsClient($this->client, $this->options);
         $this->messages = new MessagesClient($this->client, $this->options);
         $this->segments = new SegmentsClient($this->client, $this->options);
         $this->subscriptionTypes = new SubscriptionTypesClient($this->client, $this->options);
         $this->phoneCallRedirects = new PhoneCallRedirectsClient($this->client, $this->options);
+        $this->calls = new CallsClient($this->client, $this->options);
         $this->teams = new TeamsClient($this->client, $this->options);
+        $this->ticketStates = new TicketStatesClient($this->client, $this->options);
         $this->ticketTypes = new TicketTypesClient($this->client, $this->options);
         $this->tickets = new TicketsClient($this->client, $this->options);
         $this->visitors = new VisitorsClient($this->client, $this->options);

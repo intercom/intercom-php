@@ -11,84 +11,84 @@ use Intercom\Core\Json\JsonProperty;
 class AddressableList extends JsonSerializableType
 {
     /**
-     * @var string $type The addressable object type
+     * @var ?string $type The addressable object type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The id of the addressable object
+     * @var ?string $id The id of the addressable object
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $url Url to get more company resources for this contact
+     * @var ?string $url Url to get more company resources for this contact
      */
     #[JsonProperty('url')]
-    private string $url;
+    private ?string $url;
 
     /**
      * @param array{
-     *   type: string,
-     *   id: string,
-     *   url: string,
+     *   type?: ?string,
+     *   id?: ?string,
+     *   url?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->url = $values['url'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->url = $values['url'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUrl(string $value): self
+    public function setUrl(?string $value = null): self
     {
         $this->url = $value;
         return $this;

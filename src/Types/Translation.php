@@ -11,84 +11,84 @@ use Intercom\Core\Json\JsonProperty;
 class Translation extends JsonSerializableType
 {
     /**
-     * @var string $name The localised name of the subscription type.
+     * @var ?string $name The localised name of the subscription type.
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $description The localised description of the subscription type.
+     * @var ?string $description The localised description of the subscription type.
      */
     #[JsonProperty('description')]
-    private string $description;
+    private ?string $description;
 
     /**
-     * @var string $locale The two character identifier for the language of the translation object.
+     * @var ?string $locale The two character identifier for the language of the translation object.
      */
     #[JsonProperty('locale')]
-    private string $locale;
+    private ?string $locale;
 
     /**
      * @param array{
-     *   name: string,
-     *   description: string,
-     *   locale: string,
+     *   name?: ?string,
+     *   description?: ?string,
+     *   locale?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->name = $values['name'];
-        $this->description = $values['description'];
-        $this->locale = $values['locale'];
+        $this->name = $values['name'] ?? null;
+        $this->description = $values['description'] ?? null;
+        $this->locale = $values['locale'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setDescription(string $value): self
+    public function setDescription(?string $value = null): self
     {
         $this->description = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getLocale(): string
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setLocale(string $value): self
+    public function setLocale(?string $value = null): self
     {
         $this->locale = $value;
         return $this;

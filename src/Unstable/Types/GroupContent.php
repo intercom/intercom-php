@@ -11,7 +11,7 @@ use Intercom\Core\Json\JsonProperty;
 class GroupContent extends JsonSerializableType
 {
     /**
-     * @var ?string $type The type of object - `group_content` .
+     * @var ?'group_content' $type The type of object - `group_content` .
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -30,7 +30,7 @@ class GroupContent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?string,
+     *   type?: ?'group_content',
      *   name?: ?string,
      *   description?: ?string,
      * } $values
@@ -44,7 +44,7 @@ class GroupContent extends JsonSerializableType
     }
 
     /**
-     * @return ?string
+     * @return ?'group_content'
      */
     public function getType(): ?string
     {
@@ -52,7 +52,7 @@ class GroupContent extends JsonSerializableType
     }
 
     /**
-     * @param ?string $value
+     * @param ?'group_content' $value
      */
     public function setType(?string $value = null): self
     {

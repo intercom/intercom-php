@@ -25,7 +25,7 @@ class MessagesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -78,7 +78,7 @@ class MessagesClient
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createMessage(mixed $request, ?array $options = null): Message
+    public function createMessage(mixed $request = null, ?array $options = null): Message
     {
         $options = array_merge($this->options, $options ?? []);
         try {

@@ -39,7 +39,7 @@ class ConversationsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -146,6 +146,7 @@ class ConversationsClient
      *
      * This will return the Message model that has been created.
      *
+     *
      * @param CreateConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -231,6 +232,9 @@ class ConversationsClient
         if ($request->getDisplayAs() != null) {
             $query['display_as'] = $request->getDisplayAs();
         }
+        if ($request->getIncludeTranslations() != null) {
+            $query['include_translations'] = $request->getIncludeTranslations();
+        }
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
@@ -281,6 +285,7 @@ class ConversationsClient
      *
      *   See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
      * {% /admonition %}
+     *
      *
      * @param UpdateConversationRequest $request
      * @param ?array{
@@ -672,6 +677,7 @@ class ConversationsClient
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
+     *
      * @param AttachContactToConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -732,6 +738,7 @@ class ConversationsClient
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
+     *
      * @param DetachContactFromConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -791,6 +798,7 @@ class ConversationsClient
      * {% admonition type="info" name="Redacting parts and messages" %}
      * If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
      * {% /admonition %}
+     *
      *
      * @param RedactConversationRequest $request
      * @param ?array{

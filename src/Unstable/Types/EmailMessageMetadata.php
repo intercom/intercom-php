@@ -24,9 +24,16 @@ class EmailMessageMetadata extends JsonSerializableType
     private ?array $emailAddressHeaders;
 
     /**
+     * @var ?string $messageId The unique identifier for the email message as specified in the Message-ID header
+     */
+    #[JsonProperty('message_id')]
+    private ?string $messageId;
+
+    /**
      * @param array{
      *   subject?: ?string,
      *   emailAddressHeaders?: ?array<EmailAddressHeader>,
+     *   messageId?: ?string,
      * } $values
      */
     public function __construct(
@@ -34,6 +41,7 @@ class EmailMessageMetadata extends JsonSerializableType
     ) {
         $this->subject = $values['subject'] ?? null;
         $this->emailAddressHeaders = $values['emailAddressHeaders'] ?? null;
+        $this->messageId = $values['messageId'] ?? null;
     }
 
     /**
@@ -67,6 +75,23 @@ class EmailMessageMetadata extends JsonSerializableType
     public function setEmailAddressHeaders(?array $value = null): self
     {
         $this->emailAddressHeaders = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getMessageId(): ?string
+    {
+        return $this->messageId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setMessageId(?string $value = null): self
+    {
+        $this->messageId = $value;
         return $this;
     }
 

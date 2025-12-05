@@ -13,6 +13,12 @@ use Intercom\Core\Types\Union;
 class NewsItem extends JsonSerializableType
 {
     /**
+     * @var ?'news-item' $type The type of object.
+     */
+    #[JsonProperty('type')]
+    private ?string $type;
+
+    /**
      * @var ?string $id The unique identifier for the news item which is given by Intercom.
      */
     #[JsonProperty('id')]
@@ -92,6 +98,7 @@ class NewsItem extends JsonSerializableType
 
     /**
      * @param array{
+     *   type?: ?'news-item',
      *   id?: ?string,
      *   workspaceId?: ?string,
      *   title?: ?string,
@@ -110,6 +117,7 @@ class NewsItem extends JsonSerializableType
     public function __construct(
         array $values = [],
     ) {
+        $this->type = $values['type'] ?? null;
         $this->id = $values['id'] ?? null;
         $this->workspaceId = $values['workspaceId'] ?? null;
         $this->title = $values['title'] ?? null;
@@ -123,6 +131,23 @@ class NewsItem extends JsonSerializableType
         $this->deliverSilently = $values['deliverSilently'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
+    }
+
+    /**
+     * @return ?'news-item'
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param ?'news-item' $value
+     */
+    public function setType(?string $value = null): self
+    {
+        $this->type = $value;
+        return $this;
     }
 
     /**

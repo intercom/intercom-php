@@ -12,109 +12,109 @@ use Intercom\Core\Types\ArrayType;
 class LinkedObjectList extends JsonSerializableType
 {
     /**
-     * @var 'list' $type Always list.
+     * @var ?'list' $type Always list.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var int $totalCount The total number of linked objects.
+     * @var ?int $totalCount The total number of linked objects.
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
-     * @var bool $hasMore Whether or not there are more linked objects than returned.
+     * @var ?bool $hasMore Whether or not there are more linked objects than returned.
      */
     #[JsonProperty('has_more')]
-    private bool $hasMore;
+    private ?bool $hasMore;
 
     /**
-     * @var array<LinkedObject> $data An array containing the linked conversations and linked tickets.
+     * @var ?array<LinkedObject> $data An array containing the linked conversations and linked tickets.
      */
     #[JsonProperty('data'), ArrayType([LinkedObject::class])]
-    private array $data;
+    private ?array $data;
 
     /**
      * @param array{
-     *   type: 'list',
-     *   totalCount: int,
-     *   hasMore: bool,
-     *   data: array<LinkedObject>,
+     *   type?: ?'list',
+     *   totalCount?: ?int,
+     *   hasMore?: ?bool,
+     *   data?: ?array<LinkedObject>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->totalCount = $values['totalCount'];
-        $this->hasMore = $values['hasMore'];
-        $this->data = $values['data'];
+        $this->type = $values['type'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
+        $this->hasMore = $values['hasMore'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getHasMore(): bool
+    public function getHasMore(): ?bool
     {
         return $this->hasMore;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setHasMore(bool $value): self
+    public function setHasMore(?bool $value = null): self
     {
         $this->hasMore = $value;
         return $this;
     }
 
     /**
-     * @return array<LinkedObject>
+     * @return ?array<LinkedObject>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<LinkedObject> $value
+     * @param ?array<LinkedObject> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;

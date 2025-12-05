@@ -4,7 +4,7 @@ namespace Intercom\PhoneCallRedirects;
 
 use GuzzleHttp\ClientInterface;
 use Intercom\Core\Client\RawClient;
-use Intercom\PhoneCallRedirects\Requests\CreatePhoneCallRedirectRequest;
+use Intercom\Types\CreatePhoneSwitchRequest;
 use Intercom\Types\PhoneSwitch;
 use Intercom\Exceptions\IntercomException;
 use Intercom\Exceptions\IntercomApiException;
@@ -24,7 +24,7 @@ class PhoneCallRedirectsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -57,7 +57,7 @@ class PhoneCallRedirectsClient
      *
      * If custom attributes are specified, they will be added to the user or lead's custom data attributes.
      *
-     * @param CreatePhoneCallRedirectRequest $request
+     * @param ?CreatePhoneSwitchRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -66,11 +66,11 @@ class PhoneCallRedirectsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PhoneSwitch
+     * @return ?PhoneSwitch
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreatePhoneCallRedirectRequest $request, ?array $options = null): PhoneSwitch
+    public function create(?CreatePhoneSwitchRequest $request = null, ?array $options = null): ?PhoneSwitch
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -86,6 +86,9 @@ class PhoneCallRedirectsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return PhoneSwitch::fromJson($json);
             }
         } catch (JsonException $e) {

@@ -13,184 +13,184 @@ use Intercom\Core\Types\ArrayType;
 class SubscriptionType extends JsonSerializableType
 {
     /**
-     * @var 'subscription' $type The type of the object - subscription
+     * @var ?'subscription' $type The type of the object - subscription
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The unique identifier representing the subscription type.
+     * @var ?string $id The unique identifier representing the subscription type.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var value-of<SubscriptionTypeState> $state The state of the subscription type.
+     * @var ?value-of<SubscriptionTypeState> $state The state of the subscription type.
      */
     #[JsonProperty('state')]
-    private string $state;
+    private ?string $state;
 
     /**
-     * @var Translation $defaultTranslation
+     * @var ?Translation $defaultTranslation
      */
     #[JsonProperty('default_translation')]
-    private Translation $defaultTranslation;
+    private ?Translation $defaultTranslation;
 
     /**
-     * @var array<Translation> $translations An array of translations objects with the localised version of the subscription type in each available locale within your translation settings.
+     * @var ?array<Translation> $translations An array of translations objects with the localised version of the subscription type in each available locale within your translation settings.
      */
     #[JsonProperty('translations'), ArrayType([Translation::class])]
-    private array $translations;
+    private ?array $translations;
 
     /**
-     * @var value-of<SubscriptionTypeConsentType> $consentType Describes the type of consent.
+     * @var ?value-of<SubscriptionTypeConsentType> $consentType Describes the type of consent.
      */
     #[JsonProperty('consent_type')]
-    private string $consentType;
+    private ?string $consentType;
 
     /**
-     * @var array<value-of<SubscriptionTypeContentTypesItem>> $contentTypes The message types that this subscription supports - can contain `email` or `sms_message`.
+     * @var ?array<value-of<SubscriptionTypeContentTypesItem>> $contentTypes The message types that this subscription supports - can contain `email` or `sms_message`.
      */
     #[JsonProperty('content_types'), ArrayType(['string'])]
-    private array $contentTypes;
+    private ?array $contentTypes;
 
     /**
      * @param array{
-     *   type: 'subscription',
-     *   id: string,
-     *   state: value-of<SubscriptionTypeState>,
-     *   defaultTranslation: Translation,
-     *   translations: array<Translation>,
-     *   consentType: value-of<SubscriptionTypeConsentType>,
-     *   contentTypes: array<value-of<SubscriptionTypeContentTypesItem>>,
+     *   type?: ?'subscription',
+     *   id?: ?string,
+     *   state?: ?value-of<SubscriptionTypeState>,
+     *   defaultTranslation?: ?Translation,
+     *   translations?: ?array<Translation>,
+     *   consentType?: ?value-of<SubscriptionTypeConsentType>,
+     *   contentTypes?: ?array<value-of<SubscriptionTypeContentTypesItem>>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->state = $values['state'];
-        $this->defaultTranslation = $values['defaultTranslation'];
-        $this->translations = $values['translations'];
-        $this->consentType = $values['consentType'];
-        $this->contentTypes = $values['contentTypes'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->state = $values['state'] ?? null;
+        $this->defaultTranslation = $values['defaultTranslation'] ?? null;
+        $this->translations = $values['translations'] ?? null;
+        $this->consentType = $values['consentType'] ?? null;
+        $this->contentTypes = $values['contentTypes'] ?? null;
     }
 
     /**
-     * @return 'subscription'
+     * @return ?'subscription'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'subscription' $value
+     * @param ?'subscription' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return value-of<SubscriptionTypeState>
+     * @return ?value-of<SubscriptionTypeState>
      */
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
 
     /**
-     * @param value-of<SubscriptionTypeState> $value
+     * @param ?value-of<SubscriptionTypeState> $value
      */
-    public function setState(string $value): self
+    public function setState(?string $value = null): self
     {
         $this->state = $value;
         return $this;
     }
 
     /**
-     * @return Translation
+     * @return ?Translation
      */
-    public function getDefaultTranslation(): Translation
+    public function getDefaultTranslation(): ?Translation
     {
         return $this->defaultTranslation;
     }
 
     /**
-     * @param Translation $value
+     * @param ?Translation $value
      */
-    public function setDefaultTranslation(Translation $value): self
+    public function setDefaultTranslation(?Translation $value = null): self
     {
         $this->defaultTranslation = $value;
         return $this;
     }
 
     /**
-     * @return array<Translation>
+     * @return ?array<Translation>
      */
-    public function getTranslations(): array
+    public function getTranslations(): ?array
     {
         return $this->translations;
     }
 
     /**
-     * @param array<Translation> $value
+     * @param ?array<Translation> $value
      */
-    public function setTranslations(array $value): self
+    public function setTranslations(?array $value = null): self
     {
         $this->translations = $value;
         return $this;
     }
 
     /**
-     * @return value-of<SubscriptionTypeConsentType>
+     * @return ?value-of<SubscriptionTypeConsentType>
      */
-    public function getConsentType(): string
+    public function getConsentType(): ?string
     {
         return $this->consentType;
     }
 
     /**
-     * @param value-of<SubscriptionTypeConsentType> $value
+     * @param ?value-of<SubscriptionTypeConsentType> $value
      */
-    public function setConsentType(string $value): self
+    public function setConsentType(?string $value = null): self
     {
         $this->consentType = $value;
         return $this;
     }
 
     /**
-     * @return array<value-of<SubscriptionTypeContentTypesItem>>
+     * @return ?array<value-of<SubscriptionTypeContentTypesItem>>
      */
-    public function getContentTypes(): array
+    public function getContentTypes(): ?array
     {
         return $this->contentTypes;
     }
 
     /**
-     * @param array<value-of<SubscriptionTypeContentTypesItem>> $value
+     * @param ?array<value-of<SubscriptionTypeContentTypesItem>> $value
      */
-    public function setContentTypes(array $value): self
+    public function setContentTypes(?array $value = null): self
     {
         $this->contentTypes = $value;
         return $this;

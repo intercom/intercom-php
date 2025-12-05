@@ -23,7 +23,7 @@ class LinkedObject extends JsonSerializableType
     private ?string $id;
 
     /**
-     * @var ?string $category Category of the Linked Ticket Object.
+     * @var ?value-of<LinkedObjectCategory> $category Category of the Linked Ticket Object.
      */
     #[JsonProperty('category')]
     private ?string $category;
@@ -32,7 +32,7 @@ class LinkedObject extends JsonSerializableType
      * @param array{
      *   type?: ?value-of<LinkedObjectType>,
      *   id?: ?string,
-     *   category?: ?string,
+     *   category?: ?value-of<LinkedObjectCategory>,
      * } $values
      */
     public function __construct(
@@ -78,7 +78,7 @@ class LinkedObject extends JsonSerializableType
     }
 
     /**
-     * @return ?string
+     * @return ?value-of<LinkedObjectCategory>
      */
     public function getCategory(): ?string
     {
@@ -86,7 +86,7 @@ class LinkedObject extends JsonSerializableType
     }
 
     /**
-     * @param ?string $value
+     * @param ?value-of<LinkedObjectCategory> $value
      */
     public function setCategory(?string $value = null): self
     {

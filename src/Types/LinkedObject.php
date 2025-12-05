@@ -11,74 +11,74 @@ use Intercom\Core\Json\JsonProperty;
 class LinkedObject extends JsonSerializableType
 {
     /**
-     * @var value-of<LinkedObjectType> $type ticket or conversation
+     * @var ?value-of<LinkedObjectType> $type ticket or conversation
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The ID of the linked object
+     * @var ?string $id The ID of the linked object
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var ?string $category Category of the Linked Ticket Object.
+     * @var ?value-of<LinkedObjectCategory> $category Category of the Linked Ticket Object.
      */
     #[JsonProperty('category')]
     private ?string $category;
 
     /**
      * @param array{
-     *   type: value-of<LinkedObjectType>,
-     *   id: string,
-     *   category?: ?string,
+     *   type?: ?value-of<LinkedObjectType>,
+     *   id?: ?string,
+     *   category?: ?value-of<LinkedObjectCategory>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
         $this->category = $values['category'] ?? null;
     }
 
     /**
-     * @return value-of<LinkedObjectType>
+     * @return ?value-of<LinkedObjectType>
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param value-of<LinkedObjectType> $value
+     * @param ?value-of<LinkedObjectType> $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return ?value-of<LinkedObjectCategory>
      */
     public function getCategory(): ?string
     {
@@ -86,7 +86,7 @@ class LinkedObject extends JsonSerializableType
     }
 
     /**
-     * @param ?string $value
+     * @param ?value-of<LinkedObjectCategory> $value
      */
     public function setCategory(?string $value = null): self
     {

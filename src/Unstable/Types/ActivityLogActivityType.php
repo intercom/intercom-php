@@ -4,7 +4,8 @@ namespace Intercom\Unstable\Types;
 
 enum ActivityLogActivityType: string
 {
-    case AdminAssignmentLimitChange = "admin_assignment_limit_change";
+    case AdminConversationAssignmentLimitChange = "admin_conversation_assignment_limit_change";
+    case AdminTicketAssignmentLimitChange = "admin_ticket_assignment_limit_change";
     case AdminAwayModeChange = "admin_away_mode_change";
     case AdminDeletion = "admin_deletion";
     case AdminDeprovisioned = "admin_deprovisioned";

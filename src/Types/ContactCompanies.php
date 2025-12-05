@@ -7,78 +7,53 @@ use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Types\ArrayType;
 
 /**
- * An object containing companies meta data about the companies that a contact has. Up to 10 will be displayed here. Use the url to get more.
+ * An object with metadata about companies attached to a contact . Up to 10 will be displayed here. Use the url to get more.
  */
 class ContactCompanies extends JsonSerializableType
 {
     /**
-     * @var ?'list' $type The type of object
+     * @var ?array<CompanyData> $data An array of company data objects attached to the contact.
      */
-    #[JsonProperty('type')]
-    private ?string $type;
-
-    /**
-     * @var ?array<ContactCompany> $data An array containing Company Objects
-     */
-    #[JsonProperty('data'), ArrayType([ContactCompany::class])]
+    #[JsonProperty('data'), ArrayType([CompanyData::class])]
     private ?array $data;
 
     /**
-     * @var string $url Url to get more company resources for this contact
+     * @var ?string $url Url to get more company resources for this contact
      */
     #[JsonProperty('url')]
-    private string $url;
+    private ?string $url;
 
     /**
-     * @var int $totalCount Int representing the total number of companyies attached to this contact
+     * @var ?int $totalCount Integer representing the total number of companies attached to this contact
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
-     * @var bool $hasMore Whether there's more Addressable Objects to be viewed. If true, use the url to view all
+     * @var ?bool $hasMore Whether there's more Addressable Objects to be viewed. If true, use the url to view all
      */
     #[JsonProperty('has_more')]
-    private bool $hasMore;
+    private ?bool $hasMore;
 
     /**
      * @param array{
-     *   url: string,
-     *   totalCount: int,
-     *   hasMore: bool,
-     *   type?: ?'list',
-     *   data?: ?array<ContactCompany>,
+     *   data?: ?array<CompanyData>,
+     *   url?: ?string,
+     *   totalCount?: ?int,
+     *   hasMore?: ?bool,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'] ?? null;
         $this->data = $values['data'] ?? null;
-        $this->url = $values['url'];
-        $this->totalCount = $values['totalCount'];
-        $this->hasMore = $values['hasMore'];
+        $this->url = $values['url'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
+        $this->hasMore = $values['hasMore'] ?? null;
     }
 
     /**
-     * @return ?'list'
-     */
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param ?'list' $value
-     */
-    public function setType(?string $value = null): self
-    {
-        $this->type = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?array<ContactCompany>
+     * @return ?array<CompanyData>
      */
     public function getData(): ?array
     {
@@ -86,7 +61,7 @@ class ContactCompanies extends JsonSerializableType
     }
 
     /**
-     * @param ?array<ContactCompany> $value
+     * @param ?array<CompanyData> $value
      */
     public function setData(?array $value = null): self
     {
@@ -95,51 +70,51 @@ class ContactCompanies extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUrl(string $value): self
+    public function setUrl(?string $value = null): self
     {
         $this->url = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getHasMore(): bool
+    public function getHasMore(): ?bool
     {
         return $this->hasMore;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setHasMore(bool $value): self
+    public function setHasMore(?bool $value = null): self
     {
         $this->hasMore = $value;
         return $this;

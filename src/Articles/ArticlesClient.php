@@ -9,7 +9,7 @@ use Intercom\Core\Pagination\Pager;
 use Intercom\Articles\Types\ArticleListItem;
 use Intercom\Core\Pagination\OffsetPager;
 use Intercom\Types\ArticleList;
-use Intercom\Articles\Requests\CreateArticleRequest;
+use Intercom\Types\CreateArticleRequest;
 use Intercom\Articles\Types\Article;
 use Intercom\Exceptions\IntercomException;
 use Intercom\Exceptions\IntercomApiException;
@@ -24,7 +24,7 @@ use Intercom\Articles\Requests\UpdateArticleRequest;
 use Intercom\Articles\Requests\DeleteArticleRequest;
 use Intercom\Types\DeletedArticleObject;
 use Intercom\Articles\Requests\SearchArticlesRequest;
-use Intercom\Articles\Types\SearchArticlesResponse;
+use Intercom\Articles\Types\ArticleSearchResponse;
 
 class ArticlesClient
 {
@@ -35,7 +35,7 @@ class ArticlesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -101,7 +101,7 @@ class ArticlesClient
     /**
      * You can create a new article by making a POST request to `https://api.intercom.io/articles`.
      *
-     * @param CreateArticleRequest $request
+     * @param ?CreateArticleRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -114,7 +114,7 @@ class ArticlesClient
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateArticleRequest $request, ?array $options = null): Article
+    public function create(?CreateArticleRequest $request = null, ?array $options = null): Article
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -332,11 +332,11 @@ class ArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return SearchArticlesResponse
+     * @return ArticleSearchResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function search(SearchArticlesRequest $request = new SearchArticlesRequest(), ?array $options = null): SearchArticlesResponse
+    public function search(SearchArticlesRequest $request = new SearchArticlesRequest(), ?array $options = null): ArticleSearchResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -365,7 +365,7 @@ class ArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return SearchArticlesResponse::fromJson($json);
+                return ArticleSearchResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

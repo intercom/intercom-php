@@ -14,8 +14,11 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Intercom\DataAttributes\Requests\CreateDataAttributeRequest;
+use Intercom\Types\CreateDataAttributeRequestOptions;
+use Intercom\Types\CreateDataAttributeRequestOne;
 use Intercom\DataAttributes\Types\DataAttribute;
+use Intercom\Core\Json\JsonSerializer;
+use Intercom\Core\Types\Union;
 use Intercom\DataAttributes\Requests\UpdateDataAttributeRequest;
 
 class DataAttributesClient
@@ -27,7 +30,7 @@ class DataAttributesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -120,7 +123,10 @@ class DataAttributesClient
     /**
      * You can create a data attributes for a `contact` or a `company`.
      *
-     * @param CreateDataAttributeRequest $request
+     * @param (
+     *    CreateDataAttributeRequestOptions
+     *   |CreateDataAttributeRequestOne
+     * ) $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -133,7 +139,7 @@ class DataAttributesClient
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateDataAttributeRequest $request, ?array $options = null): DataAttribute
+    public function create(CreateDataAttributeRequestOptions|CreateDataAttributeRequestOne $request, ?array $options = null): DataAttribute
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -142,7 +148,7 @@ class DataAttributesClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
                     path: "data_attributes",
                     method: HttpMethod::POST,
-                    body: $request,
+                    body: JsonSerializer::serializeUnion($request, new Union(CreateDataAttributeRequestOptions::class, CreateDataAttributeRequestOne::class)),
                 ),
                 $options,
             );
@@ -203,7 +209,7 @@ class DataAttributesClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
                     path: "data_attributes/{$request->getDataAttributeId()}",
                     method: HttpMethod::PUT,
-                    body: $request,
+                    body: $request->getBody(),
                 ),
                 $options,
             );

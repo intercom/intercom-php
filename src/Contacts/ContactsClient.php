@@ -27,12 +27,15 @@ use Intercom\Contacts\Requests\DetachSubscriptionFromContactRequest;
 use Intercom\Contacts\Requests\ListTagsAttachedToContactRequest;
 use Intercom\Types\TagList;
 use Intercom\Contacts\Requests\FindContactRequest;
-use Intercom\Contacts\Types\Contact;
+use Intercom\Contacts\Types\ContactsFindResponse;
 use Intercom\Contacts\Requests\UpdateContactRequest;
+use Intercom\Contacts\Types\ContactsUpdateResponse;
 use Intercom\Contacts\Requests\DeleteContactRequest;
 use Intercom\Types\ContactDeleted;
 use Intercom\Contacts\Requests\MergeContactsRequest;
+use Intercom\Contacts\Types\ContactsMergeLeadInUserResponse;
 use Intercom\Types\SearchRequest;
+use Intercom\Contacts\Types\Contact;
 use Intercom\Core\Pagination\CursorPager;
 use Intercom\Core\Pagination\PaginationHelper;
 use Intercom\Types\ContactList;
@@ -40,12 +43,17 @@ use Intercom\Contacts\Requests\ListContactsRequest;
 use Intercom\Types\CreateContactRequestWithEmail;
 use Intercom\Types\CreateContactRequestWithExternalId;
 use Intercom\Types\CreateContactRequestWithRole;
+use Intercom\Contacts\Types\ContactsCreateResponse;
 use Intercom\Core\Json\JsonSerializer;
 use Intercom\Core\Types\Union;
+use Intercom\Contacts\Requests\ShowContactByExternalIdRequest;
+use Intercom\Contacts\Types\ShowContactByExternalIdResponse;
 use Intercom\Contacts\Requests\ArchiveContactRequest;
 use Intercom\Types\ContactArchived;
 use Intercom\Contacts\Requests\UnarchiveContactRequest;
 use Intercom\Types\ContactUnarchived;
+use Intercom\Contacts\Requests\BlockContactRequest;
+use Intercom\Types\ContactBlocked;
 
 class ContactsClient
 {
@@ -56,7 +64,7 @@ class ContactsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -415,11 +423,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Contact
+     * @return ContactsFindResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function find(FindContactRequest $request, ?array $options = null): Contact
+    public function find(FindContactRequest $request, ?array $options = null): ContactsFindResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -434,7 +442,7 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Contact::fromJson($json);
+                return ContactsFindResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -461,6 +469,12 @@ class ContactsClient
     /**
      * You can update an existing contact (ie. user or lead).
      *
+     * {% admonition type="info" %}
+     *   This endpoint handles both **contact updates** and **custom object associations**.
+     *
+     *   See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+     * {% /admonition %}
+     *
      * @param UpdateContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -470,11 +484,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Contact
+     * @return ContactsUpdateResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function update(UpdateContactRequest $request, ?array $options = null): Contact
+    public function update(UpdateContactRequest $request, ?array $options = null): ContactsUpdateResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -490,7 +504,7 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Contact::fromJson($json);
+                return ContactsUpdateResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -581,11 +595,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Contact
+     * @return ContactsMergeLeadInUserResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function mergeLeadInUser(MergeContactsRequest $request, ?array $options = null): Contact
+    public function mergeLeadInUser(MergeContactsRequest $request = new MergeContactsRequest(), ?array $options = null): ContactsMergeLeadInUserResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -601,7 +615,7 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Contact::fromJson($json);
+                return ContactsMergeLeadInUserResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -801,11 +815,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Contact
+     * @return ContactsCreateResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateContactRequestWithEmail|CreateContactRequestWithExternalId|CreateContactRequestWithRole $request, ?array $options = null): Contact
+    public function create(CreateContactRequestWithEmail|CreateContactRequestWithExternalId|CreateContactRequestWithRole $request, ?array $options = null): ContactsCreateResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -821,7 +835,62 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return Contact::fromJson($json);
+                return ContactsCreateResponse::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * You can fetch the details of a single contact by external ID. Note that this endpoint only supports users and not leads.
+     *
+     * @param ShowContactByExternalIdRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return ShowContactByExternalIdResponse
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function showContactByExternalId(ShowContactByExternalIdRequest $request, ?array $options = null): ShowContactByExternalIdResponse
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "contacts/find_by_external_id/{$request->getExternalId()}",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return ShowContactByExternalIdResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -932,6 +1001,61 @@ class ContactsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
                 return ContactUnarchived::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
+     *
+     * @param BlockContactRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return ContactBlocked
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function blockContact(BlockContactRequest $request, ?array $options = null): ContactBlocked
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "contacts/{$request->getContactId()}/block",
+                    method: HttpMethod::POST,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return ContactBlocked::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

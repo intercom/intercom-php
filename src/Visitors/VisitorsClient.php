@@ -30,7 +30,7 @@ class VisitorsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -69,11 +69,11 @@ class VisitorsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Visitor
+     * @return ?Visitor
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function find(FindVisitorRequest $request, ?array $options = null): Visitor
+    public function find(FindVisitorRequest $request, ?array $options = null): ?Visitor
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -91,6 +91,9 @@ class VisitorsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Visitor::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -134,11 +137,11 @@ class VisitorsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Visitor
+     * @return ?Visitor
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function update(UpdateVisitorRequestWithId|UpdateVisitorRequestWithUserId $request, ?array $options = null): Visitor
+    public function update(UpdateVisitorRequestWithId|UpdateVisitorRequestWithUserId $request, ?array $options = null): ?Visitor
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -154,6 +157,9 @@ class VisitorsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Visitor::fromJson($json);
             }
         } catch (JsonException $e) {

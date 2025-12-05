@@ -13,7 +13,7 @@ use Intercom\Types\TeamPriorityLevel;
 class Admin extends JsonSerializableType
 {
     /**
-     * @var ?'admin' $type String representing the object's type. Always has the value `admin`.
+     * @var ?string $type String representing the object's type. Always has the value `admin`.
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -55,6 +55,12 @@ class Admin extends JsonSerializableType
     private bool $awayModeReassign;
 
     /**
+     * @var ?int $awayStatusReasonId The unique identifier of the away status reason
+     */
+    #[JsonProperty('away_status_reason_id')]
+    private ?int $awayStatusReasonId;
+
+    /**
      * @var bool $hasInboxSeat Identifies if this admin has a paid inbox seat to restrict/allow features that require them.
      */
     #[JsonProperty('has_inbox_seat')]
@@ -87,8 +93,9 @@ class Admin extends JsonSerializableType
      *   awayModeReassign: bool,
      *   hasInboxSeat: bool,
      *   teamIds: array<int>,
-     *   type?: ?'admin',
+     *   type?: ?string,
      *   jobTitle?: ?string,
+     *   awayStatusReasonId?: ?int,
      *   avatar?: ?AdminAvatar,
      *   teamPriorityLevel?: ?TeamPriorityLevel,
      * } $values
@@ -103,6 +110,7 @@ class Admin extends JsonSerializableType
         $this->jobTitle = $values['jobTitle'] ?? null;
         $this->awayModeEnabled = $values['awayModeEnabled'];
         $this->awayModeReassign = $values['awayModeReassign'];
+        $this->awayStatusReasonId = $values['awayStatusReasonId'] ?? null;
         $this->hasInboxSeat = $values['hasInboxSeat'];
         $this->teamIds = $values['teamIds'];
         $this->avatar = $values['avatar'] ?? null;
@@ -110,7 +118,7 @@ class Admin extends JsonSerializableType
     }
 
     /**
-     * @return ?'admin'
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -118,7 +126,7 @@ class Admin extends JsonSerializableType
     }
 
     /**
-     * @param ?'admin' $value
+     * @param ?string $value
      */
     public function setType(?string $value = null): self
     {
@@ -225,6 +233,23 @@ class Admin extends JsonSerializableType
     public function setAwayModeReassign(bool $value): self
     {
         $this->awayModeReassign = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getAwayStatusReasonId(): ?int
+    {
+        return $this->awayStatusReasonId;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setAwayStatusReasonId(?int $value = null): self
+    {
+        $this->awayStatusReasonId = $value;
         return $this;
     }
 

@@ -6,6 +6,7 @@ use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Admins\Types\Admin;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 
 /**
  * A list of admins associated with a given workspace.
@@ -13,59 +14,59 @@ use Intercom\Core\Types\ArrayType;
 class AdminList extends JsonSerializableType
 {
     /**
-     * @var 'admin.list' $type String representing the object's type. Always has the value `admin.list`.
+     * @var ?string $type String representing the object's type. Always has the value `admin.list`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Admin> $admins A list of admins associated with a given workspace.
+     * @var ?array<?Admin> $admins A list of admins associated with a given workspace.
      */
-    #[JsonProperty('admins'), ArrayType([Admin::class])]
-    private array $admins;
+    #[JsonProperty('admins'), ArrayType([new Union(Admin::class, 'null')])]
+    private ?array $admins;
 
     /**
      * @param array{
-     *   type: 'admin.list',
-     *   admins: array<Admin>,
+     *   type?: ?string,
+     *   admins?: ?array<?Admin>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->admins = $values['admins'];
+        $this->type = $values['type'] ?? null;
+        $this->admins = $values['admins'] ?? null;
     }
 
     /**
-     * @return 'admin.list'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'admin.list' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Admin>
+     * @return ?array<?Admin>
      */
-    public function getAdmins(): array
+    public function getAdmins(): ?array
     {
         return $this->admins;
     }
 
     /**
-     * @param array<Admin> $value
+     * @param ?array<?Admin> $value
      */
-    public function setAdmins(array $value): self
+    public function setAdmins(?array $value = null): self
     {
         $this->admins = $value;
         return $this;

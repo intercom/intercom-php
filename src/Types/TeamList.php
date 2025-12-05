@@ -13,59 +13,59 @@ use Intercom\Core\Types\ArrayType;
 class TeamList extends JsonSerializableType
 {
     /**
-     * @var 'team.list' $type The type of the object
+     * @var ?'team.list' $type The type of the object
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Team> $teams A list of team objects
+     * @var ?array<Team> $teams A list of team objects
      */
     #[JsonProperty('teams'), ArrayType([Team::class])]
-    private array $teams;
+    private ?array $teams;
 
     /**
      * @param array{
-     *   type: 'team.list',
-     *   teams: array<Team>,
+     *   type?: ?'team.list',
+     *   teams?: ?array<Team>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->teams = $values['teams'];
+        $this->type = $values['type'] ?? null;
+        $this->teams = $values['teams'] ?? null;
     }
 
     /**
-     * @return 'team.list'
+     * @return ?'team.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'team.list' $value
+     * @param ?'team.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Team>
+     * @return ?array<Team>
      */
-    public function getTeams(): array
+    public function getTeams(): ?array
     {
         return $this->teams;
     }
 
     /**
-     * @param array<Team> $value
+     * @param ?array<Team> $value
      */
-    public function setTeams(array $value): self
+    public function setTeams(?array $value = null): self
     {
         $this->teams = $value;
         return $this;

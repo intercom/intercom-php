@@ -19,6 +19,12 @@ class Newsfeed extends JsonSerializableType
     private ?string $id;
 
     /**
+     * @var ?'newsfeed' $type The type of object.
+     */
+    #[JsonProperty('type')]
+    private ?string $type;
+
+    /**
      * @var ?string $name The name of the newsfeed. This name will never be visible to your users.
      */
     #[JsonProperty('name')]
@@ -39,6 +45,7 @@ class Newsfeed extends JsonSerializableType
     /**
      * @param array{
      *   id?: ?string,
+     *   type?: ?'newsfeed',
      *   name?: ?string,
      *   createdAt?: ?int,
      *   updatedAt?: ?int,
@@ -48,6 +55,7 @@ class Newsfeed extends JsonSerializableType
         array $values = [],
     ) {
         $this->id = $values['id'] ?? null;
+        $this->type = $values['type'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
@@ -67,6 +75,23 @@ class Newsfeed extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?'newsfeed'
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param ?'newsfeed' $value
+     */
+    public function setType(?string $value = null): self
+    {
+        $this->type = $value;
         return $this;
     }
 

@@ -4,7 +4,7 @@ namespace Intercom\TicketTypes\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\TicketTypes\Types\UpdateTicketTypeRequestBodyCategory;
+use Intercom\TicketTypes\Types\UpdateTicketTypeRequestCategory;
 
 class UpdateTicketTypeRequest extends JsonSerializableType
 {
@@ -26,7 +26,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     private ?string $description;
 
     /**
-     * @var ?value-of<UpdateTicketTypeRequestBodyCategory> $category Category of the Ticket Type.
+     * @var ?value-of<UpdateTicketTypeRequestCategory> $category Category of the Ticket Type.
      */
     #[JsonProperty('category')]
     private ?string $category;
@@ -54,7 +54,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
      *   ticketTypeId: string,
      *   name?: ?string,
      *   description?: ?string,
-     *   category?: ?value-of<UpdateTicketTypeRequestBodyCategory>,
+     *   category?: ?value-of<UpdateTicketTypeRequestCategory>,
      *   icon?: ?string,
      *   archived?: ?bool,
      *   isInternal?: ?bool,
@@ -124,7 +124,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?value-of<UpdateTicketTypeRequestBodyCategory>
+     * @return ?value-of<UpdateTicketTypeRequestCategory>
      */
     public function getCategory(): ?string
     {
@@ -132,7 +132,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?value-of<UpdateTicketTypeRequestBodyCategory> $value
+     * @param ?value-of<UpdateTicketTypeRequestCategory> $value
      */
     public function setCategory(?string $value = null): self
     {

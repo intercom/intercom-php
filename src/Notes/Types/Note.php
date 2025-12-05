@@ -12,22 +12,22 @@ use Intercom\Admins\Types\Admin;
 class Note extends JsonSerializableType
 {
     /**
-     * @var 'note' $type String representing the object's type. Always has the value `note`.
+     * @var ?string $type String representing the object's type. Always has the value `note`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The id of the note.
+     * @var ?string $id The id of the note.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var int $createdAt The time the note was created.
+     * @var ?int $createdAt The time the note was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?NoteContact $contact Represents the contact that the note was created about.
@@ -36,84 +36,84 @@ class Note extends JsonSerializableType
     private ?NoteContact $contact;
 
     /**
-     * @var Admin $author Optional. Represents the Admin that created the note.
+     * @var ?Admin $author Optional. Represents the Admin that created the note.
      */
     #[JsonProperty('author')]
-    private Admin $author;
+    private ?Admin $author;
 
     /**
-     * @var string $body The body text of the note.
+     * @var ?string $body The body text of the note.
      */
     #[JsonProperty('body')]
-    private string $body;
+    private ?string $body;
 
     /**
      * @param array{
-     *   type: 'note',
-     *   id: string,
-     *   createdAt: int,
-     *   author: Admin,
-     *   body: string,
+     *   type?: ?string,
+     *   id?: ?string,
+     *   createdAt?: ?int,
      *   contact?: ?NoteContact,
+     *   author?: ?Admin,
+     *   body?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->createdAt = $values['createdAt'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->contact = $values['contact'] ?? null;
-        $this->author = $values['author'];
-        $this->body = $values['body'];
+        $this->author = $values['author'] ?? null;
+        $this->body = $values['body'] ?? null;
     }
 
     /**
-     * @return 'note'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'note' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
@@ -137,34 +137,34 @@ class Note extends JsonSerializableType
     }
 
     /**
-     * @return Admin
+     * @return ?Admin
      */
-    public function getAuthor(): Admin
+    public function getAuthor(): ?Admin
     {
         return $this->author;
     }
 
     /**
-     * @param Admin $value
+     * @param ?Admin $value
      */
-    public function setAuthor(Admin $value): self
+    public function setAuthor(?Admin $value = null): self
     {
         $this->author = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getBody(): string
+    public function getBody(): ?string
     {
         return $this->body;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setBody(string $value): self
+    public function setBody(?string $value = null): self
     {
         $this->body = $value;
         return $this;

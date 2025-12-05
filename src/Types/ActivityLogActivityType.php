@@ -4,12 +4,15 @@ namespace Intercom\Types;
 
 enum ActivityLogActivityType: string
 {
-    case AdminAssignmentLimitChange = "admin_assignment_limit_change";
+    case AdminConversationAssignmentLimitChange = "admin_conversation_assignment_limit_change";
+    case AdminTicketAssignmentLimitChange = "admin_ticket_assignment_limit_change";
     case AdminAwayModeChange = "admin_away_mode_change";
     case AdminDeletion = "admin_deletion";
     case AdminDeprovisioned = "admin_deprovisioned";
     case AdminImpersonationEnd = "admin_impersonation_end";
     case AdminImpersonationStart = "admin_impersonation_start";
+    case AdminImpersonationConsentApproved = "admin_impersonation_consent_approved";
+    case AdminImpersonationConsentRevoked = "admin_impersonation_consent_revoked";
     case AdminInviteChange = "admin_invite_change";
     case AdminInviteCreation = "admin_invite_creation";
     case AdminInviteDeletion = "admin_invite_deletion";
@@ -40,6 +43,7 @@ enum ActivityLogActivityType: string
     case AppWebhookCreation = "app_webhook_creation";
     case AppWebhookDeletion = "app_webhook_deletion";
     case ArticlesInMessengerEnabledChange = "articles_in_messenger_enabled_change";
+    case AutomaticAwayModeSettingChange = "automatic_away_mode_setting_change";
     case BulkDelete = "bulk_delete";
     case BulkExport = "bulk_export";
     case CampaignDeletion = "campaign_deletion";
@@ -48,14 +52,22 @@ enum ActivityLogActivityType: string
     case ConversationTopicChange = "conversation_topic_change";
     case ConversationTopicCreation = "conversation_topic_creation";
     case ConversationTopicDeletion = "conversation_topic_deletion";
+    case CustomAuthenticationTokenCreation = "custom_authentication_token_creation";
     case HelpCenterSettingsChange = "help_center_settings_change";
     case InboundConversationsChange = "inbound_conversations_change";
     case InboxAccessChange = "inbox_access_change";
+    case MacroCreation = "macro_creation";
+    case MacroDeletion = "macro_deletion";
+    case MacroUpdated = "macro_updated";
+    case MaliciousDomainsSettingChange = "malicious_domains_setting_change";
     case MessageDeletion = "message_deletion";
     case MessageStateChange = "message_state_change";
+    case MessengerApiSecretCreation = "messenger_api_secret_creation";
+    case MessengerApiSecretDeletion = "messenger_api_secret_deletion";
     case MessengerLookAndFeelChange = "messenger_look_and_feel_change";
     case MessengerSearchRequiredChange = "messenger_search_required_change";
     case MessengerSpacesChange = "messenger_spaces_change";
+    case OauthTokenRevocation = "oauth_token_revocation";
     case OfficeHoursChange = "office_hours_change";
     case RoleChange = "role_change";
     case RoleCreation = "role_creation";
@@ -68,7 +80,21 @@ enum ActivityLogActivityType: string
     case SeatChange = "seat_change";
     case SeatRevoke = "seat_revoke";
     case SecuritySettingsChange = "security_settings_change";
+    case StripInboundEmailLinksChange = "strip_inbound_email_links_change";
     case TemporaryExpectationChange = "temporary_expectation_change";
+    case TeamAssignmentLimitChange = "team_assignment_limit_change";
+    case TrustedDomainsSettingChange = "trusted_domains_setting_change";
+    case UnassignUnsnoozedAtCapacitySettingChange = "unassign_unsnoozed_at_capacity_setting_change";
     case UpfrontEmailCollectionChange = "upfront_email_collection_change";
+    case AllowedAttachmentFiletypesSettingChange = "allowed_attachment_filetypes_setting_change";
+    case AttachUploadsInlineSettingChange = "attach_uploads_inline_setting_change";
+    case TeammateGifsSettingChange = "teammate_gifs_setting_change";
+    case UserCameraAttachmentsSettingChange = "user_camera_attachments_setting_change";
+    case UserConversationAttachmentsSettingChange = "user_conversation_attachments_setting_change";
+    case UserFileAttachmentsSettingChange = "user_file_attachments_setting_change";
+    case UserGifsSettingChange = "user_gifs_setting_change";
+    case UserMediaAttachmentsSettingChange = "user_media_attachments_setting_change";
+    case UserVoiceNotesSettingChange = "user_voice_notes_setting_change";
     case WelcomeMessageChange = "welcome_message_change";
+    case WorkspaceDeletionRequest = "workspace_deletion_request";
 }

@@ -9,7 +9,10 @@ use Intercom\Types\ConversationRating;
 use Intercom\Types\ConversationSource;
 use Intercom\Types\ConversationContacts;
 use Intercom\Types\ConversationTeammates;
+use DateTime;
+use Intercom\Types\CustomObjectInstanceList;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 use Intercom\Types\ConversationFirstContactReply;
 use Intercom\Types\SlaApplied;
 use Intercom\Types\ConversationStatistics;
@@ -23,16 +26,16 @@ use Intercom\AiAgent\Types\AiAgent;
 class Conversation extends JsonSerializableType
 {
     /**
-     * @var ?'conversation' $type Always conversation.
+     * @var ?string $type Always conversation.
      */
     #[JsonProperty('type')]
     private ?string $type;
 
     /**
-     * @var string $id The id representing the conversation.
+     * @var ?string $id The id representing the conversation.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
      * @var ?string $title The title given to the conversation.
@@ -41,16 +44,16 @@ class Conversation extends JsonSerializableType
     private ?string $title;
 
     /**
-     * @var int $createdAt The time the conversation was created.
+     * @var ?int $createdAt The time the conversation was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
-     * @var int $updatedAt The last time the conversation was updated.
+     * @var ?int $updatedAt The last time the conversation was updated.
      */
     #[JsonProperty('updated_at')]
-    private int $updatedAt;
+    private ?int $updatedAt;
 
     /**
      * @var ?int $waitingSince The last time a Contact responded to an Admin. In other words, the time a customer started waiting for a response. Set to null if last reply is from an Admin.
@@ -65,22 +68,22 @@ class Conversation extends JsonSerializableType
     private ?int $snoozedUntil;
 
     /**
-     * @var bool $open Indicates whether a conversation is open (true) or closed (false).
+     * @var ?bool $open Indicates whether a conversation is open (true) or closed (false).
      */
     #[JsonProperty('open')]
-    private bool $open;
+    private ?bool $open;
 
     /**
-     * @var value-of<ConversationState> $state Can be set to "open", "closed" or "snoozed".
+     * @var ?value-of<ConversationState> $state Can be set to "open", "closed" or "snoozed".
      */
     #[JsonProperty('state')]
-    private string $state;
+    private ?string $state;
 
     /**
-     * @var bool $read Indicates whether a conversation has been read.
+     * @var ?bool $read Indicates whether a conversation has been read.
      */
     #[JsonProperty('read')]
-    private bool $read;
+    private ?bool $read;
 
     /**
      * @var ?value-of<ConversationPriority> $priority If marked as priority, it will return priority or else not_priority.
@@ -101,6 +104,12 @@ class Conversation extends JsonSerializableType
     private ?string $teamAssigneeId;
 
     /**
+     * @var ?string $companyId The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom.
+     */
+    #[JsonProperty('company_id')]
+    private ?string $companyId;
+
+    /**
      * @var ?Tags $tags
      */
     #[JsonProperty('tags')]
@@ -113,28 +122,33 @@ class Conversation extends JsonSerializableType
     private ?ConversationRating $conversationRating;
 
     /**
-     * @var ConversationSource $source
+     * @var ?ConversationSource $source
      */
     #[JsonProperty('source')]
-    private ConversationSource $source;
+    private ?ConversationSource $source;
 
     /**
-     * @var ConversationContacts $contacts
+     * @var ?ConversationContacts $contacts
      */
     #[JsonProperty('contacts')]
-    private ConversationContacts $contacts;
+    private ?ConversationContacts $contacts;
 
     /**
-     * @var ConversationTeammates $teammates
+     * @var ?ConversationTeammates $teammates
      */
     #[JsonProperty('teammates')]
-    private ConversationTeammates $teammates;
+    private ?ConversationTeammates $teammates;
 
     /**
-     * @var array<string, mixed> $customAttributes
+     * @var ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )> $customAttributes
      */
-    #[JsonProperty('custom_attributes'), ArrayType(['string' => 'mixed'])]
-    private array $customAttributes;
+    #[JsonProperty('custom_attributes'), ArrayType(['string' => new Union('string', 'integer', 'datetime', CustomObjectInstanceList::class)])]
+    private ?array $customAttributes;
 
     /**
      * @var ?ConversationFirstContactReply $firstContactReply
@@ -180,25 +194,31 @@ class Conversation extends JsonSerializableType
 
     /**
      * @param array{
-     *   id: string,
-     *   createdAt: int,
-     *   updatedAt: int,
-     *   open: bool,
-     *   state: value-of<ConversationState>,
-     *   read: bool,
-     *   source: ConversationSource,
-     *   contacts: ConversationContacts,
-     *   teammates: ConversationTeammates,
-     *   customAttributes: array<string, mixed>,
-     *   type?: ?'conversation',
+     *   type?: ?string,
+     *   id?: ?string,
      *   title?: ?string,
+     *   createdAt?: ?int,
+     *   updatedAt?: ?int,
      *   waitingSince?: ?int,
      *   snoozedUntil?: ?int,
+     *   open?: ?bool,
+     *   state?: ?value-of<ConversationState>,
+     *   read?: ?bool,
      *   priority?: ?value-of<ConversationPriority>,
      *   adminAssigneeId?: ?int,
      *   teamAssigneeId?: ?string,
+     *   companyId?: ?string,
      *   tags?: ?Tags,
      *   conversationRating?: ?ConversationRating,
+     *   source?: ?ConversationSource,
+     *   contacts?: ?ConversationContacts,
+     *   teammates?: ?ConversationTeammates,
+     *   customAttributes?: ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )>,
      *   firstContactReply?: ?ConversationFirstContactReply,
      *   slaApplied?: ?SlaApplied,
      *   statistics?: ?ConversationStatistics,
@@ -209,27 +229,28 @@ class Conversation extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
         $this->type = $values['type'] ?? null;
-        $this->id = $values['id'];
+        $this->id = $values['id'] ?? null;
         $this->title = $values['title'] ?? null;
-        $this->createdAt = $values['createdAt'];
-        $this->updatedAt = $values['updatedAt'];
+        $this->createdAt = $values['createdAt'] ?? null;
+        $this->updatedAt = $values['updatedAt'] ?? null;
         $this->waitingSince = $values['waitingSince'] ?? null;
         $this->snoozedUntil = $values['snoozedUntil'] ?? null;
-        $this->open = $values['open'];
-        $this->state = $values['state'];
-        $this->read = $values['read'];
+        $this->open = $values['open'] ?? null;
+        $this->state = $values['state'] ?? null;
+        $this->read = $values['read'] ?? null;
         $this->priority = $values['priority'] ?? null;
         $this->adminAssigneeId = $values['adminAssigneeId'] ?? null;
         $this->teamAssigneeId = $values['teamAssigneeId'] ?? null;
+        $this->companyId = $values['companyId'] ?? null;
         $this->tags = $values['tags'] ?? null;
         $this->conversationRating = $values['conversationRating'] ?? null;
-        $this->source = $values['source'];
-        $this->contacts = $values['contacts'];
-        $this->teammates = $values['teammates'];
-        $this->customAttributes = $values['customAttributes'];
+        $this->source = $values['source'] ?? null;
+        $this->contacts = $values['contacts'] ?? null;
+        $this->teammates = $values['teammates'] ?? null;
+        $this->customAttributes = $values['customAttributes'] ?? null;
         $this->firstContactReply = $values['firstContactReply'] ?? null;
         $this->slaApplied = $values['slaApplied'] ?? null;
         $this->statistics = $values['statistics'] ?? null;
@@ -240,7 +261,7 @@ class Conversation extends JsonSerializableType
     }
 
     /**
-     * @return ?'conversation'
+     * @return ?string
      */
     public function getType(): ?string
     {
@@ -248,7 +269,7 @@ class Conversation extends JsonSerializableType
     }
 
     /**
-     * @param ?'conversation' $value
+     * @param ?string $value
      */
     public function setType(?string $value = null): self
     {
@@ -257,17 +278,17 @@ class Conversation extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
@@ -291,34 +312,34 @@ class Conversation extends JsonSerializableType
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getUpdatedAt(): int
+    public function getUpdatedAt(): ?int
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setUpdatedAt(int $value): self
+    public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
         return $this;
@@ -359,51 +380,51 @@ class Conversation extends JsonSerializableType
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getOpen(): bool
+    public function getOpen(): ?bool
     {
         return $this->open;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setOpen(bool $value): self
+    public function setOpen(?bool $value = null): self
     {
         $this->open = $value;
         return $this;
     }
 
     /**
-     * @return value-of<ConversationState>
+     * @return ?value-of<ConversationState>
      */
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
 
     /**
-     * @param value-of<ConversationState> $value
+     * @param ?value-of<ConversationState> $value
      */
-    public function setState(string $value): self
+    public function setState(?string $value = null): self
     {
         $this->state = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getRead(): bool
+    public function getRead(): ?bool
     {
         return $this->read;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setRead(bool $value): self
+    public function setRead(?bool $value = null): self
     {
         $this->read = $value;
         return $this;
@@ -461,6 +482,23 @@ class Conversation extends JsonSerializableType
     }
 
     /**
+     * @return ?string
+     */
+    public function getCompanyId(): ?string
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setCompanyId(?string $value = null): self
+    {
+        $this->companyId = $value;
+        return $this;
+    }
+
+    /**
      * @return ?Tags
      */
     public function getTags(): ?Tags
@@ -495,68 +533,78 @@ class Conversation extends JsonSerializableType
     }
 
     /**
-     * @return ConversationSource
+     * @return ?ConversationSource
      */
-    public function getSource(): ConversationSource
+    public function getSource(): ?ConversationSource
     {
         return $this->source;
     }
 
     /**
-     * @param ConversationSource $value
+     * @param ?ConversationSource $value
      */
-    public function setSource(ConversationSource $value): self
+    public function setSource(?ConversationSource $value = null): self
     {
         $this->source = $value;
         return $this;
     }
 
     /**
-     * @return ConversationContacts
+     * @return ?ConversationContacts
      */
-    public function getContacts(): ConversationContacts
+    public function getContacts(): ?ConversationContacts
     {
         return $this->contacts;
     }
 
     /**
-     * @param ConversationContacts $value
+     * @param ?ConversationContacts $value
      */
-    public function setContacts(ConversationContacts $value): self
+    public function setContacts(?ConversationContacts $value = null): self
     {
         $this->contacts = $value;
         return $this;
     }
 
     /**
-     * @return ConversationTeammates
+     * @return ?ConversationTeammates
      */
-    public function getTeammates(): ConversationTeammates
+    public function getTeammates(): ?ConversationTeammates
     {
         return $this->teammates;
     }
 
     /**
-     * @param ConversationTeammates $value
+     * @param ?ConversationTeammates $value
      */
-    public function setTeammates(ConversationTeammates $value): self
+    public function setTeammates(?ConversationTeammates $value = null): self
     {
         $this->teammates = $value;
         return $this;
     }
 
     /**
-     * @return array<string, mixed>
+     * @return ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )>
      */
-    public function getCustomAttributes(): array
+    public function getCustomAttributes(): ?array
     {
         return $this->customAttributes;
     }
 
     /**
-     * @param array<string, mixed> $value
+     * @param ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )> $value
      */
-    public function setCustomAttributes(array $value): self
+    public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
         return $this;

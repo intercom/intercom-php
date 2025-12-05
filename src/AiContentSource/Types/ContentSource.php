@@ -11,109 +11,109 @@ use Intercom\Core\Json\JsonProperty;
 class ContentSource extends JsonSerializableType
 {
     /**
-     * @var 'custom_answer' $contentType The type of the content source.
+     * @var ?'custom_answer' $contentType The type of the content source.
      */
     #[JsonProperty('content_type')]
-    private string $contentType;
+    private ?string $contentType;
 
     /**
-     * @var string $url The internal URL linking to the content source for teammates.
+     * @var ?string $url The internal URL linking to the content source for teammates.
      */
     #[JsonProperty('url')]
-    private string $url;
+    private ?string $url;
 
     /**
-     * @var string $title The title of the content source.
+     * @var ?string $title The title of the content source.
      */
     #[JsonProperty('title')]
-    private string $title;
+    private ?string $title;
 
     /**
-     * @var string $locale The ISO 639 language code of the content source.
+     * @var ?string $locale The ISO 639 language code of the content source.
      */
     #[JsonProperty('locale')]
-    private string $locale;
+    private ?string $locale;
 
     /**
      * @param array{
-     *   contentType: 'custom_answer',
-     *   url: string,
-     *   title: string,
-     *   locale: string,
+     *   contentType?: ?'custom_answer',
+     *   url?: ?string,
+     *   title?: ?string,
+     *   locale?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->contentType = $values['contentType'];
-        $this->url = $values['url'];
-        $this->title = $values['title'];
-        $this->locale = $values['locale'];
+        $this->contentType = $values['contentType'] ?? null;
+        $this->url = $values['url'] ?? null;
+        $this->title = $values['title'] ?? null;
+        $this->locale = $values['locale'] ?? null;
     }
 
     /**
-     * @return 'custom_answer'
+     * @return ?'custom_answer'
      */
-    public function getContentType(): string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
     /**
-     * @param 'custom_answer' $value
+     * @param ?'custom_answer' $value
      */
-    public function setContentType(string $value): self
+    public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUrl(string $value): self
+    public function setUrl(?string $value = null): self
     {
         $this->url = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setTitle(string $value): self
+    public function setTitle(?string $value = null): self
     {
         $this->title = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getLocale(): string
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setLocale(string $value): self
+    public function setLocale(?string $value = null): self
     {
         $this->locale = $value;
         return $this;

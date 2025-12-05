@@ -13,22 +13,22 @@ use Intercom\Core\Types\ArrayType;
 class CompanyAttachedContacts extends JsonSerializableType
 {
     /**
-     * @var 'list' $type The type of object - `list`
+     * @var ?'list' $type The type of object - `list`
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<Contact> $data An array containing Contact Objects
+     * @var ?array<Contact> $data An array containing Contact Objects
      */
     #[JsonProperty('data'), ArrayType([Contact::class])]
-    private array $data;
+    private ?array $data;
 
     /**
-     * @var int $totalCount The total number of contacts
+     * @var ?int $totalCount The total number of contacts
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
      * @var ?CursorPages $pages
@@ -38,67 +38,67 @@ class CompanyAttachedContacts extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'list',
-     *   data: array<Contact>,
-     *   totalCount: int,
+     *   type?: ?'list',
+     *   data?: ?array<Contact>,
+     *   totalCount?: ?int,
      *   pages?: ?CursorPages,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->data = $values['data'];
-        $this->totalCount = $values['totalCount'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
         $this->pages = $values['pages'] ?? null;
     }
 
     /**
-     * @return 'list'
+     * @return ?'list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'list' $value
+     * @param ?'list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<Contact>
+     * @return ?array<Contact>
      */
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }
 
     /**
-     * @param array<Contact> $value
+     * @param ?array<Contact> $value
      */
-    public function setData(array $value): self
+    public function setData(?array $value = null): self
     {
         $this->data = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;

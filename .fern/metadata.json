@@ -1,0 +1,20 @@
+{
+  "cliVersion": "3.0.2",
+  "generatorName": "fernapi/fern-php-sdk",
+  "generatorVersion": "1.25.0",
+  "generatorConfig": {
+    "namespace": "Intercom",
+    "clientName": "IntercomClient",
+    "packageName": "intercom/intercom-php",
+    "propertyAccess": "private",
+    "inlinePathParameters": true,
+    "composerJson": {
+      "description": "Intercom API client.",
+      "author": {
+        "name": "Intercom Platform Team",
+        "url": "https://www.intercom.com"
+      },
+      "homepage": "https://developers.intercom.com/docs"
+    }
+  }
+}

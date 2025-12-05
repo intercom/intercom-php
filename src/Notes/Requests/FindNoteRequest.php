@@ -7,13 +7,13 @@ use Intercom\Core\Json\JsonSerializableType;
 class FindNoteRequest extends JsonSerializableType
 {
     /**
-     * @var string $noteId The unique identifier of a given note
+     * @var int $noteId The unique identifier of a given note
      */
-    private string $noteId;
+    private int $noteId;
 
     /**
      * @param array{
-     *   noteId: string,
+     *   noteId: int,
      * } $values
      */
     public function __construct(
@@ -23,17 +23,17 @@ class FindNoteRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getNoteId(): string
+    public function getNoteId(): int
     {
         return $this->noteId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setNoteId(string $value): self
+    public function setNoteId(int $value): self
     {
         $this->noteId = $value;
         return $this;

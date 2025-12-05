@@ -29,7 +29,7 @@ class AdminsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -72,11 +72,11 @@ class AdminsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AdminWithApp
+     * @return ?AdminWithApp
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function identify(?array $options = null): AdminWithApp
+    public function identify(?array $options = null): ?AdminWithApp
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -91,6 +91,9 @@ class AdminsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return AdminWithApp::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -127,11 +130,11 @@ class AdminsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Admin
+     * @return ?Admin
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function away(ConfigureAwayAdminRequest $request, ?array $options = null): Admin
+    public function away(ConfigureAwayAdminRequest $request, ?array $options = null): ?Admin
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -147,6 +150,9 @@ class AdminsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Admin::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -298,11 +304,11 @@ class AdminsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Admin
+     * @return ?Admin
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function find(FindAdminRequest $request, ?array $options = null): Admin
+    public function find(FindAdminRequest $request, ?array $options = null): ?Admin
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -317,6 +323,9 @@ class AdminsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Admin::fromJson($json);
             }
         } catch (JsonException $e) {

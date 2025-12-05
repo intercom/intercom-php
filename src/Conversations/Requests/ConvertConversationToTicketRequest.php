@@ -9,9 +9,9 @@ use Intercom\Core\Types\ArrayType;
 class ConvertConversationToTicketRequest extends JsonSerializableType
 {
     /**
-     * @var string $conversationId The id of the conversation to target
+     * @var int $conversationId The id of the conversation to target
      */
-    private string $conversationId;
+    private int $conversationId;
 
     /**
      * @var string $ticketTypeId The ID of the type of ticket you want to convert the conversation to
@@ -27,7 +27,7 @@ class ConvertConversationToTicketRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   conversationId: string,
+     *   conversationId: int,
      *   ticketTypeId: string,
      *   attributes?: ?array<string, mixed>,
      * } $values
@@ -41,17 +41,17 @@ class ConvertConversationToTicketRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getConversationId(): string
+    public function getConversationId(): int
     {
         return $this->conversationId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setConversationId(string $value): self
+    public function setConversationId(int $value): self
     {
         $this->conversationId = $value;
         return $this;

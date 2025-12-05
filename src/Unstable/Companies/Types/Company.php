@@ -126,6 +126,12 @@ class Company extends JsonSerializableType
     private ?CompanySegments $segments;
 
     /**
+     * @var ?CompanyNotes $notes The list of notes associated with the company
+     */
+    #[JsonProperty('notes')]
+    private ?CompanyNotes $notes;
+
+    /**
      * @param array{
      *   type?: ?'company',
      *   id?: ?string,
@@ -146,6 +152,7 @@ class Company extends JsonSerializableType
      *   customAttributes?: ?array<string, string>,
      *   tags?: ?CompanyTags,
      *   segments?: ?CompanySegments,
+     *   notes?: ?CompanyNotes,
      * } $values
      */
     public function __construct(
@@ -170,6 +177,7 @@ class Company extends JsonSerializableType
         $this->customAttributes = $values['customAttributes'] ?? null;
         $this->tags = $values['tags'] ?? null;
         $this->segments = $values['segments'] ?? null;
+        $this->notes = $values['notes'] ?? null;
     }
 
     /**
@@ -492,6 +500,23 @@ class Company extends JsonSerializableType
     public function setSegments(?CompanySegments $value = null): self
     {
         $this->segments = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?CompanyNotes
+     */
+    public function getNotes(): ?CompanyNotes
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param ?CompanyNotes $value
+     */
+    public function setNotes(?CompanyNotes $value = null): self
+    {
+        $this->notes = $value;
         return $this;
     }
 

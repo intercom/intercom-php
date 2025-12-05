@@ -11,84 +11,84 @@ use Intercom\Core\Json\JsonProperty;
 class GroupContent extends JsonSerializableType
 {
     /**
-     * @var 'group_content' $type The type of object - `group_content` .
+     * @var ?'group_content' $type The type of object - `group_content` .
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $name The name of the collection or section.
+     * @var ?string $name The name of the collection or section.
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $description The description of the collection. Only available for collections.
+     * @var ?string $description The description of the collection. Only available for collections.
      */
     #[JsonProperty('description')]
-    private string $description;
+    private ?string $description;
 
     /**
      * @param array{
-     *   type: 'group_content',
-     *   name: string,
-     *   description: string,
+     *   type?: ?'group_content',
+     *   name?: ?string,
+     *   description?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->name = $values['name'];
-        $this->description = $values['description'];
+        $this->type = $values['type'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->description = $values['description'] ?? null;
     }
 
     /**
-     * @return 'group_content'
+     * @return ?'group_content'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'group_content' $value
+     * @param ?'group_content' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setDescription(string $value): self
+    public function setDescription(?string $value = null): self
     {
         $this->description = $value;
         return $this;

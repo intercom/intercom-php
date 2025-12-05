@@ -30,7 +30,7 @@ class DataEventsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -175,6 +175,7 @@ class DataEventsClient
      * - Event lists containing duplicate events will have those duplicates ignored.
      * - Server errors will return a `500` response code and may contain an error message in the body.
      *
+     *
      * @param mixed $request
      * @param ?array{
      *   baseUrl?: string,
@@ -226,6 +227,7 @@ class DataEventsClient
 
     /**
      * Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
+     *
      *
      * @param CreateDataEventSummariesRequest $request
      * @param ?array{

@@ -4,7 +4,7 @@ namespace Intercom\News\Items;
 
 use GuzzleHttp\ClientInterface;
 use Intercom\Core\Client\RawClient;
-use Intercom\Types\PaginatedNewsItemResponse;
+use Intercom\Types\PaginatedResponse;
 use Intercom\Exceptions\IntercomException;
 use Intercom\Exceptions\IntercomApiException;
 use Intercom\Core\Json\JsonApiRequest;
@@ -29,7 +29,7 @@ class ItemsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -67,11 +67,11 @@ class ItemsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PaginatedNewsItemResponse
+     * @return PaginatedResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function list(?array $options = null): PaginatedNewsItemResponse
+    public function list(?array $options = null): PaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -86,7 +86,7 @@ class ItemsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PaginatedNewsItemResponse::fromJson($json);
+                return PaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

@@ -11,7 +11,7 @@ use Intercom\Core\Json\JsonProperty;
 class ArticleTranslatedContent extends JsonSerializableType
 {
     /**
-     * @var ?string $type The type of object - article_translated_content.
+     * @var ?'article_translated_content' $type The type of object - article_translated_content.
      */
     #[JsonProperty('type')]
     private ?string $type;
@@ -240,7 +240,7 @@ class ArticleTranslatedContent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?string,
+     *   type?: ?'article_translated_content',
      *   ar?: ?ArticleContent,
      *   bg?: ?ArticleContent,
      *   bs?: ?ArticleContent,
@@ -324,7 +324,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     }
 
     /**
-     * @return ?string
+     * @return ?'article_translated_content'
      */
     public function getType(): ?string
     {
@@ -332,7 +332,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     }
 
     /**
-     * @param ?string $value
+     * @param ?'article_translated_content' $value
      */
     public function setType(?string $value = null): self
     {

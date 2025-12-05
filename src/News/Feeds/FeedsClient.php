@@ -5,7 +5,7 @@ namespace Intercom\News\Feeds;
 use GuzzleHttp\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\News\Feeds\Requests\ListNewsFeedItemsRequest;
-use Intercom\Types\PaginatedNewsItemResponse;
+use Intercom\Types\PaginatedResponse;
 use Intercom\Exceptions\IntercomException;
 use Intercom\Exceptions\IntercomApiException;
 use Intercom\Core\Json\JsonApiRequest;
@@ -14,7 +14,6 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Intercom\Types\PaginatedNewsfeedResponse;
 use Intercom\News\Feeds\Requests\FindNewsFeedRequest;
 use Intercom\News\Types\Newsfeed;
 
@@ -27,7 +26,7 @@ class FeedsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -66,11 +65,11 @@ class FeedsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PaginatedNewsItemResponse
+     * @return PaginatedResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listItems(ListNewsFeedItemsRequest $request, ?array $options = null): PaginatedNewsItemResponse
+    public function listItems(ListNewsFeedItemsRequest $request, ?array $options = null): PaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -85,7 +84,7 @@ class FeedsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PaginatedNewsItemResponse::fromJson($json);
+                return PaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -120,11 +119,11 @@ class FeedsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PaginatedNewsfeedResponse
+     * @return PaginatedResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function list(?array $options = null): PaginatedNewsfeedResponse
+    public function list(?array $options = null): PaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -139,7 +138,7 @@ class FeedsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PaginatedNewsfeedResponse::fromJson($json);
+                return PaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

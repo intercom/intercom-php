@@ -14,10 +14,14 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Intercom\Types\CreateTicketRequest;
+use Intercom\Tickets\Requests\CreateTicketRequest;
 use Intercom\Tickets\Types\Ticket;
+use Intercom\Tickets\Requests\EnqueueCreateTicketRequest;
+use Intercom\Jobs\Types\Jobs;
 use Intercom\Tickets\Requests\FindTicketRequest;
 use Intercom\Tickets\Requests\UpdateTicketRequest;
+use Intercom\Tickets\Requests\DeleteTicketRequest;
+use Intercom\Tickets\Types\DeleteTicketResponse;
 use Intercom\Types\SearchRequest;
 use Intercom\Core\Pagination\Pager;
 use Intercom\Core\Pagination\CursorPager;
@@ -33,7 +37,7 @@ class TicketsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -128,11 +132,11 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Ticket
+     * @return ?Ticket
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateTicketRequest $request, ?array $options = null): Ticket
+    public function create(CreateTicketRequest $request, ?array $options = null): ?Ticket
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -148,7 +152,66 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Ticket::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
+     *
+     * @param EnqueueCreateTicketRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return Jobs
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function enqueueCreateTicket(EnqueueCreateTicketRequest $request, ?array $options = null): Jobs
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "tickets/enqueue",
+                    method: HttpMethod::POST,
+                    body: $request,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return Jobs::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -184,11 +247,11 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Ticket
+     * @return ?Ticket
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function get(FindTicketRequest $request, ?array $options = null): Ticket
+    public function get(FindTicketRequest $request, ?array $options = null): ?Ticket
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -203,6 +266,9 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Ticket::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -239,11 +305,11 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Ticket
+     * @return ?Ticket
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function update(UpdateTicketRequest $request, ?array $options = null): Ticket
+    public function update(UpdateTicketRequest $request, ?array $options = null): ?Ticket
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -259,7 +325,65 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Ticket::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * You can delete a ticket using the Intercom provided ID.
+     *
+     * @param DeleteTicketRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return DeleteTicketResponse
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function deleteTicket(DeleteTicketRequest $request, ?array $options = null): DeleteTicketResponse
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "tickets/{$request->getTicketId()}",
+                    method: HttpMethod::DELETE,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return DeleteTicketResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -306,14 +430,15 @@ class TicketsClient
      * ### Accepted Fields
      *
      * Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
+     * The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
      *
      * | Field                                     | Type                                                                                     |
      * | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
      * | id                                        | String                                                                                   |
      * | created_at                                | Date (UNIX timestamp)                                                                    |
      * | updated_at                                | Date (UNIX timestamp)                                                                    |
-     * | _default_title_                           | String                                                                                   |
-     * | _default_description_                     | String                                                                                   |
+     * | title                           | String                                                                                   |
+     * | description                     | String                                                                                   |
      * | category                                  | String                                                                                   |
      * | ticket_type_id                            | String                                                                                   |
      * | contact_ids                               | String                                                                                   |
@@ -324,6 +449,13 @@ class TicketsClient
      * | state                                     | String                                                                                   |
      * | snoozed_until                             | Date (UNIX timestamp)                                                                    |
      * | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
+     *
+     * {% admonition type="info" name="Searching by Category" %}
+     * When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+     * * For **Customer** category tickets, use the term `request`.
+     * * For **Back-office** category tickets, use the term `task`.
+     * * For **Tracker** category tickets, use the term `tracker`.
+     * {% /admonition %}
      *
      * ### Accepted Operators
      *
@@ -355,7 +487,7 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Pager<Ticket>
+     * @return Pager<?Ticket>
      */
     public function search(SearchRequest $request, ?array $options = null): Pager
     {
@@ -395,14 +527,15 @@ class TicketsClient
      * ### Accepted Fields
      *
      * Most keys listed as part of the Ticket model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foobar"`).
+     * The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
      *
      * | Field                                     | Type                                                                                     |
      * | :---------------------------------------- | :--------------------------------------------------------------------------------------- |
      * | id                                        | String                                                                                   |
      * | created_at                                | Date (UNIX timestamp)                                                                    |
      * | updated_at                                | Date (UNIX timestamp)                                                                    |
-     * | _default_title_                           | String                                                                                   |
-     * | _default_description_                     | String                                                                                   |
+     * | title                           | String                                                                                   |
+     * | description                     | String                                                                                   |
      * | category                                  | String                                                                                   |
      * | ticket_type_id                            | String                                                                                   |
      * | contact_ids                               | String                                                                                   |
@@ -413,6 +546,13 @@ class TicketsClient
      * | state                                     | String                                                                                   |
      * | snoozed_until                             | Date (UNIX timestamp)                                                                    |
      * | ticket_attribute.{id}                     | String or Boolean or Date (UNIX timestamp) or Float or Integer                           |
+     *
+     * {% admonition type="info" name="Searching by Category" %}
+     * When searching for tickets by the **`category`** field, specific terms must be used instead of the category names:
+     * * For **Customer** category tickets, use the term `request`.
+     * * For **Back-office** category tickets, use the term `task`.
+     * * For **Tracker** category tickets, use the term `tracker`.
+     * {% /admonition %}
      *
      * ### Accepted Operators
      *

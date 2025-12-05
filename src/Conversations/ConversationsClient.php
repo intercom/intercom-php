@@ -8,7 +8,7 @@ use Intercom\Conversations\Requests\ListConversationsRequest;
 use Intercom\Core\Pagination\Pager;
 use Intercom\Conversations\Types\Conversation;
 use Intercom\Core\Pagination\CursorPager;
-use Intercom\Types\PaginatedConversationResponse;
+use Intercom\Types\ConversationList;
 use Intercom\Conversations\Requests\CreateConversationRequest;
 use Intercom\Messages\Types\Message;
 use Intercom\Exceptions\IntercomException;
@@ -21,16 +21,18 @@ use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Conversations\Requests\FindConversationRequest;
 use Intercom\Conversations\Requests\UpdateConversationRequest;
+use Intercom\Conversations\Requests\DeleteConversationRequest;
+use Intercom\Types\ConversationDeleted;
 use Intercom\Types\SearchRequest;
 use Intercom\Core\Pagination\PaginationHelper;
 use Intercom\Conversations\Requests\ReplyToConversationRequest;
 use Intercom\Conversations\Requests\ManageConversationPartsRequest;
-use Intercom\Conversations\Requests\AutoAssignConversationRequest;
 use Intercom\Conversations\Requests\AttachContactToConversationRequest;
 use Intercom\Conversations\Requests\DetachContactFromConversationRequest;
 use Intercom\Types\RedactConversationRequest;
 use Intercom\Conversations\Requests\ConvertConversationToTicketRequest;
 use Intercom\Tickets\Types\Ticket;
+use Intercom\Conversations\Requests\AutoAssignConversationRequest;
 
 class ConversationsClient
 {
@@ -41,7 +43,7 @@ class ConversationsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -97,9 +99,9 @@ class ConversationsClient
                 $request->setStartingAfter($cursor);
             },
             /* @phpstan-ignore-next-line */
-            getNextCursor: fn (PaginatedConversationResponse $response) => $response?->getPages()?->getNext()?->getStartingAfter() ?? null,
+            getNextCursor: fn (ConversationList $response) => $response?->getPages()?->getNext()?->getStartingAfter() ?? null,
             /* @phpstan-ignore-next-line */
-            getItems: fn (PaginatedConversationResponse $response) => $response?->getConversations() ?? [],
+            getItems: fn (ConversationList $response) => $response?->getConversations() ?? [],
         );
     }
 
@@ -113,6 +115,7 @@ class ConversationsClient
      * {% /admonition %}
      *
      * This will return the Message model that has been created.
+     *
      *
      * @param CreateConversationRequest $request
      * @param ?array{
@@ -199,6 +202,9 @@ class ConversationsClient
         if ($request->getDisplayAs() != null) {
             $query['display_as'] = $request->getDisplayAs();
         }
+        if ($request->getIncludeTranslations() != null) {
+            $query['include_translations'] = $request->getIncludeTranslations();
+        }
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
@@ -243,6 +249,13 @@ class ConversationsClient
      * {% admonition type="info" name="Replying and other actions" %}
      * If you want to reply to a coveration or take an action such as assign, unassign, open, close or snooze, take a look at the reply and manage endpoints.
      * {% /admonition %}
+     *
+     * {% admonition type="info" %}
+     *   This endpoint handles both **conversation updates** and **custom object associations**.
+     *
+     *   See _`update a conversation with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
+     * {% /admonition %}
+     *
      *
      * @param UpdateConversationRequest $request
      * @param ?array{
@@ -303,6 +316,61 @@ class ConversationsClient
     }
 
     /**
+     * You can delete a single conversation.
+     *
+     * @param DeleteConversationRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return ConversationDeleted
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function deleteConversation(DeleteConversationRequest $request, ?array $options = null): ConversationDeleted
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "conversations/{$request->getConversationId()}",
+                    method: HttpMethod::DELETE,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return ConversationDeleted::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
      * You can search for multiple conversations by the value of their attributes in order to fetch exactly which ones you want.
      *
      * To search for conversations, you need to send a `POST` request to `https://api.intercom.io/conversations/search`.
@@ -324,7 +392,7 @@ class ConversationsClient
      *
      * ### Accepted Fields
      *
-     * Most keys listed as part of the The conversation model is searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+     * Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
      * The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
      *
      * | Field                                     | Type                                                                                                                                                   |
@@ -423,9 +491,9 @@ class ConversationsClient
                 PaginationHelper::setDeep($request, ["pagination", "startingAfter"], $cursor);
             },
             /* @phpstan-ignore-next-line */
-            getNextCursor: fn (PaginatedConversationResponse $response) => $response?->getPages()?->getNext()?->getStartingAfter() ?? null,
+            getNextCursor: fn (ConversationList $response) => $response?->getPages()?->getNext()?->getStartingAfter() ?? null,
             /* @phpstan-ignore-next-line */
-            getItems: fn (PaginatedConversationResponse $response) => $response?->getConversations() ?? [],
+            getItems: fn (ConversationList $response) => $response?->getConversations() ?? [],
         );
     }
 
@@ -546,72 +614,12 @@ class ConversationsClient
     }
 
     /**
-     * {% admonition type="danger" name="Deprecation of Run Assignment Rules" %}
-     * Run assignment rules is now deprecated in version 2.12 and future versions and will be permanently removed on December 31, 2026. After this date, any requests made to this endpoint will fail.
-     * {% /admonition %}
-     * You can let a conversation be automatically assigned following assignment rules.
-     * {% admonition type="warning" name="When using workflows" %}
-     * It is not possible to use this endpoint with Workflows.
-     * {% /admonition %}
-     *
-     * @param AutoAssignConversationRequest $request
-     * @param ?array{
-     *   baseUrl?: string,
-     *   maxRetries?: int,
-     *   timeout?: float,
-     *   headers?: array<string, string>,
-     *   queryParameters?: array<string, mixed>,
-     *   bodyProperties?: array<string, mixed>,
-     * } $options
-     * @return Conversation
-     * @throws IntercomException
-     * @throws IntercomApiException
-     */
-    public function runAssignmentRules(AutoAssignConversationRequest $request, ?array $options = null): Conversation
-    {
-        $options = array_merge($this->options, $options ?? []);
-        try {
-            $response = $this->client->sendRequest(
-                new JsonApiRequest(
-                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getConversationId()}/run_assignment_rules",
-                    method: HttpMethod::POST,
-                ),
-                $options,
-            );
-            $statusCode = $response->getStatusCode();
-            if ($statusCode >= 200 && $statusCode < 400) {
-                $json = $response->getBody()->getContents();
-                return Conversation::fromJson($json);
-            }
-        } catch (JsonException $e) {
-            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
-        } catch (ClientExceptionInterface $e) {
-            throw new IntercomException(message: $e->getMessage(), previous: $e);
-        }
-        throw new IntercomApiException(
-            message: 'API request failed',
-            statusCode: $statusCode,
-            body: $response->getBody()->getContents(),
-        );
-    }
-
-    /**
      * You can add participants who are contacts to a conversation, on behalf of either another contact or an admin.
      *
      * {% admonition type="warning" name="Contacts without an email" %}
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
+     *
      *
      * @param AttachContactToConversationRequest $request
      * @param ?array{
@@ -673,6 +681,7 @@ class ConversationsClient
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
+     *
      * @param DetachContactFromConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -732,6 +741,7 @@ class ConversationsClient
      * {% admonition type="info" name="Redacting parts and messages" %}
      * If you are redacting a conversation part, it must have a `body`. If you are redacting a source message, it must have been created by a contact. We will return a `conversation_part_not_redactable` error if these criteria are not met.
      * {% /admonition %}
+     *
      *
      * @param RedactConversationRequest $request
      * @param ?array{
@@ -798,11 +808,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Ticket
+     * @return ?Ticket
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function convertToTicket(ConvertConversationToTicketRequest $request, ?array $options = null): Ticket
+    public function convertToTicket(ConvertConversationToTicketRequest $request, ?array $options = null): ?Ticket
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -818,7 +828,71 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Ticket::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * {% admonition type="danger" name="Deprecation of Run Assignment Rules" %}
+     * Run assignment rules is now deprecated in version 2.12 and future versions and will be permanently removed on December 31, 2026. After this date, any requests made to this endpoint will fail.
+     * {% /admonition %}
+     * You can let a conversation be automatically assigned following assignment rules.
+     * {% admonition type="warning" name="When using workflows" %}
+     * It is not possible to use this endpoint with Workflows.
+     * {% /admonition %}
+     *
+     * @param AutoAssignConversationRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return Conversation
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function runAssignmentRules(AutoAssignConversationRequest $request, ?array $options = null): Conversation
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "conversations/{$request->getConversationId()}/run_assignment_rules",
+                    method: HttpMethod::POST,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -860,11 +934,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PaginatedConversationResponse
+     * @return ConversationList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    private function _list(ListConversationsRequest $request = new ListConversationsRequest(), ?array $options = null): PaginatedConversationResponse
+    private function _list(ListConversationsRequest $request = new ListConversationsRequest(), ?array $options = null): ConversationList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -887,7 +961,7 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PaginatedConversationResponse::fromJson($json);
+                return ConversationList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
@@ -933,7 +1007,7 @@ class ConversationsClient
      *
      * ### Accepted Fields
      *
-     * Most keys listed as part of the The conversation model is searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
+     * Most keys listed in the conversation model are searchable, whether writeable or not. The value you search for has to match the accepted type, otherwise the query will fail (ie. as `created_at` accepts a date, the `value` cannot be a string such as `"foorbar"`).
      * The `source.body` field is unique as the search will not be performed against the entire value, but instead against every element of the value separately. For example, when searching for a conversation with a `"I need support"` body - the query should contain a `=` operator with the value `"support"` for such conversation to be returned. A query with a `=` operator and a `"need support"` value will not yield a result.
      *
      * | Field                                     | Type                                                                                                                                                   |
@@ -1021,11 +1095,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PaginatedConversationResponse
+     * @return ConversationList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    private function _search(SearchRequest $request, ?array $options = null): PaginatedConversationResponse
+    private function _search(SearchRequest $request, ?array $options = null): ConversationList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -1041,7 +1115,7 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
-                return PaginatedConversationResponse::fromJson($json);
+                return ConversationList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);

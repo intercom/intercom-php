@@ -11,109 +11,109 @@ use Intercom\Core\Json\JsonProperty;
 class DataExport extends JsonSerializableType
 {
     /**
-     * @var string $jobIdentifier The identifier for your job.
+     * @var ?string $jobIdentifier The identifier for your job.
      */
     #[JsonProperty('job_identifier')]
-    private string $jobIdentifier;
+    private ?string $jobIdentifier;
 
     /**
-     * @var value-of<DataExportStatus> $status The current state of your job.
+     * @var ?value-of<DataExportStatus> $status The current state of your job.
      */
     #[JsonProperty('status')]
-    private string $status;
+    private ?string $status;
 
     /**
-     * @var string $downloadExpiresAt The time after which you will not be able to access the data.
+     * @var ?string $downloadExpiresAt The time after which you will not be able to access the data.
      */
     #[JsonProperty('download_expires_at')]
-    private string $downloadExpiresAt;
+    private ?string $downloadExpiresAt;
 
     /**
-     * @var string $downloadUrl The location where you can download your data.
+     * @var ?string $downloadUrl The location where you can download your data.
      */
     #[JsonProperty('download_url')]
-    private string $downloadUrl;
+    private ?string $downloadUrl;
 
     /**
      * @param array{
-     *   jobIdentifier: string,
-     *   status: value-of<DataExportStatus>,
-     *   downloadExpiresAt: string,
-     *   downloadUrl: string,
+     *   jobIdentifier?: ?string,
+     *   status?: ?value-of<DataExportStatus>,
+     *   downloadExpiresAt?: ?string,
+     *   downloadUrl?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->jobIdentifier = $values['jobIdentifier'];
-        $this->status = $values['status'];
-        $this->downloadExpiresAt = $values['downloadExpiresAt'];
-        $this->downloadUrl = $values['downloadUrl'];
+        $this->jobIdentifier = $values['jobIdentifier'] ?? null;
+        $this->status = $values['status'] ?? null;
+        $this->downloadExpiresAt = $values['downloadExpiresAt'] ?? null;
+        $this->downloadUrl = $values['downloadUrl'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getJobIdentifier(): string
+    public function getJobIdentifier(): ?string
     {
         return $this->jobIdentifier;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setJobIdentifier(string $value): self
+    public function setJobIdentifier(?string $value = null): self
     {
         $this->jobIdentifier = $value;
         return $this;
     }
 
     /**
-     * @return value-of<DataExportStatus>
+     * @return ?value-of<DataExportStatus>
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
     /**
-     * @param value-of<DataExportStatus> $value
+     * @param ?value-of<DataExportStatus> $value
      */
-    public function setStatus(string $value): self
+    public function setStatus(?string $value = null): self
     {
         $this->status = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDownloadExpiresAt(): string
+    public function getDownloadExpiresAt(): ?string
     {
         return $this->downloadExpiresAt;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setDownloadExpiresAt(string $value): self
+    public function setDownloadExpiresAt(?string $value = null): self
     {
         $this->downloadExpiresAt = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDownloadUrl(): string
+    public function getDownloadUrl(): ?string
     {
         return $this->downloadUrl;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setDownloadUrl(string $value): self
+    public function setDownloadUrl(?string $value = null): self
     {
         $this->downloadUrl = $value;
         return $this;

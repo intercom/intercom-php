@@ -11,10 +11,10 @@ use Intercom\Core\Json\JsonProperty;
 class Reference extends JsonSerializableType
 {
     /**
-     * @var string $type
+     * @var ?string $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var ?string $id
@@ -24,29 +24,29 @@ class Reference extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: string,
+     *   type?: ?string,
      *   id?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
+        $this->type = $values['type'] ?? null;
         $this->id = $values['id'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;

@@ -4,7 +4,10 @@ namespace Intercom\Conversations\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
+use DateTime;
+use Intercom\Types\CustomObjectInstanceList;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 
 class UpdateConversationRequest extends JsonSerializableType
 {
@@ -25,17 +28,41 @@ class UpdateConversationRequest extends JsonSerializableType
     private ?bool $read;
 
     /**
-     * @var ?array<string, mixed> $customAttributes
+     * @var ?string $title The title given to the conversation
      */
-    #[JsonProperty('custom_attributes'), ArrayType(['string' => 'mixed'])]
+    #[JsonProperty('title')]
+    private ?string $title;
+
+    /**
+     * @var ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )> $customAttributes
+     */
+    #[JsonProperty('custom_attributes'), ArrayType(['string' => new Union('string', 'integer', 'datetime', CustomObjectInstanceList::class)])]
     private ?array $customAttributes;
+
+    /**
+     * @var ?string $companyId The ID of the company that the conversation is associated with. The unique identifier for the company which is given by Intercom. Set to nil to remove company.
+     */
+    #[JsonProperty('company_id')]
+    private ?string $companyId;
 
     /**
      * @param array{
      *   conversationId: string,
      *   displayAs?: ?string,
      *   read?: ?bool,
-     *   customAttributes?: ?array<string, mixed>,
+     *   title?: ?string,
+     *   customAttributes?: ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )>,
+     *   companyId?: ?string,
      * } $values
      */
     public function __construct(
@@ -44,7 +71,9 @@ class UpdateConversationRequest extends JsonSerializableType
         $this->conversationId = $values['conversationId'];
         $this->displayAs = $values['displayAs'] ?? null;
         $this->read = $values['read'] ?? null;
+        $this->title = $values['title'] ?? null;
         $this->customAttributes = $values['customAttributes'] ?? null;
+        $this->companyId = $values['companyId'] ?? null;
     }
 
     /**
@@ -99,7 +128,29 @@ class UpdateConversationRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?array<string, mixed>
+     * @return ?string
+     */
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setTitle(?string $value = null): self
+    {
+        $this->title = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )>
      */
     public function getCustomAttributes(): ?array
     {
@@ -107,11 +158,33 @@ class UpdateConversationRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?array<string, mixed> $value
+     * @param ?array<string, (
+     *    string
+     *   |int
+     *   |DateTime
+     *   |CustomObjectInstanceList
+     * )> $value
      */
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getCompanyId(): ?string
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setCompanyId(?string $value = null): self
+    {
+        $this->companyId = $value;
         return $this;
     }
 }

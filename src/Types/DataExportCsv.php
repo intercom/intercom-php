@@ -11,10 +11,10 @@ use Intercom\Core\Json\JsonProperty;
 class DataExportCsv extends JsonSerializableType
 {
     /**
-     * @var string $userId The user_id of the user who was sent the message.
+     * @var ?string $userId The user_id of the user who was sent the message.
      */
     #[JsonProperty('user_id')]
-    private string $userId;
+    private ?string $userId;
 
     /**
      * @var ?string $userExternalId The external_user_id of the user who was sent the message
@@ -23,46 +23,46 @@ class DataExportCsv extends JsonSerializableType
     private ?string $userExternalId;
 
     /**
-     * @var string $companyId The company ID of the user in relation to the message that was sent. Will return -1 if no company is present.
+     * @var ?string $companyId The company ID of the user in relation to the message that was sent. Will return -1 if no company is present.
      */
     #[JsonProperty('company_id')]
-    private string $companyId;
+    private ?string $companyId;
 
     /**
-     * @var string $email The users email who was sent the message.
+     * @var ?string $email The users email who was sent the message.
      */
     #[JsonProperty('email')]
-    private string $email;
+    private ?string $email;
 
     /**
-     * @var string $name The full name of the user receiving the message
+     * @var ?string $name The full name of the user receiving the message
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $rulesetId The id of the message.
+     * @var ?string $rulesetId The id of the message.
      */
     #[JsonProperty('ruleset_id')]
-    private string $rulesetId;
+    private ?string $rulesetId;
 
     /**
-     * @var string $contentId The specific content that was received. In an A/B test each version has its own Content ID.
+     * @var ?string $contentId The specific content that was received. In an A/B test each version has its own Content ID.
      */
     #[JsonProperty('content_id')]
-    private string $contentId;
+    private ?string $contentId;
 
     /**
-     * @var string $contentType Email, Chat, Post etc.
+     * @var ?string $contentType Email, Chat, Post etc.
      */
     #[JsonProperty('content_type')]
-    private string $contentType;
+    private ?string $contentType;
 
     /**
-     * @var string $contentTitle The title of the content you see in your Intercom workspace.
+     * @var ?string $contentTitle The title of the content you see in your Intercom workspace.
      */
     #[JsonProperty('content_title')]
-    private string $contentTitle;
+    private ?string $contentTitle;
 
     /**
      * @var ?string $rulesetVersionId As you edit content we record new versions. This ID can help you determine which version of a piece of content that was received.
@@ -168,15 +168,15 @@ class DataExportCsv extends JsonSerializableType
 
     /**
      * @param array{
-     *   userId: string,
-     *   companyId: string,
-     *   email: string,
-     *   name: string,
-     *   rulesetId: string,
-     *   contentId: string,
-     *   contentType: string,
-     *   contentTitle: string,
+     *   userId?: ?string,
      *   userExternalId?: ?string,
+     *   companyId?: ?string,
+     *   email?: ?string,
+     *   name?: ?string,
+     *   rulesetId?: ?string,
+     *   contentId?: ?string,
+     *   contentType?: ?string,
+     *   contentTitle?: ?string,
      *   rulesetVersionId?: ?string,
      *   receiptId?: ?string,
      *   receivedAt?: ?int,
@@ -197,17 +197,17 @@ class DataExportCsv extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->userId = $values['userId'];
+        $this->userId = $values['userId'] ?? null;
         $this->userExternalId = $values['userExternalId'] ?? null;
-        $this->companyId = $values['companyId'];
-        $this->email = $values['email'];
-        $this->name = $values['name'];
-        $this->rulesetId = $values['rulesetId'];
-        $this->contentId = $values['contentId'];
-        $this->contentType = $values['contentType'];
-        $this->contentTitle = $values['contentTitle'];
+        $this->companyId = $values['companyId'] ?? null;
+        $this->email = $values['email'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->rulesetId = $values['rulesetId'] ?? null;
+        $this->contentId = $values['contentId'] ?? null;
+        $this->contentType = $values['contentType'] ?? null;
+        $this->contentTitle = $values['contentTitle'] ?? null;
         $this->rulesetVersionId = $values['rulesetVersionId'] ?? null;
         $this->receiptId = $values['receiptId'] ?? null;
         $this->receivedAt = $values['receivedAt'] ?? null;
@@ -228,17 +228,17 @@ class DataExportCsv extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setUserId(string $value): self
+    public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
         return $this;
@@ -262,119 +262,119 @@ class DataExportCsv extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getCompanyId(): string
+    public function getCompanyId(): ?string
     {
         return $this->companyId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setCompanyId(string $value): self
+    public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setEmail(string $value): self
+    public function setEmail(?string $value = null): self
     {
         $this->email = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getRulesetId(): string
+    public function getRulesetId(): ?string
     {
         return $this->rulesetId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setRulesetId(string $value): self
+    public function setRulesetId(?string $value = null): self
     {
         $this->rulesetId = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getContentId(): string
+    public function getContentId(): ?string
     {
         return $this->contentId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setContentId(string $value): self
+    public function setContentId(?string $value = null): self
     {
         $this->contentId = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getContentType(): string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setContentType(string $value): self
+    public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getContentTitle(): string
+    public function getContentTitle(): ?string
     {
         return $this->contentTitle;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setContentTitle(string $value): self
+    public function setContentTitle(?string $value = null): self
     {
         $this->contentTitle = $value;
         return $this;

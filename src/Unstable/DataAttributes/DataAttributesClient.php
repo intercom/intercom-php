@@ -14,7 +14,6 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Intercom\Unstable\DataAttributes\Requests\CreateDataAttributeRequest;
 use Intercom\Unstable\DataAttributes\Types\DataAttribute;
 use Intercom\Unstable\DataAttributes\Requests\UpdateDataAttributeRequest;
 
@@ -27,7 +26,7 @@ class DataAttributesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -120,7 +119,7 @@ class DataAttributesClient
     /**
      * You can create a data attributes for a `contact` or a `company`.
      *
-     * @param CreateDataAttributeRequest $request
+     * @param mixed $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -133,7 +132,7 @@ class DataAttributesClient
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createDataAttribute(CreateDataAttributeRequest $request, ?array $options = null): DataAttribute
+    public function createDataAttribute(mixed $request, ?array $options = null): DataAttribute
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -203,7 +202,7 @@ class DataAttributesClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
                     path: "data_attributes/{$request->getId()}",
                     method: HttpMethod::PUT,
-                    body: $request,
+                    body: $request->getBody(),
                 ),
                 $options,
             );

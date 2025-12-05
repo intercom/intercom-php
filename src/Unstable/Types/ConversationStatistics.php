@@ -144,6 +144,12 @@ class ConversationStatistics extends JsonSerializableType
     private ?int $handlingTime;
 
     /**
+     * @var ?int $adjustedHandlingTime Adjusted handling time for conversation in seconds. This is the active handling time excluding idle periods when teammates are not actively working on the conversation.
+     */
+    #[JsonProperty('adjusted_handling_time')]
+    private ?int $adjustedHandlingTime;
+
+    /**
      * @param array{
      *   type?: ?string,
      *   timeToAssignment?: ?int,
@@ -167,6 +173,7 @@ class ConversationStatistics extends JsonSerializableType
      *   assignedTeamFirstResponseTimeByTeam?: ?array<ConversationResponseTime>,
      *   assignedTeamFirstResponseTimeInOfficeHours?: ?array<ConversationResponseTime>,
      *   handlingTime?: ?int,
+     *   adjustedHandlingTime?: ?int,
      * } $values
      */
     public function __construct(
@@ -194,6 +201,7 @@ class ConversationStatistics extends JsonSerializableType
         $this->assignedTeamFirstResponseTimeByTeam = $values['assignedTeamFirstResponseTimeByTeam'] ?? null;
         $this->assignedTeamFirstResponseTimeInOfficeHours = $values['assignedTeamFirstResponseTimeInOfficeHours'] ?? null;
         $this->handlingTime = $values['handlingTime'] ?? null;
+        $this->adjustedHandlingTime = $values['adjustedHandlingTime'] ?? null;
     }
 
     /**
@@ -567,6 +575,23 @@ class ConversationStatistics extends JsonSerializableType
     public function setHandlingTime(?int $value = null): self
     {
         $this->handlingTime = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getAdjustedHandlingTime(): ?int
+    {
+        return $this->adjustedHandlingTime;
+    }
+
+    /**
+     * @param ?int $value
+     */
+    public function setAdjustedHandlingTime(?int $value = null): self
+    {
+        $this->adjustedHandlingTime = $value;
         return $this;
     }
 

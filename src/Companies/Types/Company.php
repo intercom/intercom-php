@@ -12,6 +12,12 @@ use Intercom\Core\Types\ArrayType;
 class Company extends JsonSerializableType
 {
     /**
+     * @var ?'company' $type Value is `company`
+     */
+    #[JsonProperty('type')]
+    private ?string $type;
+
+    /**
      * @var string $id The Intercom defined id representing the company.
      */
     #[JsonProperty('id')]
@@ -130,6 +136,7 @@ class Company extends JsonSerializableType
      *   monthlySpend: int,
      *   sessionCount: int,
      *   userCount: int,
+     *   type?: ?'company',
      *   plan?: ?CompanyPlan,
      *   remoteCreatedAt?: ?int,
      *   lastRequestAt?: ?int,
@@ -144,6 +151,7 @@ class Company extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
+        $this->type = $values['type'] ?? null;
         $this->id = $values['id'];
         $this->name = $values['name'];
         $this->appId = $values['appId'];
@@ -162,6 +170,23 @@ class Company extends JsonSerializableType
         $this->customAttributes = $values['customAttributes'] ?? null;
         $this->tags = $values['tags'] ?? null;
         $this->segments = $values['segments'] ?? null;
+    }
+
+    /**
+     * @return ?'company'
+     */
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param ?'company' $value
+     */
+    public function setType(?string $value = null): self
+    {
+        $this->type = $value;
+        return $this;
     }
 
     /**

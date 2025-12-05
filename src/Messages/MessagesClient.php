@@ -24,7 +24,7 @@ class MessagesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -64,7 +64,7 @@ class MessagesClient
      * >
      * > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
      *
-     * @param CreateMessageRequest $request
+     * @param ?CreateMessageRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -77,7 +77,7 @@ class MessagesClient
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateMessageRequest $request, ?array $options = null): Message
+    public function create(?CreateMessageRequest $request = null, ?array $options = null): Message
     {
         $options = array_merge($this->options, $options ?? []);
         try {

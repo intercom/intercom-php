@@ -3,6 +3,7 @@
 namespace Intercom\Types;
 
 use Intercom\Core\Json\JsonSerializableType;
+use Intercom\Traits\ContactReference;
 use Intercom\Core\Json\JsonProperty;
 
 /**
@@ -10,110 +11,43 @@ use Intercom\Core\Json\JsonProperty;
  */
 class ContactDeleted extends JsonSerializableType
 {
-    /**
-     * @var 'contact' $type always contact
-     */
-    #[JsonProperty('type')]
-    private string $type;
+    use ContactReference;
 
     /**
-     * @var string $id The unique identifier for the contact which is given by Intercom.
-     */
-    #[JsonProperty('id')]
-    private string $id;
-
-    /**
-     * @var ?string $externalId The unique identifier for the contact which is provided by the Client.
-     */
-    #[JsonProperty('external_id')]
-    private ?string $externalId;
-
-    /**
-     * @var bool $deleted Whether the contact is deleted or not.
+     * @var ?bool $deleted Whether the contact is deleted or not.
      */
     #[JsonProperty('deleted')]
-    private bool $deleted;
+    private ?bool $deleted;
 
     /**
      * @param array{
-     *   type: 'contact',
-     *   id: string,
-     *   deleted: bool,
+     *   type?: ?'contact',
+     *   id?: ?string,
      *   externalId?: ?string,
+     *   deleted?: ?bool,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
         $this->externalId = $values['externalId'] ?? null;
-        $this->deleted = $values['deleted'];
+        $this->deleted = $values['deleted'] ?? null;
     }
 
     /**
-     * @return 'contact'
+     * @return ?bool
      */
-    public function getType(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param 'contact' $value
-     */
-    public function setType(string $value): self
-    {
-        $this->type = $value;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param string $value
-     */
-    public function setId(string $value): self
-    {
-        $this->id = $value;
-        return $this;
-    }
-
-    /**
-     * @return ?string
-     */
-    public function getExternalId(): ?string
-    {
-        return $this->externalId;
-    }
-
-    /**
-     * @param ?string $value
-     */
-    public function setExternalId(?string $value = null): self
-    {
-        $this->externalId = $value;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getDeleted(): bool
+    public function getDeleted(): ?bool
     {
         return $this->deleted;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setDeleted(bool $value): self
+    public function setDeleted(?bool $value = null): self
     {
         $this->deleted = $value;
         return $this;

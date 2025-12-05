@@ -13,84 +13,84 @@ use Intercom\Core\Types\ArrayType;
 class TicketParts extends JsonSerializableType
 {
     /**
-     * @var 'ticket_part.list' $type
+     * @var ?'ticket_part.list' $type
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<TicketPart> $ticketParts A list of Ticket Part objects for each ticket. There is a limit of 500 parts.
+     * @var ?array<TicketPart> $ticketParts A list of Ticket Part objects for each ticket. There is a limit of 500 parts.
      */
     #[JsonProperty('ticket_parts'), ArrayType([TicketPart::class])]
-    private array $ticketParts;
+    private ?array $ticketParts;
 
     /**
-     * @var int $totalCount
+     * @var ?int $totalCount
      */
     #[JsonProperty('total_count')]
-    private int $totalCount;
+    private ?int $totalCount;
 
     /**
      * @param array{
-     *   type: 'ticket_part.list',
-     *   ticketParts: array<TicketPart>,
-     *   totalCount: int,
+     *   type?: ?'ticket_part.list',
+     *   ticketParts?: ?array<TicketPart>,
+     *   totalCount?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->ticketParts = $values['ticketParts'];
-        $this->totalCount = $values['totalCount'];
+        $this->type = $values['type'] ?? null;
+        $this->ticketParts = $values['ticketParts'] ?? null;
+        $this->totalCount = $values['totalCount'] ?? null;
     }
 
     /**
-     * @return 'ticket_part.list'
+     * @return ?'ticket_part.list'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'ticket_part.list' $value
+     * @param ?'ticket_part.list' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<TicketPart>
+     * @return ?array<TicketPart>
      */
-    public function getTicketParts(): array
+    public function getTicketParts(): ?array
     {
         return $this->ticketParts;
     }
 
     /**
-     * @param array<TicketPart> $value
+     * @param ?array<TicketPart> $value
      */
-    public function setTicketParts(array $value): self
+    public function setTicketParts(?array $value = null): self
     {
         $this->ticketParts = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getTotalCount(): int
+    public function getTotalCount(): ?int
     {
         return $this->totalCount;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setTotalCount(int $value): self
+    public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
         return $this;

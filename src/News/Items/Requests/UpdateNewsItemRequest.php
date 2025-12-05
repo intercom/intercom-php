@@ -8,9 +8,9 @@ use Intercom\Types\NewsItemRequest;
 class UpdateNewsItemRequest extends JsonSerializableType
 {
     /**
-     * @var string $newsItemId The unique identifier for the news item which is given by Intercom.
+     * @var int $newsItemId The unique identifier for the news item which is given by Intercom.
      */
-    private string $newsItemId;
+    private int $newsItemId;
 
     /**
      * @var NewsItemRequest $body
@@ -19,7 +19,7 @@ class UpdateNewsItemRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   newsItemId: string,
+     *   newsItemId: int,
      *   body: NewsItemRequest,
      * } $values
      */
@@ -31,17 +31,17 @@ class UpdateNewsItemRequest extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getNewsItemId(): string
+    public function getNewsItemId(): int
     {
         return $this->newsItemId;
     }
 
     /**
-     * @param string $value
+     * @param int $value
      */
-    public function setNewsItemId(string $value): self
+    public function setNewsItemId(int $value): self
     {
         $this->newsItemId = $value;
         return $this;

@@ -8,9 +8,10 @@ use Intercom\Unstable\Articles\ArticlesClient;
 use Intercom\Unstable\AwayStatusReasons\AwayStatusReasonsClient;
 use Intercom\Unstable\Export\ExportClient;
 use Intercom\Unstable\HelpCenter\HelpCenterClient;
+use Intercom\Unstable\InternalArticles\InternalArticlesClient;
 use Intercom\Unstable\Companies\CompaniesClient;
-use Intercom\Unstable\Contacts\ContactsClient;
 use Intercom\Unstable\Notes\NotesClient;
+use Intercom\Unstable\Contacts\ContactsClient;
 use Intercom\Unstable\SubscriptionTypes\SubscriptionTypesClient;
 use Intercom\Unstable\Tags\TagsClient;
 use Intercom\Unstable\Conversations\ConversationsClient;
@@ -25,12 +26,15 @@ use Intercom\Unstable\Messages\MessagesClient;
 use Intercom\Unstable\News\NewsClient;
 use Intercom\Unstable\Segments\SegmentsClient;
 use Intercom\Unstable\Switch_\SwitchClient;
+use Intercom\Unstable\Calls\CallsClient;
 use Intercom\Unstable\Teams\TeamsClient;
 use Intercom\Unstable\TicketStates\TicketStatesClient;
 use Intercom\Unstable\TicketTypeAttributes\TicketTypeAttributesClient;
 use Intercom\Unstable\TicketTypes\TicketTypesClient;
 use Intercom\Unstable\Tickets\TicketsClient;
 use Intercom\Unstable\Visitors\VisitorsClient;
+use Intercom\Unstable\Brands\BrandsClient;
+use Intercom\Unstable\Emails\EmailsClient;
 use GuzzleHttp\ClientInterface;
 use Intercom\Core\Client\RawClient;
 
@@ -67,19 +71,24 @@ class UnstableClient
     public HelpCenterClient $helpCenter;
 
     /**
+     * @var InternalArticlesClient $internalArticles
+     */
+    public InternalArticlesClient $internalArticles;
+
+    /**
      * @var CompaniesClient $companies
      */
     public CompaniesClient $companies;
 
     /**
-     * @var ContactsClient $contacts
-     */
-    public ContactsClient $contacts;
-
-    /**
      * @var NotesClient $notes
      */
     public NotesClient $notes;
+
+    /**
+     * @var ContactsClient $contacts
+     */
+    public ContactsClient $contacts;
 
     /**
      * @var SubscriptionTypesClient $subscriptionTypes
@@ -152,6 +161,11 @@ class UnstableClient
     public SwitchClient $switch_;
 
     /**
+     * @var CallsClient $calls
+     */
+    public CallsClient $calls;
+
+    /**
      * @var TeamsClient $teams
      */
     public TeamsClient $teams;
@@ -182,13 +196,23 @@ class UnstableClient
     public VisitorsClient $visitors;
 
     /**
+     * @var BrandsClient $brands
+     */
+    public BrandsClient $brands;
+
+    /**
+     * @var EmailsClient $emails
+     */
+    public EmailsClient $emails;
+
+    /**
      * @var array{
      *   baseUrl?: string,
      *   client?: ClientInterface,
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -219,9 +243,10 @@ class UnstableClient
         $this->awayStatusReasons = new AwayStatusReasonsClient($this->client, $this->options);
         $this->export = new ExportClient($this->client, $this->options);
         $this->helpCenter = new HelpCenterClient($this->client, $this->options);
+        $this->internalArticles = new InternalArticlesClient($this->client, $this->options);
         $this->companies = new CompaniesClient($this->client, $this->options);
-        $this->contacts = new ContactsClient($this->client, $this->options);
         $this->notes = new NotesClient($this->client, $this->options);
+        $this->contacts = new ContactsClient($this->client, $this->options);
         $this->subscriptionTypes = new SubscriptionTypesClient($this->client, $this->options);
         $this->tags = new TagsClient($this->client, $this->options);
         $this->conversations = new ConversationsClient($this->client, $this->options);
@@ -236,11 +261,14 @@ class UnstableClient
         $this->news = new NewsClient($this->client, $this->options);
         $this->segments = new SegmentsClient($this->client, $this->options);
         $this->switch_ = new SwitchClient($this->client, $this->options);
+        $this->calls = new CallsClient($this->client, $this->options);
         $this->teams = new TeamsClient($this->client, $this->options);
         $this->ticketStates = new TicketStatesClient($this->client, $this->options);
         $this->ticketTypeAttributes = new TicketTypeAttributesClient($this->client, $this->options);
         $this->ticketTypes = new TicketTypesClient($this->client, $this->options);
         $this->tickets = new TicketsClient($this->client, $this->options);
         $this->visitors = new VisitorsClient($this->client, $this->options);
+        $this->brands = new BrandsClient($this->client, $this->options);
+        $this->emails = new EmailsClient($this->client, $this->options);
     }
 }

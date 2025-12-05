@@ -34,6 +34,7 @@ class ContactReplyIntercomUserIdRequest extends JsonSerializableType
      *   intercomUserId: string,
      *   createdAt?: ?int,
      *   attachmentUrls?: ?array<string>,
+     *   replyOptions?: ?array<ContactReplyBaseRequestReplyOptionsItem>,
      *   attachmentFiles?: ?array<ConversationAttachmentFiles>,
      * } $values
      */
@@ -45,6 +46,7 @@ class ContactReplyIntercomUserIdRequest extends JsonSerializableType
         $this->body = $values['body'];
         $this->createdAt = $values['createdAt'] ?? null;
         $this->attachmentUrls = $values['attachmentUrls'] ?? null;
+        $this->replyOptions = $values['replyOptions'] ?? null;
         $this->intercomUserId = $values['intercomUserId'];
         $this->attachmentFiles = $values['attachmentFiles'] ?? null;
     }

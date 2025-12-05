@@ -33,7 +33,7 @@ class TicketsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -374,8 +374,8 @@ class TicketsClient
      * | id                                        | String                                                                                   |
      * | created_at                                | Date (UNIX timestamp)                                                                    |
      * | updated_at                                | Date (UNIX timestamp)                                                                    |
-     * | _default_title_                           | String                                                                                   |
-     * | _default_description_                     | String                                                                                   |
+     * | title                           | String                                                                                   |
+     * | description                     | String                                                                                   |
      * | category                                  | String                                                                                   |
      * | ticket_type_id                            | String                                                                                   |
      * | contact_ids                               | String                                                                                   |

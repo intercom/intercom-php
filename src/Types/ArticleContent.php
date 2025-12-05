@@ -11,40 +11,40 @@ use Intercom\Core\Json\JsonProperty;
 class ArticleContent extends JsonSerializableType
 {
     /**
-     * @var 'article_content' $type The type of object - `article_content` .
+     * @var ?'article_content' $type The type of object - `article_content` .
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $title The title of the article.
+     * @var ?string $title The title of the article.
      */
     #[JsonProperty('title')]
-    private string $title;
+    private ?string $title;
 
     /**
-     * @var string $description The description of the article.
+     * @var ?string $description The description of the article.
      */
     #[JsonProperty('description')]
-    private string $description;
+    private ?string $description;
 
     /**
-     * @var string $body The body of the article.
+     * @var ?string $body The body of the article.
      */
     #[JsonProperty('body')]
-    private string $body;
+    private ?string $body;
 
     /**
-     * @var int $authorId The ID of the author of the article.
+     * @var ?int $authorId The ID of the author of the article.
      */
     #[JsonProperty('author_id')]
-    private int $authorId;
+    private ?int $authorId;
 
     /**
-     * @var value-of<ArticleContentState> $state Whether the article is `published` or is a `draft` .
+     * @var ?value-of<ArticleContentState> $state Whether the article is `published` or is a `draft` .
      */
     #[JsonProperty('state')]
-    private string $state;
+    private ?string $state;
 
     /**
      * @var ?int $createdAt The time when the article was created (seconds).
@@ -66,128 +66,128 @@ class ArticleContent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'article_content',
-     *   title: string,
-     *   description: string,
-     *   body: string,
-     *   authorId: int,
-     *   state: value-of<ArticleContentState>,
+     *   type?: ?'article_content',
+     *   title?: ?string,
+     *   description?: ?string,
+     *   body?: ?string,
+     *   authorId?: ?int,
+     *   state?: ?value-of<ArticleContentState>,
      *   createdAt?: ?int,
      *   updatedAt?: ?int,
      *   url?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->title = $values['title'];
-        $this->description = $values['description'];
-        $this->body = $values['body'];
-        $this->authorId = $values['authorId'];
-        $this->state = $values['state'];
+        $this->type = $values['type'] ?? null;
+        $this->title = $values['title'] ?? null;
+        $this->description = $values['description'] ?? null;
+        $this->body = $values['body'] ?? null;
+        $this->authorId = $values['authorId'] ?? null;
+        $this->state = $values['state'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
         $this->url = $values['url'] ?? null;
     }
 
     /**
-     * @return 'article_content'
+     * @return ?'article_content'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'article_content' $value
+     * @param ?'article_content' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setTitle(string $value): self
+    public function setTitle(?string $value = null): self
     {
         $this->title = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setDescription(string $value): self
+    public function setDescription(?string $value = null): self
     {
         $this->description = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getBody(): string
+    public function getBody(): ?string
     {
         return $this->body;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setBody(string $value): self
+    public function setBody(?string $value = null): self
     {
         $this->body = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getAuthorId(): int
+    public function getAuthorId(): ?int
     {
         return $this->authorId;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setAuthorId(int $value): self
+    public function setAuthorId(?int $value = null): self
     {
         $this->authorId = $value;
         return $this;
     }
 
     /**
-     * @return value-of<ArticleContentState>
+     * @return ?value-of<ArticleContentState>
      */
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
 
     /**
-     * @param value-of<ArticleContentState> $value
+     * @param ?value-of<ArticleContentState> $value
      */
-    public function setState(string $value): self
+    public function setState(?string $value = null): self
     {
         $this->state = $value;
         return $this;

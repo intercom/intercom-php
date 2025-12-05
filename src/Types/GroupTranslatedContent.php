@@ -11,10 +11,10 @@ use Intercom\Core\Json\JsonProperty;
 class GroupTranslatedContent extends JsonSerializableType
 {
     /**
-     * @var 'group_translated_content' $type The type of object - group_translated_content.
+     * @var ?'group_translated_content' $type The type of object - group_translated_content.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
      * @var ?GroupContent $ar The content of the group in Arabic
@@ -240,7 +240,7 @@ class GroupTranslatedContent extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'group_translated_content',
+     *   type?: ?'group_translated_content',
      *   ar?: ?GroupContent,
      *   bg?: ?GroupContent,
      *   bs?: ?GroupContent,
@@ -281,9 +281,9 @@ class GroupTranslatedContent extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
+        $this->type = $values['type'] ?? null;
         $this->ar = $values['ar'] ?? null;
         $this->bg = $values['bg'] ?? null;
         $this->bs = $values['bs'] ?? null;
@@ -324,17 +324,17 @@ class GroupTranslatedContent extends JsonSerializableType
     }
 
     /**
-     * @return 'group_translated_content'
+     * @return ?'group_translated_content'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'group_translated_content' $value
+     * @param ?'group_translated_content' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;

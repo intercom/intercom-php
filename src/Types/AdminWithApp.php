@@ -12,58 +12,58 @@ use Intercom\Core\Types\ArrayType;
 class AdminWithApp extends JsonSerializableType
 {
     /**
-     * @var 'admin' $type String representing the object's type. Always has the value `admin`.
+     * @var ?string $type String representing the object's type. Always has the value `admin`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $id The id representing the admin.
+     * @var ?string $id The id representing the admin.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $name The name of the admin.
+     * @var ?string $name The name of the admin.
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $email The email of the admin.
+     * @var ?string $email The email of the admin.
      */
     #[JsonProperty('email')]
-    private string $email;
+    private ?string $email;
 
     /**
-     * @var string $jobTitle The job title of the admin.
+     * @var ?string $jobTitle The job title of the admin.
      */
     #[JsonProperty('job_title')]
-    private string $jobTitle;
+    private ?string $jobTitle;
 
     /**
-     * @var bool $awayModeEnabled Identifies if this admin is currently set in away mode.
+     * @var ?bool $awayModeEnabled Identifies if this admin is currently set in away mode.
      */
     #[JsonProperty('away_mode_enabled')]
-    private bool $awayModeEnabled;
+    private ?bool $awayModeEnabled;
 
     /**
-     * @var bool $awayModeReassign Identifies if this admin is set to automatically reassign new conversations to the apps default inbox.
+     * @var ?bool $awayModeReassign Identifies if this admin is set to automatically reassign new conversations to the apps default inbox.
      */
     #[JsonProperty('away_mode_reassign')]
-    private bool $awayModeReassign;
+    private ?bool $awayModeReassign;
 
     /**
-     * @var bool $hasInboxSeat Identifies if this admin has a paid inbox seat to restrict/allow features that require them.
+     * @var ?bool $hasInboxSeat Identifies if this admin has a paid inbox seat to restrict/allow features that require them.
      */
     #[JsonProperty('has_inbox_seat')]
-    private bool $hasInboxSeat;
+    private ?bool $hasInboxSeat;
 
     /**
-     * @var array<int> $teamIds This is a list of ids of the teams that this admin is part of.
+     * @var ?array<int> $teamIds This is a list of ids of the teams that this admin is part of.
      */
     #[JsonProperty('team_ids'), ArrayType(['integer'])]
-    private array $teamIds;
+    private ?array $teamIds;
 
     /**
      * @var ?AdminWithAppAvatar $avatar This object represents the avatar associated with the admin.
@@ -85,185 +85,185 @@ class AdminWithApp extends JsonSerializableType
 
     /**
      * @param array{
-     *   type: 'admin',
-     *   id: string,
-     *   name: string,
-     *   email: string,
-     *   jobTitle: string,
-     *   awayModeEnabled: bool,
-     *   awayModeReassign: bool,
-     *   hasInboxSeat: bool,
-     *   teamIds: array<int>,
+     *   type?: ?string,
+     *   id?: ?string,
+     *   name?: ?string,
+     *   email?: ?string,
+     *   jobTitle?: ?string,
+     *   awayModeEnabled?: ?bool,
+     *   awayModeReassign?: ?bool,
+     *   hasInboxSeat?: ?bool,
+     *   teamIds?: ?array<int>,
      *   avatar?: ?AdminWithAppAvatar,
      *   emailVerified?: ?bool,
      *   app?: ?App,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->id = $values['id'];
-        $this->name = $values['name'];
-        $this->email = $values['email'];
-        $this->jobTitle = $values['jobTitle'];
-        $this->awayModeEnabled = $values['awayModeEnabled'];
-        $this->awayModeReassign = $values['awayModeReassign'];
-        $this->hasInboxSeat = $values['hasInboxSeat'];
-        $this->teamIds = $values['teamIds'];
+        $this->type = $values['type'] ?? null;
+        $this->id = $values['id'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->email = $values['email'] ?? null;
+        $this->jobTitle = $values['jobTitle'] ?? null;
+        $this->awayModeEnabled = $values['awayModeEnabled'] ?? null;
+        $this->awayModeReassign = $values['awayModeReassign'] ?? null;
+        $this->hasInboxSeat = $values['hasInboxSeat'] ?? null;
+        $this->teamIds = $values['teamIds'] ?? null;
         $this->avatar = $values['avatar'] ?? null;
         $this->emailVerified = $values['emailVerified'] ?? null;
         $this->app = $values['app'] ?? null;
     }
 
     /**
-     * @return 'admin'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'admin' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setEmail(string $value): self
+    public function setEmail(?string $value = null): self
     {
         $this->email = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getJobTitle(): string
+    public function getJobTitle(): ?string
     {
         return $this->jobTitle;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setJobTitle(string $value): self
+    public function setJobTitle(?string $value = null): self
     {
         $this->jobTitle = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getAwayModeEnabled(): bool
+    public function getAwayModeEnabled(): ?bool
     {
         return $this->awayModeEnabled;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setAwayModeEnabled(bool $value): self
+    public function setAwayModeEnabled(?bool $value = null): self
     {
         $this->awayModeEnabled = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getAwayModeReassign(): bool
+    public function getAwayModeReassign(): ?bool
     {
         return $this->awayModeReassign;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setAwayModeReassign(bool $value): self
+    public function setAwayModeReassign(?bool $value = null): self
     {
         $this->awayModeReassign = $value;
         return $this;
     }
 
     /**
-     * @return bool
+     * @return ?bool
      */
-    public function getHasInboxSeat(): bool
+    public function getHasInboxSeat(): ?bool
     {
         return $this->hasInboxSeat;
     }
 
     /**
-     * @param bool $value
+     * @param ?bool $value
      */
-    public function setHasInboxSeat(bool $value): self
+    public function setHasInboxSeat(?bool $value = null): self
     {
         $this->hasInboxSeat = $value;
         return $this;
     }
 
     /**
-     * @return array<int>
+     * @return ?array<int>
      */
-    public function getTeamIds(): array
+    public function getTeamIds(): ?array
     {
         return $this->teamIds;
     }
 
     /**
-     * @param array<int> $value
+     * @param ?array<int> $value
      */
-    public function setTeamIds(array $value): self
+    public function setTeamIds(?array $value = null): self
     {
         $this->teamIds = $value;
         return $this;

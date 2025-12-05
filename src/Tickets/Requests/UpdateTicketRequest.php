@@ -5,8 +5,6 @@ namespace Intercom\Tickets\Requests;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Types\ArrayType;
-use Intercom\Tickets\Types\UpdateTicketRequestState;
-use Intercom\Tickets\Types\UpdateTicketRequestAssignment;
 
 class UpdateTicketRequest extends JsonSerializableType
 {
@@ -22,10 +20,16 @@ class UpdateTicketRequest extends JsonSerializableType
     private ?array $ticketAttributes;
 
     /**
-     * @var ?value-of<UpdateTicketRequestState> $state The state of the ticket.
+     * @var ?string $ticketStateId The ID of the ticket state associated with the ticket type.
      */
-    #[JsonProperty('state')]
-    private ?string $state;
+    #[JsonProperty('ticket_state_id')]
+    private ?string $ticketStateId;
+
+    /**
+     * @var ?string $companyId The ID of the company that the ticket is associated with. The unique identifier for the company which is given by Intercom. Set to nil to remove company.
+     */
+    #[JsonProperty('company_id')]
+    private ?string $companyId;
 
     /**
      * @var ?bool $open Specify if a ticket is open. Set to false to close a ticket. Closing a ticket will also unsnooze it.
@@ -46,20 +50,28 @@ class UpdateTicketRequest extends JsonSerializableType
     private ?int $snoozedUntil;
 
     /**
-     * @var ?UpdateTicketRequestAssignment $assignment
+     * @var ?int $adminId The ID of the admin performing ticket update. Needed for workflows execution and attributing actions to specific admins.
      */
-    #[JsonProperty('assignment')]
-    private ?UpdateTicketRequestAssignment $assignment;
+    #[JsonProperty('admin_id')]
+    private ?int $adminId;
+
+    /**
+     * @var ?string $assigneeId The ID of the admin or team to which the ticket is assigned. Set this 0 to unassign it.
+     */
+    #[JsonProperty('assignee_id')]
+    private ?string $assigneeId;
 
     /**
      * @param array{
      *   ticketId: string,
      *   ticketAttributes?: ?array<string, mixed>,
-     *   state?: ?value-of<UpdateTicketRequestState>,
+     *   ticketStateId?: ?string,
+     *   companyId?: ?string,
      *   open?: ?bool,
      *   isShared?: ?bool,
      *   snoozedUntil?: ?int,
-     *   assignment?: ?UpdateTicketRequestAssignment,
+     *   adminId?: ?int,
+     *   assigneeId?: ?string,
      * } $values
      */
     public function __construct(
@@ -67,11 +79,13 @@ class UpdateTicketRequest extends JsonSerializableType
     ) {
         $this->ticketId = $values['ticketId'];
         $this->ticketAttributes = $values['ticketAttributes'] ?? null;
-        $this->state = $values['state'] ?? null;
+        $this->ticketStateId = $values['ticketStateId'] ?? null;
+        $this->companyId = $values['companyId'] ?? null;
         $this->open = $values['open'] ?? null;
         $this->isShared = $values['isShared'] ?? null;
         $this->snoozedUntil = $values['snoozedUntil'] ?? null;
-        $this->assignment = $values['assignment'] ?? null;
+        $this->adminId = $values['adminId'] ?? null;
+        $this->assigneeId = $values['assigneeId'] ?? null;
     }
 
     /**
@@ -109,19 +123,36 @@ class UpdateTicketRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?value-of<UpdateTicketRequestState>
+     * @return ?string
      */
-    public function getState(): ?string
+    public function getTicketStateId(): ?string
     {
-        return $this->state;
+        return $this->ticketStateId;
     }
 
     /**
-     * @param ?value-of<UpdateTicketRequestState> $value
+     * @param ?string $value
      */
-    public function setState(?string $value = null): self
+    public function setTicketStateId(?string $value = null): self
     {
-        $this->state = $value;
+        $this->ticketStateId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getCompanyId(): ?string
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setCompanyId(?string $value = null): self
+    {
+        $this->companyId = $value;
         return $this;
     }
 
@@ -177,19 +208,36 @@ class UpdateTicketRequest extends JsonSerializableType
     }
 
     /**
-     * @return ?UpdateTicketRequestAssignment
+     * @return ?int
      */
-    public function getAssignment(): ?UpdateTicketRequestAssignment
+    public function getAdminId(): ?int
     {
-        return $this->assignment;
+        return $this->adminId;
     }
 
     /**
-     * @param ?UpdateTicketRequestAssignment $value
+     * @param ?int $value
      */
-    public function setAssignment(?UpdateTicketRequestAssignment $value = null): self
+    public function setAdminId(?int $value = null): self
     {
-        $this->assignment = $value;
+        $this->adminId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getAssigneeId(): ?string
+    {
+        return $this->assigneeId;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setAssigneeId(?string $value = null): self
+    {
+        $this->assigneeId = $value;
         return $this;
     }
 }

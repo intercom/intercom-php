@@ -6,6 +6,7 @@ use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Tickets\Types\TicketType;
 use Intercom\Core\Types\ArrayType;
+use Intercom\Core\Types\Union;
 
 /**
  * A list of ticket types associated with a given workspace.
@@ -13,61 +14,61 @@ use Intercom\Core\Types\ArrayType;
 class TicketTypeList extends JsonSerializableType
 {
     /**
-     * @var 'ticket_type_attributes.list' $type String representing the object's type. Always has the value `ticket_type.list`.
+     * @var ?string $type String representing the object's type. Always has the value `list`.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var array<TicketType> $ticketTypes A list of ticket_types associated with a given workspace.
+     * @var ?array<?TicketType> $data A list of ticket_types associated with a given workspace.
      */
-    #[JsonProperty('ticket_types'), ArrayType([TicketType::class])]
-    private array $ticketTypes;
+    #[JsonProperty('data'), ArrayType([new Union(TicketType::class, 'null')])]
+    private ?array $data;
 
     /**
      * @param array{
-     *   type: 'ticket_type_attributes.list',
-     *   ticketTypes: array<TicketType>,
+     *   type?: ?string,
+     *   data?: ?array<?TicketType>,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->type = $values['type'];
-        $this->ticketTypes = $values['ticketTypes'];
+        $this->type = $values['type'] ?? null;
+        $this->data = $values['data'] ?? null;
     }
 
     /**
-     * @return 'ticket_type_attributes.list'
+     * @return ?string
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'ticket_type_attributes.list' $value
+     * @param ?string $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return array<TicketType>
+     * @return ?array<?TicketType>
      */
-    public function getTicketTypes(): array
+    public function getData(): ?array
     {
-        return $this->ticketTypes;
+        return $this->data;
     }
 
     /**
-     * @param array<TicketType> $value
+     * @param ?array<?TicketType> $value
      */
-    public function setTicketTypes(array $value): self
+    public function setData(?array $value = null): self
     {
-        $this->ticketTypes = $value;
+        $this->data = $value;
         return $this;
     }
 

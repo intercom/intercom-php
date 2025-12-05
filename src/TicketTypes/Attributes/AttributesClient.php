@@ -25,7 +25,7 @@ class AttributesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -64,11 +64,11 @@ class AttributesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketTypeAttribute
+     * @return ?TicketTypeAttribute
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateTicketTypeAttributeRequest $request, ?array $options = null): TicketTypeAttribute
+    public function create(CreateTicketTypeAttributeRequest $request, ?array $options = null): ?TicketTypeAttribute
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -84,6 +84,9 @@ class AttributesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketTypeAttribute::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -120,11 +123,11 @@ class AttributesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketTypeAttribute
+     * @return ?TicketTypeAttribute
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function update(UpdateTicketTypeAttributeRequest $request, ?array $options = null): TicketTypeAttribute
+    public function update(UpdateTicketTypeAttributeRequest $request, ?array $options = null): ?TicketTypeAttribute
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -140,6 +143,9 @@ class AttributesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketTypeAttribute::fromJson($json);
             }
         } catch (JsonException $e) {

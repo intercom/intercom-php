@@ -13,28 +13,28 @@ use Intercom\Core\Json\JsonProperty;
 class Newsfeed extends JsonSerializableType
 {
     /**
-     * @var string $id The unique identifier for the newsfeed which is given by Intercom.
+     * @var ?string $id The unique identifier for the newsfeed which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var 'newsfeed' $type The type of object.
+     * @var ?'newsfeed' $type The type of object.
      */
     #[JsonProperty('type')]
-    private string $type;
+    private ?string $type;
 
     /**
-     * @var string $name The name of the newsfeed. This name will never be visible to your users.
+     * @var ?string $name The name of the newsfeed. This name will never be visible to your users.
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var int $createdAt Timestamp for when the newsfeed was created.
+     * @var ?int $createdAt Timestamp for when the newsfeed was created.
      */
     #[JsonProperty('created_at')]
-    private int $createdAt;
+    private ?int $createdAt;
 
     /**
      * @var ?int $updatedAt Timestamp for when the newsfeed was last updated.
@@ -44,86 +44,86 @@ class Newsfeed extends JsonSerializableType
 
     /**
      * @param array{
-     *   id: string,
-     *   type: 'newsfeed',
-     *   name: string,
-     *   createdAt: int,
+     *   id?: ?string,
+     *   type?: ?'newsfeed',
+     *   name?: ?string,
+     *   createdAt?: ?int,
      *   updatedAt?: ?int,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->id = $values['id'];
-        $this->type = $values['type'];
-        $this->name = $values['name'];
-        $this->createdAt = $values['createdAt'];
+        $this->id = $values['id'] ?? null;
+        $this->type = $values['type'] ?? null;
+        $this->name = $values['name'] ?? null;
+        $this->createdAt = $values['createdAt'] ?? null;
         $this->updatedAt = $values['updatedAt'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return 'newsfeed'
+     * @return ?'newsfeed'
      */
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
 
     /**
-     * @param 'newsfeed' $value
+     * @param ?'newsfeed' $value
      */
-    public function setType(string $value): self
+    public function setType(?string $value = null): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCreatedAt(): int
+    public function getCreatedAt(): ?int
     {
         return $this->createdAt;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCreatedAt(int $value): self
+    public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
         return $this;

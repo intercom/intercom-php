@@ -38,7 +38,7 @@ class TagsClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -290,6 +290,7 @@ class TagsClient
 
     /**
      * You can fetch a list of all tags for a given workspace.
+     *
      *
      * @param ?array{
      *   baseUrl?: string,

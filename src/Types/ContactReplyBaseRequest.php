@@ -39,12 +39,19 @@ class ContactReplyBaseRequest extends JsonSerializableType
     private ?array $attachmentUrls;
 
     /**
+     * @var ?array<ContactReplyBaseRequestReplyOptionsItem> $replyOptions The quick reply selection the contact wishes to respond with. These map to buttons displayed in the Messenger UI if sent by a bot, or the reply options sent by an Admin via the API.
+     */
+    #[JsonProperty('reply_options'), ArrayType([ContactReplyBaseRequestReplyOptionsItem::class])]
+    private ?array $replyOptions;
+
+    /**
      * @param array{
      *   messageType: 'comment',
      *   type: 'user',
      *   body: string,
      *   createdAt?: ?int,
      *   attachmentUrls?: ?array<string>,
+     *   replyOptions?: ?array<ContactReplyBaseRequestReplyOptionsItem>,
      * } $values
      */
     public function __construct(
@@ -55,6 +62,7 @@ class ContactReplyBaseRequest extends JsonSerializableType
         $this->body = $values['body'];
         $this->createdAt = $values['createdAt'] ?? null;
         $this->attachmentUrls = $values['attachmentUrls'] ?? null;
+        $this->replyOptions = $values['replyOptions'] ?? null;
     }
 
     /**
@@ -139,6 +147,23 @@ class ContactReplyBaseRequest extends JsonSerializableType
     public function setAttachmentUrls(?array $value = null): self
     {
         $this->attachmentUrls = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?array<ContactReplyBaseRequestReplyOptionsItem>
+     */
+    public function getReplyOptions(): ?array
+    {
+        return $this->replyOptions;
+    }
+
+    /**
+     * @param ?array<ContactReplyBaseRequestReplyOptionsItem> $value
+     */
+    public function setReplyOptions(?array $value = null): self
+    {
+        $this->replyOptions = $value;
         return $this;
     }
 

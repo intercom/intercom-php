@@ -8,7 +8,7 @@ use Intercom\Unstable\Notes\Types\Note;
 use Intercom\Core\Types\ArrayType;
 
 /**
- * A paginated list of notes associated with a contact.
+ * A paginated list of notes associated with a contact or a company.
  */
 class NoteList extends JsonSerializableType
 {

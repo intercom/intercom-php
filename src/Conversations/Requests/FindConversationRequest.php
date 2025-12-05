@@ -17,9 +17,15 @@ class FindConversationRequest extends JsonSerializableType
     private ?string $displayAs;
 
     /**
+     * @var ?bool $includeTranslations If set to true, conversation parts will be translated to the detected language of the conversation.
+     */
+    private ?bool $includeTranslations;
+
+    /**
      * @param array{
      *   conversationId: string,
      *   displayAs?: ?string,
+     *   includeTranslations?: ?bool,
      * } $values
      */
     public function __construct(
@@ -27,6 +33,7 @@ class FindConversationRequest extends JsonSerializableType
     ) {
         $this->conversationId = $values['conversationId'];
         $this->displayAs = $values['displayAs'] ?? null;
+        $this->includeTranslations = $values['includeTranslations'] ?? null;
     }
 
     /**
@@ -60,6 +67,23 @@ class FindConversationRequest extends JsonSerializableType
     public function setDisplayAs(?string $value = null): self
     {
         $this->displayAs = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?bool
+     */
+    public function getIncludeTranslations(): ?bool
+    {
+        return $this->includeTranslations;
+    }
+
+    /**
+     * @param ?bool $value
+     */
+    public function setIncludeTranslations(?bool $value = null): self
+    {
+        $this->includeTranslations = $value;
         return $this;
     }
 }

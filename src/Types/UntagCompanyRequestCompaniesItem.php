@@ -8,84 +8,84 @@ use Intercom\Core\Json\JsonProperty;
 class UntagCompanyRequestCompaniesItem extends JsonSerializableType
 {
     /**
-     * @var string $id The Intercom defined id representing the company.
+     * @var ?string $id The Intercom defined id representing the company.
      */
     #[JsonProperty('id')]
-    private string $id;
+    private ?string $id;
 
     /**
-     * @var string $companyId The company id you have defined for the company.
+     * @var ?string $companyId The company id you have defined for the company.
      */
     #[JsonProperty('company_id')]
-    private string $companyId;
+    private ?string $companyId;
 
     /**
-     * @var true $untag Always set to true
+     * @var ?bool $untag Always set to true
      */
     #[JsonProperty('untag')]
-    private bool $untag;
+    private ?bool $untag;
 
     /**
      * @param array{
-     *   id: string,
-     *   companyId: string,
-     *   untag: true,
+     *   id?: ?string,
+     *   companyId?: ?string,
+     *   untag?: ?bool,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->id = $values['id'];
-        $this->companyId = $values['companyId'];
-        $this->untag = $values['untag'];
+        $this->id = $values['id'] ?? null;
+        $this->companyId = $values['companyId'] ?? null;
+        $this->untag = $values['untag'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setId(string $value): self
+    public function setId(?string $value = null): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getCompanyId(): string
+    public function getCompanyId(): ?string
     {
         return $this->companyId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setCompanyId(string $value): self
+    public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
         return $this;
     }
 
     /**
-     * @return true
+     * @return ?bool
      */
-    public function getUntag(): bool
+    public function getUntag(): ?bool
     {
         return $this->untag;
     }
 
     /**
-     * @param true $value
+     * @param ?bool $value
      */
-    public function setUntag(bool $value): self
+    public function setUntag(?bool $value = null): self
     {
         $this->untag = $value;
         return $this;

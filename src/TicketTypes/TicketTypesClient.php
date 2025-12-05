@@ -14,7 +14,7 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Intercom\TicketTypes\Requests\CreateTicketTypeRequest;
+use Intercom\Types\CreateTicketTypeRequest;
 use Intercom\Tickets\Types\TicketType;
 use Intercom\TicketTypes\Requests\FindTicketTypeRequest;
 use Intercom\TicketTypes\Requests\UpdateTicketTypeRequest;
@@ -33,7 +33,7 @@ class TicketTypesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -122,7 +122,7 @@ class TicketTypesClient
      * > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
      * > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
      *
-     * @param CreateTicketTypeRequest $request
+     * @param ?CreateTicketTypeRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -131,11 +131,11 @@ class TicketTypesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketType
+     * @return ?TicketType
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateTicketTypeRequest $request, ?array $options = null): TicketType
+    public function create(?CreateTicketTypeRequest $request = null, ?array $options = null): ?TicketType
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -151,6 +151,9 @@ class TicketTypesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketType::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -187,11 +190,11 @@ class TicketTypesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketType
+     * @return ?TicketType
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function get(FindTicketTypeRequest $request, ?array $options = null): TicketType
+    public function get(FindTicketTypeRequest $request, ?array $options = null): ?TicketType
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -206,6 +209,9 @@ class TicketTypesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketType::fromJson($json);
             }
         } catch (JsonException $e) {
@@ -247,11 +253,11 @@ class TicketTypesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketType
+     * @return ?TicketType
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function update(UpdateTicketTypeRequest $request, ?array $options = null): TicketType
+    public function update(UpdateTicketTypeRequest $request, ?array $options = null): ?TicketType
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -267,6 +273,9 @@ class TicketTypesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketType::fromJson($json);
             }
         } catch (JsonException $e) {

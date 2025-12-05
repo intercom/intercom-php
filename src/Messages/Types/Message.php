@@ -29,10 +29,10 @@ class Message extends JsonSerializableType
     private int $createdAt;
 
     /**
-     * @var string $subject The subject of the message. Only present if message_type: email.
+     * @var ?string $subject The subject of the message. Only present if message_type: email.
      */
     #[JsonProperty('subject')]
-    private string $subject;
+    private ?string $subject;
 
     /**
      * @var string $body The message body, which may contain HTML.
@@ -47,20 +47,20 @@ class Message extends JsonSerializableType
     private string $messageType;
 
     /**
-     * @var string $conversationId The associated conversation_id
+     * @var ?string $conversationId The associated conversation_id
      */
     #[JsonProperty('conversation_id')]
-    private string $conversationId;
+    private ?string $conversationId;
 
     /**
      * @param array{
      *   type: string,
      *   id: string,
      *   createdAt: int,
-     *   subject: string,
      *   body: string,
      *   messageType: value-of<MessageMessageType>,
-     *   conversationId: string,
+     *   subject?: ?string,
+     *   conversationId?: ?string,
      * } $values
      */
     public function __construct(
@@ -69,10 +69,10 @@ class Message extends JsonSerializableType
         $this->type = $values['type'];
         $this->id = $values['id'];
         $this->createdAt = $values['createdAt'];
-        $this->subject = $values['subject'];
+        $this->subject = $values['subject'] ?? null;
         $this->body = $values['body'];
         $this->messageType = $values['messageType'];
-        $this->conversationId = $values['conversationId'];
+        $this->conversationId = $values['conversationId'] ?? null;
     }
 
     /**
@@ -127,17 +127,17 @@ class Message extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getSubject(): string
+    public function getSubject(): ?string
     {
         return $this->subject;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setSubject(string $value): self
+    public function setSubject(?string $value = null): self
     {
         $this->subject = $value;
         return $this;
@@ -178,17 +178,17 @@ class Message extends JsonSerializableType
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getConversationId(): string
+    public function getConversationId(): ?string
     {
         return $this->conversationId;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setConversationId(string $value): self
+    public function setConversationId(?string $value = null): self
     {
         $this->conversationId = $value;
         return $this;

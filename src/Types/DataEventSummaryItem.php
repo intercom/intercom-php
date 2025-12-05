@@ -11,28 +11,28 @@ use Intercom\Core\Json\JsonProperty;
 class DataEventSummaryItem extends JsonSerializableType
 {
     /**
-     * @var string $name The name of the event
+     * @var ?string $name The name of the event
      */
     #[JsonProperty('name')]
-    private string $name;
+    private ?string $name;
 
     /**
-     * @var string $first The first time the event was sent
+     * @var ?string $first The first time the event was sent
      */
     #[JsonProperty('first')]
-    private string $first;
+    private ?string $first;
 
     /**
-     * @var string $last The last time the event was sent
+     * @var ?string $last The last time the event was sent
      */
     #[JsonProperty('last')]
-    private string $last;
+    private ?string $last;
 
     /**
-     * @var int $count The number of times the event was sent
+     * @var ?int $count The number of times the event was sent
      */
     #[JsonProperty('count')]
-    private int $count;
+    private ?int $count;
 
     /**
      * @var ?string $description The description of the event
@@ -42,86 +42,86 @@ class DataEventSummaryItem extends JsonSerializableType
 
     /**
      * @param array{
-     *   name: string,
-     *   first: string,
-     *   last: string,
-     *   count: int,
+     *   name?: ?string,
+     *   first?: ?string,
+     *   last?: ?string,
+     *   count?: ?int,
      *   description?: ?string,
      * } $values
      */
     public function __construct(
-        array $values,
+        array $values = [],
     ) {
-        $this->name = $values['name'];
-        $this->first = $values['first'];
-        $this->last = $values['last'];
-        $this->count = $values['count'];
+        $this->name = $values['name'] ?? null;
+        $this->first = $values['first'] ?? null;
+        $this->last = $values['last'] ?? null;
+        $this->count = $values['count'] ?? null;
         $this->description = $values['description'] ?? null;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setName(string $value): self
+    public function setName(?string $value = null): self
     {
         $this->name = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getFirst(): string
+    public function getFirst(): ?string
     {
         return $this->first;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setFirst(string $value): self
+    public function setFirst(?string $value = null): self
     {
         $this->first = $value;
         return $this;
     }
 
     /**
-     * @return string
+     * @return ?string
      */
-    public function getLast(): string
+    public function getLast(): ?string
     {
         return $this->last;
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      */
-    public function setLast(string $value): self
+    public function setLast(?string $value = null): self
     {
         $this->last = $value;
         return $this;
     }
 
     /**
-     * @return int
+     * @return ?int
      */
-    public function getCount(): int
+    public function getCount(): ?int
     {
         return $this->count;
     }
 
     /**
-     * @param int $value
+     * @param ?int $value
      */
-    public function setCount(int $value): self
+    public function setCount(?int $value = null): self
     {
         $this->count = $value;
         return $this;

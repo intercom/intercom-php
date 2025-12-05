@@ -14,7 +14,7 @@ use Intercom\Core\Client\HttpMethod;
 use JsonException;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
-use Intercom\Companies\Requests\CreateOrUpdateCompanyRequest;
+use Intercom\Types\CreateOrUpdateCompanyRequest;
 use Intercom\Companies\Types\Company;
 use Intercom\Companies\Requests\FindCompanyRequest;
 use Intercom\Companies\Requests\UpdateCompanyRequest;
@@ -43,7 +43,7 @@ class CompaniesClient
      *   maxRetries?: int,
      *   timeout?: float,
      *   headers?: array<string, string>,
-     * } $options
+     * } $options @phpstan-ignore-next-line Property is used in endpoint methods via HttpEndpointGenerator
      */
     private array $options;
 
@@ -166,7 +166,7 @@ class CompaniesClient
      *   You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
      * {% /admonition %}
      *
-     * @param CreateOrUpdateCompanyRequest $request
+     * @param ?CreateOrUpdateCompanyRequest $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -179,7 +179,7 @@ class CompaniesClient
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createOrUpdate(CreateOrUpdateCompanyRequest $request = new CreateOrUpdateCompanyRequest(), ?array $options = null): Company
+    public function createOrUpdate(?CreateOrUpdateCompanyRequest $request = null, ?array $options = null): Company
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -303,6 +303,7 @@ class CompaniesClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
                     path: "companies/{$request->getCompanyId()}",
                     method: HttpMethod::PUT,
+                    body: $request->getBody(),
                 ),
                 $options,
             );
@@ -407,20 +408,12 @@ class CompaniesClient
     public function listAttachedContacts(ListAttachedContactsRequest $request, ?array $options = null): CompanyAttachedContacts
     {
         $options = array_merge($this->options, $options ?? []);
-        $query = [];
-        if ($request->getPage() != null) {
-            $query['page'] = $request->getPage();
-        }
-        if ($request->getPerPage() != null) {
-            $query['per_page'] = $request->getPerPage();
-        }
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
                     path: "companies/{$request->getCompanyId()}/contacts",
                     method: HttpMethod::GET,
-                    query: $query,
                 ),
                 $options,
             );
@@ -583,9 +576,9 @@ class CompaniesClient
                 $request->setScrollParam($cursor);
             },
             /* @phpstan-ignore-next-line */
-            getNextCursor: fn (CompanyScroll $response) => $response?->getScrollParam() ?? null,
+            getNextCursor: fn (?CompanyScroll $response) => $response?->getScrollParam() ?? null,
             /* @phpstan-ignore-next-line */
-            getItems: fn (CompanyScroll $response) => $response?->getData() ?? [],
+            getItems: fn (?CompanyScroll $response) => $response?->getData() ?? [],
         );
     }
 
@@ -800,11 +793,11 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CompanyScroll
+     * @return ?CompanyScroll
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    private function _scroll(ScrollCompaniesRequest $request = new ScrollCompaniesRequest(), ?array $options = null): CompanyScroll
+    private function _scroll(ScrollCompaniesRequest $request = new ScrollCompaniesRequest(), ?array $options = null): ?CompanyScroll
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -824,6 +817,9 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CompanyScroll::fromJson($json);
             }
         } catch (JsonException $e) {
