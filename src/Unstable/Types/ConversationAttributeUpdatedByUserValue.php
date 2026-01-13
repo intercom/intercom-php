@@ -5,7 +5,7 @@ namespace Intercom\Unstable\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 
-class ConversationAttributeUpdatedByAdminValue extends JsonSerializableType
+class ConversationAttributeUpdatedByUserValue extends JsonSerializableType
 {
     /**
      * @var ?string $name Current value of the CDA updated
@@ -14,7 +14,7 @@ class ConversationAttributeUpdatedByAdminValue extends JsonSerializableType
     private ?string $name;
 
     /**
-     * @var ?string $previous Previous value of the CDA
+     * @var ?string $previous Previous value of the CDA (null for older events)
      */
     #[JsonProperty('previous')]
     private ?string $previous;

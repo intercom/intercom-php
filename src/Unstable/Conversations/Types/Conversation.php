@@ -4,6 +4,7 @@ namespace Intercom\Unstable\Conversations\Types;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
+use Intercom\Unstable\Companies\Types\Company;
 use Intercom\Unstable\Types\Tags;
 use Intercom\Unstable\Types\ConversationRating;
 use Intercom\Unstable\Types\ConversationSource;
@@ -110,6 +111,12 @@ class Conversation extends JsonSerializableType
     private ?string $companyId;
 
     /**
+     * @var ?Company $company The company associated with the conversation.
+     */
+    #[JsonProperty('company')]
+    private ?Company $company;
+
+    /**
      * @var ?Tags $tags
      */
     #[JsonProperty('tags')]
@@ -208,6 +215,7 @@ class Conversation extends JsonSerializableType
      *   adminAssigneeId?: ?int,
      *   teamAssigneeId?: ?string,
      *   companyId?: ?string,
+     *   company?: ?Company,
      *   tags?: ?Tags,
      *   conversationRating?: ?ConversationRating,
      *   source?: ?ConversationSource,
@@ -245,6 +253,7 @@ class Conversation extends JsonSerializableType
         $this->adminAssigneeId = $values['adminAssigneeId'] ?? null;
         $this->teamAssigneeId = $values['teamAssigneeId'] ?? null;
         $this->companyId = $values['companyId'] ?? null;
+        $this->company = $values['company'] ?? null;
         $this->tags = $values['tags'] ?? null;
         $this->conversationRating = $values['conversationRating'] ?? null;
         $this->source = $values['source'] ?? null;
@@ -495,6 +504,23 @@ class Conversation extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?Company
+     */
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param ?Company $value
+     */
+    public function setCompany(?Company $value = null): self
+    {
+        $this->company = $value;
         return $this;
     }
 

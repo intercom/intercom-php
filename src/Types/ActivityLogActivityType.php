@@ -58,7 +58,7 @@ enum ActivityLogActivityType: string
     case InboxAccessChange = "inbox_access_change";
     case MacroCreation = "macro_creation";
     case MacroDeletion = "macro_deletion";
-    case MacroUpdated = "macro_updated";
+    case MacroUpdate = "macro_update";
     case MaliciousDomainsSettingChange = "malicious_domains_setting_change";
     case MessageDeletion = "message_deletion";
     case MessageStateChange = "message_state_change";
@@ -80,6 +80,11 @@ enum ActivityLogActivityType: string
     case SeatChange = "seat_change";
     case SeatRevoke = "seat_revoke";
     case SecuritySettingsChange = "security_settings_change";
+    case SeriesCreation = "series_creation";
+    case SeriesDeletion = "series_deletion";
+    case SeriesSettingsUpdate = "series_settings_update";
+    case SeriesStatusChange = "series_status_change";
+    case SeriesUpdate = "series_update";
     case StripInboundEmailLinksChange = "strip_inbound_email_links_change";
     case TemporaryExpectationChange = "temporary_expectation_change";
     case TeamAssignmentLimitChange = "team_assignment_limit_change";
