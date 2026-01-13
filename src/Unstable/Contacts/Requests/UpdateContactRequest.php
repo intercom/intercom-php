@@ -74,6 +74,12 @@ class UpdateContactRequest extends JsonSerializableType
     private ?bool $unsubscribedFromEmails;
 
     /**
+     * @var ?string $languageOverride A preferred language setting for the contact, used by Intercom as the language of Fin and the Messenger even if their browser has a different setting. Supports ISO 639-1 two-letter language codes. If an unsupported code is supplied, the field will be set to null.
+     */
+    #[JsonProperty('language_override')]
+    private ?string $languageOverride;
+
+    /**
      * @var ?array<string, mixed> $customAttributes The custom attributes which are set for the contact
      */
     #[JsonProperty('custom_attributes'), ArrayType(['string' => 'mixed'])]
@@ -92,6 +98,7 @@ class UpdateContactRequest extends JsonSerializableType
      *   lastSeenAt?: ?int,
      *   ownerId?: ?int,
      *   unsubscribedFromEmails?: ?bool,
+     *   languageOverride?: ?string,
      *   customAttributes?: ?array<string, mixed>,
      * } $values
      */
@@ -109,6 +116,7 @@ class UpdateContactRequest extends JsonSerializableType
         $this->lastSeenAt = $values['lastSeenAt'] ?? null;
         $this->ownerId = $values['ownerId'] ?? null;
         $this->unsubscribedFromEmails = $values['unsubscribedFromEmails'] ?? null;
+        $this->languageOverride = $values['languageOverride'] ?? null;
         $this->customAttributes = $values['customAttributes'] ?? null;
     }
 
@@ -296,6 +304,23 @@ class UpdateContactRequest extends JsonSerializableType
     public function setUnsubscribedFromEmails(?bool $value = null): self
     {
         $this->unsubscribedFromEmails = $value;
+        return $this;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getLanguageOverride(): ?string
+    {
+        return $this->languageOverride;
+    }
+
+    /**
+     * @param ?string $value
+     */
+    public function setLanguageOverride(?string $value = null): self
+    {
+        $this->languageOverride = $value;
         return $this;
     }
 

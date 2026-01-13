@@ -113,13 +113,23 @@ class ConversationPart extends JsonSerializableType
      * @var (
      *    ConversationAttributeUpdatedByWorkflow
      *   |ConversationAttributeUpdatedByAdmin
+     *   |ConversationAttributeUpdatedByUser
      *   |CustomActionStarted
      *   |CustomActionFinished
      *   |OperatorWorkflowEvent
+     *   |ConversationTagsUpdated
+     *   |Snoozed
+     *   |PriorityChanged
+     *   |ConversationSlaAppliedByRule
+     *   |ConversationSlaAppliedByWorkflow
+     *   |ConversationSlaTargetMissed
+     *   |ConversationSlaPaused
+     *   |ConversationSlaUnpaused
+     *   |ConversationSlaRemoved
      * )|null $eventDetails
      */
-    #[JsonProperty('event_details'), Union(ConversationAttributeUpdatedByWorkflow::class, ConversationAttributeUpdatedByAdmin::class, CustomActionStarted::class, CustomActionFinished::class, OperatorWorkflowEvent::class, 'null')]
-    private ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|null $eventDetails;
+    #[JsonProperty('event_details'), Union(ConversationAttributeUpdatedByWorkflow::class, ConversationAttributeUpdatedByAdmin::class, ConversationAttributeUpdatedByUser::class, CustomActionStarted::class, CustomActionFinished::class, OperatorWorkflowEvent::class, ConversationTagsUpdated::class, Snoozed::class, PriorityChanged::class, ConversationSlaAppliedByRule::class, ConversationSlaAppliedByWorkflow::class, ConversationSlaTargetMissed::class, ConversationSlaPaused::class, ConversationSlaUnpaused::class, ConversationSlaRemoved::class, 'null')]
+    private ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|ConversationAttributeUpdatedByUser|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|ConversationTagsUpdated|Snoozed|PriorityChanged|ConversationSlaAppliedByRule|ConversationSlaAppliedByWorkflow|ConversationSlaTargetMissed|ConversationSlaPaused|ConversationSlaUnpaused|ConversationSlaRemoved|null $eventDetails;
 
     /**
      * @var ?string $appPackageCode The app package code if this part was created via API. null if the part was not created via API.
@@ -148,9 +158,19 @@ class ConversationPart extends JsonSerializableType
      *   eventDetails?: (
      *    ConversationAttributeUpdatedByWorkflow
      *   |ConversationAttributeUpdatedByAdmin
+     *   |ConversationAttributeUpdatedByUser
      *   |CustomActionStarted
      *   |CustomActionFinished
      *   |OperatorWorkflowEvent
+     *   |ConversationTagsUpdated
+     *   |Snoozed
+     *   |PriorityChanged
+     *   |ConversationSlaAppliedByRule
+     *   |ConversationSlaAppliedByWorkflow
+     *   |ConversationSlaTargetMissed
+     *   |ConversationSlaPaused
+     *   |ConversationSlaUnpaused
+     *   |ConversationSlaRemoved
      * )|null,
      *   appPackageCode?: ?string,
      * } $values
@@ -454,12 +474,22 @@ class ConversationPart extends JsonSerializableType
      * @return (
      *    ConversationAttributeUpdatedByWorkflow
      *   |ConversationAttributeUpdatedByAdmin
+     *   |ConversationAttributeUpdatedByUser
      *   |CustomActionStarted
      *   |CustomActionFinished
      *   |OperatorWorkflowEvent
+     *   |ConversationTagsUpdated
+     *   |Snoozed
+     *   |PriorityChanged
+     *   |ConversationSlaAppliedByRule
+     *   |ConversationSlaAppliedByWorkflow
+     *   |ConversationSlaTargetMissed
+     *   |ConversationSlaPaused
+     *   |ConversationSlaUnpaused
+     *   |ConversationSlaRemoved
      * )|null
      */
-    public function getEventDetails(): ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|null
+    public function getEventDetails(): ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|ConversationAttributeUpdatedByUser|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|ConversationTagsUpdated|Snoozed|PriorityChanged|ConversationSlaAppliedByRule|ConversationSlaAppliedByWorkflow|ConversationSlaTargetMissed|ConversationSlaPaused|ConversationSlaUnpaused|ConversationSlaRemoved|null
     {
         return $this->eventDetails;
     }
@@ -468,12 +498,22 @@ class ConversationPart extends JsonSerializableType
      * @param (
      *    ConversationAttributeUpdatedByWorkflow
      *   |ConversationAttributeUpdatedByAdmin
+     *   |ConversationAttributeUpdatedByUser
      *   |CustomActionStarted
      *   |CustomActionFinished
      *   |OperatorWorkflowEvent
+     *   |ConversationTagsUpdated
+     *   |Snoozed
+     *   |PriorityChanged
+     *   |ConversationSlaAppliedByRule
+     *   |ConversationSlaAppliedByWorkflow
+     *   |ConversationSlaTargetMissed
+     *   |ConversationSlaPaused
+     *   |ConversationSlaUnpaused
+     *   |ConversationSlaRemoved
      * )|null $value
      */
-    public function setEventDetails(ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|null $value = null): self
+    public function setEventDetails(ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|ConversationAttributeUpdatedByUser|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|ConversationTagsUpdated|Snoozed|PriorityChanged|ConversationSlaAppliedByRule|ConversationSlaAppliedByWorkflow|ConversationSlaTargetMissed|ConversationSlaPaused|ConversationSlaUnpaused|ConversationSlaRemoved|null $value = null): self
     {
         $this->eventDetails = $value;
         return $this;
