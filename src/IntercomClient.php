@@ -10,6 +10,7 @@ use Intercom\Export\ExportClient;
 use Intercom\DataExport\DataExportClient;
 use Intercom\HelpCenters\HelpCentersClient;
 use Intercom\InternalArticles\InternalArticlesClient;
+use Intercom\IpAllowlist\IpAllowlistClient;
 use Intercom\Companies\CompaniesClient;
 use Intercom\Contacts\ContactsClient;
 use Intercom\Notes\NotesClient;
@@ -77,6 +78,11 @@ class IntercomClient
      * @var InternalArticlesClient $internalArticles
      */
     public InternalArticlesClient $internalArticles;
+
+    /**
+     * @var IpAllowlistClient $ipAllowlist
+     */
+    public IpAllowlistClient $ipAllowlist;
 
     /**
      * @var CompaniesClient $companies
@@ -223,8 +229,8 @@ class IntercomClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Intercom',
-            'X-Fern-SDK-Version' => '6.0.0',
-            'User-Agent' => 'intercom/intercom-php/6.0.0',
+            'X-Fern-SDK-Version' => '0.0.466',
+            'User-Agent' => 'intercom/intercom-php/0.0.466',
             'Intercom-Version' => '2.14',
         ];
 
@@ -247,6 +253,7 @@ class IntercomClient
         $this->dataExport = new DataExportClient($this->client, $this->options);
         $this->helpCenters = new HelpCentersClient($this->client, $this->options);
         $this->internalArticles = new InternalArticlesClient($this->client, $this->options);
+        $this->ipAllowlist = new IpAllowlistClient($this->client, $this->options);
         $this->companies = new CompaniesClient($this->client, $this->options);
         $this->contacts = new ContactsClient($this->client, $this->options);
         $this->notes = new NotesClient($this->client, $this->options);
