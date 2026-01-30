@@ -8,4 +8,5 @@ enum AiAgentResolutionState: string
     case ConfirmedResolution = "confirmed_resolution";
     case Escalated = "escalated";
     case NegativeFeedback = "negative_feedback";
+    case ProcedureHandoff = "procedure_handoff";
 }

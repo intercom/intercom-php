@@ -20,6 +20,7 @@ use Intercom\Unstable\CustomObjectInstances\CustomObjectInstancesClient;
 use Intercom\Unstable\DataAttributes\DataAttributesClient;
 use Intercom\Unstable\DataEvents\DataEventsClient;
 use Intercom\Unstable\DataExport\DataExportClient;
+use Intercom\Unstable\Workflows\WorkflowsClient;
 use Intercom\Unstable\Jobs\JobsClient;
 use Intercom\Unstable\Macros\MacrosClient;
 use Intercom\Unstable\Messages\MessagesClient;
@@ -129,6 +130,11 @@ class UnstableClient
      * @var DataExportClient $dataExport
      */
     public DataExportClient $dataExport;
+
+    /**
+     * @var WorkflowsClient $workflows
+     */
+    public WorkflowsClient $workflows;
 
     /**
      * @var JobsClient $jobs
@@ -255,6 +261,7 @@ class UnstableClient
         $this->dataAttributes = new DataAttributesClient($this->client, $this->options);
         $this->dataEvents = new DataEventsClient($this->client, $this->options);
         $this->dataExport = new DataExportClient($this->client, $this->options);
+        $this->workflows = new WorkflowsClient($this->client, $this->options);
         $this->jobs = new JobsClient($this->client, $this->options);
         $this->macros = new MacrosClient($this->client, $this->options);
         $this->messages = new MessagesClient($this->client, $this->options);

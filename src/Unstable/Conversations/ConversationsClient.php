@@ -26,6 +26,8 @@ use Intercom\Unstable\Conversations\Requests\ReplyConversationRequest;
 use Intercom\Unstable\Conversations\Requests\ManageConversationRequest;
 use Intercom\Unstable\Conversations\Requests\AttachContactToConversationRequest;
 use Intercom\Unstable\Conversations\Requests\DetachContactFromConversationRequest;
+use Intercom\Unstable\Conversations\Requests\ListHandlingEventsRequest;
+use Intercom\Unstable\Types\HandlingEventList;
 use Intercom\Unstable\Types\RedactConversationRequest;
 use Intercom\Unstable\Conversations\Requests\ConvertConversationToTicketRequest;
 use Intercom\Unstable\Tickets\Types\Ticket;
@@ -769,6 +771,63 @@ class ConversationsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
                 return Conversation::fromJson($json);
+            }
+        } catch (JsonException $e) {
+            throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+            if ($response === null) {
+                throw new IntercomException(message: $e->getMessage(), previous: $e);
+            }
+            throw new IntercomApiException(
+                message: "API request failed",
+                statusCode: $response->getStatusCode(),
+                body: $response->getBody()->getContents(),
+            );
+        } catch (ClientExceptionInterface $e) {
+            throw new IntercomException(message: $e->getMessage(), previous: $e);
+        }
+        throw new IntercomApiException(
+            message: 'API request failed',
+            statusCode: $statusCode,
+            body: $response->getBody()->getContents(),
+        );
+    }
+
+    /**
+     * List all pause/resume events for a conversation. These events track when teammates paused or resumed handling a conversation.
+     *
+     * Requires the `read_conversations` OAuth scope.
+     *
+     * @param ListHandlingEventsRequest $request
+     * @param ?array{
+     *   baseUrl?: string,
+     *   maxRetries?: int,
+     *   timeout?: float,
+     *   headers?: array<string, string>,
+     *   queryParameters?: array<string, mixed>,
+     *   bodyProperties?: array<string, mixed>,
+     * } $options
+     * @return HandlingEventList
+     * @throws IntercomException
+     * @throws IntercomApiException
+     */
+    public function listHandlingEvents(ListHandlingEventsRequest $request, ?array $options = null): HandlingEventList
+    {
+        $options = array_merge($this->options, $options ?? []);
+        try {
+            $response = $this->client->sendRequest(
+                new JsonApiRequest(
+                    baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
+                    path: "conversations/{$request->getId()}/handling_events",
+                    method: HttpMethod::GET,
+                ),
+                $options,
+            );
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 400) {
+                $json = $response->getBody()->getContents();
+                return HandlingEventList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
