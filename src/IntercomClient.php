@@ -229,8 +229,8 @@ class IntercomClient
             'Authorization' => "Bearer $token",
             'X-Fern-Language' => 'PHP',
             'X-Fern-SDK-Name' => 'Intercom',
-            'X-Fern-SDK-Version' => '5.0.2',
-            'User-Agent' => 'intercom/intercom-php/5.0.2',
+            'X-Fern-SDK-Version' => '0.0.475',
+            'User-Agent' => 'intercom/intercom-php/0.0.475',
             'Intercom-Version' => '2.14',
         ];
 
