@@ -87,4 +87,62 @@ class IntercomClientNextPageTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->client->nextPage($pages);
     }
+
+    // EU region — setBaseUrl() to EU endpoint allows EU pagination URLs.
+    public function testNextPageAllowsEuUrlWhenBaseUrlIsEu(): void
+    {
+        $this->client->setBaseUrl('https://api.eu.intercom.io');
+        $this->mockHandler->append(new Response(200, [], json_encode(['data' => []])));
+
+        $pages = new stdClass();
+        $pages->next = 'https://api.eu.intercom.io/contacts?page=2&per_page=50';
+
+        $result = $this->client->nextPage($pages);
+
+        $this->assertIsObject($result);
+        $lastRequest = $this->mockHandler->getLastRequest();
+        $this->assertNotNull($lastRequest);
+        $this->assertEquals(
+            'https://api.eu.intercom.io/contacts?page=2&per_page=50',
+            (string) $lastRequest->getUri()
+        );
+    }
+
+    // AU region — setBaseUrl() to AU endpoint allows AU pagination URLs.
+    public function testNextPageAllowsAuUrlWhenBaseUrlIsAu(): void
+    {
+        $this->client->setBaseUrl('https://api.au.intercom.io');
+        $this->mockHandler->append(new Response(200, [], json_encode(['data' => []])));
+
+        $pages = new stdClass();
+        $pages->next = 'https://api.au.intercom.io/contacts?page=2&per_page=50';
+
+        $result = $this->client->nextPage($pages);
+
+        $this->assertIsObject($result);
+    }
+
+    // Regional mismatch — EU base URL must reject US pagination URL (and vice versa).
+    public function testNextPageRejectsUsMismatchWhenBaseUrlIsEu(): void
+    {
+        $this->client->setBaseUrl('https://api.eu.intercom.io');
+
+        $pages = new stdClass();
+        $pages->next = 'https://api.intercom.io/contacts?page=2';
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->client->nextPage($pages);
+    }
+
+    // SSRF still blocked even when a regional baseUrl is configured.
+    public function testNextPageRejectsAttackerHostEvenWithRegionalBaseUrl(): void
+    {
+        $this->client->setBaseUrl('https://api.eu.intercom.io');
+
+        $pages = new stdClass();
+        $pages->next = 'https://attacker.com/steal';
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->client->nextPage($pages);
+    }
 }
