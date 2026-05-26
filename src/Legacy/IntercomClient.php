@@ -276,10 +276,16 @@ class IntercomClient
      *
      * @param  stdClass $pages
      * @return stdClass
+     * @throws \InvalidArgumentException if the pagination URL does not point to https://api.intercom.io
      */
     public function nextPage($pages)
     {
-        $response = $this->sendRequest('GET', $pages->next);
+        $url = (string) $pages->next;
+        $parsed = parse_url($url);
+        if (($parsed['scheme'] ?? '') !== 'https' || ($parsed['host'] ?? '') !== 'api.intercom.io') {
+            throw new \InvalidArgumentException('nextPage URL must target https://api.intercom.io');
+        }
+        $response = $this->sendRequest('GET', $url);
         return $this->handleResponse($response);
     }
 
