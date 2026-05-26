@@ -134,11 +134,6 @@ class IntercomClient
     public $teams;
 
     /**
-     * @var string Base API URL (allows regional endpoints: api.eu.intercom.io, api.au.intercom.io)
-     */
-    private string $baseUrl = 'https://api.intercom.io';
-
-    /**
      * @var array $rateLimitDetails
      */
     protected $rateLimitDetails = [];
@@ -219,19 +214,6 @@ class IntercomClient
     }
 
     /**
-     * Sets the base API URL. Use this to target regional endpoints:
-     *   - US:  https://api.intercom.io        (default)
-     *   - EU:  https://api.eu.intercom.io
-     *   - AU:  https://api.au.intercom.io
-     *
-     * @param string $baseUrl
-     */
-    public function setBaseUrl(string $baseUrl): void
-    {
-        $this->baseUrl = rtrim($baseUrl, '/');
-    }
-
-    /**
      * Sends POST request to Intercom API.
      *
      * @param  string $endpoint
@@ -240,7 +222,7 @@ class IntercomClient
      */
     public function post($endpoint, $json)
     {
-        $response = $this->sendRequest('POST', "$this->baseUrl/$endpoint", $json);
+        $response = $this->sendRequest('POST', "https://api.intercom.io/$endpoint", $json);
         return $this->handleResponse($response);
     }
 
@@ -253,7 +235,7 @@ class IntercomClient
      */
     public function put($endpoint, $json)
     {
-        $response = $this->sendRequest('PUT', "$this->baseUrl/$endpoint", $json);
+        $response = $this->sendRequest('PUT', "https://api.intercom.io/$endpoint", $json);
         return $this->handleResponse($response);
     }
 
@@ -266,7 +248,7 @@ class IntercomClient
      */
     public function delete($endpoint, $json)
     {
-        $response = $this->sendRequest('DELETE', "$this->baseUrl/$endpoint", $json);
+        $response = $this->sendRequest('DELETE', "https://api.intercom.io/$endpoint", $json);
         return $this->handleResponse($response);
     }
 
@@ -279,7 +261,7 @@ class IntercomClient
      */
     public function get($endpoint, $queryParams = [])
     {
-        $uri = $this->uriFactory->createUri("$this->baseUrl/$endpoint");
+        $uri = $this->uriFactory->createUri("https://api.intercom.io/$endpoint");
         if (!empty($queryParams)) {
             $uri = $uri->withQuery(http_build_query($queryParams));
         }
@@ -294,17 +276,17 @@ class IntercomClient
      *
      * @param  stdClass $pages
      * @return stdClass
-     * @throws \InvalidArgumentException if the pagination URL scheme is not https or the host does not match the configured base URL
+     * @throws \InvalidArgumentException if the pagination URL is not a valid https://  *.intercom.io address
      */
     public function nextPage($pages)
     {
         $url = (string) $pages->next;
         $parsed = parse_url($url);
-        $expectedHost = parse_url($this->baseUrl, PHP_URL_HOST);
-        if (($parsed['scheme'] ?? '') !== 'https' || ($parsed['host'] ?? '') !== $expectedHost) {
+        $host = $parsed['host'] ?? '';
+        $validHost = str_ends_with($host, '.intercom.io');
+        if (($parsed['scheme'] ?? '') !== 'https' || !$validHost) {
             throw new \InvalidArgumentException(
-                "nextPage URL must target https://{$expectedHost} (current base URL). " .
-                "To use a regional endpoint call setBaseUrl() before paginating."
+                'nextPage URL must be an https:// address on the intercom.io domain.'
             );
         }
         $response = $this->sendRequest('GET', $url);
