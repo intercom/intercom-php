@@ -276,10 +276,20 @@ class IntercomClient
      *
      * @param  stdClass $pages
      * @return stdClass
+     * @throws \InvalidArgumentException if the pagination URL is not a valid https://  *.intercom.io address
      */
     public function nextPage($pages)
     {
-        $response = $this->sendRequest('GET', $pages->next);
+        $url = (string) $pages->next;
+        $parsed = parse_url($url);
+        $host = $parsed['host'] ?? '';
+        $validHost = str_ends_with($host, '.intercom.io');
+        if (($parsed['scheme'] ?? '') !== 'https' || !$validHost) {
+            throw new \InvalidArgumentException(
+                'nextPage URL must be an https:// address on the intercom.io domain.'
+            );
+        }
+        $response = $this->sendRequest('GET', $url);
         return $this->handleResponse($response);
     }
 
