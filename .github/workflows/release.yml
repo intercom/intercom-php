@@ -31,6 +31,7 @@ jobs:
         with:
           app-id: ${{ secrets.PACKAGIST_PUBLISHER_APP_ID }}
           private-key: ${{ secrets.PACKAGIST_PUBLISHER_PRIVATE_KEY }}
+          permission-contents: write
 
       - name: Create annotated tag on master HEAD
         env:
