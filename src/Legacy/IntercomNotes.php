@@ -43,6 +43,6 @@ class IntercomNotes extends IntercomResource
      */
     public function getNote($id)
     {
-        return $this->client->get("notes/" . $id, []);
+        return $this->client->get("notes/" . self::pathSegment($id), []);
     }
 }

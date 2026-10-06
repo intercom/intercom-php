@@ -116,7 +116,7 @@ class IntercomCompanies extends IntercomResource
      */
     public function companyPath($id)
     {
-        return 'companies/' . $id;
+        return 'companies/' . self::pathSegment($id);
     }
 
     /**
@@ -125,7 +125,7 @@ class IntercomCompanies extends IntercomResource
      */
     public function companyUsersPath($id)
     {
-        return 'companies/' . $id . '/users';
+        return 'companies/' . self::pathSegment($id) . '/users';
     }
 
     /**
@@ -134,7 +134,7 @@ class IntercomCompanies extends IntercomResource
      */
     public function companyAttachPath(string $contactId)
     {
-        return 'contacts/' . $contactId . '/companies';
+        return 'contacts/' . self::pathSegment($contactId) . '/companies';
     }
     
     /**
@@ -144,6 +144,6 @@ class IntercomCompanies extends IntercomResource
      */
     public function companyDetachPath(string $contactId, string $companyId)
     {
-        return 'contacts/' . $contactId . '/companies/' . $companyId;
+        return 'contacts/' . self::pathSegment($contactId) . '/companies/' . self::pathSegment($companyId);
     }
 }

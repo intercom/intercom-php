@@ -129,7 +129,7 @@ class IntercomConversations extends IntercomResource
      */
     public function conversationPath($id)
     {
-        return 'conversations/' . $id;
+        return 'conversations/' . self::pathSegment($id);
     }
 
     /**
@@ -140,6 +140,6 @@ class IntercomConversations extends IntercomResource
      */
     public function conversationReplyPath($id)
     {
-        return 'conversations/' . $id . '/reply';
+        return 'conversations/' . self::pathSegment($id) . '/reply';
     }
 }

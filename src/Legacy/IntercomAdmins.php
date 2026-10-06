@@ -43,6 +43,6 @@ class IntercomAdmins extends IntercomResource
      */
     public function adminPath($id)
     {
-        return 'admins/' . $id;
+        return 'admins/' . self::pathSegment($id);
     }
 }

@@ -72,6 +72,6 @@ class IntercomVisitors extends IntercomResource
      */
     public function visitorPath($id)
     {
-        return "visitors/" . $id;
+        return "visitors/" . self::pathSegment($id);
     }
 }
