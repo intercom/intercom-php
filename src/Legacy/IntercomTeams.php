@@ -43,6 +43,6 @@ class IntercomTeams extends IntercomResource
      */
     public function teamPath($id)
     {
-        return 'teams/' . $id;
+        return 'teams/' . self::pathSegment($id);
     }
 }

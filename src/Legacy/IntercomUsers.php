@@ -124,6 +124,6 @@ class IntercomUsers extends IntercomResource
      */
     public function userPath(string $id)
     {
-        return 'users/' . $id;
+        return 'users/' . self::pathSegment($id);
     }
 }

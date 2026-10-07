@@ -128,6 +128,6 @@ class IntercomContacts extends IntercomResource
      */
     public function contactPath(string $id)
     {
-        return 'contacts/' . $id;
+        return 'contacts/' . self::pathSegment($id);
     }
 }

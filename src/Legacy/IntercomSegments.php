@@ -18,7 +18,7 @@ class IntercomSegments extends IntercomResource
      */
     public function getSegment($id, array $options = [])
     {
-        return $this->client->get('segments/' . $id, $options);
+        return $this->client->get('segments/' . self::pathSegment($id), $options);
     }
 
     /**

@@ -18,4 +18,20 @@ abstract class IntercomResource
     {
         $this->client = $client;
     }
+
+    /**
+     * Returns $id as a single URL path segment.
+     *
+     * @param  string|int $id
+     * @return string
+     * @throws \InvalidArgumentException if the value is empty, "." or ".."
+     */
+    protected static function pathSegment($id)
+    {
+        $id = (string) $id;
+        if ($id === "" || $id === "." || $id === "..") {
+            throw new \InvalidArgumentException("Invalid ID for request path.");
+        }
+        return rawurlencode($id);
+    }
 }

@@ -97,7 +97,7 @@ class IntercomLeads extends IntercomResource
      */
     public function leadPath($id)
     {
-        return "contacts/" . $id;
+        return "contacts/" . self::pathSegment($id);
     }
 
     /**
