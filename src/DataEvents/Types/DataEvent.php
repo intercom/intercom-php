@@ -12,10 +12,10 @@ use Intercom\Core\Types\ArrayType;
 class DataEvent extends JsonSerializableType
 {
     /**
-     * @var ?'event' $type The type of the object
+     * @var 'event' $type The type of the object
      */
     #[JsonProperty('type')]
-    private ?string $type;
+    private string $type;
 
     /**
      * @var string $eventName The name of the event that occurred. This is presented to your App's admins when filtering and creating segments - a good event name is typically a past tense 'verb-noun' combination, to improve readability, for example `updated-plan`.
@@ -61,9 +61,9 @@ class DataEvent extends JsonSerializableType
 
     /**
      * @param array{
+     *   type: 'event',
      *   eventName: string,
      *   createdAt: int,
-     *   type?: ?'event',
      *   userId?: ?string,
      *   id?: ?string,
      *   intercomUserId?: ?string,
@@ -74,7 +74,7 @@ class DataEvent extends JsonSerializableType
     public function __construct(
         array $values,
     ) {
-        $this->type = $values['type'] ?? null;
+        $this->type = $values['type'];
         $this->eventName = $values['eventName'];
         $this->createdAt = $values['createdAt'];
         $this->userId = $values['userId'] ?? null;
@@ -85,17 +85,17 @@ class DataEvent extends JsonSerializableType
     }
 
     /**
-     * @return ?'event'
+     * @return 'event'
      */
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }
 
     /**
-     * @param ?'event' $value
+     * @param 'event' $value
      */
-    public function setType(?string $value = null): self
+    public function setType(string $value): self
     {
         $this->type = $value;
         return $this;

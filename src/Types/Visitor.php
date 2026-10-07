@@ -12,22 +12,22 @@ use Intercom\Core\Types\ArrayType;
 class Visitor extends JsonSerializableType
 {
     /**
-     * @var ?'visitor' $type Value is 'visitor'
+     * @var 'visitor' $type Value is 'visitor'
      */
     #[JsonProperty('type')]
-    private ?string $type;
+    private string $type;
 
     /**
-     * @var ?string $id The Intercom defined id representing the Visitor.
+     * @var string $id The Intercom defined id representing the Visitor.
      */
     #[JsonProperty('id')]
-    private ?string $id;
+    private string $id;
 
     /**
-     * @var ?string $userId Automatically generated identifier for the Visitor.
+     * @var string $userId Automatically generated identifier for the Visitor.
      */
     #[JsonProperty('user_id')]
-    private ?string $userId;
+    private string $userId;
 
     /**
      * @var ?bool $anonymous Identifies if this visitor is anonymous.
@@ -211,9 +211,9 @@ class Visitor extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'visitor',
-     *   id?: ?string,
-     *   userId?: ?string,
+     *   type: 'visitor',
+     *   id: string,
+     *   userId: string,
      *   anonymous?: ?bool,
      *   email?: ?string,
      *   phone?: ?string,
@@ -247,11 +247,11 @@ class Visitor extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->type = $values['type'] ?? null;
-        $this->id = $values['id'] ?? null;
-        $this->userId = $values['userId'] ?? null;
+        $this->type = $values['type'];
+        $this->id = $values['id'];
+        $this->userId = $values['userId'];
         $this->anonymous = $values['anonymous'] ?? null;
         $this->email = $values['email'] ?? null;
         $this->phone = $values['phone'] ?? null;
@@ -285,51 +285,51 @@ class Visitor extends JsonSerializableType
     }
 
     /**
-     * @return ?'visitor'
+     * @return 'visitor'
      */
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }
 
     /**
-     * @param ?'visitor' $value
+     * @param 'visitor' $value
      */
-    public function setType(?string $value = null): self
+    public function setType(string $value): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return string
      */
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param ?string $value
+     * @param string $value
      */
-    public function setId(?string $value = null): self
+    public function setId(string $value): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return string
      */
-    public function getUserId(): ?string
+    public function getUserId(): string
     {
         return $this->userId;
     }
 
     /**
-     * @param ?string $value
+     * @param string $value
      */
-    public function setUserId(?string $value = null): self
+    public function setUserId(string $value): self
     {
         $this->userId = $value;
         return $this;

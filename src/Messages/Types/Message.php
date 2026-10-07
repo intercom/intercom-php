@@ -47,10 +47,10 @@ class Message extends JsonSerializableType
     private string $messageType;
 
     /**
-     * @var ?string $conversationId The associated conversation_id
+     * @var string $conversationId The associated conversation_id
      */
     #[JsonProperty('conversation_id')]
-    private ?string $conversationId;
+    private string $conversationId;
 
     /**
      * @param array{
@@ -59,8 +59,8 @@ class Message extends JsonSerializableType
      *   createdAt: int,
      *   body: string,
      *   messageType: value-of<MessageMessageType>,
+     *   conversationId: string,
      *   subject?: ?string,
-     *   conversationId?: ?string,
      * } $values
      */
     public function __construct(
@@ -72,7 +72,7 @@ class Message extends JsonSerializableType
         $this->subject = $values['subject'] ?? null;
         $this->body = $values['body'];
         $this->messageType = $values['messageType'];
-        $this->conversationId = $values['conversationId'] ?? null;
+        $this->conversationId = $values['conversationId'];
     }
 
     /**
@@ -178,17 +178,17 @@ class Message extends JsonSerializableType
     }
 
     /**
-     * @return ?string
+     * @return string
      */
-    public function getConversationId(): ?string
+    public function getConversationId(): string
     {
         return $this->conversationId;
     }
 
     /**
-     * @param ?string $value
+     * @param string $value
      */
-    public function setConversationId(?string $value = null): self
+    public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
         return $this;

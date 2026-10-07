@@ -14,34 +14,34 @@ use Intercom\Types\TicketParts;
 class Ticket extends JsonSerializableType
 {
     /**
-     * @var ?'ticket' $type Always ticket
+     * @var 'ticket' $type Always ticket
      */
     #[JsonProperty('type')]
-    private ?string $type;
+    private string $type;
 
     /**
-     * @var ?string $id The unique identifier for the ticket which is given by Intercom.
+     * @var string $id The unique identifier for the ticket which is given by Intercom.
      */
     #[JsonProperty('id')]
-    private ?string $id;
+    private string $id;
 
     /**
-     * @var ?string $ticketId The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries.
+     * @var string $ticketId The ID of the Ticket used in the Intercom Inbox and Messenger. Do not use ticket_id for API queries.
      */
     #[JsonProperty('ticket_id')]
-    private ?string $ticketId;
+    private string $ticketId;
 
     /**
-     * @var ?value-of<TicketCategory> $category Category of the Ticket.
+     * @var value-of<TicketCategory> $category Category of the Ticket.
      */
     #[JsonProperty('category')]
-    private ?string $category;
+    private string $category;
 
     /**
-     * @var ?array<string, mixed> $ticketAttributes
+     * @var array<string, mixed> $ticketAttributes
      */
     #[JsonProperty('ticket_attributes'), ArrayType(['string' => 'mixed'])]
-    private ?array $ticketAttributes;
+    private array $ticketAttributes;
 
     /**
      * @var ?TicketState $ticketState
@@ -56,10 +56,10 @@ class Ticket extends JsonSerializableType
     private ?TicketType $ticketType;
 
     /**
-     * @var ?TicketContacts $contacts
+     * @var TicketContacts $contacts
      */
     #[JsonProperty('contacts')]
-    private ?TicketContacts $contacts;
+    private TicketContacts $contacts;
 
     /**
      * @var ?string $adminAssigneeId The id representing the admin assigned to the ticket.
@@ -117,14 +117,14 @@ class Ticket extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'ticket',
-     *   id?: ?string,
-     *   ticketId?: ?string,
-     *   category?: ?value-of<TicketCategory>,
-     *   ticketAttributes?: ?array<string, mixed>,
+     *   type: 'ticket',
+     *   id: string,
+     *   ticketId: string,
+     *   category: value-of<TicketCategory>,
+     *   ticketAttributes: array<string, mixed>,
+     *   contacts: TicketContacts,
      *   ticketState?: ?TicketState,
      *   ticketType?: ?TicketType,
-     *   contacts?: ?TicketContacts,
      *   adminAssigneeId?: ?string,
      *   teamAssigneeId?: ?string,
      *   createdAt?: ?int,
@@ -137,16 +137,16 @@ class Ticket extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->type = $values['type'] ?? null;
-        $this->id = $values['id'] ?? null;
-        $this->ticketId = $values['ticketId'] ?? null;
-        $this->category = $values['category'] ?? null;
-        $this->ticketAttributes = $values['ticketAttributes'] ?? null;
+        $this->type = $values['type'];
+        $this->id = $values['id'];
+        $this->ticketId = $values['ticketId'];
+        $this->category = $values['category'];
+        $this->ticketAttributes = $values['ticketAttributes'];
         $this->ticketState = $values['ticketState'] ?? null;
         $this->ticketType = $values['ticketType'] ?? null;
-        $this->contacts = $values['contacts'] ?? null;
+        $this->contacts = $values['contacts'];
         $this->adminAssigneeId = $values['adminAssigneeId'] ?? null;
         $this->teamAssigneeId = $values['teamAssigneeId'] ?? null;
         $this->createdAt = $values['createdAt'] ?? null;
@@ -159,85 +159,85 @@ class Ticket extends JsonSerializableType
     }
 
     /**
-     * @return ?'ticket'
+     * @return 'ticket'
      */
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }
 
     /**
-     * @param ?'ticket' $value
+     * @param 'ticket' $value
      */
-    public function setType(?string $value = null): self
+    public function setType(string $value): self
     {
         $this->type = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return string
      */
-    public function getId(): ?string
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @param ?string $value
+     * @param string $value
      */
-    public function setId(?string $value = null): self
+    public function setId(string $value): self
     {
         $this->id = $value;
         return $this;
     }
 
     /**
-     * @return ?string
+     * @return string
      */
-    public function getTicketId(): ?string
+    public function getTicketId(): string
     {
         return $this->ticketId;
     }
 
     /**
-     * @param ?string $value
+     * @param string $value
      */
-    public function setTicketId(?string $value = null): self
+    public function setTicketId(string $value): self
     {
         $this->ticketId = $value;
         return $this;
     }
 
     /**
-     * @return ?value-of<TicketCategory>
+     * @return value-of<TicketCategory>
      */
-    public function getCategory(): ?string
+    public function getCategory(): string
     {
         return $this->category;
     }
 
     /**
-     * @param ?value-of<TicketCategory> $value
+     * @param value-of<TicketCategory> $value
      */
-    public function setCategory(?string $value = null): self
+    public function setCategory(string $value): self
     {
         $this->category = $value;
         return $this;
     }
 
     /**
-     * @return ?array<string, mixed>
+     * @return array<string, mixed>
      */
-    public function getTicketAttributes(): ?array
+    public function getTicketAttributes(): array
     {
         return $this->ticketAttributes;
     }
 
     /**
-     * @param ?array<string, mixed> $value
+     * @param array<string, mixed> $value
      */
-    public function setTicketAttributes(?array $value = null): self
+    public function setTicketAttributes(array $value): self
     {
         $this->ticketAttributes = $value;
         return $this;
@@ -278,17 +278,17 @@ class Ticket extends JsonSerializableType
     }
 
     /**
-     * @return ?TicketContacts
+     * @return TicketContacts
      */
-    public function getContacts(): ?TicketContacts
+    public function getContacts(): TicketContacts
     {
         return $this->contacts;
     }
 
     /**
-     * @param ?TicketContacts $value
+     * @param TicketContacts $value
      */
-    public function setContacts(?TicketContacts $value = null): self
+    public function setContacts(TicketContacts $value): self
     {
         $this->contacts = $value;
         return $this;

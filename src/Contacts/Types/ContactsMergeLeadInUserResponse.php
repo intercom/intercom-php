@@ -23,21 +23,21 @@ class ContactsMergeLeadInUserResponse extends JsonSerializableType
 
     /**
      * @param array{
-     *   type?: ?'contact',
-     *   id?: ?string,
+     *   type: 'contact',
+     *   id: string,
+     *   workspaceId: string,
+     *   role: string,
+     *   hasHardBounced: bool,
+     *   markedEmailAsSpam: bool,
+     *   unsubscribedFromEmails: bool,
+     *   createdAt: int,
+     *   updatedAt: int,
      *   externalId?: ?string,
-     *   workspaceId?: ?string,
-     *   role?: ?string,
      *   email?: ?string,
      *   emailDomain?: ?string,
      *   phone?: ?string,
      *   name?: ?string,
      *   ownerId?: ?int,
-     *   hasHardBounced?: ?bool,
-     *   markedEmailAsSpam?: ?bool,
-     *   unsubscribedFromEmails?: ?bool,
-     *   createdAt?: ?int,
-     *   updatedAt?: ?int,
      *   signedUpAt?: ?int,
      *   lastSeenAt?: ?int,
      *   lastRepliedAt?: ?int,
@@ -72,23 +72,23 @@ class ContactsMergeLeadInUserResponse extends JsonSerializableType
      * } $values
      */
     public function __construct(
-        array $values = [],
+        array $values,
     ) {
-        $this->type = $values['type'] ?? null;
-        $this->id = $values['id'] ?? null;
+        $this->type = $values['type'];
+        $this->id = $values['id'];
         $this->externalId = $values['externalId'] ?? null;
-        $this->workspaceId = $values['workspaceId'] ?? null;
-        $this->role = $values['role'] ?? null;
+        $this->workspaceId = $values['workspaceId'];
+        $this->role = $values['role'];
         $this->email = $values['email'] ?? null;
         $this->emailDomain = $values['emailDomain'] ?? null;
         $this->phone = $values['phone'] ?? null;
         $this->name = $values['name'] ?? null;
         $this->ownerId = $values['ownerId'] ?? null;
-        $this->hasHardBounced = $values['hasHardBounced'] ?? null;
-        $this->markedEmailAsSpam = $values['markedEmailAsSpam'] ?? null;
-        $this->unsubscribedFromEmails = $values['unsubscribedFromEmails'] ?? null;
-        $this->createdAt = $values['createdAt'] ?? null;
-        $this->updatedAt = $values['updatedAt'] ?? null;
+        $this->hasHardBounced = $values['hasHardBounced'];
+        $this->markedEmailAsSpam = $values['markedEmailAsSpam'];
+        $this->unsubscribedFromEmails = $values['unsubscribedFromEmails'];
+        $this->createdAt = $values['createdAt'];
+        $this->updatedAt = $values['updatedAt'];
         $this->signedUpAt = $values['signedUpAt'] ?? null;
         $this->lastSeenAt = $values['lastSeenAt'] ?? null;
         $this->lastRepliedAt = $values['lastRepliedAt'] ?? null;
