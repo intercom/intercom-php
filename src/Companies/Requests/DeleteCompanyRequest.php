@@ -36,6 +36,7 @@ class DeleteCompanyRequest extends JsonSerializableType
     public function setCompanyId(string $value): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 }

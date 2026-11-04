@@ -94,6 +94,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setTitle(string $value): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -111,6 +112,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setHtml(string $value): self
     {
         $this->html = $value;
+        $this->_setField('html');
         return $this;
     }
 
@@ -128,6 +130,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -145,6 +148,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setAiAgentAvailability(?bool $value = null): self
     {
         $this->aiAgentAvailability = $value;
+        $this->_setField('aiAgentAvailability');
         return $this;
     }
 
@@ -162,6 +166,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setAiCopilotAvailability(?bool $value = null): self
     {
         $this->aiCopilotAvailability = $value;
+        $this->_setField('aiCopilotAvailability');
         return $this;
     }
 
@@ -179,6 +184,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setLocale(string $value): self
     {
         $this->locale = $value;
+        $this->_setField('locale');
         return $this;
     }
 
@@ -196,6 +202,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setSourceId(int $value): self
     {
         $this->sourceId = $value;
+        $this->_setField('sourceId');
         return $this;
     }
 
@@ -213,6 +220,7 @@ class CreateExternalPageRequest extends JsonSerializableType
     public function setExternalId(string $value): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 }

@@ -65,6 +65,7 @@ class ContactReplyUserIdRequest extends JsonSerializableType
     public function setUserId(string $value): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ContactReplyUserIdRequest extends JsonSerializableType
     public function setAttachmentFiles(?array $value = null): self
     {
         $this->attachmentFiles = $value;
+        $this->_setField('attachmentFiles');
         return $this;
     }
 

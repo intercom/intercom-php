@@ -57,6 +57,7 @@ class ConversationAttachmentFiles extends JsonSerializableType
     public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
+        $this->_setField('contentType');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class ConversationAttachmentFiles extends JsonSerializableType
     public function setData(?string $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class ConversationAttachmentFiles extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 

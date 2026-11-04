@@ -49,6 +49,7 @@ class TicketPartUpdatedAttributeData extends JsonSerializableType
     public function setAttribute(TicketPartUpdatedAttributeDataAttribute $value): self
     {
         $this->attribute = $value;
+        $this->_setField('attribute');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class TicketPartUpdatedAttributeData extends JsonSerializableType
     public function setValue(TicketPartUpdatedAttributeDataValue $value): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

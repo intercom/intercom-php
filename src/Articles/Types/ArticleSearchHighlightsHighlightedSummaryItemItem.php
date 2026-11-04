@@ -49,6 +49,7 @@ class ArticleSearchHighlightsHighlightedSummaryItemItem extends JsonSerializable
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class ArticleSearchHighlightsHighlightedSummaryItemItem extends JsonSerializable
     public function setText(?string $value = null): self
     {
         $this->text = $value;
+        $this->_setField('text');
         return $this;
     }
 

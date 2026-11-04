@@ -63,6 +63,7 @@ class SlaApplied extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -80,6 +81,7 @@ class SlaApplied extends JsonSerializableType
     public function setSlaName(?string $value = null): self
     {
         $this->slaName = $value;
+        $this->_setField('slaName');
         return $this;
     }
 
@@ -97,6 +99,7 @@ class SlaApplied extends JsonSerializableType
     public function setSlaStatus(?string $value = null): self
     {
         $this->slaStatus = $value;
+        $this->_setField('slaStatus');
         return $this;
     }
 

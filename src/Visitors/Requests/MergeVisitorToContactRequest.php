@@ -74,6 +74,7 @@ class MergeVisitorToContactRequest extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -97,6 +98,7 @@ class MergeVisitorToContactRequest extends JsonSerializableType
     public function setUser(UserWithId|UserWithUserId $value): self
     {
         $this->user = $value;
+        $this->_setField('user');
         return $this;
     }
 
@@ -122,6 +124,7 @@ class MergeVisitorToContactRequest extends JsonSerializableType
     public function setVisitor(VisitorWithId|VisitorWithUserId|VisitorWithEmail $value): self
     {
         $this->visitor = $value;
+        $this->_setField('visitor');
         return $this;
     }
 }

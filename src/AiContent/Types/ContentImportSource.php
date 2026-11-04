@@ -97,6 +97,7 @@ class ContentImportSource extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -114,6 +115,7 @@ class ContentImportSource extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -131,6 +133,7 @@ class ContentImportSource extends JsonSerializableType
     public function setLastSyncedAt(int $value): self
     {
         $this->lastSyncedAt = $value;
+        $this->_setField('lastSyncedAt');
         return $this;
     }
 
@@ -148,6 +151,7 @@ class ContentImportSource extends JsonSerializableType
     public function setSyncBehavior(string $value): self
     {
         $this->syncBehavior = $value;
+        $this->_setField('syncBehavior');
         return $this;
     }
 
@@ -165,6 +169,7 @@ class ContentImportSource extends JsonSerializableType
     public function setStatus(string $value): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -182,6 +187,7 @@ class ContentImportSource extends JsonSerializableType
     public function setUrl(string $value): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -199,6 +205,7 @@ class ContentImportSource extends JsonSerializableType
     public function setCreatedAt(int $value): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -216,6 +223,7 @@ class ContentImportSource extends JsonSerializableType
     public function setUpdatedAt(int $value): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 

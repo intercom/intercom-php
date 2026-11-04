@@ -38,6 +38,7 @@ class TagMultipleUsersRequestUsersItem extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 

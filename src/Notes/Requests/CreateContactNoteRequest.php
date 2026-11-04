@@ -53,6 +53,7 @@ class CreateContactNoteRequest extends JsonSerializableType
     public function setContactId(string $value): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -70,6 +71,7 @@ class CreateContactNoteRequest extends JsonSerializableType
     public function setBody(string $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -87,6 +89,7 @@ class CreateContactNoteRequest extends JsonSerializableType
     public function setAdminId(?string $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 }

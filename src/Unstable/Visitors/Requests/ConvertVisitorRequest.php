@@ -14,13 +14,17 @@ class ConvertVisitorRequest extends JsonSerializableType
     private string $type;
 
     /**
-     * @var mixed $user
+     * @var (
+     *    mixed
+     * ) $user The unique identifiers retained after converting or merging.
      */
     #[JsonProperty('user')]
     private mixed $user;
 
     /**
-     * @var mixed $visitor
+     * @var (
+     *    mixed
+     * ) $visitor The unique identifiers to convert a single Visitor.
      */
     #[JsonProperty('visitor')]
     private mixed $visitor;
@@ -28,8 +32,12 @@ class ConvertVisitorRequest extends JsonSerializableType
     /**
      * @param array{
      *   type: string,
-     *   user: mixed,
-     *   visitor: mixed,
+     *   user: (
+     *    mixed
+     * ),
+     *   visitor: (
+     *    mixed
+     * ),
      * } $values
      */
     public function __construct(
@@ -54,11 +62,14 @@ class ConvertVisitorRequest extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return (
+     *    mixed
+     * )
      */
     public function getUser(): mixed
     {
@@ -66,16 +77,21 @@ class ConvertVisitorRequest extends JsonSerializableType
     }
 
     /**
-     * @param mixed $value
+     * @param (
+     *    mixed
+     * ) $value
      */
     public function setUser(mixed $value): self
     {
         $this->user = $value;
+        $this->_setField('user');
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return (
+     *    mixed
+     * )
      */
     public function getVisitor(): mixed
     {
@@ -83,11 +99,14 @@ class ConvertVisitorRequest extends JsonSerializableType
     }
 
     /**
-     * @param mixed $value
+     * @param (
+     *    mixed
+     * ) $value
      */
     public function setVisitor(mixed $value): self
     {
         $this->visitor = $value;
+        $this->_setField('visitor');
         return $this;
     }
 }

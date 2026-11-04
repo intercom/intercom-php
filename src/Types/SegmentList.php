@@ -59,6 +59,7 @@ class SegmentList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -76,6 +77,7 @@ class SegmentList extends JsonSerializableType
     public function setSegments(?array $value = null): self
     {
         $this->segments = $value;
+        $this->_setField('segments');
         return $this;
     }
 
@@ -93,6 +95,7 @@ class SegmentList extends JsonSerializableType
     public function setPages(?array $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 

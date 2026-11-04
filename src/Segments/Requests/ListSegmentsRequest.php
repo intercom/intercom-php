@@ -36,6 +36,7 @@ class ListSegmentsRequest extends JsonSerializableType
     public function setIncludeCount(?bool $value = null): self
     {
         $this->includeCount = $value;
+        $this->_setField('includeCount');
         return $this;
     }
 }

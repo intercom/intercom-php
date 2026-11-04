@@ -2,10 +2,10 @@
 
 namespace Intercom\Traits;
 
-use Intercom\Types\CreateTicketRequestContactsItemId;
-use Intercom\Types\CreateTicketRequestContactsItemExternalId;
-use Intercom\Types\CreateTicketRequestContactsItemEmail;
-use Intercom\Types\CreateTicketRequestAssignment;
+use Intercom\Types\CreateTicketRequestBodyContactsItemId;
+use Intercom\Types\CreateTicketRequestBodyContactsItemExternalId;
+use Intercom\Types\CreateTicketRequestBodyContactsItemEmail;
+use Intercom\Types\CreateTicketRequestBodyAssignment;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Types\ArrayType;
 use Intercom\Core\Types\Union;
@@ -15,14 +15,14 @@ use Intercom\Core\Types\Union;
  *
  * @property string $ticketTypeId
  * @property array<(
- *    CreateTicketRequestContactsItemId
- *   |CreateTicketRequestContactsItemExternalId
- *   |CreateTicketRequestContactsItemEmail
+ *    CreateTicketRequestBodyContactsItemId
+ *   |CreateTicketRequestBodyContactsItemExternalId
+ *   |CreateTicketRequestBodyContactsItemEmail
  * )> $contacts
  * @property ?string $conversationToLinkId
  * @property ?string $companyId
  * @property ?int $createdAt
- * @property ?CreateTicketRequestAssignment $assignment
+ * @property ?CreateTicketRequestBodyAssignment $assignment
  */
 trait CreateTicketRequestBody
 {
@@ -34,12 +34,12 @@ trait CreateTicketRequestBody
 
     /**
      * @var array<(
-     *    CreateTicketRequestContactsItemId
-     *   |CreateTicketRequestContactsItemExternalId
-     *   |CreateTicketRequestContactsItemEmail
+     *    CreateTicketRequestBodyContactsItemId
+     *   |CreateTicketRequestBodyContactsItemExternalId
+     *   |CreateTicketRequestBodyContactsItemEmail
      * )> $contacts The list of contacts (users or leads) affected by this ticket. Currently only one is allowed
      */
-    #[JsonProperty('contacts'), ArrayType([new Union(CreateTicketRequestContactsItemId::class, CreateTicketRequestContactsItemExternalId::class, CreateTicketRequestContactsItemEmail::class)])]
+    #[JsonProperty('contacts'), ArrayType([new Union(CreateTicketRequestBodyContactsItemId::class, CreateTicketRequestBodyContactsItemExternalId::class, CreateTicketRequestBodyContactsItemEmail::class)])]
     private array $contacts;
 
     /**
@@ -67,10 +67,10 @@ trait CreateTicketRequestBody
     private ?int $createdAt;
 
     /**
-     * @var ?CreateTicketRequestAssignment $assignment
+     * @var ?CreateTicketRequestBodyAssignment $assignment
      */
     #[JsonProperty('assignment')]
-    private ?CreateTicketRequestAssignment $assignment;
+    private ?CreateTicketRequestBodyAssignment $assignment;
 
     /**
      * @return string
@@ -86,14 +86,15 @@ trait CreateTicketRequestBody
     public function setTicketTypeId(string $value): self
     {
         $this->ticketTypeId = $value;
+        $this->_setField('ticketTypeId');
         return $this;
     }
 
     /**
      * @return array<(
-     *    CreateTicketRequestContactsItemId
-     *   |CreateTicketRequestContactsItemExternalId
-     *   |CreateTicketRequestContactsItemEmail
+     *    CreateTicketRequestBodyContactsItemId
+     *   |CreateTicketRequestBodyContactsItemExternalId
+     *   |CreateTicketRequestBodyContactsItemEmail
      * )>
      */
     public function getContacts(): array
@@ -103,14 +104,15 @@ trait CreateTicketRequestBody
 
     /**
      * @param array<(
-     *    CreateTicketRequestContactsItemId
-     *   |CreateTicketRequestContactsItemExternalId
-     *   |CreateTicketRequestContactsItemEmail
+     *    CreateTicketRequestBodyContactsItemId
+     *   |CreateTicketRequestBodyContactsItemExternalId
+     *   |CreateTicketRequestBodyContactsItemEmail
      * )> $value
      */
     public function setContacts(array $value): self
     {
         $this->contacts = $value;
+        $this->_setField('contacts');
         return $this;
     }
 
@@ -128,6 +130,7 @@ trait CreateTicketRequestBody
     public function setConversationToLinkId(?string $value = null): self
     {
         $this->conversationToLinkId = $value;
+        $this->_setField('conversationToLinkId');
         return $this;
     }
 
@@ -145,6 +148,7 @@ trait CreateTicketRequestBody
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -162,23 +166,25 @@ trait CreateTicketRequestBody
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
     /**
-     * @return ?CreateTicketRequestAssignment
+     * @return ?CreateTicketRequestBodyAssignment
      */
-    public function getAssignment(): ?CreateTicketRequestAssignment
+    public function getAssignment(): ?CreateTicketRequestBodyAssignment
     {
         return $this->assignment;
     }
 
     /**
-     * @param ?CreateTicketRequestAssignment $value
+     * @param ?CreateTicketRequestBodyAssignment $value
      */
-    public function setAssignment(?CreateTicketRequestAssignment $value = null): self
+    public function setAssignment(?CreateTicketRequestBodyAssignment $value = null): self
     {
         $this->assignment = $value;
+        $this->_setField('assignment');
         return $this;
     }
 }

@@ -49,6 +49,7 @@ class CreateOrUpdateTagRequest extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class CreateOrUpdateTagRequest extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 

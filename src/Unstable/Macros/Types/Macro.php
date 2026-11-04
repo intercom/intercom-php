@@ -116,6 +116,7 @@ class Macro extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -133,6 +134,7 @@ class Macro extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -150,6 +152,7 @@ class Macro extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -167,6 +170,7 @@ class Macro extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -184,6 +188,7 @@ class Macro extends JsonSerializableType
     public function setBodyText(?string $value = null): self
     {
         $this->bodyText = $value;
+        $this->_setField('bodyText');
         return $this;
     }
 
@@ -201,6 +206,7 @@ class Macro extends JsonSerializableType
     public function setCreatedAt(?DateTime $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -218,6 +224,7 @@ class Macro extends JsonSerializableType
     public function setUpdatedAt(?DateTime $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -235,6 +242,7 @@ class Macro extends JsonSerializableType
     public function setVisibleTo(?string $value = null): self
     {
         $this->visibleTo = $value;
+        $this->_setField('visibleTo');
         return $this;
     }
 
@@ -252,6 +260,7 @@ class Macro extends JsonSerializableType
     public function setVisibleToTeamIds(?array $value = null): self
     {
         $this->visibleToTeamIds = $value;
+        $this->_setField('visibleToTeamIds');
         return $this;
     }
 
@@ -269,6 +278,7 @@ class Macro extends JsonSerializableType
     public function setAvailableOn(?array $value = null): self
     {
         $this->availableOn = $value;
+        $this->_setField('availableOn');
         return $this;
     }
 

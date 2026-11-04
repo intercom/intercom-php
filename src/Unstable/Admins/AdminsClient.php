@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Admins;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Types\AdminWithApp;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Admins\Requests\SetAwayAdminRequest;
 use Intercom\Unstable\Admins\Types\Admin;
@@ -64,6 +63,11 @@ class AdminsClient
      * >
      * > If you are building a custom "Log in with Intercom" flow for your site, and you call the `/me` endpoint to identify the logged-in user, you should not accept any sign-ins from users with unverified email addresses as it poses a potential impersonation security risk.
      *
+     * Example:
+     * ```php
+     * $client->admins->identify();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -98,16 +102,6 @@ class AdminsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -120,6 +114,18 @@ class AdminsClient
 
     /**
      * You can set an Admin as away for the Inbox.
+     *
+     * Example:
+     * ```php
+     * $client->unstable->admins->setAwayAdmin(
+     *     new SetAwayAdminRequest([
+     *         'id' => 1,
+     *         'awayModeEnabled' => true,
+     *         'awayModeReassign' => true,
+     *         'awayStatusReasonId' => 12345,
+     *     ]),
+     * );
+     * ```
      *
      * @param SetAwayAdminRequest $request
      * @param ?array{
@@ -141,7 +147,7 @@ class AdminsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "admins/{$request->getId()}/away",
+                    path: "admins/" . RawClient::encodePathParam($request->getId()) . "/away",
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -157,16 +163,6 @@ class AdminsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -180,6 +176,16 @@ class AdminsClient
     /**
      * You can get a log of activities by all admins in an app.
      *
+     * Example:
+     * ```php
+     * $client->admins->listAllActivityLogs(
+     *     new ListAllActivityLogsRequest([
+     *         'createdAtAfter' => '1677253093',
+     *         'createdAtBefore' => '1677861493',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListActivityLogsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -189,11 +195,11 @@ class AdminsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ActivityLogList
+     * @return ?ActivityLogList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listActivityLogs(ListActivityLogsRequest $request, ?array $options = null): ActivityLogList
+    public function listActivityLogs(ListActivityLogsRequest $request, ?array $options = null): ?ActivityLogList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -214,20 +220,13 @@ class AdminsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ActivityLogList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -241,6 +240,11 @@ class AdminsClient
     /**
      * You can fetch a list of admins for a given workspace.
      *
+     * Example:
+     * ```php
+     * $client->admins->list();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -249,11 +253,11 @@ class AdminsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return AdminList
+     * @return ?AdminList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listAdmins(?array $options = null): AdminList
+    public function listAdmins(?array $options = null): ?AdminList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -268,20 +272,13 @@ class AdminsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return AdminList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -294,6 +291,15 @@ class AdminsClient
 
     /**
      * You can retrieve the details of a single admin.
+     *
+     * Example:
+     * ```php
+     * $client->unstable->admins->retrieveAdmin(
+     *     new RetrieveAdminRequest([
+     *         'id' => 1,
+     *     ]),
+     * );
+     * ```
      *
      * @param RetrieveAdminRequest $request
      * @param ?array{
@@ -315,7 +321,7 @@ class AdminsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "admins/{$request->getId()}",
+                    path: "admins/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -330,16 +336,6 @@ class AdminsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

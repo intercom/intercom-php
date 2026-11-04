@@ -11,7 +11,7 @@ use Intercom\Unstable\Types\AdminReplyTicketRequest;
 class ReplyTicketRequest extends JsonSerializableType
 {
     /**
-     * @var string $id
+     * @var string $id The id of the ticket to target.
      */
     private string $id;
 
@@ -57,6 +57,7 @@ class ReplyTicketRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -84,6 +85,7 @@ class ReplyTicketRequest extends JsonSerializableType
     public function setBody(ContactReplyTicketIntercomUserIdRequest|ContactReplyTicketUserIdRequest|ContactReplyTicketEmailRequest|AdminReplyTicketRequest $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

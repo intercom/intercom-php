@@ -50,6 +50,7 @@ class TeamPriorityLevel extends JsonSerializableType
     public function setPrimaryTeamIds(?array $value = null): self
     {
         $this->primaryTeamIds = $value;
+        $this->_setField('primaryTeamIds');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class TeamPriorityLevel extends JsonSerializableType
     public function setSecondaryTeamIds(?array $value = null): self
     {
         $this->secondaryTeamIds = $value;
+        $this->_setField('secondaryTeamIds');
         return $this;
     }
 

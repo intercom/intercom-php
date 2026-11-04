@@ -36,6 +36,7 @@ class ScrollOverAllCompaniesRequest extends JsonSerializableType
     public function setScrollParam(?string $value = null): self
     {
         $this->scrollParam = $value;
+        $this->_setField('scrollParam');
         return $this;
     }
 }

@@ -45,6 +45,7 @@ class AttachContactToACompanyRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -62,6 +63,7 @@ class AttachContactToACompanyRequest extends JsonSerializableType
     public function setCompanyId(string $value): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 }

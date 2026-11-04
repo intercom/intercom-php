@@ -36,6 +36,7 @@ class ExportWorkflowRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 }

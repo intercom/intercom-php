@@ -50,6 +50,7 @@ class ListMacrosRequest extends JsonSerializableType
     public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
+        $this->_setField('perPage');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ListMacrosRequest extends JsonSerializableType
     public function setStartingAfter(?string $value = null): self
     {
         $this->startingAfter = $value;
+        $this->_setField('startingAfter');
         return $this;
     }
 
@@ -84,6 +86,7 @@ class ListMacrosRequest extends JsonSerializableType
     public function setUpdatedSince(?int $value = null): self
     {
         $this->updatedSince = $value;
+        $this->_setField('updatedSince');
         return $this;
     }
 }

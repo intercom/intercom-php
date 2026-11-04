@@ -51,6 +51,7 @@ class CompanySegments extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -68,6 +69,7 @@ class CompanySegments extends JsonSerializableType
     public function setSegments(?array $value = null): self
     {
         $this->segments = $value;
+        $this->_setField('segments');
         return $this;
     }
 

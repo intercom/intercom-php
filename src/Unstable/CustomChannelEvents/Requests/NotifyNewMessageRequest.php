@@ -48,6 +48,7 @@ class NotifyNewMessageRequest extends JsonSerializableType
     public function setBody(string $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

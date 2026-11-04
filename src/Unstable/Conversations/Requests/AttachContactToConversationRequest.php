@@ -65,6 +65,7 @@ class AttachContactToConversationRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class AttachContactToConversationRequest extends JsonSerializableType
     public function setAdminId(?string $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -107,6 +109,7 @@ class AttachContactToConversationRequest extends JsonSerializableType
     public function setCustomer(AttachContactToConversationRequestCustomerIntercomUserId|AttachContactToConversationRequestCustomerUserId|AttachContactToConversationRequestCustomerCustomer|null $value = null): self
     {
         $this->customer = $value;
+        $this->_setField('customer');
         return $this;
     }
 }

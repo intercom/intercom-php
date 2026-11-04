@@ -105,6 +105,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -122,6 +123,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -139,6 +141,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -156,6 +159,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -173,6 +177,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setOwnerId(?int $value = null): self
     {
         $this->ownerId = $value;
+        $this->_setField('ownerId');
         return $this;
     }
 
@@ -190,6 +195,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setAuthorId(?int $value = null): self
     {
         $this->authorId = $value;
+        $this->_setField('authorId');
         return $this;
     }
 
@@ -207,6 +213,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -224,6 +231,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -241,6 +249,7 @@ class InternalArticleListItem extends JsonSerializableType
     public function setLocale(?string $value = null): self
     {
         $this->locale = $value;
+        $this->_setField('locale');
         return $this;
     }
 

@@ -59,6 +59,7 @@ class DataEventList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -76,6 +77,7 @@ class DataEventList extends JsonSerializableType
     public function setEvents(?array $value = null): self
     {
         $this->events = $value;
+        $this->_setField('events');
         return $this;
     }
 
@@ -93,6 +95,7 @@ class DataEventList extends JsonSerializableType
     public function setPages(?DataEventListPages $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 

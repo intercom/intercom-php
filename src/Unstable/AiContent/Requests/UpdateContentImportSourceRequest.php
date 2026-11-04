@@ -63,6 +63,7 @@ class UpdateContentImportSourceRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -80,6 +81,7 @@ class UpdateContentImportSourceRequest extends JsonSerializableType
     public function setSyncBehavior(string $value): self
     {
         $this->syncBehavior = $value;
+        $this->_setField('syncBehavior');
         return $this;
     }
 
@@ -97,6 +99,7 @@ class UpdateContentImportSourceRequest extends JsonSerializableType
     public function setStatus(?string $value = null): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -114,6 +117,7 @@ class UpdateContentImportSourceRequest extends JsonSerializableType
     public function setUrl(string $value): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 }

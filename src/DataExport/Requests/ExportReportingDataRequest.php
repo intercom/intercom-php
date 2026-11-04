@@ -7,9 +7,9 @@ use Intercom\Core\Json\JsonSerializableType;
 class ExportReportingDataRequest extends JsonSerializableType
 {
     /**
-     * @var string $jobIdentifier Unique identifier of the job.
+     * @var string $jobIdentifierPathParam Unique identifier of the job.
      */
-    private string $jobIdentifier;
+    private string $jobIdentifierPathParam;
 
     /**
      * @var string $appId The Intercom defined code of the workspace the company is associated to.
@@ -22,34 +22,42 @@ class ExportReportingDataRequest extends JsonSerializableType
     private string $clientId;
 
     /**
+     * @var string $jobIdentifier Unique identifier of the job.
+     */
+    private string $jobIdentifier;
+
+    /**
      * @param array{
-     *   jobIdentifier: string,
+     *   jobIdentifierPathParam: string,
      *   appId: string,
      *   clientId: string,
+     *   jobIdentifier: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->jobIdentifier = $values['jobIdentifier'];
+        $this->jobIdentifierPathParam = $values['jobIdentifierPathParam'];
         $this->appId = $values['appId'];
         $this->clientId = $values['clientId'];
+        $this->jobIdentifier = $values['jobIdentifier'];
     }
 
     /**
      * @return string
      */
-    public function getJobIdentifier(): string
+    public function getJobIdentifierPathParam(): string
     {
-        return $this->jobIdentifier;
+        return $this->jobIdentifierPathParam;
     }
 
     /**
      * @param string $value
      */
-    public function setJobIdentifier(string $value): self
+    public function setJobIdentifierPathParam(string $value): self
     {
-        $this->jobIdentifier = $value;
+        $this->jobIdentifierPathParam = $value;
+        $this->_setField('jobIdentifierPathParam');
         return $this;
     }
 
@@ -67,6 +75,7 @@ class ExportReportingDataRequest extends JsonSerializableType
     public function setAppId(string $value): self
     {
         $this->appId = $value;
+        $this->_setField('appId');
         return $this;
     }
 
@@ -84,6 +93,25 @@ class ExportReportingDataRequest extends JsonSerializableType
     public function setClientId(string $value): self
     {
         $this->clientId = $value;
+        $this->_setField('clientId');
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJobIdentifier(): string
+    {
+        return $this->jobIdentifier;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setJobIdentifier(string $value): self
+    {
+        $this->jobIdentifier = $value;
+        $this->_setField('jobIdentifier');
         return $this;
     }
 }

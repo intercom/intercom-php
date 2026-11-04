@@ -57,6 +57,7 @@ class CloseConversationRequest extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class CloseConversationRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class CloseConversationRequest extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 

@@ -50,6 +50,7 @@ class BrandList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class BrandList extends JsonSerializableType
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 

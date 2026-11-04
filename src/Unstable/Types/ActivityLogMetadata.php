@@ -121,6 +121,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setSignInMethod(?string $value = null): self
     {
         $this->signInMethod = $value;
+        $this->_setField('signInMethod');
         return $this;
     }
 
@@ -138,6 +139,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -155,6 +157,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setAwayMode(?bool $value = null): self
     {
         $this->awayMode = $value;
+        $this->_setField('awayMode');
         return $this;
     }
 
@@ -172,6 +175,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setAwayStatusReason(?string $value = null): self
     {
         $this->awayStatusReason = $value;
+        $this->_setField('awayStatusReason');
         return $this;
     }
 
@@ -189,6 +193,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setReassignConversations(?bool $value = null): self
     {
         $this->reassignConversations = $value;
+        $this->_setField('reassignConversations');
         return $this;
     }
 
@@ -206,6 +211,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setSource(?string $value = null): self
     {
         $this->source = $value;
+        $this->_setField('source');
         return $this;
     }
 
@@ -223,6 +229,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setAutoChanged(?string $value = null): self
     {
         $this->autoChanged = $value;
+        $this->_setField('autoChanged');
         return $this;
     }
 
@@ -240,6 +247,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setUpdateBy(?int $value = null): self
     {
         $this->updateBy = $value;
+        $this->_setField('updateBy');
         return $this;
     }
 
@@ -257,6 +265,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setUpdateByName(?string $value = null): self
     {
         $this->updateByName = $value;
+        $this->_setField('updateByName');
         return $this;
     }
 
@@ -274,6 +283,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setConversationAssignmentLimit(?int $value = null): self
     {
         $this->conversationAssignmentLimit = $value;
+        $this->_setField('conversationAssignmentLimit');
         return $this;
     }
 
@@ -291,6 +301,7 @@ class ActivityLogMetadata extends JsonSerializableType
     public function setTicketAssignmentLimit(?int $value = null): self
     {
         $this->ticketAssignmentLimit = $value;
+        $this->_setField('ticketAssignmentLimit');
         return $this;
     }
 

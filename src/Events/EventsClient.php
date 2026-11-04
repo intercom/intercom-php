@@ -2,23 +2,25 @@
 
 namespace Intercom\Events;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Events\Requests\ListEventsRequest;
 use Intercom\Types\DataEventSummary;
 use Intercom\Exceptions\IntercomException;
 use Intercom\Exceptions\IntercomApiException;
+use Intercom\Core\Json\JsonSerializer;
+use Intercom\Core\Types\Union;
+use Intercom\Events\Types\EventsListRequestFilterUserId;
+use Intercom\Events\Types\EventsListRequestFilterIntercomUserId;
+use Intercom\Events\Types\EventsListRequestFilterEmail;
 use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Types\CreateDataEventRequestWithId;
 use Intercom\Types\CreateDataEventRequestWithUserId;
 use Intercom\Types\CreateDataEventRequestWithEmail;
-use Intercom\Core\Json\JsonSerializer;
-use Intercom\Core\Types\Union;
 use Intercom\Events\Requests\ListEventSummariesRequest;
 
 class EventsClient
@@ -73,6 +75,23 @@ class EventsClient
      *
      * You can optionally define the result page size as well with the `per_page` parameter.
      *
+     * Example:
+     * ```php
+     * $client->events->list(
+     *     new ListEventsRequest([
+     *         'filter' => new EventsListRequestFilterUserId([
+     *             'userId' => 'user_id',
+     *         ]),
+     *         'type' => 'type',
+     *         'summary' => true,
+     *         'userId' => 'user_id',
+     *         'intercomUserId' => 'intercom_user_id',
+     *         'email' => 'email',
+     *         'perPage' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListEventsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -82,15 +101,19 @@ class EventsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataEventSummary
+     * @return ?DataEventSummary
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function list(ListEventsRequest $request, ?array $options = null): DataEventSummary
+    public function list(ListEventsRequest $request, ?array $options = null): ?DataEventSummary
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
+        $query['filter'] = JsonSerializer::serializeUnion($request->getFilter(), new Union(EventsListRequestFilterUserId::class, EventsListRequestFilterIntercomUserId::class, EventsListRequestFilterEmail::class));
         $query['type'] = $request->getType();
+        if ($request->getSummary() != null) {
+            $query['summary'] = $request->getSummary();
+        }
         if ($request->getUserId() != null) {
             $query['user_id'] = $request->getUserId();
         }
@@ -99,9 +122,6 @@ class EventsClient
         }
         if ($request->getEmail() != null) {
             $query['email'] = $request->getEmail();
-        }
-        if ($request->getSummary() != null) {
-            $query['summary'] = $request->getSummary();
         }
         if ($request->getPerPage() != null) {
             $query['per_page'] = $request->getPerPage();
@@ -119,20 +139,13 @@ class EventsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataEventSummary::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -187,6 +200,17 @@ class EventsClient
      * - Server errors will return a `500` response code and may contain an error message in the body.
      *
      *
+     * Example:
+     * ```php
+     * $client->events->create(
+     *     new CreateDataEventRequestWithId([
+     *         'id' => '8a88a590-e1c3-41e2-a502-e0649dbf721c',
+     *         'eventName' => 'invited-friend',
+     *         'createdAt' => 1671028894,
+     *     ]),
+     * );
+     * ```
+     *
      * @param (
      *    CreateDataEventRequestWithId
      *   |CreateDataEventRequestWithUserId
@@ -220,16 +244,6 @@ class EventsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -243,6 +257,13 @@ class EventsClient
     /**
      * Create event summaries for a user. Event summaries are used to track the number of times an event has occurred, the first time it occurred and the last time it occurred.
      *
+     *
+     * Example:
+     * ```php
+     * $client->events->summaries(
+     *     new ListEventSummariesRequest([]),
+     * );
+     * ```
      *
      * @param ListEventSummariesRequest $request
      * @param ?array{
@@ -273,16 +294,6 @@ class EventsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

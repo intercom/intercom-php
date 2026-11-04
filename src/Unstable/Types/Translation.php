@@ -57,6 +57,7 @@ class Translation extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class Translation extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class Translation extends JsonSerializableType
     public function setLocale(?string $value = null): self
     {
         $this->locale = $value;
+        $this->_setField('locale');
         return $this;
     }
 

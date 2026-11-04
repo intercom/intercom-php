@@ -62,6 +62,7 @@ class SearchRequest extends JsonSerializableType
     public function setQuery(SingleFilterSearchRequest|MultipleFilterSearchRequest $value): self
     {
         $this->query = $value;
+        $this->_setField('query');
         return $this;
     }
 
@@ -79,6 +80,7 @@ class SearchRequest extends JsonSerializableType
     public function setPagination(?StartingAfterPaging $value = null): self
     {
         $this->pagination = $value;
+        $this->_setField('pagination');
         return $this;
     }
 

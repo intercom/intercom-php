@@ -4,7 +4,7 @@ namespace Intercom\News;
 
 use Intercom\News\Items\ItemsClient;
 use Intercom\News\Feeds\FeedsClient;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 
 class NewsClient

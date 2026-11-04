@@ -94,6 +94,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -111,6 +112,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setCityName(?string $value = null): self
     {
         $this->cityName = $value;
+        $this->_setField('cityName');
         return $this;
     }
 
@@ -128,6 +130,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setContinentCode(?string $value = null): self
     {
         $this->continentCode = $value;
+        $this->_setField('continentCode');
         return $this;
     }
 
@@ -145,6 +148,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setCountryCode(?string $value = null): self
     {
         $this->countryCode = $value;
+        $this->_setField('countryCode');
         return $this;
     }
 
@@ -162,6 +166,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setCountryName(?string $value = null): self
     {
         $this->countryName = $value;
+        $this->_setField('countryName');
         return $this;
     }
 
@@ -179,6 +184,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setPostalCode(?string $value = null): self
     {
         $this->postalCode = $value;
+        $this->_setField('postalCode');
         return $this;
     }
 
@@ -196,6 +202,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setRegionName(?string $value = null): self
     {
         $this->regionName = $value;
+        $this->_setField('regionName');
         return $this;
     }
 
@@ -213,6 +220,7 @@ class VisitorLocationData extends JsonSerializableType
     public function setTimezone(?string $value = null): self
     {
         $this->timezone = $value;
+        $this->_setField('timezone');
         return $this;
     }
 

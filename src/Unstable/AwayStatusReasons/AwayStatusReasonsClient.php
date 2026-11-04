@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\AwayStatusReasons;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Types\AwayStatusReason;
 use Intercom\Exceptions\IntercomException;
@@ -12,7 +12,6 @@ use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use Intercom\Core\Json\JsonDecoder;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class AwayStatusReasonsClient
@@ -54,6 +53,11 @@ class AwayStatusReasonsClient
     /**
      * Returns a list of all away status reasons configured for the workspace, including deleted ones.
      *
+     * Example:
+     * ```php
+     * $client->awayStatusReasons->listAwayStatusReasons();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -62,11 +66,11 @@ class AwayStatusReasonsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return array<AwayStatusReason>
+     * @return ?array<AwayStatusReason>
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listAwayStatusReasons(?array $options = null): array
+    public function listAwayStatusReasons(?array $options = null): ?array
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -81,20 +85,13 @@ class AwayStatusReasonsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return JsonDecoder::decodeArray($json, [AwayStatusReason::class]); // @phpstan-ignore-line
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

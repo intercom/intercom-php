@@ -56,6 +56,7 @@ class ContactReplyTicketIntercomUserIdRequest extends JsonSerializableType
     public function setIntercomUserId(string $value): self
     {
         $this->intercomUserId = $value;
+        $this->_setField('intercomUserId');
         return $this;
     }
 

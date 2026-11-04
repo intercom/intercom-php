@@ -41,12 +41,12 @@ class JsonSerializer
     /**
      * Serializes an array based on type annotations (either a list or map).
      *
-     * @param mixed[]|array<string, mixed> $data The array to be serialized.
-     * @param mixed[]|array<string, mixed> $type The type definition from the annotation.
-     * @return mixed[]|array<string, mixed> The serialized array.
+     * @param array<mixed> $data The array to be serialized.
+     * @param array<mixed> $type The type definition from the annotation.
+     * @return array<mixed>|\stdClass The serialized array, or stdClass if empty map.
      * @throws JsonException If serialization fails.
      */
-    public static function serializeArray(array $data, array $type): array
+    public static function serializeArray(array $data, array $type): array|\stdClass
     {
         return Utils::isMapType($type)
             ? self::serializeMap($data, $type)
@@ -71,7 +71,7 @@ class JsonSerializer
             return self::serializeArray((array)$data, $type);
         }
 
-        if (gettype($type) != "string") {
+        if (gettype($type) !== "string") {
             throw new JsonException("Unexpected non-string type.");
         }
 
@@ -98,7 +98,7 @@ class JsonSerializer
         }
         $readableType = Utils::getReadableType($data);
         throw new JsonException(
-            "Cannot serialize value of type $readableType with any of the union types: " . $unionType
+            "Cannot serialize value of type $readableType with any of the union types: $unionType"
         );
     }
 
@@ -133,6 +133,11 @@ class JsonSerializer
             return $data;
         }
 
+        // Handle bools as a special case since gettype($data) returns "boolean" for bool values in PHP.
+        if ($type === 'bool' && is_bool($data)) {
+            return $data;
+        }
+
         if (gettype($data) === $type) {
             return $data;
         }
@@ -153,28 +158,37 @@ class JsonSerializer
             $type = get_class($data);
             throw new JsonException("Class $type must implement JsonSerializable.");
         }
-        return $data->jsonSerialize();
+        $result = $data->jsonSerialize();
+        if (is_array($result) && empty($result)) {
+            return new \stdClass();
+        }
+        return $result;
     }
 
     /**
      * Serializes a map (associative array) with defined key and value types.
      *
-     * @param array<string, mixed> $data The associative array to serialize.
-     * @param array<string, mixed> $type The type definition for the map.
-     * @return array<string, mixed> The serialized map.
+     * @param array<mixed> $data The associative array to serialize.
+     * @param array<mixed> $type The type definition for the map.
+     * @return array<string, mixed>|\stdClass The serialized map, or stdClass if empty.
      * @throws JsonException If serialization fails.
      */
-    private static function serializeMap(array $data, array $type): array
+    private static function serializeMap(array $data, array $type): array|\stdClass
     {
+        if (empty($data)) {
+            return new \stdClass();
+        }
         $keyType = array_key_first($type);
         if ($keyType === null) {
             throw new JsonException("Unexpected no key in ArrayType.");
         }
+        $keyType = (string) $keyType;
         $valueType = $type[$keyType];
+        /** @var array<string, mixed> $result */
         $result = [];
 
         foreach ($data as $key => $item) {
-            $key = Utils::castKey($key, $keyType);
+            $key = (string) Utils::castKey($key, $keyType);
             $result[$key] = self::serializeValue($item, $valueType);
         }
 
@@ -184,14 +198,15 @@ class JsonSerializer
     /**
      * Serializes a list (indexed array) where only the value type is defined.
      *
-     * @param array<int, mixed> $data The list to serialize.
-     * @param array<int, mixed> $type The type definition for the list.
+     * @param array<mixed> $data The list to serialize.
+     * @param array<mixed> $type The type definition for the list.
      * @return array<int, mixed> The serialized list.
      * @throws JsonException If serialization fails.
      */
     private static function serializeList(array $data, array $type): array
     {
         $valueType = $type[0];
+        /** @var array<int, mixed> */
         return array_map(fn ($item) => self::serializeValue($item, $valueType), $data);
     }
 }

@@ -46,6 +46,7 @@ class TagCompanyRequestCompaniesItem extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class TagCompanyRequestCompaniesItem extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 

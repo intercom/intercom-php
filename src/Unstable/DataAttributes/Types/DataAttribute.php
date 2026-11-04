@@ -170,6 +170,7 @@ class DataAttribute extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -187,6 +188,7 @@ class DataAttribute extends JsonSerializableType
     public function setId(?int $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -204,6 +206,7 @@ class DataAttribute extends JsonSerializableType
     public function setModel(?string $value = null): self
     {
         $this->model = $value;
+        $this->_setField('model');
         return $this;
     }
 
@@ -221,6 +224,7 @@ class DataAttribute extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -238,6 +242,7 @@ class DataAttribute extends JsonSerializableType
     public function setFullName(?string $value = null): self
     {
         $this->fullName = $value;
+        $this->_setField('fullName');
         return $this;
     }
 
@@ -255,6 +260,7 @@ class DataAttribute extends JsonSerializableType
     public function setLabel(?string $value = null): self
     {
         $this->label = $value;
+        $this->_setField('label');
         return $this;
     }
 
@@ -272,6 +278,7 @@ class DataAttribute extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -289,6 +296,7 @@ class DataAttribute extends JsonSerializableType
     public function setDataType(?string $value = null): self
     {
         $this->dataType = $value;
+        $this->_setField('dataType');
         return $this;
     }
 
@@ -306,6 +314,7 @@ class DataAttribute extends JsonSerializableType
     public function setOptions(?array $value = null): self
     {
         $this->options = $value;
+        $this->_setField('options');
         return $this;
     }
 
@@ -323,6 +332,7 @@ class DataAttribute extends JsonSerializableType
     public function setApiWritable(?bool $value = null): self
     {
         $this->apiWritable = $value;
+        $this->_setField('apiWritable');
         return $this;
     }
 
@@ -340,6 +350,7 @@ class DataAttribute extends JsonSerializableType
     public function setMessengerWritable(?bool $value = null): self
     {
         $this->messengerWritable = $value;
+        $this->_setField('messengerWritable');
         return $this;
     }
 
@@ -357,6 +368,7 @@ class DataAttribute extends JsonSerializableType
     public function setUiWritable(?bool $value = null): self
     {
         $this->uiWritable = $value;
+        $this->_setField('uiWritable');
         return $this;
     }
 
@@ -374,6 +386,7 @@ class DataAttribute extends JsonSerializableType
     public function setCustom(?bool $value = null): self
     {
         $this->custom = $value;
+        $this->_setField('custom');
         return $this;
     }
 
@@ -391,6 +404,7 @@ class DataAttribute extends JsonSerializableType
     public function setArchived(?bool $value = null): self
     {
         $this->archived = $value;
+        $this->_setField('archived');
         return $this;
     }
 
@@ -408,6 +422,7 @@ class DataAttribute extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -425,6 +440,7 @@ class DataAttribute extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -442,6 +458,7 @@ class DataAttribute extends JsonSerializableType
     public function setAdminId(?string $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 

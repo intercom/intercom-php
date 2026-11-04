@@ -71,6 +71,7 @@ class CreateOrUpdateCustomObjectInstanceRequest extends JsonSerializableType
     public function setCustomObjectTypeIdentifier(string $value): self
     {
         $this->customObjectTypeIdentifier = $value;
+        $this->_setField('customObjectTypeIdentifier');
         return $this;
     }
 
@@ -88,6 +89,7 @@ class CreateOrUpdateCustomObjectInstanceRequest extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -105,6 +107,7 @@ class CreateOrUpdateCustomObjectInstanceRequest extends JsonSerializableType
     public function setExternalCreatedAt(?int $value = null): self
     {
         $this->externalCreatedAt = $value;
+        $this->_setField('externalCreatedAt');
         return $this;
     }
 
@@ -122,6 +125,7 @@ class CreateOrUpdateCustomObjectInstanceRequest extends JsonSerializableType
     public function setExternalUpdatedAt(?int $value = null): self
     {
         $this->externalUpdatedAt = $value;
+        $this->_setField('externalUpdatedAt');
         return $this;
     }
 
@@ -139,6 +143,7 @@ class CreateOrUpdateCustomObjectInstanceRequest extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 }

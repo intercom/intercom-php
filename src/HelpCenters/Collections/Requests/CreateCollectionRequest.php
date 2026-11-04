@@ -71,6 +71,7 @@ class CreateCollectionRequest extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -88,6 +89,7 @@ class CreateCollectionRequest extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -105,6 +107,7 @@ class CreateCollectionRequest extends JsonSerializableType
     public function setTranslatedContent(?GroupTranslatedContent $value = null): self
     {
         $this->translatedContent = $value;
+        $this->_setField('translatedContent');
         return $this;
     }
 
@@ -122,6 +125,7 @@ class CreateCollectionRequest extends JsonSerializableType
     public function setParentId(?string $value = null): self
     {
         $this->parentId = $value;
+        $this->_setField('parentId');
         return $this;
     }
 
@@ -139,6 +143,7 @@ class CreateCollectionRequest extends JsonSerializableType
     public function setHelpCenterId(?int $value = null): self
     {
         $this->helpCenterId = $value;
+        $this->_setField('helpCenterId');
         return $this;
     }
 }

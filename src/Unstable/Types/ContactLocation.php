@@ -65,6 +65,7 @@ class ContactLocation extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ContactLocation extends JsonSerializableType
     public function setCountry(?string $value = null): self
     {
         $this->country = $value;
+        $this->_setField('country');
         return $this;
     }
 
@@ -99,6 +101,7 @@ class ContactLocation extends JsonSerializableType
     public function setRegion(?string $value = null): self
     {
         $this->region = $value;
+        $this->_setField('region');
         return $this;
     }
 
@@ -116,6 +119,7 @@ class ContactLocation extends JsonSerializableType
     public function setCity(?string $value = null): self
     {
         $this->city = $value;
+        $this->_setField('city');
         return $this;
     }
 

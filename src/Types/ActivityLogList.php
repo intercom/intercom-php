@@ -59,6 +59,7 @@ class ActivityLogList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -76,6 +77,7 @@ class ActivityLogList extends JsonSerializableType
     public function setPages(?CursorPages $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 
@@ -93,6 +95,7 @@ class ActivityLogList extends JsonSerializableType
     public function setActivityLogs(?array $value = null): self
     {
         $this->activityLogs = $value;
+        $this->_setField('activityLogs');
         return $this;
     }
 

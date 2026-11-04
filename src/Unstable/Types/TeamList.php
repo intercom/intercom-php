@@ -51,6 +51,7 @@ class TeamList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -68,6 +69,7 @@ class TeamList extends JsonSerializableType
     public function setTeams(?array $value = null): self
     {
         $this->teams = $value;
+        $this->_setField('teams');
         return $this;
     }
 

@@ -46,6 +46,7 @@ class QuickReplyOption extends JsonSerializableType
     public function setText(string $value): self
     {
         $this->text = $value;
+        $this->_setField('text');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class QuickReplyOption extends JsonSerializableType
     public function setUuid(string $value): self
     {
         $this->uuid = $value;
+        $this->_setField('uuid');
         return $this;
     }
 

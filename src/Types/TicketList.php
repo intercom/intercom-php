@@ -68,6 +68,7 @@ class TicketList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -85,6 +86,7 @@ class TicketList extends JsonSerializableType
     public function setTickets(?array $value = null): self
     {
         $this->tickets = $value;
+        $this->_setField('tickets');
         return $this;
     }
 
@@ -102,6 +104,7 @@ class TicketList extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 
@@ -119,6 +122,7 @@ class TicketList extends JsonSerializableType
     public function setPages(?CursorPages $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 

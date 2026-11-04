@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Export;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Export\Requests\PostExportReportingDataEnqueueRequest;
 use Intercom\Unstable\Export\Types\PostExportReportingDataEnqueueResponse;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Export\Types\GetExportReportingDataGetDatasetsResponse;
 
@@ -53,6 +52,21 @@ class ExportClient
     }
 
     /**
+     * Example:
+     * ```php
+     * $client->export->enqueueANewReportingDataExportJob(
+     *     new PostExportReportingDataEnqueueRequest([
+     *         'datasetId' => 'conversation',
+     *         'attributeIds' => [
+     *             'conversation_id',
+     *             'conversation_started_at',
+     *         ],
+     *         'startTime' => 1717490000,
+     *         'endTime' => 1717510000,
+     *     ]),
+     * );
+     * ```
+     *
      * @param PostExportReportingDataEnqueueRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -62,11 +76,11 @@ class ExportClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PostExportReportingDataEnqueueResponse
+     * @return ?PostExportReportingDataEnqueueResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function enqueueANewReportingDataExportJob(PostExportReportingDataEnqueueRequest $request, ?array $options = null): PostExportReportingDataEnqueueResponse
+    public function enqueueANewReportingDataExportJob(PostExportReportingDataEnqueueRequest $request, ?array $options = null): ?PostExportReportingDataEnqueueResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -82,20 +96,13 @@ class ExportClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return PostExportReportingDataEnqueueResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -107,6 +114,11 @@ class ExportClient
     }
 
     /**
+     * Example:
+     * ```php
+     * $client->export->listAvailableDatasetsAndAttributes();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -115,11 +127,11 @@ class ExportClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return GetExportReportingDataGetDatasetsResponse
+     * @return ?GetExportReportingDataGetDatasetsResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listAvailableDatasetsAndAttributes(?array $options = null): GetExportReportingDataGetDatasetsResponse
+    public function listAvailableDatasetsAndAttributes(?array $options = null): ?GetExportReportingDataGetDatasetsResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -134,20 +146,13 @@ class ExportClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return GetExportReportingDataGetDatasetsResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

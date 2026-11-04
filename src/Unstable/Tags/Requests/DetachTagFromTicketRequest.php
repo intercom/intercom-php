@@ -52,6 +52,7 @@ class DetachTagFromTicketRequest extends JsonSerializableType
     public function setTicketId(string $value): self
     {
         $this->ticketId = $value;
+        $this->_setField('ticketId');
         return $this;
     }
 
@@ -69,6 +70,7 @@ class DetachTagFromTicketRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -86,6 +88,7 @@ class DetachTagFromTicketRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 }

@@ -36,6 +36,7 @@ class FindTicketTypeRequest extends JsonSerializableType
     public function setTicketTypeId(string $value): self
     {
         $this->ticketTypeId = $value;
+        $this->_setField('ticketTypeId');
         return $this;
     }
 }

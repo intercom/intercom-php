@@ -2,7 +2,7 @@
 
 namespace Intercom\Jobs;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Jobs\Requests\JobsStatusRequest;
 use Intercom\Jobs\Types\Jobs;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class JobsClient
@@ -54,6 +53,15 @@ class JobsClient
     /**
      * Retrieve the status of job execution.
      *
+     * Example:
+     * ```php
+     * $client->jobs->status(
+     *     new JobsStatusRequest([
+     *         'jobId' => 'job_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param JobsStatusRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -63,18 +71,18 @@ class JobsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Jobs
+     * @return ?Jobs
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function status(JobsStatusRequest $request, ?array $options = null): Jobs
+    public function status(JobsStatusRequest $request, ?array $options = null): ?Jobs
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "jobs/status/{$request->getJobId()}",
+                    path: "jobs/status/" . RawClient::encodePathParam($request->getJobId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -82,20 +90,13 @@ class JobsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Jobs::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

@@ -50,6 +50,7 @@ class TagMultipleUsersRequest extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class TagMultipleUsersRequest extends JsonSerializableType
     public function setUsers(array $value): self
     {
         $this->users = $value;
+        $this->_setField('users');
         return $this;
     }
 

@@ -100,6 +100,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setTitle(string $value): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -117,6 +118,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -134,6 +136,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setSenderId(int $value): self
     {
         $this->senderId = $value;
+        $this->_setField('senderId');
         return $this;
     }
 
@@ -151,6 +154,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -168,6 +172,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setDeliverSilently(?bool $value = null): self
     {
         $this->deliverSilently = $value;
+        $this->_setField('deliverSilently');
         return $this;
     }
 
@@ -185,6 +190,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setLabels(?array $value = null): self
     {
         $this->labels = $value;
+        $this->_setField('labels');
         return $this;
     }
 
@@ -202,6 +208,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setReactions(?array $value = null): self
     {
         $this->reactions = $value;
+        $this->_setField('reactions');
         return $this;
     }
 
@@ -219,6 +226,7 @@ class NewsItemRequest extends JsonSerializableType
     public function setNewsfeedAssignments(?array $value = null): self
     {
         $this->newsfeedAssignments = $value;
+        $this->_setField('newsfeedAssignments');
         return $this;
     }
 

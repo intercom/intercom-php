@@ -43,6 +43,7 @@ class DeleteCustomObjectInstancesByExternalIdRequest extends JsonSerializableTyp
     public function setCustomObjectTypeIdentifier(string $value): self
     {
         $this->customObjectTypeIdentifier = $value;
+        $this->_setField('customObjectTypeIdentifier');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class DeleteCustomObjectInstancesByExternalIdRequest extends JsonSerializableTyp
     public function setCustomObjectInstanceId(string $value): self
     {
         $this->customObjectInstanceId = $value;
+        $this->_setField('customObjectInstanceId');
         return $this;
     }
 }

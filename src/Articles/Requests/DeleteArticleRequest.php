@@ -36,6 +36,7 @@ class DeleteArticleRequest extends JsonSerializableType
     public function setArticleId(int $value): self
     {
         $this->articleId = $value;
+        $this->_setField('articleId');
         return $this;
     }
 }

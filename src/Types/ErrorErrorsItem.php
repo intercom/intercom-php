@@ -54,6 +54,7 @@ class ErrorErrorsItem extends JsonSerializableType
     public function setCode(string $value): self
     {
         $this->code = $value;
+        $this->_setField('code');
         return $this;
     }
 
@@ -71,6 +72,7 @@ class ErrorErrorsItem extends JsonSerializableType
     public function setMessage(?string $value = null): self
     {
         $this->message = $value;
+        $this->_setField('message');
         return $this;
     }
 
@@ -88,6 +90,7 @@ class ErrorErrorsItem extends JsonSerializableType
     public function setField(?string $value = null): self
     {
         $this->field = $value;
+        $this->_setField('field');
         return $this;
     }
 

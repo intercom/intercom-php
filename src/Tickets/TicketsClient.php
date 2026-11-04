@@ -2,7 +2,7 @@
 
 namespace Intercom\Tickets;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Tickets\Requests\ReplyToTicketRequest;
 use Intercom\Types\TicketReply;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Tickets\Requests\CreateTicketRequest;
 use Intercom\Tickets\Types\Ticket;
@@ -67,6 +66,21 @@ class TicketsClient
     /**
      * You can reply to a ticket with a message from an admin or on behalf of a contact, or with a note for admins.
      *
+     * Example:
+     * ```php
+     * $client->tickets->reply(
+     *     new ReplyToTicketRequest([
+     *         'ticketId' => '123',
+     *         'body' => new ContactReplyTicketIntercomUserIdRequest([
+     *             'messageType' => 'comment',
+     *             'type' => 'user',
+     *             'body' => 'Thanks again :)',
+     *             'intercomUserId' => '6762f2971bb69f9f2193bc49',
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
      * @param ReplyToTicketRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -76,18 +90,18 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketReply
+     * @return ?TicketReply
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function reply(ReplyToTicketRequest $request, ?array $options = null): TicketReply
+    public function reply(ReplyToTicketRequest $request, ?array $options = null): ?TicketReply
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tickets/{$request->getTicketId()}/reply",
+                    path: "tickets/" . RawClient::encodePathParam($request->getTicketId()) . "/reply",
                     method: HttpMethod::POST,
                     body: $request->getBody(),
                 ),
@@ -96,20 +110,13 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketReply::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -122,6 +129,20 @@ class TicketsClient
 
     /**
      * You can create a new ticket.
+     *
+     * Example:
+     * ```php
+     * $client->tickets->create(
+     *     new CreateTicketRequest([
+     *         'ticketTypeId' => '1234',
+     *         'contacts' => [
+     *             new CreateTicketRequestBodyContactsItemId([
+     *                 'id' => '6762f2d81bb69f9f2193bc54',
+     *             ]),
+     *         ],
+     *     ]),
+     * );
+     * ```
      *
      * @param CreateTicketRequest $request
      * @param ?array{
@@ -159,16 +180,6 @@ class TicketsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -182,6 +193,20 @@ class TicketsClient
     /**
      * Enqueues ticket creation for asynchronous processing, returning if the job was enqueued successfully to be processed. We attempt to perform a best-effort validation on inputs before tasks are enqueued. If the given parameters are incorrect, we won't enqueue the job.
      *
+     * Example:
+     * ```php
+     * $client->tickets->enqueueCreateTicket(
+     *     new EnqueueCreateTicketRequest([
+     *         'ticketTypeId' => '1234',
+     *         'contacts' => [
+     *             new CreateTicketRequestBodyContactsItemId([
+     *                 'id' => '6762f2d81bb69f9f2193bc54',
+     *             ]),
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
      * @param EnqueueCreateTicketRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -191,11 +216,11 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Jobs
+     * @return ?Jobs
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function enqueueCreateTicket(EnqueueCreateTicketRequest $request, ?array $options = null): Jobs
+    public function enqueueCreateTicket(EnqueueCreateTicketRequest $request, ?array $options = null): ?Jobs
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -211,20 +236,13 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Jobs::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -237,6 +255,15 @@ class TicketsClient
 
     /**
      * You can fetch the details of a single ticket.
+     *
+     * Example:
+     * ```php
+     * $client->tickets->get(
+     *     new FindTicketRequest([
+     *         'ticketId' => 'ticket_id',
+     *     ]),
+     * );
+     * ```
      *
      * @param FindTicketRequest $request
      * @param ?array{
@@ -258,7 +285,7 @@ class TicketsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tickets/{$request->getTicketId()}",
+                    path: "tickets/" . RawClient::encodePathParam($request->getTicketId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -273,16 +300,6 @@ class TicketsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -295,6 +312,24 @@ class TicketsClient
 
     /**
      * You can update a ticket.
+     *
+     * Example:
+     * ```php
+     * $client->tickets->update(
+     *     new UpdateTicketRequest([
+     *         'ticketId' => 'ticket_id',
+     *         'ticketAttributes' => [
+     *             '_default_title_' => "example",
+     *             '_default_description_' => "there is a problem",
+     *         ],
+     *         'ticketStateId' => '123',
+     *         'open' => true,
+     *         'snoozedUntil' => 1673609604,
+     *         'adminId' => 991268011,
+     *         'assigneeId' => '123',
+     *     ]),
+     * );
+     * ```
      *
      * @param UpdateTicketRequest $request
      * @param ?array{
@@ -316,7 +351,7 @@ class TicketsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tickets/{$request->getTicketId()}",
+                    path: "tickets/" . RawClient::encodePathParam($request->getTicketId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -332,16 +367,6 @@ class TicketsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -355,6 +380,15 @@ class TicketsClient
     /**
      * You can delete a ticket using the Intercom provided ID.
      *
+     * Example:
+     * ```php
+     * $client->tickets->deleteTicket(
+     *     new DeleteTicketRequest([
+     *         'ticketId' => 'ticket_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteTicketRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -364,18 +398,18 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DeleteTicketResponse
+     * @return ?DeleteTicketResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteTicket(DeleteTicketRequest $request, ?array $options = null): DeleteTicketResponse
+    public function deleteTicket(DeleteTicketRequest $request, ?array $options = null): ?DeleteTicketResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tickets/{$request->getTicketId()}",
+                    path: "tickets/" . RawClient::encodePathParam($request->getTicketId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -383,20 +417,13 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DeleteTicketResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -477,6 +504,20 @@ class TicketsClient
      * | !~       | String                         | Doesn't Contain                                              |
      * | ^        | String                         | Starts With                                                  |
      * | $        | String                         | Ends With                                                    |
+     *
+     * Example:
+     * ```php
+     * $client->unstable->tickets->searchTickets(
+     *     new SearchRequest([
+     *         'query' => new SingleFilterSearchRequest([
+     *             'value' => [],
+     *         ]),
+     *         'pagination' => new StartingAfterPaging([
+     *             'perPage' => 5,
+     *         ]),
+     *     ]),
+     * );
+     * ```
      *
      * @param SearchRequest $request
      * @param ?array{
@@ -498,9 +539,9 @@ class TicketsClient
                 PaginationHelper::setDeep($request, ["pagination", "startingAfter"], $cursor);
             },
             /* @phpstan-ignore-next-line */
-            getNextCursor: fn (TicketList $response) => $response?->getPages()?->getNext()?->getStartingAfter() ?? null,
+            getNextCursor: fn (?TicketList $response) => $response?->getPages()?->getNext()?->getStartingAfter() ?? null,
             /* @phpstan-ignore-next-line */
-            getItems: fn (TicketList $response) => $response?->getTickets() ?? [],
+            getItems: fn (?TicketList $response) => $response?->getTickets() ?? [],
         );
     }
 
@@ -584,11 +625,11 @@ class TicketsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketList
+     * @return ?TicketList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    private function _search(SearchRequest $request, ?array $options = null): TicketList
+    private function _search(SearchRequest $request, ?array $options = null): ?TicketList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -604,20 +645,13 @@ class TicketsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

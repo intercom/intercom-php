@@ -56,6 +56,7 @@ class ContentSourcesList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -73,6 +74,7 @@ class ContentSourcesList extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 
@@ -90,6 +92,7 @@ class ContentSourcesList extends JsonSerializableType
     public function setContentSources(?array $value = null): self
     {
         $this->contentSources = $value;
+        $this->_setField('contentSources');
         return $this;
     }
 

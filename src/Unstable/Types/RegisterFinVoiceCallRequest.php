@@ -66,6 +66,7 @@ class RegisterFinVoiceCallRequest extends JsonSerializableType
     public function setPhoneNumber(string $value): self
     {
         $this->phoneNumber = $value;
+        $this->_setField('phoneNumber');
         return $this;
     }
 
@@ -83,6 +84,7 @@ class RegisterFinVoiceCallRequest extends JsonSerializableType
     public function setCallId(string $value): self
     {
         $this->callId = $value;
+        $this->_setField('callId');
         return $this;
     }
 
@@ -100,6 +102,7 @@ class RegisterFinVoiceCallRequest extends JsonSerializableType
     public function setSource(?string $value = null): self
     {
         $this->source = $value;
+        $this->_setField('source');
         return $this;
     }
 
@@ -117,6 +120,7 @@ class RegisterFinVoiceCallRequest extends JsonSerializableType
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 

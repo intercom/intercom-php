@@ -89,6 +89,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -106,6 +107,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setViews(?int $value = null): self
     {
         $this->views = $value;
+        $this->_setField('views');
         return $this;
     }
 
@@ -123,6 +125,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setConversions(?int $value = null): self
     {
         $this->conversions = $value;
+        $this->_setField('conversions');
         return $this;
     }
 
@@ -140,6 +143,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setReactions(?int $value = null): self
     {
         $this->reactions = $value;
+        $this->_setField('reactions');
         return $this;
     }
 
@@ -157,6 +161,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setHappyReactionPercentage(?float $value = null): self
     {
         $this->happyReactionPercentage = $value;
+        $this->_setField('happyReactionPercentage');
         return $this;
     }
 
@@ -174,6 +179,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setNeutralReactionPercentage(?float $value = null): self
     {
         $this->neutralReactionPercentage = $value;
+        $this->_setField('neutralReactionPercentage');
         return $this;
     }
 
@@ -191,6 +197,7 @@ class ArticleStatistics extends JsonSerializableType
     public function setSadReactionPercentage(?float $value = null): self
     {
         $this->sadReactionPercentage = $value;
+        $this->_setField('sadReactionPercentage');
         return $this;
     }
 

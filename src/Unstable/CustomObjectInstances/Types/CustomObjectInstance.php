@@ -98,6 +98,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -115,6 +116,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -132,6 +134,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setExternalCreatedAt(?int $value = null): self
     {
         $this->externalCreatedAt = $value;
+        $this->_setField('externalCreatedAt');
         return $this;
     }
 
@@ -149,6 +152,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setExternalUpdatedAt(?int $value = null): self
     {
         $this->externalUpdatedAt = $value;
+        $this->_setField('externalUpdatedAt');
         return $this;
     }
 
@@ -166,6 +170,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -183,6 +188,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -200,6 +206,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -217,6 +224,7 @@ class CustomObjectInstance extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 

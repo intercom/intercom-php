@@ -67,6 +67,7 @@ class ConvertConversationToTicketRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -84,6 +85,7 @@ class ConvertConversationToTicketRequest extends JsonSerializableType
     public function setTicketTypeId(string $value): self
     {
         $this->ticketTypeId = $value;
+        $this->_setField('ticketTypeId');
         return $this;
     }
 
@@ -113,6 +115,7 @@ class ConvertConversationToTicketRequest extends JsonSerializableType
     public function setAttributes(?array $value = null): self
     {
         $this->attributes = $value;
+        $this->_setField('attributes');
         return $this;
     }
 }

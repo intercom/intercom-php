@@ -189,6 +189,7 @@ trait Call
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -206,6 +207,7 @@ trait Call
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -223,6 +225,7 @@ trait Call
     public function setConversationId(?string $value = null): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -240,6 +243,7 @@ trait Call
     public function setAdminId(?string $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -257,6 +261,7 @@ trait Call
     public function setContactId(?string $value = null): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -274,6 +279,7 @@ trait Call
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -297,6 +303,7 @@ trait Call
     public function setInitiatedAt(DateTime|int|null $value = null): self
     {
         $this->initiatedAt = $value;
+        $this->_setField('initiatedAt');
         return $this;
     }
 
@@ -320,6 +327,7 @@ trait Call
     public function setAnsweredAt(DateTime|int|null $value = null): self
     {
         $this->answeredAt = $value;
+        $this->_setField('answeredAt');
         return $this;
     }
 
@@ -343,6 +351,7 @@ trait Call
     public function setEndedAt(DateTime|int|null $value = null): self
     {
         $this->endedAt = $value;
+        $this->_setField('endedAt');
         return $this;
     }
 
@@ -366,6 +375,7 @@ trait Call
     public function setCreatedAt(DateTime|int|null $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -389,6 +399,7 @@ trait Call
     public function setUpdatedAt(DateTime|int|null $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -406,6 +417,7 @@ trait Call
     public function setRecordingUrl(?string $value = null): self
     {
         $this->recordingUrl = $value;
+        $this->_setField('recordingUrl');
         return $this;
     }
 
@@ -423,6 +435,7 @@ trait Call
     public function setTranscriptionUrl(?string $value = null): self
     {
         $this->transcriptionUrl = $value;
+        $this->_setField('transcriptionUrl');
         return $this;
     }
 
@@ -440,6 +453,7 @@ trait Call
     public function setCallType(?string $value = null): self
     {
         $this->callType = $value;
+        $this->_setField('callType');
         return $this;
     }
 
@@ -457,6 +471,7 @@ trait Call
     public function setDirection(?string $value = null): self
     {
         $this->direction = $value;
+        $this->_setField('direction');
         return $this;
     }
 
@@ -474,6 +489,7 @@ trait Call
     public function setEndedReason(?string $value = null): self
     {
         $this->endedReason = $value;
+        $this->_setField('endedReason');
         return $this;
     }
 
@@ -491,6 +507,7 @@ trait Call
     public function setPhone(?string $value = null): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 
@@ -508,6 +525,7 @@ trait Call
     public function setFinRecordingUrl(?string $value = null): self
     {
         $this->finRecordingUrl = $value;
+        $this->_setField('finRecordingUrl');
         return $this;
     }
 
@@ -525,6 +543,7 @@ trait Call
     public function setFinTranscriptionUrl(?string $value = null): self
     {
         $this->finTranscriptionUrl = $value;
+        $this->_setField('finTranscriptionUrl');
         return $this;
     }
 }

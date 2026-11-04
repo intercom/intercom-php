@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Macros;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Macros\Requests\ListMacrosRequest;
 use Intercom\Unstable\Macros\Types\MacroList;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Macros\Requests\GetMacroRequest;
 use Intercom\Unstable\Macros\Types\Macro;
@@ -68,6 +67,17 @@ class MacrosClient
      * - From: `{{user.name | fallback: 'there'}}`
      * - To: `<attribute key="user.name" default="there"/>`
      *
+     * Example:
+     * ```php
+     * $client->unstable->macros->listMacros(
+     *     new ListMacrosRequest([
+     *         'perPage' => 1,
+     *         'startingAfter' => 'WzE3MTk0OTM3NTcuMCwgIjEyMyJd',
+     *         'updatedSince' => 1000000,
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListMacrosRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -77,11 +87,11 @@ class MacrosClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return MacroList
+     * @return ?MacroList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listMacros(ListMacrosRequest $request = new ListMacrosRequest(), ?array $options = null): MacroList
+    public function listMacros(ListMacrosRequest $request = new ListMacrosRequest(), ?array $options = null): ?MacroList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -107,20 +117,13 @@ class MacrosClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return MacroList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -150,6 +153,15 @@ class MacrosClient
      *
      * Default values in placeholders are HTML-escaped for security.
      *
+     * Example:
+     * ```php
+     * $client->unstable->macros->getMacro(
+     *     new GetMacroRequest([
+     *         'id' => '123',
+     *     ]),
+     * );
+     * ```
+     *
      * @param GetMacroRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -170,7 +182,7 @@ class MacrosClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "macros/{$request->getId()}",
+                    path: "macros/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -185,16 +197,6 @@ class MacrosClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

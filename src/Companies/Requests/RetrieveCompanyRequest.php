@@ -71,6 +71,7 @@ class RetrieveCompanyRequest extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -88,6 +89,7 @@ class RetrieveCompanyRequest extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -105,6 +107,7 @@ class RetrieveCompanyRequest extends JsonSerializableType
     public function setTagId(?string $value = null): self
     {
         $this->tagId = $value;
+        $this->_setField('tagId');
         return $this;
     }
 
@@ -122,6 +125,7 @@ class RetrieveCompanyRequest extends JsonSerializableType
     public function setSegmentId(?string $value = null): self
     {
         $this->segmentId = $value;
+        $this->_setField('segmentId');
         return $this;
     }
 
@@ -139,6 +143,7 @@ class RetrieveCompanyRequest extends JsonSerializableType
     public function setPage(?int $value = null): self
     {
         $this->page = $value;
+        $this->_setField('page');
         return $this;
     }
 
@@ -156,6 +161,7 @@ class RetrieveCompanyRequest extends JsonSerializableType
     public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
+        $this->_setField('perPage');
         return $this;
     }
 }

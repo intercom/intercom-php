@@ -46,6 +46,7 @@ class CustomChannelAttribute extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class CustomChannelAttribute extends JsonSerializableType
     public function setValue(string $value): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

@@ -90,6 +90,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setMessageType(string $value): self
     {
         $this->messageType = $value;
+        $this->_setField('messageType');
         return $this;
     }
 
@@ -107,6 +108,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -124,6 +126,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -141,6 +144,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -158,6 +162,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -175,6 +180,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setReplyOptions(?array $value = null): self
     {
         $this->replyOptions = $value;
+        $this->_setField('replyOptions');
         return $this;
     }
 
@@ -192,6 +198,7 @@ class AdminReplyTicketRequest extends JsonSerializableType
     public function setAttachmentUrls(?array $value = null): self
     {
         $this->attachmentUrls = $value;
+        $this->_setField('attachmentUrls');
         return $this;
     }
 

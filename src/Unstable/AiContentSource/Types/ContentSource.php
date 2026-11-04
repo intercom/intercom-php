@@ -65,6 +65,7 @@ class ContentSource extends JsonSerializableType
     public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
+        $this->_setField('contentType');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ContentSource extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -99,6 +101,7 @@ class ContentSource extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -116,6 +119,7 @@ class ContentSource extends JsonSerializableType
     public function setLocale(?string $value = null): self
     {
         $this->locale = $value;
+        $this->_setField('locale');
         return $this;
     }
 

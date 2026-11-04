@@ -2,7 +2,7 @@
 
 namespace Intercom\InternalArticles;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Types\InternalArticleList;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Types\CreateInternalArticleRequest;
 use Intercom\InternalArticles\Types\InternalArticleListItem;
@@ -61,6 +60,11 @@ class InternalArticlesClient
     /**
      * You can fetch a list of all internal articles by making a GET request to `https://api.intercom.io/internal_articles`.
      *
+     * Example:
+     * ```php
+     * $client->internalArticles->listInternalArticles();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -69,11 +73,11 @@ class InternalArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return InternalArticleList
+     * @return ?InternalArticleList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listInternalArticles(?array $options = null): InternalArticleList
+    public function listInternalArticles(?array $options = null): ?InternalArticleList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -88,20 +92,13 @@ class InternalArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return InternalArticleList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -115,6 +112,18 @@ class InternalArticlesClient
     /**
      * You can create a new internal article by making a POST request to `https://api.intercom.io/internal_articles`.
      *
+     * Example:
+     * ```php
+     * $client->internalArticles->createInternalArticle(
+     *     new CreateInternalArticleRequest([
+     *         'title' => 'Thanks for everything',
+     *         'body' => 'Body of the Article',
+     *         'authorId' => 991266252,
+     *         'ownerId' => 991266252,
+     *     ]),
+     * );
+     * ```
+     *
      * @param ?CreateInternalArticleRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -124,11 +133,11 @@ class InternalArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return InternalArticleListItem
+     * @return ?InternalArticleListItem
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createInternalArticle(?CreateInternalArticleRequest $request = null, ?array $options = null): InternalArticleListItem
+    public function createInternalArticle(?CreateInternalArticleRequest $request = null, ?array $options = null): ?InternalArticleListItem
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -144,20 +153,13 @@ class InternalArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return InternalArticleListItem::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -171,6 +173,15 @@ class InternalArticlesClient
     /**
      * You can fetch the details of a single internal article by making a GET request to `https://api.intercom.io/internal_articles/<id>`.
      *
+     * Example:
+     * ```php
+     * $client->internalArticles->retrieveInternalArticle(
+     *     new RetrieveInternalArticleRequest([
+     *         'internalArticleId' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveInternalArticleRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -180,18 +191,18 @@ class InternalArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return InternalArticleListItem
+     * @return ?InternalArticleListItem
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveInternalArticle(RetrieveInternalArticleRequest $request, ?array $options = null): InternalArticleListItem
+    public function retrieveInternalArticle(RetrieveInternalArticleRequest $request, ?array $options = null): ?InternalArticleListItem
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "internal_articles/{$request->getInternalArticleId()}",
+                    path: "internal_articles/" . RawClient::encodePathParam($request->getInternalArticleId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -199,20 +210,13 @@ class InternalArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return InternalArticleListItem::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -226,6 +230,17 @@ class InternalArticlesClient
     /**
      * You can update the details of a single internal article by making a PUT request to `https://api.intercom.io/internal_articles/<id>`.
      *
+     * Example:
+     * ```php
+     * $client->internalArticles->updateInternalArticle(
+     *     new UpdateInternalArticleRequestBody([
+     *         'internalArticleId' => 1,
+     *         'title' => 'Christmas is here!',
+     *         'body' => '<p>New gifts in store for the jolly season</p>',
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateInternalArticleRequestBody $request
      * @param ?array{
      *   baseUrl?: string,
@@ -235,18 +250,18 @@ class InternalArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return InternalArticleListItem
+     * @return ?InternalArticleListItem
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateInternalArticle(UpdateInternalArticleRequestBody $request, ?array $options = null): InternalArticleListItem
+    public function updateInternalArticle(UpdateInternalArticleRequestBody $request, ?array $options = null): ?InternalArticleListItem
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "internal_articles/{$request->getInternalArticleId()}",
+                    path: "internal_articles/" . RawClient::encodePathParam($request->getInternalArticleId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -255,20 +270,13 @@ class InternalArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return InternalArticleListItem::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -282,6 +290,15 @@ class InternalArticlesClient
     /**
      * You can delete a single internal article by making a DELETE request to `https://api.intercom.io/internal_articles/<id>`.
      *
+     * Example:
+     * ```php
+     * $client->internalArticles->deleteInternalArticle(
+     *     new DeleteInternalArticleRequest([
+     *         'internalArticleId' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteInternalArticleRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -291,18 +308,18 @@ class InternalArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DeletedInternalArticleObject
+     * @return ?DeletedInternalArticleObject
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteInternalArticle(DeleteInternalArticleRequest $request, ?array $options = null): DeletedInternalArticleObject
+    public function deleteInternalArticle(DeleteInternalArticleRequest $request, ?array $options = null): ?DeletedInternalArticleObject
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "internal_articles/{$request->getInternalArticleId()}",
+                    path: "internal_articles/" . RawClient::encodePathParam($request->getInternalArticleId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -310,20 +327,13 @@ class InternalArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DeletedInternalArticleObject::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -337,6 +347,15 @@ class InternalArticlesClient
     /**
      * You can search for internal articles by making a GET request to `https://api.intercom.io/internal_articles/search`.
      *
+     * Example:
+     * ```php
+     * $client->internalArticles->searchInternalArticles(
+     *     new SearchInternalArticlesRequest([
+     *         'folderId' => 'folder_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param SearchInternalArticlesRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -346,11 +365,11 @@ class InternalArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return InternalArticleSearchResponse
+     * @return ?InternalArticleSearchResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function searchInternalArticles(SearchInternalArticlesRequest $request = new SearchInternalArticlesRequest(), ?array $options = null): InternalArticleSearchResponse
+    public function searchInternalArticles(SearchInternalArticlesRequest $request = new SearchInternalArticlesRequest(), ?array $options = null): ?InternalArticleSearchResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -370,20 +389,13 @@ class InternalArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return InternalArticleSearchResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

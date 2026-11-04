@@ -337,6 +337,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -354,6 +355,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setAr(?ArticleContent $value = null): self
     {
         $this->ar = $value;
+        $this->_setField('ar');
         return $this;
     }
 
@@ -371,6 +373,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setBg(?ArticleContent $value = null): self
     {
         $this->bg = $value;
+        $this->_setField('bg');
         return $this;
     }
 
@@ -388,6 +391,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setBs(?ArticleContent $value = null): self
     {
         $this->bs = $value;
+        $this->_setField('bs');
         return $this;
     }
 
@@ -405,6 +409,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setCa(?ArticleContent $value = null): self
     {
         $this->ca = $value;
+        $this->_setField('ca');
         return $this;
     }
 
@@ -422,6 +427,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setCs(?ArticleContent $value = null): self
     {
         $this->cs = $value;
+        $this->_setField('cs');
         return $this;
     }
 
@@ -439,6 +445,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setDa(?ArticleContent $value = null): self
     {
         $this->da = $value;
+        $this->_setField('da');
         return $this;
     }
 
@@ -456,6 +463,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setDe(?ArticleContent $value = null): self
     {
         $this->de = $value;
+        $this->_setField('de');
         return $this;
     }
 
@@ -473,6 +481,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setEl(?ArticleContent $value = null): self
     {
         $this->el = $value;
+        $this->_setField('el');
         return $this;
     }
 
@@ -490,6 +499,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setEn(?ArticleContent $value = null): self
     {
         $this->en = $value;
+        $this->_setField('en');
         return $this;
     }
 
@@ -507,6 +517,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setEs(?ArticleContent $value = null): self
     {
         $this->es = $value;
+        $this->_setField('es');
         return $this;
     }
 
@@ -524,6 +535,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setEt(?ArticleContent $value = null): self
     {
         $this->et = $value;
+        $this->_setField('et');
         return $this;
     }
 
@@ -541,6 +553,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setFi(?ArticleContent $value = null): self
     {
         $this->fi = $value;
+        $this->_setField('fi');
         return $this;
     }
 
@@ -558,6 +571,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setFr(?ArticleContent $value = null): self
     {
         $this->fr = $value;
+        $this->_setField('fr');
         return $this;
     }
 
@@ -575,6 +589,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setHe(?ArticleContent $value = null): self
     {
         $this->he = $value;
+        $this->_setField('he');
         return $this;
     }
 
@@ -592,6 +607,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setHr(?ArticleContent $value = null): self
     {
         $this->hr = $value;
+        $this->_setField('hr');
         return $this;
     }
 
@@ -609,6 +625,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setHu(?ArticleContent $value = null): self
     {
         $this->hu = $value;
+        $this->_setField('hu');
         return $this;
     }
 
@@ -626,6 +643,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setId(?ArticleContent $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -643,6 +661,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setIt(?ArticleContent $value = null): self
     {
         $this->it = $value;
+        $this->_setField('it');
         return $this;
     }
 
@@ -660,6 +679,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setJa(?ArticleContent $value = null): self
     {
         $this->ja = $value;
+        $this->_setField('ja');
         return $this;
     }
 
@@ -677,6 +697,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setKo(?ArticleContent $value = null): self
     {
         $this->ko = $value;
+        $this->_setField('ko');
         return $this;
     }
 
@@ -694,6 +715,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setLt(?ArticleContent $value = null): self
     {
         $this->lt = $value;
+        $this->_setField('lt');
         return $this;
     }
 
@@ -711,6 +733,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setLv(?ArticleContent $value = null): self
     {
         $this->lv = $value;
+        $this->_setField('lv');
         return $this;
     }
 
@@ -728,6 +751,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setMn(?ArticleContent $value = null): self
     {
         $this->mn = $value;
+        $this->_setField('mn');
         return $this;
     }
 
@@ -745,6 +769,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setNb(?ArticleContent $value = null): self
     {
         $this->nb = $value;
+        $this->_setField('nb');
         return $this;
     }
 
@@ -762,6 +787,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setNl(?ArticleContent $value = null): self
     {
         $this->nl = $value;
+        $this->_setField('nl');
         return $this;
     }
 
@@ -779,6 +805,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setPl(?ArticleContent $value = null): self
     {
         $this->pl = $value;
+        $this->_setField('pl');
         return $this;
     }
 
@@ -796,6 +823,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setPt(?ArticleContent $value = null): self
     {
         $this->pt = $value;
+        $this->_setField('pt');
         return $this;
     }
 
@@ -813,6 +841,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setRo(?ArticleContent $value = null): self
     {
         $this->ro = $value;
+        $this->_setField('ro');
         return $this;
     }
 
@@ -830,6 +859,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setRu(?ArticleContent $value = null): self
     {
         $this->ru = $value;
+        $this->_setField('ru');
         return $this;
     }
 
@@ -847,6 +877,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setSl(?ArticleContent $value = null): self
     {
         $this->sl = $value;
+        $this->_setField('sl');
         return $this;
     }
 
@@ -864,6 +895,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setSr(?ArticleContent $value = null): self
     {
         $this->sr = $value;
+        $this->_setField('sr');
         return $this;
     }
 
@@ -881,6 +913,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setSv(?ArticleContent $value = null): self
     {
         $this->sv = $value;
+        $this->_setField('sv');
         return $this;
     }
 
@@ -898,6 +931,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setTr(?ArticleContent $value = null): self
     {
         $this->tr = $value;
+        $this->_setField('tr');
         return $this;
     }
 
@@ -915,6 +949,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setVi(?ArticleContent $value = null): self
     {
         $this->vi = $value;
+        $this->_setField('vi');
         return $this;
     }
 
@@ -932,6 +967,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setPtBr(?ArticleContent $value = null): self
     {
         $this->ptBr = $value;
+        $this->_setField('ptBr');
         return $this;
     }
 
@@ -949,6 +985,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setZhCn(?ArticleContent $value = null): self
     {
         $this->zhCn = $value;
+        $this->_setField('zhCn');
         return $this;
     }
 
@@ -966,6 +1003,7 @@ class ArticleTranslatedContent extends JsonSerializableType
     public function setZhTw(?ArticleContent $value = null): self
     {
         $this->zhTw = $value;
+        $this->_setField('zhTw');
         return $this;
     }
 

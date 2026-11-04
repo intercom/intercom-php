@@ -2,7 +2,7 @@
 
 namespace Intercom\News\Items;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Types\PaginatedResponse;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Types\NewsItemRequest;
 use Intercom\News\Types\NewsItem;
@@ -59,6 +58,11 @@ class ItemsClient
     /**
      * You can fetch a list of all news items
      *
+     * Example:
+     * ```php
+     * $client->news->items->list();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -67,11 +71,11 @@ class ItemsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return PaginatedResponse
+     * @return ?PaginatedResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function list(?array $options = null): PaginatedResponse
+    public function list(?array $options = null): ?PaginatedResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -86,20 +90,13 @@ class ItemsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return PaginatedResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -113,6 +110,34 @@ class ItemsClient
     /**
      * You can create a news item
      *
+     * Example:
+     * ```php
+     * $client->news->items->create(
+     *     new NewsItemRequest([
+     *         'title' => 'Halloween is here!',
+     *         'body' => '<p>New costumes in store for this spooky season</p>',
+     *         'senderId' => 991267834,
+     *         'state' => NewsItemRequestState::Live->value,
+     *         'deliverSilently' => true,
+     *         'labels' => [
+     *             'Product',
+     *             'Update',
+     *             'New',
+     *         ],
+     *         'reactions' => [
+     *             '😆',
+     *             '😅',
+     *         ],
+     *         'newsfeedAssignments' => [
+     *             new NewsfeedAssignment([
+     *                 'newsfeedId' => 53,
+     *                 'publishedAt' => 1664638214,
+     *             ]),
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
      * @param NewsItemRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -122,11 +147,11 @@ class ItemsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return NewsItem
+     * @return ?NewsItem
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(NewsItemRequest $request, ?array $options = null): NewsItem
+    public function create(NewsItemRequest $request, ?array $options = null): ?NewsItem
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -142,20 +167,13 @@ class ItemsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return NewsItem::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -169,6 +187,15 @@ class ItemsClient
     /**
      * You can fetch the details of a single news item.
      *
+     * Example:
+     * ```php
+     * $client->news->items->find(
+     *     new FindNewsItemRequest([
+     *         'newsItemId' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param FindNewsItemRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -178,18 +205,18 @@ class ItemsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return NewsItem
+     * @return ?NewsItem
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function find(FindNewsItemRequest $request, ?array $options = null): NewsItem
+    public function find(FindNewsItemRequest $request, ?array $options = null): ?NewsItem
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "news/news_items/{$request->getNewsItemId()}",
+                    path: "news/news_items/" . RawClient::encodePathParam($request->getNewsItemId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -197,20 +224,13 @@ class ItemsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return NewsItem::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -222,6 +242,24 @@ class ItemsClient
     }
 
     /**
+     * Example:
+     * ```php
+     * $client->news->items->update(
+     *     new UpdateNewsItemRequest([
+     *         'newsItemId' => 1,
+     *         'body' => new NewsItemRequest([
+     *             'title' => 'Christmas is here!',
+     *             'body' => '<p>New gifts in store for the jolly season</p>',
+     *             'senderId' => 991267845,
+     *             'reactions' => [
+     *                 '😝',
+     *                 '😂',
+     *             ],
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateNewsItemRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -231,18 +269,18 @@ class ItemsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return NewsItem
+     * @return ?NewsItem
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function update(UpdateNewsItemRequest $request, ?array $options = null): NewsItem
+    public function update(UpdateNewsItemRequest $request, ?array $options = null): ?NewsItem
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "news/news_items/{$request->getNewsItemId()}",
+                    path: "news/news_items/" . RawClient::encodePathParam($request->getNewsItemId()),
                     method: HttpMethod::PUT,
                     body: $request->getBody(),
                 ),
@@ -251,20 +289,13 @@ class ItemsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return NewsItem::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -278,6 +309,15 @@ class ItemsClient
     /**
      * You can delete a single news item.
      *
+     * Example:
+     * ```php
+     * $client->news->items->delete(
+     *     new DeleteNewsItemRequest([
+     *         'newsItemId' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteNewsItemRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -287,18 +327,18 @@ class ItemsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DeletedObject
+     * @return ?DeletedObject
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function delete(DeleteNewsItemRequest $request, ?array $options = null): DeletedObject
+    public function delete(DeleteNewsItemRequest $request, ?array $options = null): ?DeletedObject
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "news/news_items/{$request->getNewsItemId()}",
+                    path: "news/news_items/" . RawClient::encodePathParam($request->getNewsItemId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -306,20 +346,13 @@ class ItemsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DeletedObject::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

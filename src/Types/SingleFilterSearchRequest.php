@@ -72,6 +72,7 @@ class SingleFilterSearchRequest extends JsonSerializableType
     public function setField(?string $value = null): self
     {
         $this->field = $value;
+        $this->_setField('field');
         return $this;
     }
 
@@ -89,6 +90,7 @@ class SingleFilterSearchRequest extends JsonSerializableType
     public function setOperator(?string $value = null): self
     {
         $this->operator = $value;
+        $this->_setField('operator');
         return $this;
     }
 
@@ -120,6 +122,7 @@ class SingleFilterSearchRequest extends JsonSerializableType
     public function setValue(string|int|array|null $value = null): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

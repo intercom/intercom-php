@@ -63,6 +63,7 @@ class CreateDataEventRequestWithId extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -80,6 +81,7 @@ class CreateDataEventRequestWithId extends JsonSerializableType
     public function setEventName(string $value): self
     {
         $this->eventName = $value;
+        $this->_setField('eventName');
         return $this;
     }
 
@@ -97,6 +99,7 @@ class CreateDataEventRequestWithId extends JsonSerializableType
     public function setCreatedAt(int $value): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -114,6 +117,7 @@ class CreateDataEventRequestWithId extends JsonSerializableType
     public function setMetadata(?array $value = null): self
     {
         $this->metadata = $value;
+        $this->_setField('metadata');
         return $this;
     }
 

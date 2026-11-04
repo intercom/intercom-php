@@ -44,6 +44,7 @@ class ManageConversationRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -61,6 +62,7 @@ class ManageConversationRequest extends JsonSerializableType
     public function setBody(ManageConversationRequestBody $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

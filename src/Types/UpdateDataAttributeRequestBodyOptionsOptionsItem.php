@@ -5,7 +5,7 @@ namespace Intercom\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 
-class UpdateDataAttributeRequestOptionsOptionsItem extends JsonSerializableType
+class UpdateDataAttributeRequestBodyOptionsOptionsItem extends JsonSerializableType
 {
     /**
      * @var ?string $value
@@ -38,6 +38,7 @@ class UpdateDataAttributeRequestOptionsOptionsItem extends JsonSerializableType
     public function setValue(?string $value = null): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

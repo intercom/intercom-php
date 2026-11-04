@@ -103,6 +103,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setExternalId(string $value): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -120,6 +121,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setPhone(?string $value = null): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 
@@ -137,6 +139,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -154,6 +157,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setAvatar(?string $value = null): self
     {
         $this->avatar = $value;
+        $this->_setField('avatar');
         return $this;
     }
 
@@ -171,6 +175,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setSignedUpAt(?int $value = null): self
     {
         $this->signedUpAt = $value;
+        $this->_setField('signedUpAt');
         return $this;
     }
 
@@ -188,6 +193,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setLastSeenAt(?int $value = null): self
     {
         $this->lastSeenAt = $value;
+        $this->_setField('lastSeenAt');
         return $this;
     }
 
@@ -205,6 +211,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setOwnerId(?int $value = null): self
     {
         $this->ownerId = $value;
+        $this->_setField('ownerId');
         return $this;
     }
 
@@ -222,6 +229,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setUnsubscribedFromEmails(?bool $value = null): self
     {
         $this->unsubscribedFromEmails = $value;
+        $this->_setField('unsubscribedFromEmails');
         return $this;
     }
 
@@ -239,6 +247,7 @@ class CreateContactRequestWithExternalId extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 

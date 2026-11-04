@@ -63,6 +63,7 @@ class IpAllowlist extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -80,6 +81,7 @@ class IpAllowlist extends JsonSerializableType
     public function setEnabled(?bool $value = null): self
     {
         $this->enabled = $value;
+        $this->_setField('enabled');
         return $this;
     }
 
@@ -97,6 +99,7 @@ class IpAllowlist extends JsonSerializableType
     public function setIpAllowlist(?array $value = null): self
     {
         $this->ipAllowlist = $value;
+        $this->_setField('ipAllowlist');
         return $this;
     }
 

@@ -46,6 +46,7 @@ class CustomActionFinishedAction extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class CustomActionFinishedAction extends JsonSerializableType
     public function setResult(?string $value = null): self
     {
         $this->result = $value;
+        $this->_setField('result');
         return $this;
     }
 

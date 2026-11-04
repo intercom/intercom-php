@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Workflows;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Workflows\Requests\ExportWorkflowRequest;
 use Intercom\Unstable\Types\WorkflowExport;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class WorkflowsClient
@@ -60,6 +59,15 @@ class WorkflowsClient
      *   This API is currently in the Unstable version. Its behavior may change in future releases.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->unstable->workflows->exportWorkflow(
+     *     new ExportWorkflowRequest([
+     *         'id' => '12345',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ExportWorkflowRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -69,18 +77,18 @@ class WorkflowsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return WorkflowExport
+     * @return ?WorkflowExport
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function exportWorkflow(ExportWorkflowRequest $request, ?array $options = null): WorkflowExport
+    public function exportWorkflow(ExportWorkflowRequest $request, ?array $options = null): ?WorkflowExport
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "export/workflows/{$request->getId()}",
+                    path: "export/workflows/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -88,20 +96,13 @@ class WorkflowsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return WorkflowExport::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

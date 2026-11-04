@@ -50,6 +50,7 @@ class ConversationTeammates extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ConversationTeammates extends JsonSerializableType
     public function setTeammates(?array $value = null): self
     {
         $this->teammates = $value;
+        $this->_setField('teammates');
         return $this;
     }
 

@@ -188,6 +188,7 @@ class Ticket extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -205,6 +206,7 @@ class Ticket extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -222,6 +224,7 @@ class Ticket extends JsonSerializableType
     public function setTicketId(?string $value = null): self
     {
         $this->ticketId = $value;
+        $this->_setField('ticketId');
         return $this;
     }
 
@@ -239,6 +242,7 @@ class Ticket extends JsonSerializableType
     public function setCategory(?string $value = null): self
     {
         $this->category = $value;
+        $this->_setField('category');
         return $this;
     }
 
@@ -270,6 +274,7 @@ class Ticket extends JsonSerializableType
     public function setTicketAttributes(?array $value = null): self
     {
         $this->ticketAttributes = $value;
+        $this->_setField('ticketAttributes');
         return $this;
     }
 
@@ -287,6 +292,7 @@ class Ticket extends JsonSerializableType
     public function setTicketState(?TicketState $value = null): self
     {
         $this->ticketState = $value;
+        $this->_setField('ticketState');
         return $this;
     }
 
@@ -304,6 +310,7 @@ class Ticket extends JsonSerializableType
     public function setTicketType(?TicketType $value = null): self
     {
         $this->ticketType = $value;
+        $this->_setField('ticketType');
         return $this;
     }
 
@@ -321,6 +328,7 @@ class Ticket extends JsonSerializableType
     public function setContacts(?TicketContacts $value = null): self
     {
         $this->contacts = $value;
+        $this->_setField('contacts');
         return $this;
     }
 
@@ -338,6 +346,7 @@ class Ticket extends JsonSerializableType
     public function setAdminAssigneeId(?string $value = null): self
     {
         $this->adminAssigneeId = $value;
+        $this->_setField('adminAssigneeId');
         return $this;
     }
 
@@ -355,6 +364,7 @@ class Ticket extends JsonSerializableType
     public function setTeamAssigneeId(?string $value = null): self
     {
         $this->teamAssigneeId = $value;
+        $this->_setField('teamAssigneeId');
         return $this;
     }
 
@@ -372,6 +382,7 @@ class Ticket extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -389,6 +400,7 @@ class Ticket extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -406,6 +418,7 @@ class Ticket extends JsonSerializableType
     public function setOpen(?bool $value = null): self
     {
         $this->open = $value;
+        $this->_setField('open');
         return $this;
     }
 
@@ -423,6 +436,7 @@ class Ticket extends JsonSerializableType
     public function setSnoozedUntil(?int $value = null): self
     {
         $this->snoozedUntil = $value;
+        $this->_setField('snoozedUntil');
         return $this;
     }
 
@@ -440,6 +454,7 @@ class Ticket extends JsonSerializableType
     public function setLinkedObjects(?LinkedObjectList $value = null): self
     {
         $this->linkedObjects = $value;
+        $this->_setField('linkedObjects');
         return $this;
     }
 
@@ -457,6 +472,7 @@ class Ticket extends JsonSerializableType
     public function setTicketParts(?TicketParts $value = null): self
     {
         $this->ticketParts = $value;
+        $this->_setField('ticketParts');
         return $this;
     }
 
@@ -474,6 +490,7 @@ class Ticket extends JsonSerializableType
     public function setIsShared(?bool $value = null): self
     {
         $this->isShared = $value;
+        $this->_setField('isShared');
         return $this;
     }
 

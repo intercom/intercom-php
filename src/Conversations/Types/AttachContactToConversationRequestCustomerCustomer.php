@@ -58,6 +58,7 @@ class AttachContactToConversationRequestCustomerCustomer extends JsonSerializabl
     public function setEmail(string $value): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -83,6 +84,7 @@ class AttachContactToConversationRequestCustomerCustomer extends JsonSerializabl
     public function setCustomer(CustomerRequestIntercomUserId|CustomerRequestUserId|CustomerRequestEmail|null $value = null): self
     {
         $this->customer = $value;
+        $this->_setField('customer');
         return $this;
     }
 

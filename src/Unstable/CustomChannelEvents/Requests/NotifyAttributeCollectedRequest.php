@@ -49,6 +49,7 @@ class NotifyAttributeCollectedRequest extends JsonSerializableType
     public function setAttribute(CustomChannelAttribute $value): self
     {
         $this->attribute = $value;
+        $this->_setField('attribute');
         return $this;
     }
 }

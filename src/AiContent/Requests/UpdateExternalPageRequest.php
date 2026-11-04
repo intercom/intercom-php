@@ -93,6 +93,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setPageId(string $value): self
     {
         $this->pageId = $value;
+        $this->_setField('pageId');
         return $this;
     }
 
@@ -110,6 +111,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setTitle(string $value): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -127,6 +129,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setHtml(string $value): self
     {
         $this->html = $value;
+        $this->_setField('html');
         return $this;
     }
 
@@ -144,6 +147,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setUrl(string $value): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -161,6 +165,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setFinAvailability(?bool $value = null): self
     {
         $this->finAvailability = $value;
+        $this->_setField('finAvailability');
         return $this;
     }
 
@@ -178,6 +183,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setLocale(string $value): self
     {
         $this->locale = $value;
+        $this->_setField('locale');
         return $this;
     }
 
@@ -195,6 +201,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setSourceId(int $value): self
     {
         $this->sourceId = $value;
+        $this->_setField('sourceId');
         return $this;
     }
 
@@ -212,6 +219,7 @@ class UpdateExternalPageRequest extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 }

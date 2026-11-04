@@ -57,6 +57,7 @@ class ConversationResponseTime extends JsonSerializableType
     public function setTeamId(?int $value = null): self
     {
         $this->teamId = $value;
+        $this->_setField('teamId');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class ConversationResponseTime extends JsonSerializableType
     public function setTeamName(?string $value = null): self
     {
         $this->teamName = $value;
+        $this->_setField('teamName');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class ConversationResponseTime extends JsonSerializableType
     public function setResponseTime(?int $value = null): self
     {
         $this->responseTime = $value;
+        $this->_setField('responseTime');
         return $this;
     }
 

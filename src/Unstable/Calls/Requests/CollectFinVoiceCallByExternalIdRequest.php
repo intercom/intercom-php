@@ -36,6 +36,7 @@ class CollectFinVoiceCallByExternalIdRequest extends JsonSerializableType
     public function setExternalId(string $value): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 }

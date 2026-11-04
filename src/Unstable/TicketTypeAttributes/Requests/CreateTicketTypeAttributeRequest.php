@@ -118,6 +118,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setTicketTypeId(string $value): self
     {
         $this->ticketTypeId = $value;
+        $this->_setField('ticketTypeId');
         return $this;
     }
 
@@ -135,6 +136,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -152,6 +154,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setDescription(string $value): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -169,6 +172,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setDataType(string $value): self
     {
         $this->dataType = $value;
+        $this->_setField('dataType');
         return $this;
     }
 
@@ -186,6 +190,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setRequiredToCreate(?bool $value = null): self
     {
         $this->requiredToCreate = $value;
+        $this->_setField('requiredToCreate');
         return $this;
     }
 
@@ -203,6 +208,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setRequiredToCreateForContacts(?bool $value = null): self
     {
         $this->requiredToCreateForContacts = $value;
+        $this->_setField('requiredToCreateForContacts');
         return $this;
     }
 
@@ -220,6 +226,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setVisibleOnCreate(?bool $value = null): self
     {
         $this->visibleOnCreate = $value;
+        $this->_setField('visibleOnCreate');
         return $this;
     }
 
@@ -237,6 +244,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setVisibleToContacts(?bool $value = null): self
     {
         $this->visibleToContacts = $value;
+        $this->_setField('visibleToContacts');
         return $this;
     }
 
@@ -254,6 +262,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setMultiline(?bool $value = null): self
     {
         $this->multiline = $value;
+        $this->_setField('multiline');
         return $this;
     }
 
@@ -271,6 +280,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setListItems(?string $value = null): self
     {
         $this->listItems = $value;
+        $this->_setField('listItems');
         return $this;
     }
 
@@ -288,6 +298,7 @@ class CreateTicketTypeAttributeRequest extends JsonSerializableType
     public function setAllowMultipleValues(?bool $value = null): self
     {
         $this->allowMultipleValues = $value;
+        $this->_setField('allowMultipleValues');
         return $this;
     }
 }

@@ -298,6 +298,7 @@ class Visitor extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -315,6 +316,7 @@ class Visitor extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -332,6 +334,7 @@ class Visitor extends JsonSerializableType
     public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 
@@ -349,6 +352,7 @@ class Visitor extends JsonSerializableType
     public function setAnonymous(?bool $value = null): self
     {
         $this->anonymous = $value;
+        $this->_setField('anonymous');
         return $this;
     }
 
@@ -366,6 +370,7 @@ class Visitor extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -383,6 +388,7 @@ class Visitor extends JsonSerializableType
     public function setPhone(?string $value = null): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 
@@ -400,6 +406,7 @@ class Visitor extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -417,6 +424,7 @@ class Visitor extends JsonSerializableType
     public function setPseudonym(?string $value = null): self
     {
         $this->pseudonym = $value;
+        $this->_setField('pseudonym');
         return $this;
     }
 
@@ -434,6 +442,7 @@ class Visitor extends JsonSerializableType
     public function setAvatar(?VisitorAvatar $value = null): self
     {
         $this->avatar = $value;
+        $this->_setField('avatar');
         return $this;
     }
 
@@ -451,6 +460,7 @@ class Visitor extends JsonSerializableType
     public function setAppId(?string $value = null): self
     {
         $this->appId = $value;
+        $this->_setField('appId');
         return $this;
     }
 
@@ -468,6 +478,7 @@ class Visitor extends JsonSerializableType
     public function setCompanies(?VisitorCompanies $value = null): self
     {
         $this->companies = $value;
+        $this->_setField('companies');
         return $this;
     }
 
@@ -485,6 +496,7 @@ class Visitor extends JsonSerializableType
     public function setLocationData(?VisitorLocationData $value = null): self
     {
         $this->locationData = $value;
+        $this->_setField('locationData');
         return $this;
     }
 
@@ -502,6 +514,7 @@ class Visitor extends JsonSerializableType
     public function setLasRequestAt(?int $value = null): self
     {
         $this->lasRequestAt = $value;
+        $this->_setField('lasRequestAt');
         return $this;
     }
 
@@ -519,6 +532,7 @@ class Visitor extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -536,6 +550,7 @@ class Visitor extends JsonSerializableType
     public function setRemoteCreatedAt(?int $value = null): self
     {
         $this->remoteCreatedAt = $value;
+        $this->_setField('remoteCreatedAt');
         return $this;
     }
 
@@ -553,6 +568,7 @@ class Visitor extends JsonSerializableType
     public function setSignedUpAt(?int $value = null): self
     {
         $this->signedUpAt = $value;
+        $this->_setField('signedUpAt');
         return $this;
     }
 
@@ -570,6 +586,7 @@ class Visitor extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -587,6 +604,7 @@ class Visitor extends JsonSerializableType
     public function setSessionCount(?int $value = null): self
     {
         $this->sessionCount = $value;
+        $this->_setField('sessionCount');
         return $this;
     }
 
@@ -604,6 +622,7 @@ class Visitor extends JsonSerializableType
     public function setSocialProfiles(?VisitorSocialProfiles $value = null): self
     {
         $this->socialProfiles = $value;
+        $this->_setField('socialProfiles');
         return $this;
     }
 
@@ -621,6 +640,7 @@ class Visitor extends JsonSerializableType
     public function setOwnerId(?string $value = null): self
     {
         $this->ownerId = $value;
+        $this->_setField('ownerId');
         return $this;
     }
 
@@ -638,6 +658,7 @@ class Visitor extends JsonSerializableType
     public function setUnsubscribedFromEmails(?bool $value = null): self
     {
         $this->unsubscribedFromEmails = $value;
+        $this->_setField('unsubscribedFromEmails');
         return $this;
     }
 
@@ -655,6 +676,7 @@ class Visitor extends JsonSerializableType
     public function setMarkedEmailAsSpam(?bool $value = null): self
     {
         $this->markedEmailAsSpam = $value;
+        $this->_setField('markedEmailAsSpam');
         return $this;
     }
 
@@ -672,6 +694,7 @@ class Visitor extends JsonSerializableType
     public function setHasHardBounced(?bool $value = null): self
     {
         $this->hasHardBounced = $value;
+        $this->_setField('hasHardBounced');
         return $this;
     }
 
@@ -689,6 +712,7 @@ class Visitor extends JsonSerializableType
     public function setTags(?VisitorTags $value = null): self
     {
         $this->tags = $value;
+        $this->_setField('tags');
         return $this;
     }
 
@@ -706,6 +730,7 @@ class Visitor extends JsonSerializableType
     public function setSegments(?VisitorSegments $value = null): self
     {
         $this->segments = $value;
+        $this->_setField('segments');
         return $this;
     }
 
@@ -723,6 +748,7 @@ class Visitor extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 
@@ -740,6 +766,7 @@ class Visitor extends JsonSerializableType
     public function setReferrer(?string $value = null): self
     {
         $this->referrer = $value;
+        $this->_setField('referrer');
         return $this;
     }
 
@@ -757,6 +784,7 @@ class Visitor extends JsonSerializableType
     public function setUtmCampaign(?string $value = null): self
     {
         $this->utmCampaign = $value;
+        $this->_setField('utmCampaign');
         return $this;
     }
 
@@ -774,6 +802,7 @@ class Visitor extends JsonSerializableType
     public function setUtmContent(?string $value = null): self
     {
         $this->utmContent = $value;
+        $this->_setField('utmContent');
         return $this;
     }
 
@@ -791,6 +820,7 @@ class Visitor extends JsonSerializableType
     public function setUtmMedium(?string $value = null): self
     {
         $this->utmMedium = $value;
+        $this->_setField('utmMedium');
         return $this;
     }
 
@@ -808,6 +838,7 @@ class Visitor extends JsonSerializableType
     public function setUtmSource(?string $value = null): self
     {
         $this->utmSource = $value;
+        $this->_setField('utmSource');
         return $this;
     }
 
@@ -825,6 +856,7 @@ class Visitor extends JsonSerializableType
     public function setUtmTerm(?string $value = null): self
     {
         $this->utmTerm = $value;
+        $this->_setField('utmTerm');
         return $this;
     }
 
@@ -842,6 +874,7 @@ class Visitor extends JsonSerializableType
     public function setDoNotTrack(?bool $value = null): self
     {
         $this->doNotTrack = $value;
+        $this->_setField('doNotTrack');
         return $this;
     }
 

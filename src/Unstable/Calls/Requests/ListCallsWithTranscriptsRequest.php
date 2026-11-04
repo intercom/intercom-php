@@ -39,6 +39,7 @@ class ListCallsWithTranscriptsRequest extends JsonSerializableType
     public function setConversationIds(array $value): self
     {
         $this->conversationIds = $value;
+        $this->_setField('conversationIds');
         return $this;
     }
 }

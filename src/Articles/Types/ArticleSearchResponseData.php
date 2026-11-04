@@ -50,6 +50,7 @@ class ArticleSearchResponseData extends JsonSerializableType
     public function setArticles(?array $value = null): self
     {
         $this->articles = $value;
+        $this->_setField('articles');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ArticleSearchResponseData extends JsonSerializableType
     public function setHighlights(?array $value = null): self
     {
         $this->highlights = $value;
+        $this->_setField('highlights');
         return $this;
     }
 

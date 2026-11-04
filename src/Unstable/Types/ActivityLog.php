@@ -81,6 +81,7 @@ class ActivityLog extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -98,6 +99,7 @@ class ActivityLog extends JsonSerializableType
     public function setPerformedBy(?ActivityLogPerformedBy $value = null): self
     {
         $this->performedBy = $value;
+        $this->_setField('performedBy');
         return $this;
     }
 
@@ -115,6 +117,7 @@ class ActivityLog extends JsonSerializableType
     public function setMetadata(?ActivityLogMetadata $value = null): self
     {
         $this->metadata = $value;
+        $this->_setField('metadata');
         return $this;
     }
 
@@ -132,6 +135,7 @@ class ActivityLog extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -149,6 +153,7 @@ class ActivityLog extends JsonSerializableType
     public function setActivityType(?string $value = null): self
     {
         $this->activityType = $value;
+        $this->_setField('activityType');
         return $this;
     }
 
@@ -166,6 +171,7 @@ class ActivityLog extends JsonSerializableType
     public function setActivityDescription(?string $value = null): self
     {
         $this->activityDescription = $value;
+        $this->_setField('activityDescription');
         return $this;
     }
 

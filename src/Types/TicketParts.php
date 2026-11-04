@@ -59,6 +59,7 @@ class TicketParts extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -76,6 +77,7 @@ class TicketParts extends JsonSerializableType
     public function setTicketParts(?array $value = null): self
     {
         $this->ticketParts = $value;
+        $this->_setField('ticketParts');
         return $this;
     }
 
@@ -93,6 +95,7 @@ class TicketParts extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 

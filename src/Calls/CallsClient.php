@@ -2,7 +2,7 @@
 
 namespace Intercom\Calls;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Calls\Requests\ListCallsRequest;
 use Intercom\Types\CallList;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Calls\Requests\ShowCallRequest;
 use Intercom\Calls\Types\Call;
@@ -60,6 +59,16 @@ class CallsClient
     /**
      * Retrieve a paginated list of calls.
      *
+     * Example:
+     * ```php
+     * $client->calls->listCalls(
+     *     new ListCallsRequest([
+     *         'page' => 1,
+     *         'perPage' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListCallsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -69,11 +78,11 @@ class CallsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CallList
+     * @return ?CallList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listCalls(ListCallsRequest $request = new ListCallsRequest(), ?array $options = null): CallList
+    public function listCalls(ListCallsRequest $request = new ListCallsRequest(), ?array $options = null): ?CallList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -96,20 +105,13 @@ class CallsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CallList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -123,6 +125,15 @@ class CallsClient
     /**
      * Retrieve a single call by id.
      *
+     * Example:
+     * ```php
+     * $client->calls->showCall(
+     *     new ShowCallRequest([
+     *         'callId' => 'call_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ShowCallRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -132,18 +143,18 @@ class CallsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Call
+     * @return ?Call
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function showCall(ShowCallRequest $request, ?array $options = null): Call
+    public function showCall(ShowCallRequest $request, ?array $options = null): ?Call
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "calls/{$request->getCallId()}",
+                    path: "calls/" . RawClient::encodePathParam($request->getCallId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -151,20 +162,13 @@ class CallsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Call::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -177,6 +181,15 @@ class CallsClient
 
     /**
      * Redirects to a signed URL for the call's recording if it exists.
+     *
+     * Example:
+     * ```php
+     * $client->calls->showCallRecording(
+     *     new ShowCallRecordingRequest([
+     *         'callId' => 'call_id',
+     *     ]),
+     * );
+     * ```
      *
      * @param ShowCallRecordingRequest $request
      * @param ?array{
@@ -197,7 +210,7 @@ class CallsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "calls/{$request->getCallId()}/recording",
+                    path: "calls/" . RawClient::encodePathParam($request->getCallId()) . "/recording",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -206,16 +219,6 @@ class CallsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -228,6 +231,15 @@ class CallsClient
 
     /**
      * Returns the transcript for the specified call as a downloadable text file.
+     *
+     * Example:
+     * ```php
+     * $client->calls->showCallTranscript(
+     *     new ShowCallTranscriptRequest([
+     *         'callId' => 'call_id',
+     *     ]),
+     * );
+     * ```
      *
      * @param ShowCallTranscriptRequest $request
      * @param ?array{
@@ -249,7 +261,7 @@ class CallsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "calls/{$request->getCallId()}/transcript",
+                    path: "calls/" . RawClient::encodePathParam($request->getCallId()) . "/transcript",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -258,16 +270,6 @@ class CallsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return $response->getBody()->getContents();
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -282,6 +284,18 @@ class CallsClient
      * Retrieve calls by a list of conversation ids and include transcripts when available.
      * A maximum of 20 `conversation_ids` can be provided. If none are provided or more than 20 are provided, a 400 error is returned.
      *
+     * Example:
+     * ```php
+     * $client->calls->listCallsWithTranscripts(
+     *     new ListCallsWithTranscriptsRequest([
+     *         'conversationIds' => [
+     *             '64619700005694',
+     *             '64619700005695',
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListCallsWithTranscriptsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -291,11 +305,11 @@ class CallsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ListCallsWithTranscriptsResponse
+     * @return ?ListCallsWithTranscriptsResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listCallsWithTranscripts(ListCallsWithTranscriptsRequest $request, ?array $options = null): ListCallsWithTranscriptsResponse
+    public function listCallsWithTranscripts(ListCallsWithTranscriptsRequest $request, ?array $options = null): ?ListCallsWithTranscriptsResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -311,20 +325,13 @@ class CallsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ListCallsWithTranscriptsResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

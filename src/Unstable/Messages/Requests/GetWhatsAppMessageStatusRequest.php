@@ -50,6 +50,7 @@ class GetWhatsAppMessageStatusRequest extends JsonSerializableType
     public function setRulesetId(string $value): self
     {
         $this->rulesetId = $value;
+        $this->_setField('rulesetId');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class GetWhatsAppMessageStatusRequest extends JsonSerializableType
     public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
+        $this->_setField('perPage');
         return $this;
     }
 
@@ -84,6 +86,7 @@ class GetWhatsAppMessageStatusRequest extends JsonSerializableType
     public function setStartingAfter(?string $value = null): self
     {
         $this->startingAfter = $value;
+        $this->_setField('startingAfter');
         return $this;
     }
 }

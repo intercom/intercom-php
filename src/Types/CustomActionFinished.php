@@ -41,6 +41,7 @@ class CustomActionFinished extends JsonSerializableType
     public function setAction(?CustomActionFinishedAction $value = null): self
     {
         $this->action = $value;
+        $this->_setField('action');
         return $this;
     }
 

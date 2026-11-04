@@ -33,7 +33,7 @@ use Intercom\Tickets\TicketsClient;
 use Intercom\Visitors\VisitorsClient;
 use Intercom\News\NewsClient;
 use Intercom\Unstable\UnstableClient;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Exception;
 

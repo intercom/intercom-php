@@ -57,6 +57,7 @@ class EmailAddressHeader extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class EmailAddressHeader extends JsonSerializableType
     public function setEmailAddress(?string $value = null): self
     {
         $this->emailAddress = $value;
+        $this->_setField('emailAddress');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class EmailAddressHeader extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 

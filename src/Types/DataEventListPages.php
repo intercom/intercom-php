@@ -49,6 +49,7 @@ class DataEventListPages extends JsonSerializableType
     public function setNext(?string $value = null): self
     {
         $this->next = $value;
+        $this->_setField('next');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class DataEventListPages extends JsonSerializableType
     public function setSince(?string $value = null): self
     {
         $this->since = $value;
+        $this->_setField('since');
         return $this;
     }
 

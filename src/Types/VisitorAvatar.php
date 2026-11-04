@@ -46,6 +46,7 @@ class VisitorAvatar extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class VisitorAvatar extends JsonSerializableType
     public function setImageUrl(?string $value = null): self
     {
         $this->imageUrl = $value;
+        $this->_setField('imageUrl');
         return $this;
     }
 

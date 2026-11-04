@@ -74,6 +74,7 @@ class Tag extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -91,6 +92,7 @@ class Tag extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -108,6 +110,7 @@ class Tag extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -125,6 +128,7 @@ class Tag extends JsonSerializableType
     public function setAppliedAt(?int $value = null): self
     {
         $this->appliedAt = $value;
+        $this->_setField('appliedAt');
         return $this;
     }
 
@@ -142,6 +146,7 @@ class Tag extends JsonSerializableType
     public function setAppliedBy(?Reference $value = null): self
     {
         $this->appliedBy = $value;
+        $this->_setField('appliedBy');
         return $this;
     }
 

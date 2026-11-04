@@ -65,6 +65,7 @@ class ConversationSlaAppliedByRuleSlaDefinition extends JsonSerializableType
     public function setFirstReplyTime(?int $value = null): self
     {
         $this->firstReplyTime = $value;
+        $this->_setField('firstReplyTime');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ConversationSlaAppliedByRuleSlaDefinition extends JsonSerializableType
     public function setNextReplyTime(?int $value = null): self
     {
         $this->nextReplyTime = $value;
+        $this->_setField('nextReplyTime');
         return $this;
     }
 
@@ -99,6 +101,7 @@ class ConversationSlaAppliedByRuleSlaDefinition extends JsonSerializableType
     public function setResolutionTime(?int $value = null): self
     {
         $this->resolutionTime = $value;
+        $this->_setField('resolutionTime');
         return $this;
     }
 
@@ -116,6 +119,7 @@ class ConversationSlaAppliedByRuleSlaDefinition extends JsonSerializableType
     public function setTimeToClose(?int $value = null): self
     {
         $this->timeToClose = $value;
+        $this->_setField('timeToClose');
         return $this;
     }
 

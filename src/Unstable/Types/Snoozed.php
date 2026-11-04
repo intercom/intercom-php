@@ -51,6 +51,7 @@ class Snoozed extends JsonSerializableType
     public function setUntil(?string $value = null): self
     {
         $this->until = $value;
+        $this->_setField('until');
         return $this;
     }
 
@@ -68,6 +69,7 @@ class Snoozed extends JsonSerializableType
     public function setCustomUntilTime(?DateTime $value = null): self
     {
         $this->customUntilTime = $value;
+        $this->_setField('customUntilTime');
         return $this;
     }
 

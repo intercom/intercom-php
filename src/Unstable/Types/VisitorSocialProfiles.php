@@ -47,6 +47,7 @@ class VisitorSocialProfiles extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -64,6 +65,7 @@ class VisitorSocialProfiles extends JsonSerializableType
     public function setSocialProfiles(?array $value = null): self
     {
         $this->socialProfiles = $value;
+        $this->_setField('socialProfiles');
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Emails;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Emails\Types\EmailList;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Emails\Requests\RetrieveEmailRequest;
 use Intercom\Unstable\Emails\Types\EmailSetting;
@@ -55,6 +54,11 @@ class EmailsClient
     /**
      * Lists all sender email address settings for the workspace
      *
+     * Example:
+     * ```php
+     * $client->unstable->emails->listEmails();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -63,11 +67,11 @@ class EmailsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return EmailList
+     * @return ?EmailList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listEmails(?array $options = null): EmailList
+    public function listEmails(?array $options = null): ?EmailList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -82,20 +86,13 @@ class EmailsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return EmailList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -109,6 +106,15 @@ class EmailsClient
     /**
      * Fetches a specific email setting by its unique identifier
      *
+     * Example:
+     * ```php
+     * $client->unstable->emails->retrieveEmail(
+     *     new RetrieveEmailRequest([
+     *         'id' => 'id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveEmailRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -118,18 +124,18 @@ class EmailsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return EmailSetting
+     * @return ?EmailSetting
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveEmail(RetrieveEmailRequest $request, ?array $options = null): EmailSetting
+    public function retrieveEmail(RetrieveEmailRequest $request, ?array $options = null): ?EmailSetting
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "emails/{$request->getId()}",
+                    path: "emails/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -137,20 +143,13 @@ class EmailsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return EmailSetting::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

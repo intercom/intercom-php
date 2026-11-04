@@ -36,6 +36,7 @@ trait QuickReplyOption
     public function setText(string $value): self
     {
         $this->text = $value;
+        $this->_setField('text');
         return $this;
     }
 
@@ -53,6 +54,7 @@ trait QuickReplyOption
     public function setUuid(string $value): self
     {
         $this->uuid = $value;
+        $this->_setField('uuid');
         return $this;
     }
 }

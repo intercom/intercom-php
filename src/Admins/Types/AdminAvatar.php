@@ -41,6 +41,7 @@ class AdminAvatar extends JsonSerializableType
     public function setImageUrl(string $value): self
     {
         $this->imageUrl = $value;
+        $this->_setField('imageUrl');
         return $this;
     }
 

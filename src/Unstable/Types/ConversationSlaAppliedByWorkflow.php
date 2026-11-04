@@ -49,6 +49,7 @@ class ConversationSlaAppliedByWorkflow extends JsonSerializableType
     public function setSlaName(?string $value = null): self
     {
         $this->slaName = $value;
+        $this->_setField('slaName');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class ConversationSlaAppliedByWorkflow extends JsonSerializableType
     public function setSlaDefinition(?ConversationSlaAppliedByWorkflowSlaDefinition $value = null): self
     {
         $this->slaDefinition = $value;
+        $this->_setField('slaDefinition');
         return $this;
     }
 

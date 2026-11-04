@@ -36,6 +36,7 @@ class JobsStatusRequest extends JsonSerializableType
     public function setJobId(string $value): self
     {
         $this->jobId = $value;
+        $this->_setField('jobId');
         return $this;
     }
 }

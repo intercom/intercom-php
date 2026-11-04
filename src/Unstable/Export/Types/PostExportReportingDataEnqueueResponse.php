@@ -62,6 +62,7 @@ class PostExportReportingDataEnqueueResponse extends JsonSerializableType
     public function setJobIdentifier(?string $value = null): self
     {
         $this->jobIdentifier = $value;
+        $this->_setField('jobIdentifier');
         return $this;
     }
 
@@ -79,6 +80,7 @@ class PostExportReportingDataEnqueueResponse extends JsonSerializableType
     public function setStatus(?string $value = null): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -96,6 +98,7 @@ class PostExportReportingDataEnqueueResponse extends JsonSerializableType
     public function setDownloadUrl(?string $value = null): self
     {
         $this->downloadUrl = $value;
+        $this->_setField('downloadUrl');
         return $this;
     }
 
@@ -113,6 +116,7 @@ class PostExportReportingDataEnqueueResponse extends JsonSerializableType
     public function setDownloadExpiresAt(?string $value = null): self
     {
         $this->downloadExpiresAt = $value;
+        $this->_setField('downloadExpiresAt');
         return $this;
     }
 

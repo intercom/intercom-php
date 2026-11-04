@@ -44,6 +44,7 @@ class UpdateCompanyRequest extends JsonSerializableType
     public function setCompanyId(string $value): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -61,6 +62,7 @@ class UpdateCompanyRequest extends JsonSerializableType
     public function setBody(?UpdateCompanyRequestBody $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

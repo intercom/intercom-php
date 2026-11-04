@@ -50,6 +50,7 @@ class ContactDeleted extends JsonSerializableType
     public function setDeleted(?bool $value = null): self
     {
         $this->deleted = $value;
+        $this->_setField('deleted');
         return $this;
     }
 

@@ -56,6 +56,7 @@ class MultipleFilterSearchRequest extends JsonSerializableType
     public function setOperator(?string $value = null): self
     {
         $this->operator = $value;
+        $this->_setField('operator');
         return $this;
     }
 
@@ -79,6 +80,7 @@ class MultipleFilterSearchRequest extends JsonSerializableType
     public function setValue(array|null $value = null): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

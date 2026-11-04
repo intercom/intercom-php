@@ -55,6 +55,7 @@ class CreateConversationRequest extends JsonSerializableType
     public function setFrom(CreateConversationRequestFrom $value): self
     {
         $this->from = $value;
+        $this->_setField('from');
         return $this;
     }
 
@@ -72,6 +73,7 @@ class CreateConversationRequest extends JsonSerializableType
     public function setBody(string $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -89,6 +91,7 @@ class CreateConversationRequest extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 }

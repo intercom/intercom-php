@@ -58,6 +58,7 @@ class ConversationSlaPaused extends JsonSerializableType
     public function setSlaName(?string $value = null): self
     {
         $this->slaName = $value;
+        $this->_setField('slaName');
         return $this;
     }
 
@@ -75,6 +76,7 @@ class ConversationSlaPaused extends JsonSerializableType
     public function setCurrentSlaStatus(?string $value = null): self
     {
         $this->currentSlaStatus = $value;
+        $this->_setField('currentSlaStatus');
         return $this;
     }
 
@@ -92,6 +94,7 @@ class ConversationSlaPaused extends JsonSerializableType
     public function setSlaStates(?array $value = null): self
     {
         $this->slaStates = $value;
+        $this->_setField('slaStates');
         return $this;
     }
 

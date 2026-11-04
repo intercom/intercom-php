@@ -140,6 +140,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -157,6 +158,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -174,6 +176,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -191,6 +194,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setTriggerType(?string $value = null): self
     {
         $this->triggerType = $value;
+        $this->_setField('triggerType');
         return $this;
     }
 
@@ -208,6 +212,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -225,6 +230,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setTargetChannels(?array $value = null): self
     {
         $this->targetChannels = $value;
+        $this->_setField('targetChannels');
         return $this;
     }
 
@@ -242,6 +248,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setPreferredDevices(?array $value = null): self
     {
         $this->preferredDevices = $value;
+        $this->_setField('preferredDevices');
         return $this;
     }
 
@@ -259,6 +266,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setCreatedAt(?DateTime $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -276,6 +284,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setUpdatedAt(?DateTime $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -293,6 +302,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setTargeting(?array $value = null): self
     {
         $this->targeting = $value;
+        $this->_setField('targeting');
         return $this;
     }
 
@@ -310,6 +320,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setSnapshot(?array $value = null): self
     {
         $this->snapshot = $value;
+        $this->_setField('snapshot');
         return $this;
     }
 
@@ -327,6 +338,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setAttributes(?array $value = null): self
     {
         $this->attributes = $value;
+        $this->_setField('attributes');
         return $this;
     }
 
@@ -344,6 +356,7 @@ class WorkflowExportWorkflow extends JsonSerializableType
     public function setEmbeddedRules(?array $value = null): self
     {
         $this->embeddedRules = $value;
+        $this->_setField('embeddedRules');
         return $this;
     }
 

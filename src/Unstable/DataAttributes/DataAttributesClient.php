@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\DataAttributes;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\DataAttributes\Requests\LisDataAttributesRequest;
 use Intercom\Unstable\Types\DataAttributeList;
@@ -12,10 +12,9 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\DataAttributes\Types\DataAttribute;
-use Intercom\Unstable\DataAttributes\Requests\UpdateDataAttributeRequest;
+use Intercom\Unstable\DataAttributes\Requests\UpdateDataAttributeBody;
 
 class DataAttributesClient
 {
@@ -56,6 +55,16 @@ class DataAttributesClient
     /**
      * You can fetch a list of all data attributes belonging to a workspace for contacts, companies or conversations.
      *
+     * Example:
+     * ```php
+     * $client->dataAttributes->list(
+     *     new ListDataAttributesRequest([
+     *         'model' => DataAttributesListRequestModel::Contact->value,
+     *         'includeArchived' => true,
+     *     ]),
+     * );
+     * ```
+     *
      * @param LisDataAttributesRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -65,11 +74,11 @@ class DataAttributesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataAttributeList
+     * @return ?DataAttributeList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function lisDataAttributes(LisDataAttributesRequest $request = new LisDataAttributesRequest(), ?array $options = null): DataAttributeList
+    public function lisDataAttributes(LisDataAttributesRequest $request = new LisDataAttributesRequest(), ?array $options = null): ?DataAttributeList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -92,20 +101,13 @@ class DataAttributesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataAttributeList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -119,6 +121,15 @@ class DataAttributesClient
     /**
      * You can create a data attributes for a `contact` or a `company`.
      *
+     * Example:
+     * ```php
+     * $client->unstable->dataAttributes->createDataAttribute(
+     *     [
+     *         'key' => "value",
+     *     ],
+     * );
+     * ```
+     *
      * @param mixed $request
      * @param ?array{
      *   baseUrl?: string,
@@ -128,11 +139,11 @@ class DataAttributesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataAttribute
+     * @return ?DataAttribute
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createDataAttribute(mixed $request, ?array $options = null): DataAttribute
+    public function createDataAttribute(mixed $request, ?array $options = null): ?DataAttribute
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -148,20 +159,13 @@ class DataAttributesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataAttribute::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -180,7 +184,19 @@ class DataAttributesClient
      * >
      * > It is currently a dangerous action to execute changing a data attribute's type via the API. You will need to update the type via the UI instead.
      *
-     * @param UpdateDataAttributeRequest $request
+     * Example:
+     * ```php
+     * $client->unstable->dataAttributes->updateDataAttribute(
+     *     new UpdateDataAttributeBody([
+     *         'id' => 1,
+     *         'body' => [
+     *             'key' => "value",
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
+     * @param UpdateDataAttributeBody $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -189,18 +205,18 @@ class DataAttributesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataAttribute
+     * @return ?DataAttribute
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateDataAttribute(UpdateDataAttributeRequest $request, ?array $options = null): DataAttribute
+    public function updateDataAttribute(UpdateDataAttributeBody $request, ?array $options = null): ?DataAttribute
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "data_attributes/{$request->getId()}",
+                    path: "data_attributes/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::PUT,
                     body: $request->getBody(),
                 ),
@@ -209,20 +225,13 @@ class DataAttributesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataAttribute::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

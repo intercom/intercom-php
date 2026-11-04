@@ -81,6 +81,7 @@ class ConversationRating extends JsonSerializableType
     public function setRating(?int $value = null): self
     {
         $this->rating = $value;
+        $this->_setField('rating');
         return $this;
     }
 
@@ -98,6 +99,7 @@ class ConversationRating extends JsonSerializableType
     public function setRemark(?string $value = null): self
     {
         $this->remark = $value;
+        $this->_setField('remark');
         return $this;
     }
 
@@ -115,6 +117,7 @@ class ConversationRating extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -132,6 +135,7 @@ class ConversationRating extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -149,6 +153,7 @@ class ConversationRating extends JsonSerializableType
     public function setContact(?ContactReference $value = null): self
     {
         $this->contact = $value;
+        $this->_setField('contact');
         return $this;
     }
 
@@ -166,6 +171,7 @@ class ConversationRating extends JsonSerializableType
     public function setTeammate(?Reference $value = null): self
     {
         $this->teammate = $value;
+        $this->_setField('teammate');
         return $this;
     }
 

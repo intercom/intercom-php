@@ -47,6 +47,7 @@ class ListEventSummariesRequest extends JsonSerializableType
     public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 
@@ -64,6 +65,7 @@ class ListEventSummariesRequest extends JsonSerializableType
     public function setEventSummaries(?CreateDataEventSummariesRequestEventSummaries $value = null): self
     {
         $this->eventSummaries = $value;
+        $this->_setField('eventSummaries');
         return $this;
     }
 }

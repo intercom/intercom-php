@@ -69,6 +69,7 @@ class UpdateInternalArticleRequestBody extends JsonSerializableType
     public function setInternalArticleId(int $value): self
     {
         $this->internalArticleId = $value;
+        $this->_setField('internalArticleId');
         return $this;
     }
 
@@ -86,6 +87,7 @@ class UpdateInternalArticleRequestBody extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -103,6 +105,7 @@ class UpdateInternalArticleRequestBody extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -120,6 +123,7 @@ class UpdateInternalArticleRequestBody extends JsonSerializableType
     public function setAuthorId(?int $value = null): self
     {
         $this->authorId = $value;
+        $this->_setField('authorId');
         return $this;
     }
 
@@ -137,6 +141,7 @@ class UpdateInternalArticleRequestBody extends JsonSerializableType
     public function setOwnerId(?int $value = null): self
     {
         $this->ownerId = $value;
+        $this->_setField('ownerId');
         return $this;
     }
 }

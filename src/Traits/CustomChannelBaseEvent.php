@@ -44,6 +44,7 @@ trait CustomChannelBaseEvent
     public function setEventId(string $value): self
     {
         $this->eventId = $value;
+        $this->_setField('eventId');
         return $this;
     }
 
@@ -61,6 +62,7 @@ trait CustomChannelBaseEvent
     public function setExternalConversationId(string $value): self
     {
         $this->externalConversationId = $value;
+        $this->_setField('externalConversationId');
         return $this;
     }
 
@@ -78,6 +80,7 @@ trait CustomChannelBaseEvent
     public function setContact(CustomChannelContact $value): self
     {
         $this->contact = $value;
+        $this->_setField('contact');
         return $this;
     }
 }

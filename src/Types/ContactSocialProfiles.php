@@ -42,6 +42,7 @@ class ContactSocialProfiles extends JsonSerializableType
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 

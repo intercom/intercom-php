@@ -46,6 +46,7 @@ class MergeContactsRequest extends JsonSerializableType
     public function setFrom(?string $value = null): self
     {
         $this->from = $value;
+        $this->_setField('from');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class MergeContactsRequest extends JsonSerializableType
     public function setInto(?string $value = null): self
     {
         $this->into = $value;
+        $this->_setField('into');
         return $this;
     }
 }

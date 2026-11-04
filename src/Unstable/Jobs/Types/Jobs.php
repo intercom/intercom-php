@@ -89,6 +89,7 @@ class Jobs extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -106,6 +107,7 @@ class Jobs extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -123,6 +125,7 @@ class Jobs extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -140,6 +143,7 @@ class Jobs extends JsonSerializableType
     public function setStatus(?string $value = null): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -157,6 +161,7 @@ class Jobs extends JsonSerializableType
     public function setResourceType(?string $value = null): self
     {
         $this->resourceType = $value;
+        $this->_setField('resourceType');
         return $this;
     }
 
@@ -174,6 +179,7 @@ class Jobs extends JsonSerializableType
     public function setResourceId(?string $value = null): self
     {
         $this->resourceId = $value;
+        $this->_setField('resourceId');
         return $this;
     }
 
@@ -191,6 +197,7 @@ class Jobs extends JsonSerializableType
     public function setResourceUrl(?string $value = null): self
     {
         $this->resourceUrl = $value;
+        $this->_setField('resourceUrl');
         return $this;
     }
 

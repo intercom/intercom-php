@@ -194,6 +194,7 @@ class Company extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -211,6 +212,7 @@ class Company extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -228,6 +230,7 @@ class Company extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -245,6 +248,7 @@ class Company extends JsonSerializableType
     public function setAppId(?string $value = null): self
     {
         $this->appId = $value;
+        $this->_setField('appId');
         return $this;
     }
 
@@ -262,6 +266,7 @@ class Company extends JsonSerializableType
     public function setPlan(?CompanyPlan $value = null): self
     {
         $this->plan = $value;
+        $this->_setField('plan');
         return $this;
     }
 
@@ -279,6 +284,7 @@ class Company extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -296,6 +302,7 @@ class Company extends JsonSerializableType
     public function setRemoteCreatedAt(?int $value = null): self
     {
         $this->remoteCreatedAt = $value;
+        $this->_setField('remoteCreatedAt');
         return $this;
     }
 
@@ -313,6 +320,7 @@ class Company extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -330,6 +338,7 @@ class Company extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -347,6 +356,7 @@ class Company extends JsonSerializableType
     public function setLastRequestAt(?int $value = null): self
     {
         $this->lastRequestAt = $value;
+        $this->_setField('lastRequestAt');
         return $this;
     }
 
@@ -364,6 +374,7 @@ class Company extends JsonSerializableType
     public function setSize(?int $value = null): self
     {
         $this->size = $value;
+        $this->_setField('size');
         return $this;
     }
 
@@ -381,6 +392,7 @@ class Company extends JsonSerializableType
     public function setWebsite(?string $value = null): self
     {
         $this->website = $value;
+        $this->_setField('website');
         return $this;
     }
 
@@ -398,6 +410,7 @@ class Company extends JsonSerializableType
     public function setIndustry(?string $value = null): self
     {
         $this->industry = $value;
+        $this->_setField('industry');
         return $this;
     }
 
@@ -415,6 +428,7 @@ class Company extends JsonSerializableType
     public function setMonthlySpend(?int $value = null): self
     {
         $this->monthlySpend = $value;
+        $this->_setField('monthlySpend');
         return $this;
     }
 
@@ -432,6 +446,7 @@ class Company extends JsonSerializableType
     public function setSessionCount(?int $value = null): self
     {
         $this->sessionCount = $value;
+        $this->_setField('sessionCount');
         return $this;
     }
 
@@ -449,6 +464,7 @@ class Company extends JsonSerializableType
     public function setUserCount(?int $value = null): self
     {
         $this->userCount = $value;
+        $this->_setField('userCount');
         return $this;
     }
 
@@ -466,6 +482,7 @@ class Company extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 
@@ -483,6 +500,7 @@ class Company extends JsonSerializableType
     public function setTags(?CompanyTags $value = null): self
     {
         $this->tags = $value;
+        $this->_setField('tags');
         return $this;
     }
 
@@ -500,6 +518,7 @@ class Company extends JsonSerializableType
     public function setSegments(?CompanySegments $value = null): self
     {
         $this->segments = $value;
+        $this->_setField('segments');
         return $this;
     }
 
@@ -517,6 +536,7 @@ class Company extends JsonSerializableType
     public function setNotes(?CompanyNotes $value = null): self
     {
         $this->notes = $value;
+        $this->_setField('notes');
         return $this;
     }
 

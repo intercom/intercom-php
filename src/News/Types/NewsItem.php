@@ -147,6 +147,7 @@ class NewsItem extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -164,6 +165,7 @@ class NewsItem extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -181,6 +183,7 @@ class NewsItem extends JsonSerializableType
     public function setWorkspaceId(?string $value = null): self
     {
         $this->workspaceId = $value;
+        $this->_setField('workspaceId');
         return $this;
     }
 
@@ -198,6 +201,7 @@ class NewsItem extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -215,6 +219,7 @@ class NewsItem extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -232,6 +237,7 @@ class NewsItem extends JsonSerializableType
     public function setSenderId(?int $value = null): self
     {
         $this->senderId = $value;
+        $this->_setField('senderId');
         return $this;
     }
 
@@ -249,6 +255,7 @@ class NewsItem extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -266,6 +273,7 @@ class NewsItem extends JsonSerializableType
     public function setNewsfeedAssignments(?array $value = null): self
     {
         $this->newsfeedAssignments = $value;
+        $this->_setField('newsfeedAssignments');
         return $this;
     }
 
@@ -283,6 +291,7 @@ class NewsItem extends JsonSerializableType
     public function setLabels(?array $value = null): self
     {
         $this->labels = $value;
+        $this->_setField('labels');
         return $this;
     }
 
@@ -300,6 +309,7 @@ class NewsItem extends JsonSerializableType
     public function setCoverImageUrl(?string $value = null): self
     {
         $this->coverImageUrl = $value;
+        $this->_setField('coverImageUrl');
         return $this;
     }
 
@@ -317,6 +327,7 @@ class NewsItem extends JsonSerializableType
     public function setReactions(?array $value = null): self
     {
         $this->reactions = $value;
+        $this->_setField('reactions');
         return $this;
     }
 
@@ -334,6 +345,7 @@ class NewsItem extends JsonSerializableType
     public function setDeliverSilently(?bool $value = null): self
     {
         $this->deliverSilently = $value;
+        $this->_setField('deliverSilently');
         return $this;
     }
 
@@ -351,6 +363,7 @@ class NewsItem extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -368,6 +381,7 @@ class NewsItem extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 

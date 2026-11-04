@@ -62,6 +62,7 @@ class WhatsappMessageStatusListPages extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -79,6 +80,7 @@ class WhatsappMessageStatusListPages extends JsonSerializableType
     public function setPerPage(int $value): self
     {
         $this->perPage = $value;
+        $this->_setField('perPage');
         return $this;
     }
 
@@ -96,6 +98,7 @@ class WhatsappMessageStatusListPages extends JsonSerializableType
     public function setTotalPages(int $value): self
     {
         $this->totalPages = $value;
+        $this->_setField('totalPages');
         return $this;
     }
 
@@ -113,6 +116,7 @@ class WhatsappMessageStatusListPages extends JsonSerializableType
     public function setNext(?WhatsappMessageStatusListPagesNext $value = null): self
     {
         $this->next = $value;
+        $this->_setField('next');
         return $this;
     }
 

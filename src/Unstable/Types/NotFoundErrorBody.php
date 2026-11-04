@@ -55,6 +55,7 @@ class NotFoundErrorBody extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -72,6 +73,7 @@ class NotFoundErrorBody extends JsonSerializableType
     public function setRequestId(?string $value = null): self
     {
         $this->requestId = $value;
+        $this->_setField('requestId');
         return $this;
     }
 
@@ -89,6 +91,7 @@ class NotFoundErrorBody extends JsonSerializableType
     public function setErrors(array $value): self
     {
         $this->errors = $value;
+        $this->_setField('errors');
         return $this;
     }
 

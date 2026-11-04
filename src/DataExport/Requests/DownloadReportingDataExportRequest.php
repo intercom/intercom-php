@@ -7,14 +7,19 @@ use Intercom\Core\Json\JsonSerializableType;
 class DownloadReportingDataExportRequest extends JsonSerializableType
 {
     /**
-     * @var string $jobIdentifier
+     * @var string $jobIdentifierPathParam
      */
-    private string $jobIdentifier;
+    private string $jobIdentifierPathParam;
 
     /**
      * @var string $appId
      */
     private string $appId;
+
+    /**
+     * @var string $jobIdentifier
+     */
+    private string $jobIdentifier;
 
     /**
      * @var 'application/octet-stream' $accept Required header for downloading the export file
@@ -23,33 +28,36 @@ class DownloadReportingDataExportRequest extends JsonSerializableType
 
     /**
      * @param array{
-     *   jobIdentifier: string,
+     *   jobIdentifierPathParam: string,
      *   appId: string,
+     *   jobIdentifier: string,
      *   accept: 'application/octet-stream',
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->jobIdentifier = $values['jobIdentifier'];
+        $this->jobIdentifierPathParam = $values['jobIdentifierPathParam'];
         $this->appId = $values['appId'];
+        $this->jobIdentifier = $values['jobIdentifier'];
         $this->accept = $values['accept'];
     }
 
     /**
      * @return string
      */
-    public function getJobIdentifier(): string
+    public function getJobIdentifierPathParam(): string
     {
-        return $this->jobIdentifier;
+        return $this->jobIdentifierPathParam;
     }
 
     /**
      * @param string $value
      */
-    public function setJobIdentifier(string $value): self
+    public function setJobIdentifierPathParam(string $value): self
     {
-        $this->jobIdentifier = $value;
+        $this->jobIdentifierPathParam = $value;
+        $this->_setField('jobIdentifierPathParam');
         return $this;
     }
 
@@ -67,6 +75,25 @@ class DownloadReportingDataExportRequest extends JsonSerializableType
     public function setAppId(string $value): self
     {
         $this->appId = $value;
+        $this->_setField('appId');
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJobIdentifier(): string
+    {
+        return $this->jobIdentifier;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setJobIdentifier(string $value): self
+    {
+        $this->jobIdentifier = $value;
+        $this->_setField('jobIdentifier');
         return $this;
     }
 
@@ -84,6 +111,7 @@ class DownloadReportingDataExportRequest extends JsonSerializableType
     public function setAccept(string $value): self
     {
         $this->accept = $value;
+        $this->_setField('accept');
         return $this;
     }
 }
