@@ -81,6 +81,7 @@ class ConversationPartAuthor extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -98,6 +99,7 @@ class ConversationPartAuthor extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -115,6 +117,7 @@ class ConversationPartAuthor extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -132,6 +135,7 @@ class ConversationPartAuthor extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -149,6 +153,7 @@ class ConversationPartAuthor extends JsonSerializableType
     public function setFromAiAgent(?bool $value = null): self
     {
         $this->fromAiAgent = $value;
+        $this->_setField('fromAiAgent');
         return $this;
     }
 
@@ -166,6 +171,7 @@ class ConversationPartAuthor extends JsonSerializableType
     public function setIsAiAnswer(?bool $value = null): self
     {
         $this->isAiAnswer = $value;
+        $this->_setField('isAiAnswer');
         return $this;
     }
 

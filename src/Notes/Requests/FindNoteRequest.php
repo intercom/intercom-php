@@ -36,6 +36,7 @@ class FindNoteRequest extends JsonSerializableType
     public function setNoteId(int $value): self
     {
         $this->noteId = $value;
+        $this->_setField('noteId');
         return $this;
     }
 }

@@ -102,6 +102,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setTicketId(string $value): self
     {
         $this->ticketId = $value;
+        $this->_setField('ticketId');
         return $this;
     }
 
@@ -119,6 +120,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setTicketAttributes(?array $value = null): self
     {
         $this->ticketAttributes = $value;
+        $this->_setField('ticketAttributes');
         return $this;
     }
 
@@ -136,6 +138,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setTicketStateId(?string $value = null): self
     {
         $this->ticketStateId = $value;
+        $this->_setField('ticketStateId');
         return $this;
     }
 
@@ -153,6 +156,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -170,6 +174,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setOpen(?bool $value = null): self
     {
         $this->open = $value;
+        $this->_setField('open');
         return $this;
     }
 
@@ -187,6 +192,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setIsShared(?bool $value = null): self
     {
         $this->isShared = $value;
+        $this->_setField('isShared');
         return $this;
     }
 
@@ -204,6 +210,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setSnoozedUntil(?int $value = null): self
     {
         $this->snoozedUntil = $value;
+        $this->_setField('snoozedUntil');
         return $this;
     }
 
@@ -221,6 +228,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setAdminId(?int $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -238,6 +246,7 @@ class UpdateTicketRequest extends JsonSerializableType
     public function setAssigneeId(?string $value = null): self
     {
         $this->assigneeId = $value;
+        $this->_setField('assigneeId');
         return $this;
     }
 }

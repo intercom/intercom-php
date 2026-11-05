@@ -36,6 +36,7 @@ class DeleteConversationRequest extends JsonSerializableType
     public function setConversationId(int $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 }

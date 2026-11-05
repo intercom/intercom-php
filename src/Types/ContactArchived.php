@@ -50,6 +50,7 @@ class ContactArchived extends JsonSerializableType
     public function setArchived(?bool $value = null): self
     {
         $this->archived = $value;
+        $this->_setField('archived');
         return $this;
     }
 

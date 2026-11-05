@@ -163,6 +163,7 @@ class ArticleListItem extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -180,6 +181,7 @@ class ArticleListItem extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -197,6 +199,7 @@ class ArticleListItem extends JsonSerializableType
     public function setWorkspaceId(?string $value = null): self
     {
         $this->workspaceId = $value;
+        $this->_setField('workspaceId');
         return $this;
     }
 
@@ -214,6 +217,7 @@ class ArticleListItem extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -231,6 +235,7 @@ class ArticleListItem extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -248,6 +253,7 @@ class ArticleListItem extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -265,6 +271,7 @@ class ArticleListItem extends JsonSerializableType
     public function setAuthorId(?int $value = null): self
     {
         $this->authorId = $value;
+        $this->_setField('authorId');
         return $this;
     }
 
@@ -282,6 +289,7 @@ class ArticleListItem extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -299,6 +307,7 @@ class ArticleListItem extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -316,6 +325,7 @@ class ArticleListItem extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -333,6 +343,7 @@ class ArticleListItem extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -350,6 +361,7 @@ class ArticleListItem extends JsonSerializableType
     public function setParentId(?int $value = null): self
     {
         $this->parentId = $value;
+        $this->_setField('parentId');
         return $this;
     }
 
@@ -367,6 +379,7 @@ class ArticleListItem extends JsonSerializableType
     public function setParentIds(?array $value = null): self
     {
         $this->parentIds = $value;
+        $this->_setField('parentIds');
         return $this;
     }
 
@@ -384,6 +397,7 @@ class ArticleListItem extends JsonSerializableType
     public function setParentType(?string $value = null): self
     {
         $this->parentType = $value;
+        $this->_setField('parentType');
         return $this;
     }
 
@@ -401,6 +415,7 @@ class ArticleListItem extends JsonSerializableType
     public function setDefaultLocale(?string $value = null): self
     {
         $this->defaultLocale = $value;
+        $this->_setField('defaultLocale');
         return $this;
     }
 
@@ -418,6 +433,7 @@ class ArticleListItem extends JsonSerializableType
     public function setTranslatedContent(?ArticleTranslatedContent $value = null): self
     {
         $this->translatedContent = $value;
+        $this->_setField('translatedContent');
         return $this;
     }
 

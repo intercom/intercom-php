@@ -67,6 +67,7 @@ class CollectionList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -84,6 +85,7 @@ class CollectionList extends JsonSerializableType
     public function setPages(?OffsetPages $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 
@@ -101,6 +103,7 @@ class CollectionList extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 
@@ -118,6 +121,7 @@ class CollectionList extends JsonSerializableType
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 

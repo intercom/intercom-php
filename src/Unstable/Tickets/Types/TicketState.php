@@ -73,6 +73,7 @@ class TicketState extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -90,6 +91,7 @@ class TicketState extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -107,6 +109,7 @@ class TicketState extends JsonSerializableType
     public function setCategory(?string $value = null): self
     {
         $this->category = $value;
+        $this->_setField('category');
         return $this;
     }
 
@@ -124,6 +127,7 @@ class TicketState extends JsonSerializableType
     public function setInternalLabel(?string $value = null): self
     {
         $this->internalLabel = $value;
+        $this->_setField('internalLabel');
         return $this;
     }
 
@@ -141,6 +145,7 @@ class TicketState extends JsonSerializableType
     public function setExternalLabel(?string $value = null): self
     {
         $this->externalLabel = $value;
+        $this->_setField('externalLabel');
         return $this;
     }
 

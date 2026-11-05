@@ -66,6 +66,7 @@ trait ContactReplyBaseRequest
     public function setMessageType(string $value): self
     {
         $this->messageType = $value;
+        $this->_setField('messageType');
         return $this;
     }
 
@@ -83,6 +84,7 @@ trait ContactReplyBaseRequest
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -100,6 +102,7 @@ trait ContactReplyBaseRequest
     public function setBody(string $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -117,6 +120,7 @@ trait ContactReplyBaseRequest
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -134,6 +138,7 @@ trait ContactReplyBaseRequest
     public function setAttachmentUrls(?array $value = null): self
     {
         $this->attachmentUrls = $value;
+        $this->_setField('attachmentUrls');
         return $this;
     }
 
@@ -151,6 +156,7 @@ trait ContactReplyBaseRequest
     public function setReplyOptions(?array $value = null): self
     {
         $this->replyOptions = $value;
+        $this->_setField('replyOptions');
         return $this;
     }
 }

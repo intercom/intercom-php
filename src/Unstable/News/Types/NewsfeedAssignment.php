@@ -49,6 +49,7 @@ class NewsfeedAssignment extends JsonSerializableType
     public function setNewsfeedId(?int $value = null): self
     {
         $this->newsfeedId = $value;
+        $this->_setField('newsfeedId');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class NewsfeedAssignment extends JsonSerializableType
     public function setPublishedAt(?int $value = null): self
     {
         $this->publishedAt = $value;
+        $this->_setField('publishedAt');
         return $this;
     }
 

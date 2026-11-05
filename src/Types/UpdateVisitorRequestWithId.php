@@ -55,6 +55,7 @@ class UpdateVisitorRequestWithId extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -72,6 +73,7 @@ class UpdateVisitorRequestWithId extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -89,6 +91,7 @@ class UpdateVisitorRequestWithId extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 

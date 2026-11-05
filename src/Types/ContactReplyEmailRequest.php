@@ -65,6 +65,7 @@ class ContactReplyEmailRequest extends JsonSerializableType
     public function setEmail(string $value): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ContactReplyEmailRequest extends JsonSerializableType
     public function setAttachmentFiles(?array $value = null): self
     {
         $this->attachmentFiles = $value;
+        $this->_setField('attachmentFiles');
         return $this;
     }
 

@@ -3,6 +3,7 @@
 namespace Intercom\Tests\Core\Json;
 
 use PHPUnit\Framework\TestCase;
+use Intercom\Core\Json\JsonEncoder;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Json\JsonSerializableType;
 
@@ -42,12 +43,11 @@ class TraitTest extends TestCase
 {
     public function testTraitPropertyAndString(): void
     {
-        $expectedJson = json_encode(
+        $expectedJson = JsonEncoder::encode(
             [
                 'integer_property' => 42,
                 'string_property' => 'Hello, World!',
             ],
-            JSON_THROW_ON_ERROR
         );
 
         $object = TypeWithTrait::fromJson($expectedJson);

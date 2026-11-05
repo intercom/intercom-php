@@ -12,7 +12,7 @@ class GetCustomObjectInstancesByExternalIdRequest extends JsonSerializableType
     private string $customObjectTypeIdentifier;
 
     /**
-     * @var string $externalId
+     * @var string $externalId The unique identifier for the instance in the external system it originated from.
      */
     private string $externalId;
 
@@ -43,6 +43,7 @@ class GetCustomObjectInstancesByExternalIdRequest extends JsonSerializableType
     public function setCustomObjectTypeIdentifier(string $value): self
     {
         $this->customObjectTypeIdentifier = $value;
+        $this->_setField('customObjectTypeIdentifier');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class GetCustomObjectInstancesByExternalIdRequest extends JsonSerializableType
     public function setExternalId(string $value): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 }

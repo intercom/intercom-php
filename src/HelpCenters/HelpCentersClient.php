@@ -3,7 +3,7 @@
 namespace Intercom\HelpCenters;
 
 use Intercom\HelpCenters\Collections\CollectionsClient;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\HelpCenters\Requests\FindHelpCenterRequest;
 use Intercom\HelpCenter\Types\HelpCenter;
@@ -13,7 +13,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\HelpCenters\Requests\ListHelpCentersRequest;
 use Intercom\Core\Pagination\Pager;
@@ -65,6 +64,15 @@ class HelpCentersClient
     /**
      * You can fetch the details of a single Help Center by making a GET request to `https://api.intercom.io/help_center/help_center/<id>`.
      *
+     * Example:
+     * ```php
+     * $client->helpCenters->find(
+     *     new FindHelpCenterRequest([
+     *         'helpCenterId' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param FindHelpCenterRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -74,18 +82,18 @@ class HelpCentersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return HelpCenter
+     * @return ?HelpCenter
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function find(FindHelpCenterRequest $request, ?array $options = null): HelpCenter
+    public function find(FindHelpCenterRequest $request, ?array $options = null): ?HelpCenter
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "help_center/help_centers/{$request->getHelpCenterId()}",
+                    path: "help_center/help_centers/" . RawClient::encodePathParam($request->getHelpCenterId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -93,20 +101,13 @@ class HelpCentersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return HelpCenter::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -119,6 +120,16 @@ class HelpCentersClient
 
     /**
      * You can list all Help Centers by making a GET request to `https://api.intercom.io/help_center/help_centers`.
+     *
+     * Example:
+     * ```php
+     * $client->helpCenters->list(
+     *     new ListHelpCentersRequest([
+     *         'page' => 1,
+     *         'perPage' => 1,
+     *     ]),
+     * );
+     * ```
      *
      * @param ListHelpCentersRequest $request
      * @param ?array{
@@ -143,7 +154,7 @@ class HelpCentersClient
             },
             getStep: null,
             /* @phpstan-ignore-next-line */
-            getItems: fn (HelpCenterList $response) => $response?->getData() ?? [],
+            getItems: fn (?HelpCenterList $response) => $response?->getData() ?? [],
             /* @phpstan-ignore-next-line */
             hasNextPage: null,
         );
@@ -161,11 +172,11 @@ class HelpCentersClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return HelpCenterList
+     * @return ?HelpCenterList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    private function _list(ListHelpCentersRequest $request = new ListHelpCentersRequest(), ?array $options = null): HelpCenterList
+    private function _list(ListHelpCentersRequest $request = new ListHelpCentersRequest(), ?array $options = null): ?HelpCenterList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -188,20 +199,13 @@ class HelpCentersClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return HelpCenterList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

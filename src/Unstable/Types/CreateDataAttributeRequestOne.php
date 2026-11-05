@@ -38,6 +38,7 @@ class CreateDataAttributeRequestOne extends JsonSerializableType
     public function setDataType(?string $value = null): self
     {
         $this->dataType = $value;
+        $this->_setField('dataType');
         return $this;
     }
 

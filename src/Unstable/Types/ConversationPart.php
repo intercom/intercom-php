@@ -212,6 +212,7 @@ class ConversationPart extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -229,6 +230,7 @@ class ConversationPart extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -246,6 +248,7 @@ class ConversationPart extends JsonSerializableType
     public function setPartType(?string $value = null): self
     {
         $this->partType = $value;
+        $this->_setField('partType');
         return $this;
     }
 
@@ -263,6 +266,7 @@ class ConversationPart extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -280,6 +284,7 @@ class ConversationPart extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -297,6 +302,7 @@ class ConversationPart extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -314,6 +320,7 @@ class ConversationPart extends JsonSerializableType
     public function setNotifiedAt(?int $value = null): self
     {
         $this->notifiedAt = $value;
+        $this->_setField('notifiedAt');
         return $this;
     }
 
@@ -331,6 +338,7 @@ class ConversationPart extends JsonSerializableType
     public function setAssignedTo(?Reference $value = null): self
     {
         $this->assignedTo = $value;
+        $this->_setField('assignedTo');
         return $this;
     }
 
@@ -348,6 +356,7 @@ class ConversationPart extends JsonSerializableType
     public function setAuthor(?ConversationPartAuthor $value = null): self
     {
         $this->author = $value;
+        $this->_setField('author');
         return $this;
     }
 
@@ -365,6 +374,7 @@ class ConversationPart extends JsonSerializableType
     public function setAttachments(?array $value = null): self
     {
         $this->attachments = $value;
+        $this->_setField('attachments');
         return $this;
     }
 
@@ -382,6 +392,7 @@ class ConversationPart extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -399,6 +410,7 @@ class ConversationPart extends JsonSerializableType
     public function setRedacted(?bool $value = null): self
     {
         $this->redacted = $value;
+        $this->_setField('redacted');
         return $this;
     }
 
@@ -416,6 +428,7 @@ class ConversationPart extends JsonSerializableType
     public function setEmailMessageMetadata(?EmailMessageMetadata $value = null): self
     {
         $this->emailMessageMetadata = $value;
+        $this->_setField('emailMessageMetadata');
         return $this;
     }
 
@@ -433,6 +446,7 @@ class ConversationPart extends JsonSerializableType
     public function setMetadata(?ConversationPartMetadata $value = null): self
     {
         $this->metadata = $value;
+        $this->_setField('metadata');
         return $this;
     }
 
@@ -450,6 +464,7 @@ class ConversationPart extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -467,6 +482,7 @@ class ConversationPart extends JsonSerializableType
     public function setTags(?array $value = null): self
     {
         $this->tags = $value;
+        $this->_setField('tags');
         return $this;
     }
 
@@ -516,6 +532,7 @@ class ConversationPart extends JsonSerializableType
     public function setEventDetails(ConversationAttributeUpdatedByWorkflow|ConversationAttributeUpdatedByAdmin|ConversationAttributeUpdatedByUser|CustomActionStarted|CustomActionFinished|OperatorWorkflowEvent|ConversationTagsUpdated|Snoozed|PriorityChanged|ConversationSlaAppliedByRule|ConversationSlaAppliedByWorkflow|ConversationSlaTargetMissed|ConversationSlaPaused|ConversationSlaUnpaused|ConversationSlaRemoved|null $value = null): self
     {
         $this->eventDetails = $value;
+        $this->_setField('eventDetails');
         return $this;
     }
 
@@ -533,6 +550,7 @@ class ConversationPart extends JsonSerializableType
     public function setAppPackageCode(?string $value = null): self
     {
         $this->appPackageCode = $value;
+        $this->_setField('appPackageCode');
         return $this;
     }
 

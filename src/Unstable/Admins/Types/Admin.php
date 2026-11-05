@@ -131,6 +131,7 @@ class Admin extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -148,6 +149,7 @@ class Admin extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -165,6 +167,7 @@ class Admin extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -182,6 +185,7 @@ class Admin extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -199,6 +203,7 @@ class Admin extends JsonSerializableType
     public function setJobTitle(?string $value = null): self
     {
         $this->jobTitle = $value;
+        $this->_setField('jobTitle');
         return $this;
     }
 
@@ -216,6 +221,7 @@ class Admin extends JsonSerializableType
     public function setAwayModeEnabled(?bool $value = null): self
     {
         $this->awayModeEnabled = $value;
+        $this->_setField('awayModeEnabled');
         return $this;
     }
 
@@ -233,6 +239,7 @@ class Admin extends JsonSerializableType
     public function setAwayModeReassign(?bool $value = null): self
     {
         $this->awayModeReassign = $value;
+        $this->_setField('awayModeReassign');
         return $this;
     }
 
@@ -250,6 +257,7 @@ class Admin extends JsonSerializableType
     public function setAwayStatusReasonId(?int $value = null): self
     {
         $this->awayStatusReasonId = $value;
+        $this->_setField('awayStatusReasonId');
         return $this;
     }
 
@@ -267,6 +275,7 @@ class Admin extends JsonSerializableType
     public function setHasInboxSeat(?bool $value = null): self
     {
         $this->hasInboxSeat = $value;
+        $this->_setField('hasInboxSeat');
         return $this;
     }
 
@@ -284,6 +293,7 @@ class Admin extends JsonSerializableType
     public function setTeamIds(?array $value = null): self
     {
         $this->teamIds = $value;
+        $this->_setField('teamIds');
         return $this;
     }
 
@@ -301,6 +311,7 @@ class Admin extends JsonSerializableType
     public function setAvatar(?string $value = null): self
     {
         $this->avatar = $value;
+        $this->_setField('avatar');
         return $this;
     }
 
@@ -318,6 +329,7 @@ class Admin extends JsonSerializableType
     public function setTeamPriorityLevel(?TeamPriorityLevel $value = null): self
     {
         $this->teamPriorityLevel = $value;
+        $this->_setField('teamPriorityLevel');
         return $this;
     }
 

@@ -38,6 +38,7 @@ class VisitorWithUserId extends JsonSerializableType
     public function setUserId(string $value): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 

@@ -90,6 +90,7 @@ class UpdateConversationRequest extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -107,6 +108,7 @@ class UpdateConversationRequest extends JsonSerializableType
     public function setDisplayAs(?string $value = null): self
     {
         $this->displayAs = $value;
+        $this->_setField('displayAs');
         return $this;
     }
 
@@ -124,6 +126,7 @@ class UpdateConversationRequest extends JsonSerializableType
     public function setRead(?bool $value = null): self
     {
         $this->read = $value;
+        $this->_setField('read');
         return $this;
     }
 
@@ -141,6 +144,7 @@ class UpdateConversationRequest extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -168,6 +172,7 @@ class UpdateConversationRequest extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 
@@ -185,6 +190,7 @@ class UpdateConversationRequest extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 }

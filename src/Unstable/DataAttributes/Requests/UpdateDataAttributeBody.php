@@ -4,7 +4,7 @@ namespace Intercom\Unstable\DataAttributes\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
 
-class UpdateDataAttributeRequest extends JsonSerializableType
+class UpdateDataAttributeBody extends JsonSerializableType
 {
     /**
      * @var int $id The data attribute id
@@ -43,6 +43,7 @@ class UpdateDataAttributeRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class UpdateDataAttributeRequest extends JsonSerializableType
     public function setBody(mixed $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

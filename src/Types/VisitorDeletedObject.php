@@ -57,6 +57,7 @@ class VisitorDeletedObject extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class VisitorDeletedObject extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class VisitorDeletedObject extends JsonSerializableType
     public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 

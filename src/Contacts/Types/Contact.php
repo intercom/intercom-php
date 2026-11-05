@@ -399,6 +399,7 @@ class Contact extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -416,6 +417,7 @@ class Contact extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -433,6 +435,7 @@ class Contact extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -450,6 +453,7 @@ class Contact extends JsonSerializableType
     public function setWorkspaceId(?string $value = null): self
     {
         $this->workspaceId = $value;
+        $this->_setField('workspaceId');
         return $this;
     }
 
@@ -467,6 +471,7 @@ class Contact extends JsonSerializableType
     public function setRole(?string $value = null): self
     {
         $this->role = $value;
+        $this->_setField('role');
         return $this;
     }
 
@@ -484,6 +489,7 @@ class Contact extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -501,6 +507,7 @@ class Contact extends JsonSerializableType
     public function setEmailDomain(?string $value = null): self
     {
         $this->emailDomain = $value;
+        $this->_setField('emailDomain');
         return $this;
     }
 
@@ -518,6 +525,7 @@ class Contact extends JsonSerializableType
     public function setPhone(?string $value = null): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 
@@ -535,6 +543,7 @@ class Contact extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -552,6 +561,7 @@ class Contact extends JsonSerializableType
     public function setOwnerId(?int $value = null): self
     {
         $this->ownerId = $value;
+        $this->_setField('ownerId');
         return $this;
     }
 
@@ -569,6 +579,7 @@ class Contact extends JsonSerializableType
     public function setHasHardBounced(?bool $value = null): self
     {
         $this->hasHardBounced = $value;
+        $this->_setField('hasHardBounced');
         return $this;
     }
 
@@ -586,6 +597,7 @@ class Contact extends JsonSerializableType
     public function setMarkedEmailAsSpam(?bool $value = null): self
     {
         $this->markedEmailAsSpam = $value;
+        $this->_setField('markedEmailAsSpam');
         return $this;
     }
 
@@ -603,6 +615,7 @@ class Contact extends JsonSerializableType
     public function setUnsubscribedFromEmails(?bool $value = null): self
     {
         $this->unsubscribedFromEmails = $value;
+        $this->_setField('unsubscribedFromEmails');
         return $this;
     }
 
@@ -620,6 +633,7 @@ class Contact extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -637,6 +651,7 @@ class Contact extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -654,6 +669,7 @@ class Contact extends JsonSerializableType
     public function setSignedUpAt(?int $value = null): self
     {
         $this->signedUpAt = $value;
+        $this->_setField('signedUpAt');
         return $this;
     }
 
@@ -671,6 +687,7 @@ class Contact extends JsonSerializableType
     public function setLastSeenAt(?int $value = null): self
     {
         $this->lastSeenAt = $value;
+        $this->_setField('lastSeenAt');
         return $this;
     }
 
@@ -688,6 +705,7 @@ class Contact extends JsonSerializableType
     public function setLastRepliedAt(?int $value = null): self
     {
         $this->lastRepliedAt = $value;
+        $this->_setField('lastRepliedAt');
         return $this;
     }
 
@@ -705,6 +723,7 @@ class Contact extends JsonSerializableType
     public function setLastContactedAt(?int $value = null): self
     {
         $this->lastContactedAt = $value;
+        $this->_setField('lastContactedAt');
         return $this;
     }
 
@@ -722,6 +741,7 @@ class Contact extends JsonSerializableType
     public function setLastEmailOpenedAt(?int $value = null): self
     {
         $this->lastEmailOpenedAt = $value;
+        $this->_setField('lastEmailOpenedAt');
         return $this;
     }
 
@@ -739,6 +759,7 @@ class Contact extends JsonSerializableType
     public function setLastEmailClickedAt(?int $value = null): self
     {
         $this->lastEmailClickedAt = $value;
+        $this->_setField('lastEmailClickedAt');
         return $this;
     }
 
@@ -756,6 +777,7 @@ class Contact extends JsonSerializableType
     public function setLanguageOverride(?string $value = null): self
     {
         $this->languageOverride = $value;
+        $this->_setField('languageOverride');
         return $this;
     }
 
@@ -773,6 +795,7 @@ class Contact extends JsonSerializableType
     public function setBrowser(?string $value = null): self
     {
         $this->browser = $value;
+        $this->_setField('browser');
         return $this;
     }
 
@@ -790,6 +813,7 @@ class Contact extends JsonSerializableType
     public function setBrowserVersion(?string $value = null): self
     {
         $this->browserVersion = $value;
+        $this->_setField('browserVersion');
         return $this;
     }
 
@@ -807,6 +831,7 @@ class Contact extends JsonSerializableType
     public function setBrowserLanguage(?string $value = null): self
     {
         $this->browserLanguage = $value;
+        $this->_setField('browserLanguage');
         return $this;
     }
 
@@ -824,6 +849,7 @@ class Contact extends JsonSerializableType
     public function setOs(?string $value = null): self
     {
         $this->os = $value;
+        $this->_setField('os');
         return $this;
     }
 
@@ -841,6 +867,7 @@ class Contact extends JsonSerializableType
     public function setAndroidAppName(?string $value = null): self
     {
         $this->androidAppName = $value;
+        $this->_setField('androidAppName');
         return $this;
     }
 
@@ -858,6 +885,7 @@ class Contact extends JsonSerializableType
     public function setAndroidAppVersion(?string $value = null): self
     {
         $this->androidAppVersion = $value;
+        $this->_setField('androidAppVersion');
         return $this;
     }
 
@@ -875,6 +903,7 @@ class Contact extends JsonSerializableType
     public function setAndroidDevice(?string $value = null): self
     {
         $this->androidDevice = $value;
+        $this->_setField('androidDevice');
         return $this;
     }
 
@@ -892,6 +921,7 @@ class Contact extends JsonSerializableType
     public function setAndroidOsVersion(?string $value = null): self
     {
         $this->androidOsVersion = $value;
+        $this->_setField('androidOsVersion');
         return $this;
     }
 
@@ -909,6 +939,7 @@ class Contact extends JsonSerializableType
     public function setAndroidSdkVersion(?string $value = null): self
     {
         $this->androidSdkVersion = $value;
+        $this->_setField('androidSdkVersion');
         return $this;
     }
 
@@ -926,6 +957,7 @@ class Contact extends JsonSerializableType
     public function setAndroidLastSeenAt(?int $value = null): self
     {
         $this->androidLastSeenAt = $value;
+        $this->_setField('androidLastSeenAt');
         return $this;
     }
 
@@ -943,6 +975,7 @@ class Contact extends JsonSerializableType
     public function setIosAppName(?string $value = null): self
     {
         $this->iosAppName = $value;
+        $this->_setField('iosAppName');
         return $this;
     }
 
@@ -960,6 +993,7 @@ class Contact extends JsonSerializableType
     public function setIosAppVersion(?string $value = null): self
     {
         $this->iosAppVersion = $value;
+        $this->_setField('iosAppVersion');
         return $this;
     }
 
@@ -977,6 +1011,7 @@ class Contact extends JsonSerializableType
     public function setIosDevice(?string $value = null): self
     {
         $this->iosDevice = $value;
+        $this->_setField('iosDevice');
         return $this;
     }
 
@@ -994,6 +1029,7 @@ class Contact extends JsonSerializableType
     public function setIosOsVersion(?string $value = null): self
     {
         $this->iosOsVersion = $value;
+        $this->_setField('iosOsVersion');
         return $this;
     }
 
@@ -1011,6 +1047,7 @@ class Contact extends JsonSerializableType
     public function setIosSdkVersion(?string $value = null): self
     {
         $this->iosSdkVersion = $value;
+        $this->_setField('iosSdkVersion');
         return $this;
     }
 
@@ -1028,6 +1065,7 @@ class Contact extends JsonSerializableType
     public function setIosLastSeenAt(?int $value = null): self
     {
         $this->iosLastSeenAt = $value;
+        $this->_setField('iosLastSeenAt');
         return $this;
     }
 
@@ -1045,6 +1083,7 @@ class Contact extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 
@@ -1062,6 +1101,7 @@ class Contact extends JsonSerializableType
     public function setAvatar(?string $value = null): self
     {
         $this->avatar = $value;
+        $this->_setField('avatar');
         return $this;
     }
 
@@ -1079,6 +1119,7 @@ class Contact extends JsonSerializableType
     public function setTags(?ContactTags $value = null): self
     {
         $this->tags = $value;
+        $this->_setField('tags');
         return $this;
     }
 
@@ -1096,6 +1137,7 @@ class Contact extends JsonSerializableType
     public function setNotes(?ContactNotes $value = null): self
     {
         $this->notes = $value;
+        $this->_setField('notes');
         return $this;
     }
 
@@ -1113,6 +1155,7 @@ class Contact extends JsonSerializableType
     public function setCompanies(?ContactCompanies $value = null): self
     {
         $this->companies = $value;
+        $this->_setField('companies');
         return $this;
     }
 
@@ -1130,6 +1173,7 @@ class Contact extends JsonSerializableType
     public function setLocation(?ContactLocation $value = null): self
     {
         $this->location = $value;
+        $this->_setField('location');
         return $this;
     }
 
@@ -1147,6 +1191,7 @@ class Contact extends JsonSerializableType
     public function setSocialProfiles(?ContactSocialProfiles $value = null): self
     {
         $this->socialProfiles = $value;
+        $this->_setField('socialProfiles');
         return $this;
     }
 

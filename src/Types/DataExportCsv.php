@@ -241,6 +241,7 @@ class DataExportCsv extends JsonSerializableType
     public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 
@@ -258,6 +259,7 @@ class DataExportCsv extends JsonSerializableType
     public function setUserExternalId(?string $value = null): self
     {
         $this->userExternalId = $value;
+        $this->_setField('userExternalId');
         return $this;
     }
 
@@ -275,6 +277,7 @@ class DataExportCsv extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -292,6 +295,7 @@ class DataExportCsv extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -309,6 +313,7 @@ class DataExportCsv extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -326,6 +331,7 @@ class DataExportCsv extends JsonSerializableType
     public function setRulesetId(?string $value = null): self
     {
         $this->rulesetId = $value;
+        $this->_setField('rulesetId');
         return $this;
     }
 
@@ -343,6 +349,7 @@ class DataExportCsv extends JsonSerializableType
     public function setContentId(?string $value = null): self
     {
         $this->contentId = $value;
+        $this->_setField('contentId');
         return $this;
     }
 
@@ -360,6 +367,7 @@ class DataExportCsv extends JsonSerializableType
     public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
+        $this->_setField('contentType');
         return $this;
     }
 
@@ -377,6 +385,7 @@ class DataExportCsv extends JsonSerializableType
     public function setContentTitle(?string $value = null): self
     {
         $this->contentTitle = $value;
+        $this->_setField('contentTitle');
         return $this;
     }
 
@@ -394,6 +403,7 @@ class DataExportCsv extends JsonSerializableType
     public function setRulesetVersionId(?string $value = null): self
     {
         $this->rulesetVersionId = $value;
+        $this->_setField('rulesetVersionId');
         return $this;
     }
 
@@ -411,6 +421,7 @@ class DataExportCsv extends JsonSerializableType
     public function setReceiptId(?string $value = null): self
     {
         $this->receiptId = $value;
+        $this->_setField('receiptId');
         return $this;
     }
 
@@ -428,6 +439,7 @@ class DataExportCsv extends JsonSerializableType
     public function setReceivedAt(?int $value = null): self
     {
         $this->receivedAt = $value;
+        $this->_setField('receivedAt');
         return $this;
     }
 
@@ -445,6 +457,7 @@ class DataExportCsv extends JsonSerializableType
     public function setSeriesId(?string $value = null): self
     {
         $this->seriesId = $value;
+        $this->_setField('seriesId');
         return $this;
     }
 
@@ -462,6 +475,7 @@ class DataExportCsv extends JsonSerializableType
     public function setSeriesTitle(?string $value = null): self
     {
         $this->seriesTitle = $value;
+        $this->_setField('seriesTitle');
         return $this;
     }
 
@@ -479,6 +493,7 @@ class DataExportCsv extends JsonSerializableType
     public function setNodeId(?string $value = null): self
     {
         $this->nodeId = $value;
+        $this->_setField('nodeId');
         return $this;
     }
 
@@ -496,6 +511,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstReply(?int $value = null): self
     {
         $this->firstReply = $value;
+        $this->_setField('firstReply');
         return $this;
     }
 
@@ -513,6 +529,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstCompletion(?int $value = null): self
     {
         $this->firstCompletion = $value;
+        $this->_setField('firstCompletion');
         return $this;
     }
 
@@ -530,6 +547,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstSeriesCompletion(?int $value = null): self
     {
         $this->firstSeriesCompletion = $value;
+        $this->_setField('firstSeriesCompletion');
         return $this;
     }
 
@@ -547,6 +565,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstSeriesDisengagement(?int $value = null): self
     {
         $this->firstSeriesDisengagement = $value;
+        $this->_setField('firstSeriesDisengagement');
         return $this;
     }
 
@@ -564,6 +583,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstSeriesExit(?int $value = null): self
     {
         $this->firstSeriesExit = $value;
+        $this->_setField('firstSeriesExit');
         return $this;
     }
 
@@ -581,6 +601,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstGoalSuccess(?int $value = null): self
     {
         $this->firstGoalSuccess = $value;
+        $this->_setField('firstGoalSuccess');
         return $this;
     }
 
@@ -598,6 +619,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstOpen(?int $value = null): self
     {
         $this->firstOpen = $value;
+        $this->_setField('firstOpen');
         return $this;
     }
 
@@ -615,6 +637,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstClick(?int $value = null): self
     {
         $this->firstClick = $value;
+        $this->_setField('firstClick');
         return $this;
     }
 
@@ -632,6 +655,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstDismisall(?int $value = null): self
     {
         $this->firstDismisall = $value;
+        $this->_setField('firstDismisall');
         return $this;
     }
 
@@ -649,6 +673,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstUnsubscribe(?int $value = null): self
     {
         $this->firstUnsubscribe = $value;
+        $this->_setField('firstUnsubscribe');
         return $this;
     }
 
@@ -666,6 +691,7 @@ class DataExportCsv extends JsonSerializableType
     public function setFirstHardBounce(?int $value = null): self
     {
         $this->firstHardBounce = $value;
+        $this->_setField('firstHardBounce');
         return $this;
     }
 

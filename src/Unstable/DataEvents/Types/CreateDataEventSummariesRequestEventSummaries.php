@@ -65,6 +65,7 @@ class CreateDataEventSummariesRequestEventSummaries extends JsonSerializableType
     public function setEventName(?string $value = null): self
     {
         $this->eventName = $value;
+        $this->_setField('eventName');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class CreateDataEventSummariesRequestEventSummaries extends JsonSerializableType
     public function setCount(?int $value = null): self
     {
         $this->count = $value;
+        $this->_setField('count');
         return $this;
     }
 
@@ -99,6 +101,7 @@ class CreateDataEventSummariesRequestEventSummaries extends JsonSerializableType
     public function setFirst(?int $value = null): self
     {
         $this->first = $value;
+        $this->_setField('first');
         return $this;
     }
 
@@ -116,6 +119,7 @@ class CreateDataEventSummariesRequestEventSummaries extends JsonSerializableType
     public function setLast(?int $value = null): self
     {
         $this->last = $value;
+        $this->_setField('last');
         return $this;
     }
 

@@ -86,6 +86,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setSubject(?string $value = null): self
     {
         $this->subject = $value;
+        $this->_setField('subject');
         return $this;
     }
 
@@ -103,6 +104,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setBody(string $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -120,6 +122,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setTemplate(?string $value = null): self
     {
         $this->template = $value;
+        $this->_setField('template');
         return $this;
     }
 
@@ -137,6 +140,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setFrom(CreateMessageRequestFrom $value): self
     {
         $this->from = $value;
+        $this->_setField('from');
         return $this;
     }
 
@@ -154,6 +158,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setTo(CreateMessageRequestTo $value): self
     {
         $this->to = $value;
+        $this->_setField('to');
         return $this;
     }
 
@@ -171,6 +176,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -188,6 +194,7 @@ class CreateMessageRequestWithInapp extends JsonSerializableType
     public function setCreateConversationWithoutContactReply(?bool $value = null): self
     {
         $this->createConversationWithoutContactReply = $value;
+        $this->_setField('createConversationWithoutContactReply');
         return $this;
     }
 

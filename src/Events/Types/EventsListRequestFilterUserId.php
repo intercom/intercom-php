@@ -1,43 +1,44 @@
 <?php
 
-namespace Intercom\Unstable\Types;
+namespace Intercom\Events\Types;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 
-class CreateTicketRequestContactsItemId extends JsonSerializableType
+class EventsListRequestFilterUserId extends JsonSerializableType
 {
     /**
-     * @var string $id The identifier for the contact as given by Intercom.
+     * @var string $userId
      */
-    #[JsonProperty('id')]
-    private string $id;
+    #[JsonProperty('user_id')]
+    private string $userId;
 
     /**
      * @param array{
-     *   id: string,
+     *   userId: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->id = $values['id'];
+        $this->userId = $values['userId'];
     }
 
     /**
      * @return string
      */
-    public function getId(): string
+    public function getUserId(): string
     {
-        return $this->id;
+        return $this->userId;
     }
 
     /**
      * @param string $value
      */
-    public function setId(string $value): self
+    public function setUserId(string $value): self
     {
-        $this->id = $value;
+        $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 

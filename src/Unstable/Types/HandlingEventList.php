@@ -42,6 +42,7 @@ class HandlingEventList extends JsonSerializableType
     public function setHandlingEvents(?array $value = null): self
     {
         $this->handlingEvents = $value;
+        $this->_setField('handlingEvents');
         return $this;
     }
 

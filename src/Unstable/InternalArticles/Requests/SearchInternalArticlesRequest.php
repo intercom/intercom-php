@@ -36,6 +36,7 @@ class SearchInternalArticlesRequest extends JsonSerializableType
     public function setFolderId(?string $value = null): self
     {
         $this->folderId = $value;
+        $this->_setField('folderId');
         return $this;
     }
 }

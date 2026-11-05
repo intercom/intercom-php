@@ -49,6 +49,7 @@ class PhoneSwitch extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class PhoneSwitch extends JsonSerializableType
     public function setPhone(?string $value = null): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 

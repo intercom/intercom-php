@@ -74,6 +74,7 @@ class CursorPages extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -91,6 +92,7 @@ class CursorPages extends JsonSerializableType
     public function setPage(?int $value = null): self
     {
         $this->page = $value;
+        $this->_setField('page');
         return $this;
     }
 
@@ -108,6 +110,7 @@ class CursorPages extends JsonSerializableType
     public function setNext(?StartingAfterPaging $value = null): self
     {
         $this->next = $value;
+        $this->_setField('next');
         return $this;
     }
 
@@ -125,6 +128,7 @@ class CursorPages extends JsonSerializableType
     public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
+        $this->_setField('perPage');
         return $this;
     }
 
@@ -142,6 +146,7 @@ class CursorPages extends JsonSerializableType
     public function setTotalPages(?int $value = null): self
     {
         $this->totalPages = $value;
+        $this->_setField('totalPages');
         return $this;
     }
 

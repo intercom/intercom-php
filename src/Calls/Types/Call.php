@@ -217,6 +217,7 @@ class Call extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -234,6 +235,7 @@ class Call extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -251,6 +253,7 @@ class Call extends JsonSerializableType
     public function setConversationId(?string $value = null): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -268,6 +271,7 @@ class Call extends JsonSerializableType
     public function setAdminId(?string $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -285,6 +289,7 @@ class Call extends JsonSerializableType
     public function setContactId(?string $value = null): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -302,6 +307,7 @@ class Call extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -325,6 +331,7 @@ class Call extends JsonSerializableType
     public function setInitiatedAt(DateTime|int|null $value = null): self
     {
         $this->initiatedAt = $value;
+        $this->_setField('initiatedAt');
         return $this;
     }
 
@@ -348,6 +355,7 @@ class Call extends JsonSerializableType
     public function setAnsweredAt(DateTime|int|null $value = null): self
     {
         $this->answeredAt = $value;
+        $this->_setField('answeredAt');
         return $this;
     }
 
@@ -371,6 +379,7 @@ class Call extends JsonSerializableType
     public function setEndedAt(DateTime|int|null $value = null): self
     {
         $this->endedAt = $value;
+        $this->_setField('endedAt');
         return $this;
     }
 
@@ -394,6 +403,7 @@ class Call extends JsonSerializableType
     public function setCreatedAt(DateTime|int|null $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -417,6 +427,7 @@ class Call extends JsonSerializableType
     public function setUpdatedAt(DateTime|int|null $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -434,6 +445,7 @@ class Call extends JsonSerializableType
     public function setRecordingUrl(?string $value = null): self
     {
         $this->recordingUrl = $value;
+        $this->_setField('recordingUrl');
         return $this;
     }
 
@@ -451,6 +463,7 @@ class Call extends JsonSerializableType
     public function setTranscriptionUrl(?string $value = null): self
     {
         $this->transcriptionUrl = $value;
+        $this->_setField('transcriptionUrl');
         return $this;
     }
 
@@ -468,6 +481,7 @@ class Call extends JsonSerializableType
     public function setCallType(?string $value = null): self
     {
         $this->callType = $value;
+        $this->_setField('callType');
         return $this;
     }
 
@@ -485,6 +499,7 @@ class Call extends JsonSerializableType
     public function setDirection(?string $value = null): self
     {
         $this->direction = $value;
+        $this->_setField('direction');
         return $this;
     }
 
@@ -502,6 +517,7 @@ class Call extends JsonSerializableType
     public function setEndedReason(?string $value = null): self
     {
         $this->endedReason = $value;
+        $this->_setField('endedReason');
         return $this;
     }
 
@@ -519,6 +535,7 @@ class Call extends JsonSerializableType
     public function setPhone(?string $value = null): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 
@@ -536,6 +553,7 @@ class Call extends JsonSerializableType
     public function setFinRecordingUrl(?string $value = null): self
     {
         $this->finRecordingUrl = $value;
+        $this->_setField('finRecordingUrl');
         return $this;
     }
 
@@ -553,6 +571,7 @@ class Call extends JsonSerializableType
     public function setFinTranscriptionUrl(?string $value = null): self
     {
         $this->finTranscriptionUrl = $value;
+        $this->_setField('finTranscriptionUrl');
         return $this;
     }
 

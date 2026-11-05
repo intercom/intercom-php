@@ -98,6 +98,7 @@ class DataEvent extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -115,6 +116,7 @@ class DataEvent extends JsonSerializableType
     public function setEventName(string $value): self
     {
         $this->eventName = $value;
+        $this->_setField('eventName');
         return $this;
     }
 
@@ -132,6 +134,7 @@ class DataEvent extends JsonSerializableType
     public function setCreatedAt(int $value): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -149,6 +152,7 @@ class DataEvent extends JsonSerializableType
     public function setUserId(?string $value = null): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 
@@ -166,6 +170,7 @@ class DataEvent extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -183,6 +188,7 @@ class DataEvent extends JsonSerializableType
     public function setIntercomUserId(?string $value = null): self
     {
         $this->intercomUserId = $value;
+        $this->_setField('intercomUserId');
         return $this;
     }
 
@@ -200,6 +206,7 @@ class DataEvent extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -217,6 +224,7 @@ class DataEvent extends JsonSerializableType
     public function setMetadata(?array $value = null): self
     {
         $this->metadata = $value;
+        $this->_setField('metadata');
         return $this;
     }
 

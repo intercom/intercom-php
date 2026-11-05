@@ -71,6 +71,7 @@ class WhatsappMessageStatusList extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -88,6 +89,7 @@ class WhatsappMessageStatusList extends JsonSerializableType
     public function setRulesetId(string $value): self
     {
         $this->rulesetId = $value;
+        $this->_setField('rulesetId');
         return $this;
     }
 
@@ -105,6 +107,7 @@ class WhatsappMessageStatusList extends JsonSerializableType
     public function setPages(WhatsappMessageStatusListPages $value): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 
@@ -122,6 +125,7 @@ class WhatsappMessageStatusList extends JsonSerializableType
     public function setTotalCount(int $value): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 
@@ -139,6 +143,7 @@ class WhatsappMessageStatusList extends JsonSerializableType
     public function setEvents(array $value): self
     {
         $this->events = $value;
+        $this->_setField('events');
         return $this;
     }
 

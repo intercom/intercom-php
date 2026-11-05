@@ -62,6 +62,7 @@ class CustomChannelNotificationResponse extends JsonSerializableType
     public function setExternalConversationId(string $value): self
     {
         $this->externalConversationId = $value;
+        $this->_setField('externalConversationId');
         return $this;
     }
 
@@ -79,6 +80,7 @@ class CustomChannelNotificationResponse extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -96,6 +98,7 @@ class CustomChannelNotificationResponse extends JsonSerializableType
     public function setExternalContactId(string $value): self
     {
         $this->externalContactId = $value;
+        $this->_setField('externalContactId');
         return $this;
     }
 
@@ -113,6 +116,7 @@ class CustomChannelNotificationResponse extends JsonSerializableType
     public function setContactId(string $value): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 

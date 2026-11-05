@@ -5,10 +5,10 @@ namespace Intercom\Tickets\Requests;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Traits\CreateTicketRequestBody;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\Types\CreateTicketRequestContactsItemId;
-use Intercom\Types\CreateTicketRequestContactsItemExternalId;
-use Intercom\Types\CreateTicketRequestContactsItemEmail;
-use Intercom\Types\CreateTicketRequestAssignment;
+use Intercom\Types\CreateTicketRequestBodyContactsItemId;
+use Intercom\Types\CreateTicketRequestBodyContactsItemExternalId;
+use Intercom\Types\CreateTicketRequestBodyContactsItemEmail;
+use Intercom\Types\CreateTicketRequestBodyAssignment;
 
 class CreateTicketRequest extends JsonSerializableType
 {
@@ -24,15 +24,15 @@ class CreateTicketRequest extends JsonSerializableType
      * @param array{
      *   ticketTypeId: string,
      *   contacts: array<(
-     *    CreateTicketRequestContactsItemId
-     *   |CreateTicketRequestContactsItemExternalId
-     *   |CreateTicketRequestContactsItemEmail
+     *    CreateTicketRequestBodyContactsItemId
+     *   |CreateTicketRequestBodyContactsItemExternalId
+     *   |CreateTicketRequestBodyContactsItemEmail
      * )>,
      *   skipNotifications?: ?bool,
      *   conversationToLinkId?: ?string,
      *   companyId?: ?string,
      *   createdAt?: ?int,
-     *   assignment?: ?CreateTicketRequestAssignment,
+     *   assignment?: ?CreateTicketRequestBodyAssignment,
      * } $values
      */
     public function __construct(
@@ -61,6 +61,7 @@ class CreateTicketRequest extends JsonSerializableType
     public function setSkipNotifications(?bool $value = null): self
     {
         $this->skipNotifications = $value;
+        $this->_setField('skipNotifications');
         return $this;
     }
 }

@@ -283,6 +283,7 @@ class Conversation extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -300,6 +301,7 @@ class Conversation extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -317,6 +319,7 @@ class Conversation extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -334,6 +337,7 @@ class Conversation extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -351,6 +355,7 @@ class Conversation extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -368,6 +373,7 @@ class Conversation extends JsonSerializableType
     public function setWaitingSince(?int $value = null): self
     {
         $this->waitingSince = $value;
+        $this->_setField('waitingSince');
         return $this;
     }
 
@@ -385,6 +391,7 @@ class Conversation extends JsonSerializableType
     public function setSnoozedUntil(?int $value = null): self
     {
         $this->snoozedUntil = $value;
+        $this->_setField('snoozedUntil');
         return $this;
     }
 
@@ -402,6 +409,7 @@ class Conversation extends JsonSerializableType
     public function setOpen(?bool $value = null): self
     {
         $this->open = $value;
+        $this->_setField('open');
         return $this;
     }
 
@@ -419,6 +427,7 @@ class Conversation extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -436,6 +445,7 @@ class Conversation extends JsonSerializableType
     public function setRead(?bool $value = null): self
     {
         $this->read = $value;
+        $this->_setField('read');
         return $this;
     }
 
@@ -453,6 +463,7 @@ class Conversation extends JsonSerializableType
     public function setPriority(?string $value = null): self
     {
         $this->priority = $value;
+        $this->_setField('priority');
         return $this;
     }
 
@@ -470,6 +481,7 @@ class Conversation extends JsonSerializableType
     public function setAdminAssigneeId(?int $value = null): self
     {
         $this->adminAssigneeId = $value;
+        $this->_setField('adminAssigneeId');
         return $this;
     }
 
@@ -487,6 +499,7 @@ class Conversation extends JsonSerializableType
     public function setTeamAssigneeId(?string $value = null): self
     {
         $this->teamAssigneeId = $value;
+        $this->_setField('teamAssigneeId');
         return $this;
     }
 
@@ -504,6 +517,7 @@ class Conversation extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -521,6 +535,7 @@ class Conversation extends JsonSerializableType
     public function setCompany(?Company $value = null): self
     {
         $this->company = $value;
+        $this->_setField('company');
         return $this;
     }
 
@@ -538,6 +553,7 @@ class Conversation extends JsonSerializableType
     public function setTags(?Tags $value = null): self
     {
         $this->tags = $value;
+        $this->_setField('tags');
         return $this;
     }
 
@@ -555,6 +571,7 @@ class Conversation extends JsonSerializableType
     public function setConversationRating(?ConversationRating $value = null): self
     {
         $this->conversationRating = $value;
+        $this->_setField('conversationRating');
         return $this;
     }
 
@@ -572,6 +589,7 @@ class Conversation extends JsonSerializableType
     public function setSource(?ConversationSource $value = null): self
     {
         $this->source = $value;
+        $this->_setField('source');
         return $this;
     }
 
@@ -589,6 +607,7 @@ class Conversation extends JsonSerializableType
     public function setContacts(?ConversationContacts $value = null): self
     {
         $this->contacts = $value;
+        $this->_setField('contacts');
         return $this;
     }
 
@@ -606,6 +625,7 @@ class Conversation extends JsonSerializableType
     public function setTeammates(?ConversationTeammates $value = null): self
     {
         $this->teammates = $value;
+        $this->_setField('teammates');
         return $this;
     }
 
@@ -633,6 +653,7 @@ class Conversation extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 
@@ -650,6 +671,7 @@ class Conversation extends JsonSerializableType
     public function setFirstContactReply(?ConversationFirstContactReply $value = null): self
     {
         $this->firstContactReply = $value;
+        $this->_setField('firstContactReply');
         return $this;
     }
 
@@ -667,6 +689,7 @@ class Conversation extends JsonSerializableType
     public function setSlaApplied(?SlaApplied $value = null): self
     {
         $this->slaApplied = $value;
+        $this->_setField('slaApplied');
         return $this;
     }
 
@@ -684,6 +707,7 @@ class Conversation extends JsonSerializableType
     public function setStatistics(?ConversationStatistics $value = null): self
     {
         $this->statistics = $value;
+        $this->_setField('statistics');
         return $this;
     }
 
@@ -701,6 +725,7 @@ class Conversation extends JsonSerializableType
     public function setConversationParts(?ConversationParts $value = null): self
     {
         $this->conversationParts = $value;
+        $this->_setField('conversationParts');
         return $this;
     }
 
@@ -718,6 +743,7 @@ class Conversation extends JsonSerializableType
     public function setLinkedObjects(?LinkedObjectList $value = null): self
     {
         $this->linkedObjects = $value;
+        $this->_setField('linkedObjects');
         return $this;
     }
 
@@ -735,6 +761,7 @@ class Conversation extends JsonSerializableType
     public function setAiAgentParticipated(?bool $value = null): self
     {
         $this->aiAgentParticipated = $value;
+        $this->_setField('aiAgentParticipated');
         return $this;
     }
 
@@ -752,6 +779,7 @@ class Conversation extends JsonSerializableType
     public function setAiAgent(?AiAgent $value = null): self
     {
         $this->aiAgent = $value;
+        $this->_setField('aiAgent');
         return $this;
     }
 

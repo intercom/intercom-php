@@ -58,6 +58,7 @@ class ConversationParts extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -75,6 +76,7 @@ class ConversationParts extends JsonSerializableType
     public function setConversationParts(?array $value = null): self
     {
         $this->conversationParts = $value;
+        $this->_setField('conversationParts');
         return $this;
     }
 
@@ -92,6 +94,7 @@ class ConversationParts extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Articles;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Types\ArticleList;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Articles\Types\Article;
 use Intercom\Unstable\Articles\Requests\RetrieveArticleRequest;
@@ -63,6 +62,13 @@ class ArticlesClient
      * >
      * > Articles will be returned in descending order on the `updated_at` attribute. This means if you need to iterate through results then we'll show the most recently updated articles first.
      *
+     * Example:
+     * ```php
+     * $client->articles->list(
+     *     new ListArticlesRequest([]),
+     * );
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -71,11 +77,11 @@ class ArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ArticleList
+     * @return ?ArticleList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listArticles(?array $options = null): ArticleList
+    public function listArticles(?array $options = null): ?ArticleList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -90,20 +96,13 @@ class ArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ArticleList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -117,6 +116,15 @@ class ArticlesClient
     /**
      * You can create a new article by making a POST request to `https://api.intercom.io/articles`.
      *
+     * Example:
+     * ```php
+     * $client->unstable->articles->createArticle(
+     *     [
+     *         'key' => "value",
+     *     ],
+     * );
+     * ```
+     *
      * @param mixed $request
      * @param ?array{
      *   baseUrl?: string,
@@ -126,11 +134,11 @@ class ArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Article
+     * @return ?Article
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createArticle(mixed $request, ?array $options = null): Article
+    public function createArticle(mixed $request, ?array $options = null): ?Article
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -146,20 +154,13 @@ class ArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Article::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -173,6 +174,15 @@ class ArticlesClient
     /**
      * You can fetch the details of a single article by making a GET request to `https://api.intercom.io/articles/<id>`.
      *
+     * Example:
+     * ```php
+     * $client->unstable->articles->retrieveArticle(
+     *     new RetrieveArticleRequest([
+     *         'id' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveArticleRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -182,18 +192,18 @@ class ArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Article
+     * @return ?Article
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveArticle(RetrieveArticleRequest $request, ?array $options = null): Article
+    public function retrieveArticle(RetrieveArticleRequest $request, ?array $options = null): ?Article
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "articles/{$request->getId()}",
+                    path: "articles/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -201,20 +211,13 @@ class ArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Article::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -228,6 +231,15 @@ class ArticlesClient
     /**
      * You can delete a single article by making a DELETE request to `https://api.intercom.io/articles/<id>`.
      *
+     * Example:
+     * ```php
+     * $client->unstable->articles->deleteArticle(
+     *     new DeleteArticleRequest([
+     *         'id' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteArticleRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -237,18 +249,18 @@ class ArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DeletedArticleObject
+     * @return ?DeletedArticleObject
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteArticle(DeleteArticleRequest $request, ?array $options = null): DeletedArticleObject
+    public function deleteArticle(DeleteArticleRequest $request, ?array $options = null): ?DeletedArticleObject
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "articles/{$request->getId()}",
+                    path: "articles/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -256,20 +268,13 @@ class ArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DeletedArticleObject::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -283,6 +288,18 @@ class ArticlesClient
     /**
      * You can search for articles by making a GET request to `https://api.intercom.io/articles/search`.
      *
+     * Example:
+     * ```php
+     * $client->articles->search(
+     *     new SearchArticlesRequest([
+     *         'phrase' => 'Getting started',
+     *         'state' => 'published',
+     *         'helpCenterId' => 1,
+     *         'highlight' => true,
+     *     ]),
+     * );
+     * ```
+     *
      * @param SearchArticlesRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -292,11 +309,11 @@ class ArticlesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ArticleSearchResponse
+     * @return ?ArticleSearchResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function searchArticles(SearchArticlesRequest $request = new SearchArticlesRequest(), ?array $options = null): ArticleSearchResponse
+    public function searchArticles(SearchArticlesRequest $request = new SearchArticlesRequest(), ?array $options = null): ?ArticleSearchResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -325,20 +342,13 @@ class ArticlesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ArticleSearchResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

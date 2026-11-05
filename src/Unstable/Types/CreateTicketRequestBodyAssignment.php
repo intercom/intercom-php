@@ -5,7 +5,7 @@ namespace Intercom\Unstable\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 
-class CreateTicketRequestAssignment extends JsonSerializableType
+class CreateTicketRequestBodyAssignment extends JsonSerializableType
 {
     /**
      * @var ?string $adminAssigneeId The ID of the admin to which the ticket is assigned. If not provided, the ticket will be unassigned.
@@ -46,6 +46,7 @@ class CreateTicketRequestAssignment extends JsonSerializableType
     public function setAdminAssigneeId(?string $value = null): self
     {
         $this->adminAssigneeId = $value;
+        $this->_setField('adminAssigneeId');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class CreateTicketRequestAssignment extends JsonSerializableType
     public function setTeamAssigneeId(?string $value = null): self
     {
         $this->teamAssigneeId = $value;
+        $this->_setField('teamAssigneeId');
         return $this;
     }
 

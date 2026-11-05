@@ -94,6 +94,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -111,6 +112,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -128,6 +130,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setLabel(?string $value = null): self
     {
         $this->label = $value;
+        $this->_setField('label');
         return $this;
     }
 
@@ -145,6 +148,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setEmoji(?string $value = null): self
     {
         $this->emoji = $value;
+        $this->_setField('emoji');
         return $this;
     }
 
@@ -162,6 +166,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setOrder(?int $value = null): self
     {
         $this->order = $value;
+        $this->_setField('order');
         return $this;
     }
 
@@ -179,6 +184,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setDeleted(?bool $value = null): self
     {
         $this->deleted = $value;
+        $this->_setField('deleted');
         return $this;
     }
 
@@ -196,6 +202,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -213,6 +220,7 @@ class AwayStatusReason extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 

@@ -36,6 +36,7 @@ class FindAdminRequest extends JsonSerializableType
     public function setAdminId(int $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 }

@@ -4,7 +4,7 @@ namespace Intercom\Articles\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\Articles\Types\UpdateArticleRequestState;
+use Intercom\Articles\Types\UpdateArticleRequestBodyState;
 use Intercom\Types\ArticleTranslatedContent;
 
 class UpdateArticleRequest extends JsonSerializableType
@@ -39,7 +39,7 @@ class UpdateArticleRequest extends JsonSerializableType
     private ?int $authorId;
 
     /**
-     * @var ?value-of<UpdateArticleRequestState> $state Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content.
+     * @var ?value-of<UpdateArticleRequestBodyState> $state Whether the article will be `published` or will be a `draft`. Defaults to draft. For multilingual articles, this will be the state of the default language's content.
      */
     #[JsonProperty('state')]
     private ?string $state;
@@ -69,7 +69,7 @@ class UpdateArticleRequest extends JsonSerializableType
      *   description?: ?string,
      *   body?: ?string,
      *   authorId?: ?int,
-     *   state?: ?value-of<UpdateArticleRequestState>,
+     *   state?: ?value-of<UpdateArticleRequestBodyState>,
      *   parentId?: ?string,
      *   parentType?: ?string,
      *   translatedContent?: ?ArticleTranslatedContent,
@@ -103,6 +103,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setArticleId(int $value): self
     {
         $this->articleId = $value;
+        $this->_setField('articleId');
         return $this;
     }
 
@@ -120,6 +121,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setTitle(?string $value = null): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -137,6 +139,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -154,6 +157,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -171,11 +175,12 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setAuthorId(?int $value = null): self
     {
         $this->authorId = $value;
+        $this->_setField('authorId');
         return $this;
     }
 
     /**
-     * @return ?value-of<UpdateArticleRequestState>
+     * @return ?value-of<UpdateArticleRequestBodyState>
      */
     public function getState(): ?string
     {
@@ -183,11 +188,12 @@ class UpdateArticleRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?value-of<UpdateArticleRequestState> $value
+     * @param ?value-of<UpdateArticleRequestBodyState> $value
      */
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -205,6 +211,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setParentId(?string $value = null): self
     {
         $this->parentId = $value;
+        $this->_setField('parentId');
         return $this;
     }
 
@@ -222,6 +229,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setParentType(?string $value = null): self
     {
         $this->parentType = $value;
+        $this->_setField('parentType');
         return $this;
     }
 
@@ -239,6 +247,7 @@ class UpdateArticleRequest extends JsonSerializableType
     public function setTranslatedContent(?ArticleTranslatedContent $value = null): self
     {
         $this->translatedContent = $value;
+        $this->_setField('translatedContent');
         return $this;
     }
 }

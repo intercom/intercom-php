@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Messages;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Messages\Types\Message;
 use Intercom\Exceptions\IntercomException;
@@ -10,8 +10,9 @@ use Intercom\Exceptions\IntercomApiException;
 use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
+use Intercom\Core\Json\JsonSerializer;
+use Intercom\Core\Types\Union;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Messages\Requests\GetWhatsAppMessageStatusRequest;
 use Intercom\Unstable\Types\WhatsappMessageStatusList;
@@ -65,7 +66,23 @@ class MessagesClient
      * >
      * > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
      *
-     * @param mixed $request
+     * Example:
+     * ```php
+     * $client->unstable->messages->createMessage(
+     *     [
+     *         'from' => [
+     *             'type' => "user",
+     *             'id' => "6762f2341bb69f9f2193bc17",
+     *         ],
+     *         'body' => "heyy",
+     *         'referer' => "https://twitter.com/bob",
+     *     ],
+     * );
+     * ```
+     *
+     * @param (
+     *    mixed
+     * )|null $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -74,11 +91,11 @@ class MessagesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Message
+     * @return ?Message
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createMessage(mixed $request = null, ?array $options = null): Message
+    public function createMessage(mixed $request = null, ?array $options = null): ?Message
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -87,27 +104,20 @@ class MessagesClient
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
                     path: "messages",
                     method: HttpMethod::POST,
-                    body: $request,
+                    body: $request ? JsonSerializer::serializeUnion($request, new Union('mixed', 'null')) : null,
                 ),
                 $options,
             );
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Message::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -125,6 +135,17 @@ class MessagesClient
      * This endpoint returns paginated status events for WhatsApp messages sent via the Outbound module, providing
      * information about delivery state and related message details.
      *
+     * Example:
+     * ```php
+     * $client->unstable->messages->getWhatsAppMessageStatus(
+     *     new GetWhatsAppMessageStatusRequest([
+     *         'rulesetId' => 'ruleset_id',
+     *         'perPage' => 1,
+     *         'startingAfter' => 'starting_after',
+     *     ]),
+     * );
+     * ```
+     *
      * @param GetWhatsAppMessageStatusRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -134,11 +155,11 @@ class MessagesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return WhatsappMessageStatusList
+     * @return ?WhatsappMessageStatusList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function getWhatsAppMessageStatus(GetWhatsAppMessageStatusRequest $request, ?array $options = null): WhatsappMessageStatusList
+    public function getWhatsAppMessageStatus(GetWhatsAppMessageStatusRequest $request, ?array $options = null): ?WhatsappMessageStatusList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -162,20 +183,13 @@ class MessagesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return WhatsappMessageStatusList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

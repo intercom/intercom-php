@@ -46,6 +46,7 @@ class ConversationPartMetadataQuickReplyOptionsItem extends JsonSerializableType
     public function setTranslations(?array $value = null): self
     {
         $this->translations = $value;
+        $this->_setField('translations');
         return $this;
     }
 

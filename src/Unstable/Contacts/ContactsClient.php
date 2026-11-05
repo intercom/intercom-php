@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Contacts;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Contacts\Requests\ListCompaniesForAContactRequest;
 use Intercom\Unstable\Types\ContactAttachedCompanies;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Contacts\Requests\ListSegmentsForAContactRequest;
 use Intercom\Unstable\Types\ContactSegments;
@@ -79,6 +78,15 @@ class ContactsClient
     /**
      * You can fetch a list of companies that are associated to a contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->listCompaniesForAContact(
+     *     new ListCompaniesForAContactRequest([
+     *         'id' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListCompaniesForAContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -88,18 +96,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactAttachedCompanies
+     * @return ?ContactAttachedCompanies
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listCompaniesForAContact(ListCompaniesForAContactRequest $request, ?array $options = null): ContactAttachedCompanies
+    public function listCompaniesForAContact(ListCompaniesForAContactRequest $request, ?array $options = null): ?ContactAttachedCompanies
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}/companies",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()) . "/companies",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -107,20 +115,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactAttachedCompanies::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -134,6 +135,15 @@ class ContactsClient
     /**
      * You can fetch a list of segments that are associated to a contact.
      *
+     * Example:
+     * ```php
+     * $client->contacts->listAttachedSegments(
+     *     new ListSegmentsAttachedToContactRequest([
+     *         'contactId' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListSegmentsForAContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -143,18 +153,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactSegments
+     * @return ?ContactSegments
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listSegmentsForAContact(ListSegmentsForAContactRequest $request, ?array $options = null): ContactSegments
+    public function listSegmentsForAContact(ListSegmentsForAContactRequest $request, ?array $options = null): ?ContactSegments
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getContactId()}/segments",
+                    path: "contacts/" . RawClient::encodePathParam($request->getContactId()) . "/segments",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -162,20 +172,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactSegments::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -195,6 +198,15 @@ class ContactsClient
      *   1.Opt-out subscription types that the user has opted-out from.
      *   2.Opt-in subscription types that the user has opted-in to receiving.
      *
+     * Example:
+     * ```php
+     * $client->contacts->listAttachedSubscriptions(
+     *     new ListAttachedSubscriptionsRequest([
+     *         'contactId' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListSubscriptionsForAContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -204,18 +216,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return SubscriptionTypeList
+     * @return ?SubscriptionTypeList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listSubscriptionsForAContact(ListSubscriptionsForAContactRequest $request, ?array $options = null): SubscriptionTypeList
+    public function listSubscriptionsForAContact(ListSubscriptionsForAContactRequest $request, ?array $options = null): ?SubscriptionTypeList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getContactId()}/subscriptions",
+                    path: "contacts/" . RawClient::encodePathParam($request->getContactId()) . "/subscriptions",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -223,20 +235,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return SubscriptionTypeList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -250,6 +255,15 @@ class ContactsClient
     /**
      * You can fetch a list of all tags that are attached to a specific contact.
      *
+     * Example:
+     * ```php
+     * $client->contacts->listAttachedTags(
+     *     new ListTagsAttachedToContactRequest([
+     *         'contactId' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListTagsForAContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -259,18 +273,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TagList
+     * @return ?TagList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listTagsForAContact(ListTagsForAContactRequest $request, ?array $options = null): TagList
+    public function listTagsForAContact(ListTagsForAContactRequest $request, ?array $options = null): ?TagList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getContactId()}/tags",
+                    path: "contacts/" . RawClient::encodePathParam($request->getContactId()) . "/tags",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -278,20 +292,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TagList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -305,6 +312,15 @@ class ContactsClient
     /**
      * You can fetch the details of a single contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->showContact(
+     *     new ShowContactRequest([
+     *         'id' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ShowContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -314,18 +330,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ShowContactResponse
+     * @return ?ShowContactResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function showContact(ShowContactRequest $request, ?array $options = null): ShowContactResponse
+    public function showContact(ShowContactRequest $request, ?array $options = null): ?ShowContactResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -333,20 +349,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ShowContactResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -366,6 +375,17 @@ class ContactsClient
      *   See _`update a contact with an association to a custom object instance`_ in the request/response examples to see the custom object association format.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->updateContact(
+     *     new UpdateContactRequest([
+     *         'id' => '63a07ddf05a32042dffac965',
+     *         'email' => 'joebloggs@intercom.io',
+     *         'name' => 'joe bloggs',
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -375,18 +395,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return UpdateContactResponse
+     * @return ?UpdateContactResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateContact(UpdateContactRequest $request, ?array $options = null): UpdateContactResponse
+    public function updateContact(UpdateContactRequest $request, ?array $options = null): ?UpdateContactResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -395,20 +415,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return UpdateContactResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -422,6 +435,15 @@ class ContactsClient
     /**
      * You can delete a single contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->deleteContact(
+     *     new DeleteContactRequest([
+     *         'id' => 'id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -431,18 +453,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactDeleted
+     * @return ?ContactDeleted
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteContact(DeleteContactRequest $request, ?array $options = null): ContactDeleted
+    public function deleteContact(DeleteContactRequest $request, ?array $options = null): ?ContactDeleted
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -450,20 +472,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactDeleted::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -477,6 +492,16 @@ class ContactsClient
     /**
      * You can merge a contact with a `role` of `lead` into a contact with a `role` of `user`.
      *
+     * Example:
+     * ```php
+     * $client->contacts->mergeLeadInUser(
+     *     new MergeContactsRequest([
+     *         'leadId' => '6762f0d51bb69f9f2193bb7f',
+     *         'contactId' => '6762f0d51bb69f9f2193bb80',
+     *     ]),
+     * );
+     * ```
+     *
      * @param MergeContactsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -486,11 +511,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return MergeContactResponse
+     * @return ?MergeContactResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function mergeContact(MergeContactsRequest $request = new MergeContactsRequest(), ?array $options = null): MergeContactResponse
+    public function mergeContact(MergeContactsRequest $request = new MergeContactsRequest(), ?array $options = null): ?MergeContactResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -506,20 +531,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return MergeContactResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -632,6 +650,20 @@ class ContactsClient
      * | ^        | String                           | Starts With                                                      |
      * | $        | String                           | Ends With                                                        |
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->searchContacts(
+     *     new SearchRequest([
+     *         'query' => new SingleFilterSearchRequest([
+     *             'value' => [],
+     *         ]),
+     *         'pagination' => new StartingAfterPaging([
+     *             'perPage' => 5,
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
      * @param SearchRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -641,11 +673,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactList
+     * @return ?ContactList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function searchContacts(SearchRequest $request, ?array $options = null): ContactList
+    public function searchContacts(SearchRequest $request, ?array $options = null): ?ContactList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -661,20 +693,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -692,6 +717,13 @@ class ContactsClient
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->contacts->list(
+     *     new ListContactsRequest([]),
+     * );
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -700,11 +732,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactList
+     * @return ?ContactList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listContacts(?array $options = null): ContactList
+    public function listContacts(?array $options = null): ?ContactList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -719,20 +751,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -746,7 +771,18 @@ class ContactsClient
     /**
      * You can create a new contact (ie. user or lead).
      *
-     * @param mixed $request
+     * Example:
+     * ```php
+     * $client->contacts->create(
+     *     new CreateContactRequestWithEmail([
+     *         'email' => 'joebloggs@intercom.io',
+     *     ]),
+     * );
+     * ```
+     *
+     * @param (
+     *    mixed
+     * ) $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -755,11 +791,11 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CreateContactResponse
+     * @return ?CreateContactResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createContact(mixed $request, ?array $options = null): CreateContactResponse
+    public function createContact(mixed $request, ?array $options = null): ?CreateContactResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -775,20 +811,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CreateContactResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -802,6 +831,15 @@ class ContactsClient
     /**
      * You can fetch the details of a single contact by external ID. Note that this endpoint only supports users and not leads.
      *
+     * Example:
+     * ```php
+     * $client->contacts->showContactByExternalId(
+     *     new ShowContactByExternalIdRequest([
+     *         'externalId' => 'cdd29344-5e0c-4ef0-ac56-f9ba2979bc27',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ShowContactByExternalIdRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -811,18 +849,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ShowContactByExternalIdResponse
+     * @return ?ShowContactByExternalIdResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function showContactByExternalId(ShowContactByExternalIdRequest $request, ?array $options = null): ShowContactByExternalIdResponse
+    public function showContactByExternalId(ShowContactByExternalIdRequest $request, ?array $options = null): ?ShowContactByExternalIdResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/find_by_external_id/{$request->getExternalId()}",
+                    path: "contacts/find_by_external_id/" . RawClient::encodePathParam($request->getExternalId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -830,20 +868,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ShowContactByExternalIdResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -857,6 +888,15 @@ class ContactsClient
     /**
      * You can archive a single contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->archiveContact(
+     *     new ArchiveContactRequest([
+     *         'id' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ArchiveContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -866,18 +906,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactArchived
+     * @return ?ContactArchived
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function archiveContact(ArchiveContactRequest $request, ?array $options = null): ContactArchived
+    public function archiveContact(ArchiveContactRequest $request, ?array $options = null): ?ContactArchived
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}/archive",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()) . "/archive",
                     method: HttpMethod::POST,
                 ),
                 $options,
@@ -885,20 +925,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactArchived::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -912,6 +945,15 @@ class ContactsClient
     /**
      * You can unarchive a single contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->unarchiveContact(
+     *     new UnarchiveContactRequest([
+     *         'id' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param UnarchiveContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -921,18 +963,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactUnarchived
+     * @return ?ContactUnarchived
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function unarchiveContact(UnarchiveContactRequest $request, ?array $options = null): ContactUnarchived
+    public function unarchiveContact(UnarchiveContactRequest $request, ?array $options = null): ?ContactUnarchived
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}/unarchive",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()) . "/unarchive",
                     method: HttpMethod::POST,
                 ),
                 $options,
@@ -940,20 +982,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactUnarchived::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -967,6 +1002,15 @@ class ContactsClient
     /**
      * Block a single contact.<br>**Note:** conversations of the contact will also be archived during the process.<br>More details in [FAQ How do I block Inbox spam?](https://www.intercom.com/help/en/articles/8838656-inbox-faqs)
      *
+     * Example:
+     * ```php
+     * $client->unstable->contacts->blockContact(
+     *     new BlockContactRequest([
+     *         'id' => '63a07ddf05a32042dffac965',
+     *     ]),
+     * );
+     * ```
+     *
      * @param BlockContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -976,18 +1020,18 @@ class ContactsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContactBlocked
+     * @return ?ContactBlocked
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function blockContact(BlockContactRequest $request, ?array $options = null): ContactBlocked
+    public function blockContact(BlockContactRequest $request, ?array $options = null): ?ContactBlocked
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}/block",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()) . "/block",
                     method: HttpMethod::POST,
                 ),
                 $options,
@@ -995,20 +1039,13 @@ class ContactsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContactBlocked::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

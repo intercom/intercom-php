@@ -57,6 +57,7 @@ class ReplyToConversationRequest extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -84,6 +85,7 @@ class ReplyToConversationRequest extends JsonSerializableType
     public function setBody(ContactReplyIntercomUserIdRequest|ContactReplyEmailRequest|ContactReplyUserIdRequest|AdminReplyConversationRequest $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

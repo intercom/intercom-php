@@ -89,6 +89,7 @@ class App extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -106,6 +107,7 @@ class App extends JsonSerializableType
     public function setIdCode(?string $value = null): self
     {
         $this->idCode = $value;
+        $this->_setField('idCode');
         return $this;
     }
 
@@ -123,6 +125,7 @@ class App extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -140,6 +143,7 @@ class App extends JsonSerializableType
     public function setRegion(?string $value = null): self
     {
         $this->region = $value;
+        $this->_setField('region');
         return $this;
     }
 
@@ -157,6 +161,7 @@ class App extends JsonSerializableType
     public function setTimezone(?string $value = null): self
     {
         $this->timezone = $value;
+        $this->_setField('timezone');
         return $this;
     }
 
@@ -174,6 +179,7 @@ class App extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -191,6 +197,7 @@ class App extends JsonSerializableType
     public function setIdentityVerification(?bool $value = null): self
     {
         $this->identityVerification = $value;
+        $this->_setField('identityVerification');
         return $this;
     }
 

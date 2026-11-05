@@ -53,6 +53,7 @@ class AttachSubscriptionTypeToContactRequest extends JsonSerializableType
     public function setContactId(string $value): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -70,6 +71,7 @@ class AttachSubscriptionTypeToContactRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -87,6 +89,7 @@ class AttachSubscriptionTypeToContactRequest extends JsonSerializableType
     public function setConsentType(string $value): self
     {
         $this->consentType = $value;
+        $this->_setField('consentType');
         return $this;
     }
 }

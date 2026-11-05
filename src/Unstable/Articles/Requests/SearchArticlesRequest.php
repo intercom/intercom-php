@@ -57,6 +57,7 @@ class SearchArticlesRequest extends JsonSerializableType
     public function setPhrase(?string $value = null): self
     {
         $this->phrase = $value;
+        $this->_setField('phrase');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class SearchArticlesRequest extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class SearchArticlesRequest extends JsonSerializableType
     public function setHelpCenterId(?int $value = null): self
     {
         $this->helpCenterId = $value;
+        $this->_setField('helpCenterId');
         return $this;
     }
 
@@ -108,6 +111,7 @@ class SearchArticlesRequest extends JsonSerializableType
     public function setHighlight(?bool $value = null): self
     {
         $this->highlight = $value;
+        $this->_setField('highlight');
         return $this;
     }
 }

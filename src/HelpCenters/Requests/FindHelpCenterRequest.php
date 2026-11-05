@@ -36,6 +36,7 @@ class FindHelpCenterRequest extends JsonSerializableType
     public function setHelpCenterId(int $value): self
     {
         $this->helpCenterId = $value;
+        $this->_setField('helpCenterId');
         return $this;
     }
 }

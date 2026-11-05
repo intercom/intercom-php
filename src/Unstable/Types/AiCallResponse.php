@@ -114,6 +114,7 @@ class AiCallResponse extends JsonSerializableType
     public function setId(?int $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -131,6 +132,7 @@ class AiCallResponse extends JsonSerializableType
     public function setAppId(?int $value = null): self
     {
         $this->appId = $value;
+        $this->_setField('appId');
         return $this;
     }
 
@@ -148,6 +150,7 @@ class AiCallResponse extends JsonSerializableType
     public function setUserPhoneNumber(?string $value = null): self
     {
         $this->userPhoneNumber = $value;
+        $this->_setField('userPhoneNumber');
         return $this;
     }
 
@@ -165,6 +168,7 @@ class AiCallResponse extends JsonSerializableType
     public function setStatus(?string $value = null): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -182,6 +186,7 @@ class AiCallResponse extends JsonSerializableType
     public function setIntercomCallId(?string $value = null): self
     {
         $this->intercomCallId = $value;
+        $this->_setField('intercomCallId');
         return $this;
     }
 
@@ -199,6 +204,7 @@ class AiCallResponse extends JsonSerializableType
     public function setExternalCallId(?string $value = null): self
     {
         $this->externalCallId = $value;
+        $this->_setField('externalCallId');
         return $this;
     }
 
@@ -216,6 +222,7 @@ class AiCallResponse extends JsonSerializableType
     public function setIntercomConversationId(?string $value = null): self
     {
         $this->intercomConversationId = $value;
+        $this->_setField('intercomConversationId');
         return $this;
     }
 
@@ -233,6 +240,7 @@ class AiCallResponse extends JsonSerializableType
     public function setCallTranscript(?array $value = null): self
     {
         $this->callTranscript = $value;
+        $this->_setField('callTranscript');
         return $this;
     }
 
@@ -250,6 +258,7 @@ class AiCallResponse extends JsonSerializableType
     public function setCallSummary(?string $value = null): self
     {
         $this->callSummary = $value;
+        $this->_setField('callSummary');
         return $this;
     }
 
@@ -267,6 +276,7 @@ class AiCallResponse extends JsonSerializableType
     public function setIntent(?array $value = null): self
     {
         $this->intent = $value;
+        $this->_setField('intent');
         return $this;
     }
 

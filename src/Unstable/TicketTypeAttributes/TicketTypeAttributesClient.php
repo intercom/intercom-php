@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\TicketTypeAttributes;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\TicketTypeAttributes\Requests\CreateTicketTypeAttributeRequest;
 use Intercom\Unstable\Types\TicketTypeAttribute;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\TicketTypeAttributes\Requests\UpdateTicketTypeAttributeRequest;
 
@@ -55,6 +54,19 @@ class TicketTypeAttributesClient
     /**
      * You can create a new attribute for a ticket type.
      *
+     * Example:
+     * ```php
+     * $client->ticketTypes->attributes->create(
+     *     new CreateTicketTypeAttributeRequest([
+     *         'ticketTypeId' => 'ticket_type_id',
+     *         'name' => 'Attribute Title',
+     *         'description' => 'Attribute Description',
+     *         'dataType' => CreateTicketTypeAttributeRequestDataType::String->value,
+     *         'requiredToCreate' => false,
+     *     ]),
+     * );
+     * ```
+     *
      * @param CreateTicketTypeAttributeRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -75,7 +87,7 @@ class TicketTypeAttributesClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ticket_types/{$request->getTicketTypeId()}/attributes",
+                    path: "ticket_types/" . RawClient::encodePathParam($request->getTicketTypeId()) . "/attributes",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -91,16 +103,6 @@ class TicketTypeAttributesClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -113,6 +115,17 @@ class TicketTypeAttributesClient
 
     /**
      * You can update an existing attribute for a ticket type.
+     *
+     * Example:
+     * ```php
+     * $client->unstable->ticketTypeAttributes->updateTicketTypeAttribute(
+     *     new UpdateTicketTypeAttributeRequest([
+     *         'ticketTypeId' => 'ticket_type_id',
+     *         'id' => 'id',
+     *         'description' => 'New Attribute Description',
+     *     ]),
+     * );
+     * ```
      *
      * @param UpdateTicketTypeAttributeRequest $request
      * @param ?array{
@@ -134,7 +147,7 @@ class TicketTypeAttributesClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ticket_types/{$request->getTicketTypeId()}/attributes/{$request->getId()}",
+                    path: "ticket_types/" . RawClient::encodePathParam($request->getTicketTypeId()) . "/attributes/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -150,16 +163,6 @@ class TicketTypeAttributesClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

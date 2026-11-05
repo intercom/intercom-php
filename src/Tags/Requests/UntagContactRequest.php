@@ -43,6 +43,7 @@ class UntagContactRequest extends JsonSerializableType
     public function setContactId(string $value): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class UntagContactRequest extends JsonSerializableType
     public function setTagId(string $value): self
     {
         $this->tagId = $value;
+        $this->_setField('tagId');
         return $this;
     }
 }

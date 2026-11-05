@@ -49,6 +49,7 @@ class RedactConversationRequestSource extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class RedactConversationRequestSource extends JsonSerializableType
     public function setSourceId(string $value): self
     {
         $this->sourceId = $value;
+        $this->_setField('sourceId');
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Intercom\TicketTypes\Types;
 
-enum UpdateTicketTypeRequestCategory: string
+enum UpdateTicketTypeRequestBodyCategory: string
 {
     case Customer = "Customer";
     case BackOffice = "Back-office";

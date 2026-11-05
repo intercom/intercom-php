@@ -58,6 +58,7 @@ class AttachContactToConversationRequestCustomerUserId extends JsonSerializableT
     public function setUserId(string $value): self
     {
         $this->userId = $value;
+        $this->_setField('userId');
         return $this;
     }
 
@@ -83,6 +84,7 @@ class AttachContactToConversationRequestCustomerUserId extends JsonSerializableT
     public function setCustomer(CustomerRequestIntercomUserId|CustomerRequestUserId|CustomerRequestEmail|null $value = null): self
     {
         $this->customer = $value;
+        $this->_setField('customer');
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Intercom\AiContent;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\AiContent\Types\ContentImportSourcesList;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\AiContent\Requests\CreateContentImportSourceRequest;
 use Intercom\AiContent\Types\ContentImportSource;
@@ -64,6 +63,11 @@ class AiContentClient
     /**
      * You can retrieve a list of all content import sources for a workspace.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->listContentImportSources();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -72,11 +76,11 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContentImportSourcesList
+     * @return ?ContentImportSourcesList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listContentImportSources(?array $options = null): ContentImportSourcesList
+    public function listContentImportSources(?array $options = null): ?ContentImportSourcesList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -91,20 +95,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContentImportSourcesList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -118,6 +115,16 @@ class AiContentClient
     /**
      * You can create a new content import source by sending a POST request to this endpoint.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->createContentImportSource(
+     *     new CreateContentImportSourceRequest([
+     *         'syncBehavior' => 'api',
+     *         'url' => 'https://www.example.com',
+     *     ]),
+     * );
+     * ```
+     *
      * @param CreateContentImportSourceRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -127,11 +134,11 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContentImportSource
+     * @return ?ContentImportSource
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createContentImportSource(CreateContentImportSourceRequest $request, ?array $options = null): ContentImportSource
+    public function createContentImportSource(CreateContentImportSourceRequest $request, ?array $options = null): ?ContentImportSource
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -147,20 +154,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContentImportSource::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -172,6 +172,15 @@ class AiContentClient
     }
 
     /**
+     * Example:
+     * ```php
+     * $client->aiContent->getContentImportSource(
+     *     new GetContentImportSourceRequest([
+     *         'sourceId' => 'source_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param GetContentImportSourceRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -181,18 +190,18 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContentImportSource
+     * @return ?ContentImportSource
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function getContentImportSource(GetContentImportSourceRequest $request, ?array $options = null): ContentImportSource
+    public function getContentImportSource(GetContentImportSourceRequest $request, ?array $options = null): ?ContentImportSource
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ai/content_import_sources/{$request->getSourceId()}",
+                    path: "ai/content_import_sources/" . RawClient::encodePathParam($request->getSourceId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -200,20 +209,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContentImportSource::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -227,6 +229,17 @@ class AiContentClient
     /**
      * You can update an existing content import source.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->updateContentImportSource(
+     *     new UpdateContentImportSourceRequest([
+     *         'sourceId' => 'source_id',
+     *         'syncBehavior' => UpdateContentImportSourceRequestSyncBehavior::Api->value,
+     *         'url' => 'https://www.example.com',
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateContentImportSourceRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -236,18 +249,18 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ContentImportSource
+     * @return ?ContentImportSource
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateContentImportSource(UpdateContentImportSourceRequest $request, ?array $options = null): ContentImportSource
+    public function updateContentImportSource(UpdateContentImportSourceRequest $request, ?array $options = null): ?ContentImportSource
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ai/content_import_sources/{$request->getSourceId()}",
+                    path: "ai/content_import_sources/" . RawClient::encodePathParam($request->getSourceId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -256,20 +269,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ContentImportSource::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -282,6 +288,15 @@ class AiContentClient
 
     /**
      * You can delete a content import source by making a DELETE request this endpoint. This will also delete all external pages that were imported from this source.
+     *
+     * Example:
+     * ```php
+     * $client->aiContent->deleteContentImportSource(
+     *     new DeleteContentImportSourceRequest([
+     *         'sourceId' => 'source_id',
+     *     ]),
+     * );
+     * ```
      *
      * @param DeleteContentImportSourceRequest $request
      * @param ?array{
@@ -302,7 +317,7 @@ class AiContentClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ai/content_import_sources/{$request->getSourceId()}",
+                    path: "ai/content_import_sources/" . RawClient::encodePathParam($request->getSourceId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -311,16 +326,6 @@ class AiContentClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -334,6 +339,11 @@ class AiContentClient
     /**
      * You can retrieve a list of all external pages for a workspace.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->listExternalPages();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -342,11 +352,11 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ExternalPagesList
+     * @return ?ExternalPagesList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listExternalPages(?array $options = null): ExternalPagesList
+    public function listExternalPages(?array $options = null): ?ExternalPagesList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -361,20 +371,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ExternalPagesList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -388,6 +391,20 @@ class AiContentClient
     /**
      * You can create a new external page by sending a POST request to this endpoint. If an external page already exists with the specified source_id and external_id, it will be updated instead.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->createExternalPage(
+     *     new CreateExternalPageRequest([
+     *         'title' => 'Test',
+     *         'html' => '<html><body><h1>Test</h1></body></html>',
+     *         'url' => 'https://www.example.com',
+     *         'locale' => 'en',
+     *         'sourceId' => 44,
+     *         'externalId' => 'abc1234',
+     *     ]),
+     * );
+     * ```
+     *
      * @param CreateExternalPageRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -397,11 +414,11 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ExternalPage
+     * @return ?ExternalPage
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createExternalPage(CreateExternalPageRequest $request, ?array $options = null): ExternalPage
+    public function createExternalPage(CreateExternalPageRequest $request, ?array $options = null): ?ExternalPage
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -417,20 +434,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ExternalPage::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -444,6 +454,15 @@ class AiContentClient
     /**
      * You can retrieve an external page.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->getExternalPage(
+     *     new GetExternalPageRequest([
+     *         'pageId' => 'page_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param GetExternalPageRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -453,18 +472,18 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ExternalPage
+     * @return ?ExternalPage
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function getExternalPage(GetExternalPageRequest $request, ?array $options = null): ExternalPage
+    public function getExternalPage(GetExternalPageRequest $request, ?array $options = null): ?ExternalPage
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ai/external_pages/{$request->getPageId()}",
+                    path: "ai/external_pages/" . RawClient::encodePathParam($request->getPageId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -472,20 +491,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ExternalPage::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -499,6 +511,21 @@ class AiContentClient
     /**
      * You can update an existing external page (if it was created via the API).
      *
+     * Example:
+     * ```php
+     * $client->aiContent->updateExternalPage(
+     *     new UpdateExternalPageRequest([
+     *         'pageId' => 'page_id',
+     *         'title' => 'Test',
+     *         'html' => '<html><body><h1>Test</h1></body></html>',
+     *         'url' => 'https://www.example.com',
+     *         'locale' => 'en',
+     *         'sourceId' => 47,
+     *         'externalId' => '5678',
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateExternalPageRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -508,18 +535,18 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ExternalPage
+     * @return ?ExternalPage
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateExternalPage(UpdateExternalPageRequest $request, ?array $options = null): ExternalPage
+    public function updateExternalPage(UpdateExternalPageRequest $request, ?array $options = null): ?ExternalPage
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ai/external_pages/{$request->getPageId()}",
+                    path: "ai/external_pages/" . RawClient::encodePathParam($request->getPageId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -528,20 +555,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ExternalPage::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -555,6 +575,15 @@ class AiContentClient
     /**
      * Sending a DELETE request for an external page will remove it from the content library UI and from being used for AI answers.
      *
+     * Example:
+     * ```php
+     * $client->aiContent->deleteExternalPage(
+     *     new DeleteExternalPageRequest([
+     *         'pageId' => 'page_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteExternalPageRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -564,18 +593,18 @@ class AiContentClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ExternalPage
+     * @return ?ExternalPage
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteExternalPage(DeleteExternalPageRequest $request, ?array $options = null): ExternalPage
+    public function deleteExternalPage(DeleteExternalPageRequest $request, ?array $options = null): ?ExternalPage
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ai/external_pages/{$request->getPageId()}",
+                    path: "ai/external_pages/" . RawClient::encodePathParam($request->getPageId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -583,20 +612,13 @@ class AiContentClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ExternalPage::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

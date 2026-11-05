@@ -3,7 +3,7 @@
 namespace Intercom\DataAttributes\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
-use Intercom\Types\UpdateDataAttributeRequestOptions;
+use Intercom\Types\UpdateDataAttributeRequestBodyOptions;
 
 class UpdateDataAttributeRequest extends JsonSerializableType
 {
@@ -14,7 +14,7 @@ class UpdateDataAttributeRequest extends JsonSerializableType
 
     /**
      * @var (
-     *    UpdateDataAttributeRequestOptions
+     *    UpdateDataAttributeRequestBodyOptions
      *   |mixed
      * ) $body
      */
@@ -24,7 +24,7 @@ class UpdateDataAttributeRequest extends JsonSerializableType
      * @param array{
      *   dataAttributeId: int,
      *   body: (
-     *    UpdateDataAttributeRequestOptions
+     *    UpdateDataAttributeRequestBodyOptions
      *   |mixed
      * ),
      * } $values
@@ -50,12 +50,13 @@ class UpdateDataAttributeRequest extends JsonSerializableType
     public function setDataAttributeId(int $value): self
     {
         $this->dataAttributeId = $value;
+        $this->_setField('dataAttributeId');
         return $this;
     }
 
     /**
      * @return (
-     *    UpdateDataAttributeRequestOptions
+     *    UpdateDataAttributeRequestBodyOptions
      *   |mixed
      * )
      */
@@ -66,13 +67,14 @@ class UpdateDataAttributeRequest extends JsonSerializableType
 
     /**
      * @param (
-     *    UpdateDataAttributeRequestOptions
+     *    UpdateDataAttributeRequestBodyOptions
      *   |mixed
      * ) $value
      */
     public function setBody(mixed $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

@@ -43,6 +43,7 @@ class ListHelpCentersRequest extends JsonSerializableType
     public function setPage(?int $value = null): self
     {
         $this->page = $value;
+        $this->_setField('page');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class ListHelpCentersRequest extends JsonSerializableType
     public function setPerPage(?int $value = null): self
     {
         $this->perPage = $value;
+        $this->_setField('perPage');
         return $this;
     }
 }

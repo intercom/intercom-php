@@ -3,7 +3,7 @@
 namespace Intercom\TicketTypes;
 
 use Intercom\TicketTypes\Attributes\AttributesClient;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Types\TicketTypeList;
 use Intercom\Exceptions\IntercomException;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Types\CreateTicketTypeRequest;
 use Intercom\Tickets\Types\TicketType;
@@ -64,6 +63,11 @@ class TicketTypesClient
     /**
      * You can get a list of all ticket types for a workspace.
      *
+     * Example:
+     * ```php
+     * $client->ticketTypes->list();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -72,11 +76,11 @@ class TicketTypesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TicketTypeList
+     * @return ?TicketTypeList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function list(?array $options = null): TicketTypeList
+    public function list(?array $options = null): ?TicketTypeList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -91,20 +95,13 @@ class TicketTypesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TicketTypeList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -121,6 +118,18 @@ class TicketTypesClient
      * >
      * > Every ticket type will be created with two default attributes: _default_title_ and _default_description_.
      * > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
+     *
+     * Example:
+     * ```php
+     * $client->ticketTypes->create(
+     *     new CreateTicketTypeRequest([
+     *         'name' => 'Customer Issue',
+     *         'description' => 'Customer Report Template',
+     *         'category' => CreateTicketTypeRequestCategory::Customer->value,
+     *         'icon' => '🎟️',
+     *     ]),
+     * );
+     * ```
      *
      * @param ?CreateTicketTypeRequest $request
      * @param ?array{
@@ -158,16 +167,6 @@ class TicketTypesClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -180,6 +179,15 @@ class TicketTypesClient
 
     /**
      * You can fetch the details of a single ticket type.
+     *
+     * Example:
+     * ```php
+     * $client->ticketTypes->get(
+     *     new FindTicketTypeRequest([
+     *         'ticketTypeId' => 'ticket_type_id',
+     *     ]),
+     * );
+     * ```
      *
      * @param FindTicketTypeRequest $request
      * @param ?array{
@@ -201,7 +209,7 @@ class TicketTypesClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ticket_types/{$request->getTicketTypeId()}",
+                    path: "ticket_types/" . RawClient::encodePathParam($request->getTicketTypeId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -216,16 +224,6 @@ class TicketTypesClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -243,6 +241,16 @@ class TicketTypesClient
      * > 📘 Updating a ticket type.
      * >
      * > For the `icon` propery, use an emoji from [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app/)
+     *
+     * Example:
+     * ```php
+     * $client->ticketTypes->update(
+     *     new UpdateTicketTypeRequest([
+     *         'ticketTypeId' => 'ticket_type_id',
+     *         'name' => 'Bug Report 2',
+     *     ]),
+     * );
+     * ```
      *
      * @param UpdateTicketTypeRequest $request
      * @param ?array{
@@ -264,7 +272,7 @@ class TicketTypesClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "ticket_types/{$request->getTicketTypeId()}",
+                    path: "ticket_types/" . RawClient::encodePathParam($request->getTicketTypeId()),
                     method: HttpMethod::PUT,
                     body: $request,
                 ),
@@ -280,16 +288,6 @@ class TicketTypesClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

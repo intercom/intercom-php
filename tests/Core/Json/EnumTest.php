@@ -4,6 +4,7 @@ namespace Intercom\Tests\Core\Json;
 
 use JsonSerializable;
 use PHPUnit\Framework\TestCase;
+use Intercom\Core\Json\JsonEncoder;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Types\ArrayType;
@@ -60,10 +61,10 @@ class EnumTest extends TestCase
             [Shape::Square, Shape::Circle, Shape::Triangle]
         );
 
-        $expectedJson = json_encode([
+        $expectedJson = JsonEncoder::encode([
             'shape' => 'CIRCLE',
             'shapes' => ['SQUARE', 'CIRCLE', 'TRIANGLE']
-        ], JSON_THROW_ON_ERROR);
+        ]);
 
         $actualJson = $object->toJson();
 

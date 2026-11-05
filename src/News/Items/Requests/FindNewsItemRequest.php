@@ -36,6 +36,7 @@ class FindNewsItemRequest extends JsonSerializableType
     public function setNewsItemId(int $value): self
     {
         $this->newsItemId = $value;
+        $this->_setField('newsItemId');
         return $this;
     }
 }

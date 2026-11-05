@@ -58,6 +58,7 @@ class ArticleSearchHighlights extends JsonSerializableType
     public function setArticleId(?string $value = null): self
     {
         $this->articleId = $value;
+        $this->_setField('articleId');
         return $this;
     }
 
@@ -75,6 +76,7 @@ class ArticleSearchHighlights extends JsonSerializableType
     public function setHighlightedTitle(?array $value = null): self
     {
         $this->highlightedTitle = $value;
+        $this->_setField('highlightedTitle');
         return $this;
     }
 
@@ -92,6 +94,7 @@ class ArticleSearchHighlights extends JsonSerializableType
     public function setHighlightedSummary(?array $value = null): self
     {
         $this->highlightedSummary = $value;
+        $this->_setField('highlightedSummary');
         return $this;
     }
 

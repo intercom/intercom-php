@@ -113,6 +113,7 @@ class EmailSetting extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -130,6 +131,7 @@ class EmailSetting extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -147,6 +149,7 @@ class EmailSetting extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -164,6 +167,7 @@ class EmailSetting extends JsonSerializableType
     public function setVerified(?bool $value = null): self
     {
         $this->verified = $value;
+        $this->_setField('verified');
         return $this;
     }
 
@@ -181,6 +185,7 @@ class EmailSetting extends JsonSerializableType
     public function setDomain(?string $value = null): self
     {
         $this->domain = $value;
+        $this->_setField('domain');
         return $this;
     }
 
@@ -198,6 +203,7 @@ class EmailSetting extends JsonSerializableType
     public function setBrandId(?string $value = null): self
     {
         $this->brandId = $value;
+        $this->_setField('brandId');
         return $this;
     }
 
@@ -215,6 +221,7 @@ class EmailSetting extends JsonSerializableType
     public function setForwardingEnabled(?bool $value = null): self
     {
         $this->forwardingEnabled = $value;
+        $this->_setField('forwardingEnabled');
         return $this;
     }
 
@@ -232,6 +239,7 @@ class EmailSetting extends JsonSerializableType
     public function setForwardedEmailLastReceivedAt(?int $value = null): self
     {
         $this->forwardedEmailLastReceivedAt = $value;
+        $this->_setField('forwardedEmailLastReceivedAt');
         return $this;
     }
 
@@ -249,6 +257,7 @@ class EmailSetting extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -266,6 +275,7 @@ class EmailSetting extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 

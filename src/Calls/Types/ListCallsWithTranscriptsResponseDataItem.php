@@ -104,6 +104,7 @@ class ListCallsWithTranscriptsResponseDataItem extends JsonSerializableType
     public function setTranscript(?array $value = null): self
     {
         $this->transcript = $value;
+        $this->_setField('transcript');
         return $this;
     }
 
@@ -121,6 +122,7 @@ class ListCallsWithTranscriptsResponseDataItem extends JsonSerializableType
     public function setTranscriptStatus(?string $value = null): self
     {
         $this->transcriptStatus = $value;
+        $this->_setField('transcriptStatus');
         return $this;
     }
 

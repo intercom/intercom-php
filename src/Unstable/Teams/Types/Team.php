@@ -75,6 +75,7 @@ class Team extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -92,6 +93,7 @@ class Team extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -109,6 +111,7 @@ class Team extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -126,6 +129,7 @@ class Team extends JsonSerializableType
     public function setAdminIds(?array $value = null): self
     {
         $this->adminIds = $value;
+        $this->_setField('adminIds');
         return $this;
     }
 
@@ -143,6 +147,7 @@ class Team extends JsonSerializableType
     public function setAdminPriorityLevel(?AdminPriorityLevel $value = null): self
     {
         $this->adminPriorityLevel = $value;
+        $this->_setField('adminPriorityLevel');
         return $this;
     }
 

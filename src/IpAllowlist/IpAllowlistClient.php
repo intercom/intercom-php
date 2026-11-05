@@ -2,7 +2,7 @@
 
 namespace Intercom\IpAllowlist;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Types\IpAllowlist;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class IpAllowlistClient
@@ -53,6 +52,11 @@ class IpAllowlistClient
     /**
      * Retrieve the current IP allowlist configuration for the workspace.
      *
+     * Example:
+     * ```php
+     * $client->ipAllowlist->getIpAllowlist();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -61,11 +65,11 @@ class IpAllowlistClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return IpAllowlist
+     * @return ?IpAllowlist
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function getIpAllowlist(?array $options = null): IpAllowlist
+    public function getIpAllowlist(?array $options = null): ?IpAllowlist
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -80,20 +84,13 @@ class IpAllowlistClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return IpAllowlist::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -111,6 +108,19 @@ class IpAllowlistClient
      *   The API will reject updates that would lock out the caller's IP address. Ensure your current IP is included in the allowlist when enabling the feature.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->ipAllowlist->updateIpAllowlist(
+     *     new IpAllowlist([
+     *         'enabled' => true,
+     *         'ipAllowlist' => [
+     *             '192.168.1.0/24',
+     *             '10.0.0.1',
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
      * @param IpAllowlist $request
      * @param ?array{
      *   baseUrl?: string,
@@ -120,11 +130,11 @@ class IpAllowlistClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return IpAllowlist
+     * @return ?IpAllowlist
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateIpAllowlist(IpAllowlist $request, ?array $options = null): IpAllowlist
+    public function updateIpAllowlist(IpAllowlist $request, ?array $options = null): ?IpAllowlist
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -140,20 +150,13 @@ class IpAllowlistClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return IpAllowlist::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

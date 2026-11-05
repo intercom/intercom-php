@@ -73,6 +73,7 @@ class DataEventSummaryItem extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -90,6 +91,7 @@ class DataEventSummaryItem extends JsonSerializableType
     public function setFirst(?string $value = null): self
     {
         $this->first = $value;
+        $this->_setField('first');
         return $this;
     }
 
@@ -107,6 +109,7 @@ class DataEventSummaryItem extends JsonSerializableType
     public function setLast(?string $value = null): self
     {
         $this->last = $value;
+        $this->_setField('last');
         return $this;
     }
 
@@ -124,6 +127,7 @@ class DataEventSummaryItem extends JsonSerializableType
     public function setCount(?int $value = null): self
     {
         $this->count = $value;
+        $this->_setField('count');
         return $this;
     }
 
@@ -141,6 +145,7 @@ class DataEventSummaryItem extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 

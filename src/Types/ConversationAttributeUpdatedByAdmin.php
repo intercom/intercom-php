@@ -49,6 +49,7 @@ class ConversationAttributeUpdatedByAdmin extends JsonSerializableType
     public function setAttribute(?ConversationAttributeUpdatedByAdminAttribute $value = null): self
     {
         $this->attribute = $value;
+        $this->_setField('attribute');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class ConversationAttributeUpdatedByAdmin extends JsonSerializableType
     public function setValue(?ConversationAttributeUpdatedByAdminValue $value = null): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

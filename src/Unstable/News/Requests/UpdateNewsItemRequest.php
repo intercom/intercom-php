@@ -44,6 +44,7 @@ class UpdateNewsItemRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -61,6 +62,7 @@ class UpdateNewsItemRequest extends JsonSerializableType
     public function setBody(NewsItemRequest $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

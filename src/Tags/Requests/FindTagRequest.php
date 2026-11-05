@@ -36,6 +36,7 @@ class FindTagRequest extends JsonSerializableType
     public function setTagId(string $value): self
     {
         $this->tagId = $value;
+        $this->_setField('tagId');
         return $this;
     }
 }

@@ -69,6 +69,7 @@ class LisDataEventsRequest extends JsonSerializableType
     public function setFilter(LisDataEventsRequestFilterUserId|LisDataEventsRequestFilterIntercomUserId|LisDataEventsRequestFilterEmail $value): self
     {
         $this->filter = $value;
+        $this->_setField('filter');
         return $this;
     }
 
@@ -86,6 +87,7 @@ class LisDataEventsRequest extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -103,6 +105,7 @@ class LisDataEventsRequest extends JsonSerializableType
     public function setSummary(?bool $value = null): self
     {
         $this->summary = $value;
+        $this->_setField('summary');
         return $this;
     }
 }

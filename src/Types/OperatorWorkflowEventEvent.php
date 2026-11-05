@@ -46,6 +46,7 @@ class OperatorWorkflowEventEvent extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class OperatorWorkflowEventEvent extends JsonSerializableType
     public function setResult(?string $value = null): self
     {
         $this->result = $value;
+        $this->_setField('result');
         return $this;
     }
 

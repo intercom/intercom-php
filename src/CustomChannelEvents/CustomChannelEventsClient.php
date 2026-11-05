@@ -2,7 +2,7 @@
 
 namespace Intercom\CustomChannelEvents;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Types\CustomChannelBaseEvent;
 use Intercom\Types\CustomChannelNotificationResponse;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\CustomChannelEvents\Requests\NotifyNewMessageRequest;
 use Intercom\CustomChannelEvents\Requests\NotifyQuickReplySelectedRequest;
@@ -58,6 +57,22 @@ class CustomChannelEventsClient
      * Notifies Intercom that a new conversation was created in your custom channel/platform. This triggers conversation creation and workflow automations within Intercom for your custom channel integration.
      * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
+     * Example:
+     * ```php
+     * $client->customChannelEvents->notifyNewConversation(
+     *     new CustomChannelBaseEvent([
+     *         'eventId' => 'event_id',
+     *         'externalConversationId' => 'external_conversation_id',
+     *         'contact' => new CustomChannelContact([
+     *             'type' => CustomChannelContactType::User->value,
+     *             'externalId' => 'external_id',
+     *             'name' => 'name',
+     *             'email' => 'email',
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
      * @param CustomChannelBaseEvent $request
      * @param ?array{
      *   baseUrl?: string,
@@ -67,11 +82,11 @@ class CustomChannelEventsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CustomChannelNotificationResponse
+     * @return ?CustomChannelNotificationResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function notifyNewConversation(CustomChannelBaseEvent $request, ?array $options = null): CustomChannelNotificationResponse
+    public function notifyNewConversation(CustomChannelBaseEvent $request, ?array $options = null): ?CustomChannelNotificationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -87,20 +102,13 @@ class CustomChannelEventsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CustomChannelNotificationResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -115,6 +123,23 @@ class CustomChannelEventsClient
      * Notifies Intercom that a new message was sent in a conversation on your custom channel/platform. This allows Intercom to process the message and trigger any relevant workflow automations.
      * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
+     * Example:
+     * ```php
+     * $client->customChannelEvents->notifyNewMessage(
+     *     new NotifyNewMessageRequest([
+     *         'eventId' => 'event_id',
+     *         'externalConversationId' => 'external_conversation_id',
+     *         'contact' => new CustomChannelContact([
+     *             'type' => CustomChannelContactType::User->value,
+     *             'externalId' => 'external_id',
+     *             'name' => 'name',
+     *             'email' => 'email',
+     *         ]),
+     *         'body' => 'body',
+     *     ]),
+     * );
+     * ```
+     *
      * @param NotifyNewMessageRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -124,11 +149,11 @@ class CustomChannelEventsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CustomChannelNotificationResponse
+     * @return ?CustomChannelNotificationResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function notifyNewMessage(NotifyNewMessageRequest $request, ?array $options = null): CustomChannelNotificationResponse
+    public function notifyNewMessage(NotifyNewMessageRequest $request, ?array $options = null): ?CustomChannelNotificationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -144,20 +169,13 @@ class CustomChannelEventsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CustomChannelNotificationResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -172,6 +190,23 @@ class CustomChannelEventsClient
      * Notifies Intercom that a user selected a quick reply option in your custom channel/platform. This allows Intercom to process the response and trigger any relevant workflow automations.
      * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
+     * Example:
+     * ```php
+     * $client->customChannelEvents->notifyQuickReplySelected(
+     *     new NotifyQuickReplySelectedRequest([
+     *         'eventId' => 'evt_67890',
+     *         'externalConversationId' => 'conv_13579',
+     *         'contact' => new CustomChannelContact([
+     *             'type' => CustomChannelContactType::User->value,
+     *             'externalId' => 'user_003',
+     *             'name' => 'Alice Example',
+     *             'email' => 'alice@example.com',
+     *         ]),
+     *         'quickReplyOptionId' => '1234',
+     *     ]),
+     * );
+     * ```
+     *
      * @param NotifyQuickReplySelectedRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -181,11 +216,11 @@ class CustomChannelEventsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CustomChannelNotificationResponse
+     * @return ?CustomChannelNotificationResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function notifyQuickReplySelected(NotifyQuickReplySelectedRequest $request, ?array $options = null): CustomChannelNotificationResponse
+    public function notifyQuickReplySelected(NotifyQuickReplySelectedRequest $request, ?array $options = null): ?CustomChannelNotificationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -201,20 +236,13 @@ class CustomChannelEventsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CustomChannelNotificationResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -229,6 +257,26 @@ class CustomChannelEventsClient
      * Notifies Intercom that a user provided a response to an attribute collector in your custom channel/platform. This allows Intercom to process the attribute and trigger any relevant workflow automations.
      * > **Note:** This endpoint is currently under managed availability. Please reach out to your accounts team to discuss access and tailored, hands-on support.
      *
+     * Example:
+     * ```php
+     * $client->customChannelEvents->notifyAttributeCollected(
+     *     new NotifyAttributeCollectedRequest([
+     *         'eventId' => 'event_id',
+     *         'externalConversationId' => 'external_conversation_id',
+     *         'contact' => new CustomChannelContact([
+     *             'type' => CustomChannelContactType::User->value,
+     *             'externalId' => 'external_id',
+     *             'name' => 'name',
+     *             'email' => 'email',
+     *         ]),
+     *         'attribute' => new CustomChannelAttribute([
+     *             'id' => 'id',
+     *             'value' => 'value',
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
      * @param NotifyAttributeCollectedRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -238,11 +286,11 @@ class CustomChannelEventsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CustomChannelNotificationResponse
+     * @return ?CustomChannelNotificationResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function notifyAttributeCollected(NotifyAttributeCollectedRequest $request, ?array $options = null): CustomChannelNotificationResponse
+    public function notifyAttributeCollected(NotifyAttributeCollectedRequest $request, ?array $options = null): ?CustomChannelNotificationResponse
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -258,20 +306,13 @@ class CustomChannelEventsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CustomChannelNotificationResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

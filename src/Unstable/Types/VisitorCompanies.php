@@ -48,6 +48,7 @@ class VisitorCompanies extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -65,6 +66,7 @@ class VisitorCompanies extends JsonSerializableType
     public function setCompanies(?array $value = null): self
     {
         $this->companies = $value;
+        $this->_setField('companies');
         return $this;
     }
 

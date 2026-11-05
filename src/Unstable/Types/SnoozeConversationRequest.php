@@ -49,6 +49,7 @@ class SnoozeConversationRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class SnoozeConversationRequest extends JsonSerializableType
     public function setSnoozedUntil(int $value): self
     {
         $this->snoozedUntil = $value;
+        $this->_setField('snoozedUntil');
         return $this;
     }
 

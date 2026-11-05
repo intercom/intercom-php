@@ -129,7 +129,7 @@ $client->admins->away(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;admins-&gt;listAllActivityLogs($request) -> ActivityLogList</code></summary>
+<details><summary><code>$client-&gt;admins-&gt;listAllActivityLogs($request) -> ?ActivityLogList</code></summary>
 <dl>
 <dd>
 
@@ -196,7 +196,7 @@ $client->admins->listAllActivityLogs(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;admins-&gt;list() -> AdminList</code></summary>
+<details><summary><code>$client-&gt;admins-&gt;list() -> ?AdminList</code></summary>
 <dl>
 <dd>
 
@@ -294,7 +294,7 @@ $client->admins->find(
 </details>
 
 ## AI Content
-<details><summary><code>$client-&gt;aiContent-&gt;listContentImportSources() -> ContentImportSourcesList</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;listContentImportSources() -> ?ContentImportSourcesList</code></summary>
 <dl>
 <dd>
 
@@ -333,7 +333,7 @@ $client->aiContent->listContentImportSources();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;createContentImportSource($request) -> ContentImportSource</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;createContentImportSource($request) -> ?ContentImportSource</code></summary>
 <dl>
 <dd>
 
@@ -408,7 +408,7 @@ $client->aiContent->createContentImportSource(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;getContentImportSource($request) -> ContentImportSource</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;getContentImportSource($request) -> ?ContentImportSource</code></summary>
 <dl>
 <dd>
 
@@ -452,7 +452,7 @@ $client->aiContent->getContentImportSource(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;updateContentImportSource($request) -> ContentImportSource</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;updateContentImportSource($request) -> ?ContentImportSource</code></summary>
 <dl>
 <dd>
 
@@ -594,7 +594,7 @@ $client->aiContent->deleteContentImportSource(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;listExternalPages() -> ExternalPagesList</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;listExternalPages() -> ?ExternalPagesList</code></summary>
 <dl>
 <dd>
 
@@ -633,7 +633,7 @@ $client->aiContent->listExternalPages();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;createExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;createExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -752,7 +752,7 @@ $client->aiContent->createExternalPage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;getExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;getExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -810,7 +810,7 @@ $client->aiContent->getExternalPage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;updateExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;updateExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -930,7 +930,7 @@ $client->aiContent->updateExternalPage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;aiContent-&gt;deleteExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;aiContent-&gt;deleteExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -989,7 +989,7 @@ $client->aiContent->deleteExternalPage(
 </details>
 
 ## Articles
-<details><summary><code>$client-&gt;articles-&gt;list($request) -> ArticleList</code></summary>
+<details><summary><code>$client-&gt;articles-&gt;list($request) -> ?ArticleList</code></summary>
 <dl>
 <dd>
 
@@ -1021,7 +1021,10 @@ You can fetch a list of all articles by making a GET request to `https://api.int
 
 ```php
 $client->articles->list(
-    new ListArticlesRequest([]),
+    new ListArticlesRequest([
+        'page' => 1,
+        'perPage' => 1,
+    ]),
 );
 ```
 </dd>
@@ -1057,7 +1060,7 @@ $client->articles->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;articles-&gt;create($request) -> Article</code></summary>
+<details><summary><code>$client-&gt;articles-&gt;create($request) -> ?Article</code></summary>
 <dl>
 <dd>
 
@@ -1130,7 +1133,7 @@ $client->articles->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;articles-&gt;find($request) -> Article</code></summary>
+<details><summary><code>$client-&gt;articles-&gt;find($request) -> ?Article</code></summary>
 <dl>
 <dd>
 
@@ -1188,7 +1191,7 @@ $client->articles->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;articles-&gt;update($request) -> Article</code></summary>
+<details><summary><code>$client-&gt;articles-&gt;update($request) -> ?Article</code></summary>
 <dl>
 <dd>
 
@@ -1312,7 +1315,7 @@ $client->articles->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;articles-&gt;delete($request) -> DeletedArticleObject</code></summary>
+<details><summary><code>$client-&gt;articles-&gt;delete($request) -> ?DeletedArticleObject</code></summary>
 <dl>
 <dd>
 
@@ -1370,7 +1373,7 @@ $client->articles->delete(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;articles-&gt;search($request) -> ArticleSearchResponse</code></summary>
+<details><summary><code>$client-&gt;articles-&gt;search($request) -> ?ArticleSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -1456,7 +1459,7 @@ $client->articles->search(
 </details>
 
 ## Away Status Reasons
-<details><summary><code>$client-&gt;awayStatusReasons-&gt;listAwayStatusReasons() -> array</code></summary>
+<details><summary><code>$client-&gt;awayStatusReasons-&gt;listAwayStatusReasons() -> ?array</code></summary>
 <dl>
 <dd>
 
@@ -1496,7 +1499,7 @@ $client->awayStatusReasons->listAwayStatusReasons();
 </details>
 
 ## Export
-<details><summary><code>$client-&gt;export-&gt;enqueueANewReportingDataExportJob($request) -> PostExportReportingDataEnqueueResponse</code></summary>
+<details><summary><code>$client-&gt;export-&gt;enqueueANewReportingDataExportJob($request) -> ?PostExportReportingDataEnqueueResponse</code></summary>
 <dl>
 <dd>
 
@@ -1570,7 +1573,7 @@ $client->export->enqueueANewReportingDataExportJob(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;export-&gt;listAvailableDatasetsAndAttributes() -> GetExportReportingDataGetDatasetsResponse</code></summary>
+<details><summary><code>$client-&gt;export-&gt;listAvailableDatasetsAndAttributes() -> ?GetExportReportingDataGetDatasetsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1596,7 +1599,7 @@ $client->export->listAvailableDatasetsAndAttributes();
 </details>
 
 ## Data Export
-<details><summary><code>$client-&gt;dataExport-&gt;exportReportingData($request) -> DataExportExportReportingDataResponse</code></summary>
+<details><summary><code>$client-&gt;dataExport-&gt;exportReportingData($request) -> ?DataExportExportReportingDataResponse</code></summary>
 <dl>
 <dd>
 
@@ -1611,9 +1614,10 @@ $client->export->listAvailableDatasetsAndAttributes();
 ```php
 $client->dataExport->exportReportingData(
     new ExportReportingDataRequest([
-        'jobIdentifier' => 'job_identifier',
+        'jobIdentifierPathParam' => 'job_identifier',
         'appId' => 'app_id',
         'clientId' => 'client_id',
+        'jobIdentifier' => 'job_identifier',
     ]),
 );
 ```
@@ -1630,7 +1634,7 @@ $client->dataExport->exportReportingData(
 <dl>
 <dd>
 
-**$jobIdentifier:** `string` — Unique identifier of the job.
+**$jobIdentifierPathParam:** `string` — Unique identifier of the job.
     
 </dd>
 </dl>
@@ -1647,6 +1651,14 @@ $client->dataExport->exportReportingData(
 <dd>
 
 **$clientId:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$jobIdentifier:** `string` — Unique identifier of the job.
     
 </dd>
 </dl>
@@ -1691,8 +1703,9 @@ Download the data from a completed reporting data export job.
 ```php
 $client->dataExport->downloadReportingDataExport(
     new DownloadReportingDataExportRequest([
-        'jobIdentifier' => 'job_identifier',
+        'jobIdentifierPathParam' => 'job_identifier',
         'appId' => 'app_id',
+        'jobIdentifier' => 'job_identifier',
         'accept' => 'application/octet-stream',
     ]),
 );
@@ -1710,7 +1723,7 @@ $client->dataExport->downloadReportingDataExport(
 <dl>
 <dd>
 
-**$jobIdentifier:** `string` 
+**$jobIdentifierPathParam:** `string` 
     
 </dd>
 </dl>
@@ -1719,6 +1732,14 @@ $client->dataExport->downloadReportingDataExport(
 <dd>
 
 **$appId:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$jobIdentifier:** `string` 
     
 </dd>
 </dl>
@@ -1738,7 +1759,7 @@ $client->dataExport->downloadReportingDataExport(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;dataExport-&gt;create($request) -> DataExport</code></summary>
+<details><summary><code>$client-&gt;dataExport-&gt;create($request) -> ?DataExport</code></summary>
 <dl>
 <dd>
 
@@ -1819,7 +1840,7 @@ $client->dataExport->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;dataExport-&gt;find($request) -> DataExport</code></summary>
+<details><summary><code>$client-&gt;dataExport-&gt;find($request) -> ?DataExport</code></summary>
 <dl>
 <dd>
 
@@ -1881,7 +1902,7 @@ $client->dataExport->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;dataExport-&gt;cancel($request) -> DataExport</code></summary>
+<details><summary><code>$client-&gt;dataExport-&gt;cancel($request) -> ?DataExport</code></summary>
 <dl>
 <dd>
 
@@ -2004,7 +2025,7 @@ $client->dataExport->download(
 </details>
 
 ## HelpCenters
-<details><summary><code>$client-&gt;helpCenters-&gt;find($request) -> HelpCenter</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;find($request) -> ?HelpCenter</code></summary>
 <dl>
 <dd>
 
@@ -2062,7 +2083,7 @@ $client->helpCenters->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;helpCenters-&gt;list($request) -> HelpCenterList</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;list($request) -> ?HelpCenterList</code></summary>
 <dl>
 <dd>
 
@@ -2090,7 +2111,10 @@ You can list all Help Centers by making a GET request to `https://api.intercom.i
 
 ```php
 $client->helpCenters->list(
-    new ListHelpCentersRequest([]),
+    new ListHelpCentersRequest([
+        'page' => 1,
+        'perPage' => 1,
+    ]),
 );
 ```
 </dd>
@@ -2127,7 +2151,7 @@ $client->helpCenters->list(
 </details>
 
 ## Internal Articles
-<details><summary><code>$client-&gt;internalArticles-&gt;listInternalArticles() -> InternalArticleList</code></summary>
+<details><summary><code>$client-&gt;internalArticles-&gt;listInternalArticles() -> ?InternalArticleList</code></summary>
 <dl>
 <dd>
 
@@ -2166,7 +2190,7 @@ $client->internalArticles->listInternalArticles();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;internalArticles-&gt;createInternalArticle($request) -> InternalArticleListItem</code></summary>
+<details><summary><code>$client-&gt;internalArticles-&gt;createInternalArticle($request) -> ?InternalArticleListItem</code></summary>
 <dl>
 <dd>
 
@@ -2227,7 +2251,7 @@ $client->internalArticles->createInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;internalArticles-&gt;retrieveInternalArticle($request) -> InternalArticleListItem</code></summary>
+<details><summary><code>$client-&gt;internalArticles-&gt;retrieveInternalArticle($request) -> ?InternalArticleListItem</code></summary>
 <dl>
 <dd>
 
@@ -2285,7 +2309,7 @@ $client->internalArticles->retrieveInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;internalArticles-&gt;updateInternalArticle($request) -> InternalArticleListItem</code></summary>
+<details><summary><code>$client-&gt;internalArticles-&gt;updateInternalArticle($request) -> ?InternalArticleListItem</code></summary>
 <dl>
 <dd>
 
@@ -2377,7 +2401,7 @@ $client->internalArticles->updateInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;internalArticles-&gt;deleteInternalArticle($request) -> DeletedInternalArticleObject</code></summary>
+<details><summary><code>$client-&gt;internalArticles-&gt;deleteInternalArticle($request) -> ?DeletedInternalArticleObject</code></summary>
 <dl>
 <dd>
 
@@ -2435,7 +2459,7 @@ $client->internalArticles->deleteInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;internalArticles-&gt;searchInternalArticles($request) -> InternalArticleSearchResponse</code></summary>
+<details><summary><code>$client-&gt;internalArticles-&gt;searchInternalArticles($request) -> ?InternalArticleSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -2494,7 +2518,7 @@ $client->internalArticles->searchInternalArticles(
 </details>
 
 ## IP Allowlist
-<details><summary><code>$client-&gt;ipAllowlist-&gt;getIpAllowlist() -> IpAllowlist</code></summary>
+<details><summary><code>$client-&gt;ipAllowlist-&gt;getIpAllowlist() -> ?IpAllowlist</code></summary>
 <dl>
 <dd>
 
@@ -2533,7 +2557,7 @@ $client->ipAllowlist->getIpAllowlist();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;ipAllowlist-&gt;updateIpAllowlist($request) -> IpAllowlist</code></summary>
+<details><summary><code>$client-&gt;ipAllowlist-&gt;updateIpAllowlist($request) -> ?IpAllowlist</code></summary>
 <dl>
 <dd>
 
@@ -2600,7 +2624,7 @@ $client->ipAllowlist->updateIpAllowlist(
 </details>
 
 ## Companies
-<details><summary><code>$client-&gt;companies-&gt;retrieve($request) -> CompaniesRetrieveResponse</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;retrieve($request) -> ?CompaniesRetrieveResponse</code></summary>
 <dl>
 <dd>
 
@@ -2713,7 +2737,7 @@ $client->companies->retrieve(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;createOrUpdate($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;createOrUpdate($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -2781,7 +2805,7 @@ $client->companies->createOrUpdate(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;find($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;find($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -2839,7 +2863,7 @@ $client->companies->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;update($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;update($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -2913,7 +2937,7 @@ $client->companies->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;delete($request) -> DeletedCompanyObject</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;delete($request) -> ?DeletedCompanyObject</code></summary>
 <dl>
 <dd>
 
@@ -2971,7 +2995,7 @@ $client->companies->delete(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;listAttachedContacts($request) -> CompanyAttachedContacts</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;listAttachedContacts($request) -> ?CompanyAttachedContacts</code></summary>
 <dl>
 <dd>
 
@@ -3029,7 +3053,7 @@ $client->companies->listAttachedContacts(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;listAttachedSegments($request) -> CompanyAttachedSegments</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;listAttachedSegments($request) -> ?CompanyAttachedSegments</code></summary>
 <dl>
 <dd>
 
@@ -3087,7 +3111,7 @@ $client->companies->listAttachedSegments(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;list($request) -> CompanyList</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;list($request) -> ?CompanyList</code></summary>
 <dl>
 <dd>
 
@@ -3243,7 +3267,7 @@ $client->companies->scroll(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;attachContact($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;attachContact($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -3310,7 +3334,7 @@ $client->companies->attachContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;companies-&gt;detachContact($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;companies-&gt;detachContact($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -3378,7 +3402,7 @@ $client->companies->detachContact(
 </details>
 
 ## Contacts
-<details><summary><code>$client-&gt;contacts-&gt;listAttachedCompanies($request) -> ContactAttachedCompanies</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;listAttachedCompanies($request) -> ?ContactAttachedCompanies</code></summary>
 <dl>
 <dd>
 
@@ -3454,7 +3478,7 @@ $client->contacts->listAttachedCompanies(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;listAttachedSegments($request) -> ContactSegments</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;listAttachedSegments($request) -> ?ContactSegments</code></summary>
 <dl>
 <dd>
 
@@ -3512,7 +3536,7 @@ $client->contacts->listAttachedSegments(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;listAttachedSubscriptions($request) -> SubscriptionTypeList</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;listAttachedSubscriptions($request) -> ?SubscriptionTypeList</code></summary>
 <dl>
 <dd>
 
@@ -3576,7 +3600,7 @@ $client->contacts->listAttachedSubscriptions(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;attachSubscription($request) -> SubscriptionType</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;attachSubscription($request) -> ?SubscriptionType</code></summary>
 <dl>
 <dd>
 
@@ -3658,7 +3682,7 @@ $client->contacts->attachSubscription(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;detachSubscription($request) -> SubscriptionType</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;detachSubscription($request) -> ?SubscriptionType</code></summary>
 <dl>
 <dd>
 
@@ -3725,7 +3749,7 @@ $client->contacts->detachSubscription(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;listAttachedTags($request) -> TagList</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;listAttachedTags($request) -> ?TagList</code></summary>
 <dl>
 <dd>
 
@@ -3783,7 +3807,7 @@ $client->contacts->listAttachedTags(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;find($request) -> ContactsFindResponse</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;find($request) -> ?ContactsFindResponse</code></summary>
 <dl>
 <dd>
 
@@ -3841,7 +3865,7 @@ $client->contacts->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;update($request) -> ContactsUpdateResponse</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;update($request) -> ?ContactsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3995,7 +4019,7 @@ $client->contacts->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;delete($request) -> ContactDeleted</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;delete($request) -> ?ContactDeleted</code></summary>
 <dl>
 <dd>
 
@@ -4053,7 +4077,7 @@ $client->contacts->delete(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;mergeLeadInUser($request) -> ContactsMergeLeadInUserResponse</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;mergeLeadInUser($request) -> ?ContactsMergeLeadInUserResponse</code></summary>
 <dl>
 <dd>
 
@@ -4120,7 +4144,7 @@ $client->contacts->mergeLeadInUser(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;search($request) -> ContactList</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;search($request) -> ?ContactList</code></summary>
 <dl>
 <dd>
 
@@ -4247,7 +4271,9 @@ The table below shows the operators you can use to define how you want to search
 ```php
 $client->unstable->contacts->searchContacts(
     new SearchRequest([
-        'query' => new SingleFilterSearchRequest([]),
+        'query' => new SingleFilterSearchRequest([
+            'value' => [],
+        ]),
         'pagination' => new StartingAfterPaging([
             'perPage' => 5,
         ]),
@@ -4279,7 +4305,7 @@ $client->unstable->contacts->searchContacts(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;list($request) -> ContactList</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;list($request) -> ?ContactList</code></summary>
 <dl>
 <dd>
 
@@ -4311,7 +4337,11 @@ You can fetch a list of all contacts (ie. users or leads) in your workspace.
 
 ```php
 $client->contacts->list(
-    new ListContactsRequest([]),
+    new ListContactsRequest([
+        'page' => 1,
+        'perPage' => 1,
+        'startingAfter' => 'starting_after',
+    ]),
 );
 ```
 </dd>
@@ -4355,7 +4385,7 @@ $client->contacts->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;create($request) -> ContactsCreateResponse</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;create($request) -> ?ContactsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -4413,7 +4443,7 @@ $client->contacts->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;showContactByExternalId($request) -> ShowContactByExternalIdResponse</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;showContactByExternalId($request) -> ?ShowContactByExternalIdResponse</code></summary>
 <dl>
 <dd>
 
@@ -4471,7 +4501,7 @@ $client->contacts->showContactByExternalId(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;archive($request) -> ContactArchived</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;archive($request) -> ?ContactArchived</code></summary>
 <dl>
 <dd>
 
@@ -4529,7 +4559,7 @@ $client->contacts->archive(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;unarchive($request) -> ContactUnarchived</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;unarchive($request) -> ?ContactUnarchived</code></summary>
 <dl>
 <dd>
 
@@ -4587,7 +4617,7 @@ $client->contacts->unarchive(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;contacts-&gt;blockContact($request) -> ContactBlocked</code></summary>
+<details><summary><code>$client-&gt;contacts-&gt;blockContact($request) -> ?ContactBlocked</code></summary>
 <dl>
 <dd>
 
@@ -4646,7 +4676,7 @@ $client->contacts->blockContact(
 </details>
 
 ## Notes
-<details><summary><code>$client-&gt;notes-&gt;list($request) -> NoteList</code></summary>
+<details><summary><code>$client-&gt;notes-&gt;list($request) -> ?NoteList</code></summary>
 <dl>
 <dd>
 
@@ -4676,6 +4706,8 @@ You can fetch a list of notes that are associated to a contact.
 $client->notes->list(
     new ListContactNotesRequest([
         'contactId' => 'contact_id',
+        'page' => 1,
+        'perPage' => 1,
     ]),
 );
 ```
@@ -4720,7 +4752,7 @@ $client->notes->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;notes-&gt;create($request) -> Note</code></summary>
+<details><summary><code>$client-&gt;notes-&gt;create($request) -> ?Note</code></summary>
 <dl>
 <dd>
 
@@ -4796,7 +4828,7 @@ $client->notes->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;notes-&gt;find($request) -> Note</code></summary>
+<details><summary><code>$client-&gt;notes-&gt;find($request) -> ?Note</code></summary>
 <dl>
 <dd>
 
@@ -4855,7 +4887,7 @@ $client->notes->find(
 </details>
 
 ## Tags
-<details><summary><code>$client-&gt;tags-&gt;tagContact($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;tagContact($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -4922,7 +4954,7 @@ $client->tags->tagContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;untagContact($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;untagContact($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -4989,7 +5021,7 @@ $client->tags->untagContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;tagConversation($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;tagConversation($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -5065,7 +5097,7 @@ $client->tags->tagConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;untagConversation($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;untagConversation($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -5141,7 +5173,7 @@ $client->tags->untagConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;list() -> TagList</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;list() -> ?TagList</code></summary>
 <dl>
 <dd>
 
@@ -5181,7 +5213,7 @@ $client->tags->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;create($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;create($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -5251,7 +5283,7 @@ $client->tags->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;find($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;find($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -5368,7 +5400,7 @@ $client->tags->delete(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;tagTicket($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;tagTicket($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -5444,7 +5476,7 @@ $client->tags->tagTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tags-&gt;untagTicket($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;tags-&gt;untagTicket($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -5521,7 +5553,7 @@ $client->tags->untagTicket(
 </details>
 
 ## Conversations
-<details><summary><code>$client-&gt;conversations-&gt;list($request) -> ConversationList</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;list($request) -> ?ConversationList</code></summary>
 <dl>
 <dd>
 
@@ -5594,7 +5626,7 @@ $client->conversations->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;create($request) -> Message</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;create($request) -> ?Message</code></summary>
 <dl>
 <dd>
 
@@ -5681,7 +5713,7 @@ $client->conversations->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;find($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;find($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -5766,7 +5798,7 @@ $client->conversations->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;update($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;update($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -5883,7 +5915,7 @@ $client->conversations->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;deleteConversation($request) -> ConversationDeleted</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;deleteConversation($request) -> ?ConversationDeleted</code></summary>
 <dl>
 <dd>
 
@@ -5941,7 +5973,7 @@ $client->conversations->deleteConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;search($request) -> ConversationList</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;search($request) -> ?ConversationList</code></summary>
 <dl>
 <dd>
 
@@ -6068,7 +6100,9 @@ The table below shows the operators you can use to define how you want to search
 ```php
 $client->unstable->conversations->searchConversations(
     new SearchRequest([
-        'query' => new SingleFilterSearchRequest([]),
+        'query' => new SingleFilterSearchRequest([
+            'value' => [],
+        ]),
         'pagination' => new StartingAfterPaging([
             'perPage' => 5,
         ]),
@@ -6100,7 +6134,7 @@ $client->unstable->conversations->searchConversations(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;reply($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;reply($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -6172,7 +6206,7 @@ $client->conversations->reply(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;manage($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;manage($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -6246,7 +6280,7 @@ $client->conversations->manage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;attachContactAsAdmin($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;attachContactAsAdmin($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -6329,7 +6363,7 @@ $client->conversations->attachContactAsAdmin(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;detachContactAsAdmin($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;detachContactAsAdmin($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -6410,7 +6444,7 @@ $client->conversations->detachContactAsAdmin(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;redactConversationPart($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;redactConversationPart($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -6549,7 +6583,7 @@ $client->conversations->convertToTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;conversations-&gt;runAssignmentRules($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;conversations-&gt;runAssignmentRules($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -6614,7 +6648,7 @@ $client->conversations->runAssignmentRules(
 </details>
 
 ## Custom Channel Events
-<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyNewConversation($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyNewConversation($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -6649,6 +6683,8 @@ $client->customChannelEvents->notifyNewConversation(
         'contact' => new CustomChannelContact([
             'type' => CustomChannelContactType::User->value,
             'externalId' => 'external_id',
+            'name' => 'name',
+            'email' => 'email',
         ]),
     ]),
 );
@@ -6678,7 +6714,7 @@ $client->customChannelEvents->notifyNewConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyNewMessage($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyNewMessage($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -6713,6 +6749,8 @@ $client->customChannelEvents->notifyNewMessage(
         'contact' => new CustomChannelContact([
             'type' => CustomChannelContactType::User->value,
             'externalId' => 'external_id',
+            'name' => 'name',
+            'email' => 'email',
         ]),
         'body' => 'body',
     ]),
@@ -6743,7 +6781,7 @@ $client->customChannelEvents->notifyNewMessage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyQuickReplySelected($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyQuickReplySelected($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -6810,7 +6848,7 @@ $client->customChannelEvents->notifyQuickReplySelected(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyAttributeCollected($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;customChannelEvents-&gt;notifyAttributeCollected($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -6845,6 +6883,8 @@ $client->customChannelEvents->notifyAttributeCollected(
         'contact' => new CustomChannelContact([
             'type' => CustomChannelContactType::User->value,
             'externalId' => 'external_id',
+            'name' => 'name',
+            'email' => 'email',
         ]),
         'attribute' => new CustomChannelAttribute([
             'id' => 'id',
@@ -6934,7 +6974,7 @@ $client->customObjectInstances->getCustomObjectInstancesByExternalId(
 <dl>
 <dd>
 
-**$externalId:** `string` 
+**$externalId:** `string` — The unique identifier for the instance in the external system it originated from.
     
 </dd>
 </dl>
@@ -7043,7 +7083,7 @@ $client->customObjectInstances->createCustomObjectInstances(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesById($request) -> CustomObjectInstanceDeleted</code></summary>
+<details><summary><code>$client-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesById($request) -> ?CustomObjectInstanceDeleted</code></summary>
 <dl>
 <dd>
 
@@ -7098,7 +7138,7 @@ $client->customObjectInstances->deleteCustomObjectInstancesById(
 <dl>
 <dd>
 
-**$externalId:** `string` 
+**$externalId:** `string` — The unique identifier for the instance in the external system it originated from.
     
 </dd>
 </dl>
@@ -7177,7 +7217,7 @@ $client->customObjectInstances->getCustomObjectInstancesById(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesByExternalId($request) -> CustomObjectInstanceDeleted</code></summary>
+<details><summary><code>$client-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesByExternalId($request) -> ?CustomObjectInstanceDeleted</code></summary>
 <dl>
 <dd>
 
@@ -7245,7 +7285,7 @@ $client->customObjectInstances->deleteCustomObjectInstancesByExternalId(
 </details>
 
 ## Data Attributes
-<details><summary><code>$client-&gt;dataAttributes-&gt;list($request) -> DataAttributeList</code></summary>
+<details><summary><code>$client-&gt;dataAttributes-&gt;list($request) -> ?DataAttributeList</code></summary>
 <dl>
 <dd>
 
@@ -7312,7 +7352,7 @@ $client->dataAttributes->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;dataAttributes-&gt;create($request) -> DataAttribute</code></summary>
+<details><summary><code>$client-&gt;dataAttributes-&gt;create($request) -> ?DataAttribute</code></summary>
 <dl>
 <dd>
 
@@ -7342,6 +7382,9 @@ You can create a data attributes for a `contact` or a `company`.
 $client->dataAttributes->create(
     new CreateDataAttributeRequestOptions([
         'dataType' => 'string',
+        'options' => [
+            new CreateDataAttributeRequestOptionsOptionsItem([]),
+        ],
     ]),
 );
 ```
@@ -7370,7 +7413,7 @@ $client->dataAttributes->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;dataAttributes-&gt;update($request) -> DataAttribute</code></summary>
+<details><summary><code>$client-&gt;dataAttributes-&gt;update($request) -> ?DataAttribute</code></summary>
 <dl>
 <dd>
 
@@ -7405,12 +7448,12 @@ You can update a data attribute.
 $client->dataAttributes->update(
     new UpdateDataAttributeRequest([
         'dataAttributeId' => 1,
-        'body' => new UpdateDataAttributeRequestOptions([
+        'body' => new UpdateDataAttributeRequestBodyOptions([
             'options' => [
-                new UpdateDataAttributeRequestOptionsOptionsItem([
+                new UpdateDataAttributeRequestBodyOptionsOptionsItem([
                     'value' => '1-10',
                 ]),
-                new UpdateDataAttributeRequestOptionsOptionsItem([
+                new UpdateDataAttributeRequestBodyOptionsOptionsItem([
                     'value' => '11-20',
                 ]),
             ],
@@ -7452,7 +7495,7 @@ $client->dataAttributes->update(
 </details>
 
 ## Events
-<details><summary><code>$client-&gt;events-&gt;list($request) -> DataEventSummary</code></summary>
+<details><summary><code>$client-&gt;events-&gt;list($request) -> ?DataEventSummary</code></summary>
 <dl>
 <dd>
 
@@ -7494,11 +7537,14 @@ You can optionally define the result page size as well with the `per_page` param
 ```php
 $client->events->list(
     new ListEventsRequest([
+        'filter' => new EventsListRequestFilterUserId([
+            'userId' => 'user_id',
+        ]),
+        'type' => 'type',
+        'summary' => true,
         'userId' => 'user_id',
         'intercomUserId' => 'intercom_user_id',
         'email' => 'email',
-        'type' => 'type',
-        'summary' => true,
         'perPage' => 1,
     ]),
 );
@@ -7512,6 +7558,30 @@ $client->events->list(
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**$filter:** `EventsListRequestFilterUserId|EventsListRequestFilterIntercomUserId|EventsListRequestFilterEmail` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$type:** `string` — The value must be user
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**$summary:** `?bool` — summary flag
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -7533,22 +7603,6 @@ $client->events->list(
 <dd>
 
 **$email:** `?string` — email query parameter
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**$type:** `string` — The value must be user
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**$summary:** `?bool` — summary flag
     
 </dd>
 </dl>
@@ -7735,7 +7789,7 @@ $client->events->summaries(
 </details>
 
 ## Jobs
-<details><summary><code>$client-&gt;jobs-&gt;status($request) -> Jobs</code></summary>
+<details><summary><code>$client-&gt;jobs-&gt;status($request) -> ?Jobs</code></summary>
 <dl>
 <dd>
 
@@ -7794,7 +7848,7 @@ $client->jobs->status(
 </details>
 
 ## Messages
-<details><summary><code>$client-&gt;messages-&gt;create($request) -> Message</code></summary>
+<details><summary><code>$client-&gt;messages-&gt;create($request) -> ?Message</code></summary>
 <dl>
 <dd>
 
@@ -7873,7 +7927,7 @@ $client->messages->create(
 </details>
 
 ## Segments
-<details><summary><code>$client-&gt;segments-&gt;list($request) -> SegmentList</code></summary>
+<details><summary><code>$client-&gt;segments-&gt;list($request) -> ?SegmentList</code></summary>
 <dl>
 <dd>
 
@@ -7931,7 +7985,7 @@ $client->segments->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;segments-&gt;find($request) -> Segment</code></summary>
+<details><summary><code>$client-&gt;segments-&gt;find($request) -> ?Segment</code></summary>
 <dl>
 <dd>
 
@@ -7990,7 +8044,7 @@ $client->segments->find(
 </details>
 
 ## Subscription Types
-<details><summary><code>$client-&gt;subscriptionTypes-&gt;list() -> SubscriptionTypeList</code></summary>
+<details><summary><code>$client-&gt;subscriptionTypes-&gt;list() -> ?SubscriptionTypeList</code></summary>
 <dl>
 <dd>
 
@@ -8096,7 +8150,7 @@ $client->phoneCallRedirects->create(
 </details>
 
 ## Calls
-<details><summary><code>$client-&gt;calls-&gt;listCalls($request) -> CallList</code></summary>
+<details><summary><code>$client-&gt;calls-&gt;listCalls($request) -> ?CallList</code></summary>
 <dl>
 <dd>
 
@@ -8163,7 +8217,7 @@ $client->calls->listCalls(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;calls-&gt;showCall($request) -> Call</code></summary>
+<details><summary><code>$client-&gt;calls-&gt;showCall($request) -> ?Call</code></summary>
 <dl>
 <dd>
 
@@ -8337,7 +8391,7 @@ $client->calls->showCallTranscript(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;calls-&gt;listCallsWithTranscripts($request) -> ListCallsWithTranscriptsResponse</code></summary>
+<details><summary><code>$client-&gt;calls-&gt;listCallsWithTranscripts($request) -> ?ListCallsWithTranscriptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -8400,7 +8454,7 @@ $client->calls->listCallsWithTranscripts(
 </details>
 
 ## Teams
-<details><summary><code>$client-&gt;teams-&gt;list() -> TeamList</code></summary>
+<details><summary><code>$client-&gt;teams-&gt;list() -> ?TeamList</code></summary>
 <dl>
 <dd>
 
@@ -8439,7 +8493,7 @@ $client->teams->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;teams-&gt;find($request) -> Team</code></summary>
+<details><summary><code>$client-&gt;teams-&gt;find($request) -> ?Team</code></summary>
 <dl>
 <dd>
 
@@ -8498,7 +8552,7 @@ $client->teams->find(
 </details>
 
 ## Ticket States
-<details><summary><code>$client-&gt;ticketStates-&gt;listTicketStates() -> TicketStateList</code></summary>
+<details><summary><code>$client-&gt;ticketStates-&gt;listTicketStates() -> ?TicketStateList</code></summary>
 <dl>
 <dd>
 
@@ -8538,7 +8592,7 @@ $client->ticketStates->listTicketStates();
 </details>
 
 ## Ticket Types
-<details><summary><code>$client-&gt;ticketTypes-&gt;list() -> TicketTypeList</code></summary>
+<details><summary><code>$client-&gt;ticketTypes-&gt;list() -> ?TicketTypeList</code></summary>
 <dl>
 <dd>
 
@@ -8813,7 +8867,7 @@ $client->ticketTypes->update(
 </details>
 
 ## Tickets
-<details><summary><code>$client-&gt;tickets-&gt;reply($request) -> TicketReply</code></summary>
+<details><summary><code>$client-&gt;tickets-&gt;reply($request) -> ?TicketReply</code></summary>
 <dl>
 <dd>
 
@@ -8865,7 +8919,7 @@ $client->tickets->reply(
 <dl>
 <dd>
 
-**$ticketId:** `string` 
+**$ticketId:** `string` — The id of the ticket to target.
     
 </dd>
 </dl>
@@ -8916,7 +8970,7 @@ $client->tickets->create(
     new CreateTicketRequest([
         'ticketTypeId' => '1234',
         'contacts' => [
-            new CreateTicketRequestContactsItemId([
+            new CreateTicketRequestBodyContactsItemId([
                 'id' => '6762f2d81bb69f9f2193bc54',
             ]),
         ],
@@ -8948,7 +9002,7 @@ $client->tickets->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tickets-&gt;enqueueCreateTicket($request) -> Jobs</code></summary>
+<details><summary><code>$client-&gt;tickets-&gt;enqueueCreateTicket($request) -> ?Jobs</code></summary>
 <dl>
 <dd>
 
@@ -8979,7 +9033,7 @@ $client->tickets->enqueueCreateTicket(
     new EnqueueCreateTicketRequest([
         'ticketTypeId' => '1234',
         'contacts' => [
-            new CreateTicketRequestContactsItemId([
+            new CreateTicketRequestBodyContactsItemId([
                 'id' => '6762f2d81bb69f9f2193bc54',
             ]),
         ],
@@ -9200,7 +9254,7 @@ $client->tickets->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tickets-&gt;deleteTicket($request) -> DeleteTicketResponse</code></summary>
+<details><summary><code>$client-&gt;tickets-&gt;deleteTicket($request) -> ?DeleteTicketResponse</code></summary>
 <dl>
 <dd>
 
@@ -9258,7 +9312,7 @@ $client->tickets->deleteTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;tickets-&gt;search($request) -> TicketList</code></summary>
+<details><summary><code>$client-&gt;tickets-&gt;search($request) -> ?TicketList</code></summary>
 <dl>
 <dd>
 
@@ -9355,7 +9409,9 @@ The table below shows the operators you can use to define how you want to search
 ```php
 $client->unstable->tickets->searchTickets(
     new SearchRequest([
-        'query' => new SingleFilterSearchRequest([]),
+        'query' => new SingleFilterSearchRequest([
+            'value' => [],
+        ]),
         'pagination' => new StartingAfterPaging([
             'perPage' => 5,
         ]),
@@ -9509,7 +9565,7 @@ $client->visitors->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;visitors-&gt;mergeToContact($request) -> Contact</code></summary>
+<details><summary><code>$client-&gt;visitors-&gt;mergeToContact($request) -> ?Contact</code></summary>
 <dl>
 <dd>
 
@@ -9595,7 +9651,7 @@ $client->unstable->visitors->convertVisitor(
 </details>
 
 ## HelpCenters Collections
-<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;list($request) -> CollectionList</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;list($request) -> ?CollectionList</code></summary>
 <dl>
 <dd>
 
@@ -9625,7 +9681,10 @@ Collections will be returned in descending order on the `updated_at` attribute. 
 
 ```php
 $client->helpCenters->collections->list(
-    new ListCollectionsRequest([]),
+    new ListCollectionsRequest([
+        'page' => 1,
+        'perPage' => 1,
+    ]),
 );
 ```
 </dd>
@@ -9661,7 +9720,7 @@ $client->helpCenters->collections->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;create($request) -> Collection</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;create($request) -> ?Collection</code></summary>
 <dl>
 <dd>
 
@@ -9751,7 +9810,7 @@ $client->helpCenters->collections->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;find($request) -> Collection</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;find($request) -> ?Collection</code></summary>
 <dl>
 <dd>
 
@@ -9809,7 +9868,7 @@ $client->helpCenters->collections->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;update($request) -> Collection</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;update($request) -> ?Collection</code></summary>
 <dl>
 <dd>
 
@@ -9900,7 +9959,7 @@ $client->helpCenters->collections->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;delete($request) -> DeletedCollectionObject</code></summary>
+<details><summary><code>$client-&gt;helpCenters-&gt;collections-&gt;delete($request) -> ?DeletedCollectionObject</code></summary>
 <dl>
 <dd>
 
@@ -9959,7 +10018,7 @@ $client->helpCenters->collections->delete(
 </details>
 
 ## News Items
-<details><summary><code>$client-&gt;news-&gt;items-&gt;list() -> PaginatedResponse</code></summary>
+<details><summary><code>$client-&gt;news-&gt;items-&gt;list() -> ?PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -9998,7 +10057,7 @@ $client->news->items->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;news-&gt;items-&gt;create($request) -> NewsItem</code></summary>
+<details><summary><code>$client-&gt;news-&gt;items-&gt;create($request) -> ?NewsItem</code></summary>
 <dl>
 <dd>
 
@@ -10075,7 +10134,7 @@ $client->news->items->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;news-&gt;items-&gt;find($request) -> NewsItem</code></summary>
+<details><summary><code>$client-&gt;news-&gt;items-&gt;find($request) -> ?NewsItem</code></summary>
 <dl>
 <dd>
 
@@ -10133,7 +10192,7 @@ $client->news->items->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;news-&gt;items-&gt;update($request) -> NewsItem</code></summary>
+<details><summary><code>$client-&gt;news-&gt;items-&gt;update($request) -> ?NewsItem</code></summary>
 <dl>
 <dd>
 
@@ -10194,7 +10253,7 @@ $client->news->items->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;news-&gt;items-&gt;delete($request) -> DeletedObject</code></summary>
+<details><summary><code>$client-&gt;news-&gt;items-&gt;delete($request) -> ?DeletedObject</code></summary>
 <dl>
 <dd>
 
@@ -10253,7 +10312,7 @@ $client->news->items->delete(
 </details>
 
 ## News Feeds
-<details><summary><code>$client-&gt;news-&gt;feeds-&gt;listItems($request) -> PaginatedResponse</code></summary>
+<details><summary><code>$client-&gt;news-&gt;feeds-&gt;listItems($request) -> ?PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -10311,7 +10370,7 @@ $client->news->feeds->listItems(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;news-&gt;feeds-&gt;list() -> PaginatedResponse</code></summary>
+<details><summary><code>$client-&gt;news-&gt;feeds-&gt;list() -> ?PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -10350,7 +10409,7 @@ $client->news->feeds->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;news-&gt;feeds-&gt;find($request) -> Newsfeed</code></summary>
+<details><summary><code>$client-&gt;news-&gt;feeds-&gt;find($request) -> ?Newsfeed</code></summary>
 <dl>
 <dd>
 
@@ -10829,7 +10888,7 @@ $client->unstable->admins->setAwayAdmin(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;admins-&gt;listActivityLogs($request) -> ActivityLogList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;admins-&gt;listActivityLogs($request) -> ?ActivityLogList</code></summary>
 <dl>
 <dd>
 
@@ -10896,7 +10955,7 @@ $client->admins->listAllActivityLogs(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;admins-&gt;listAdmins() -> AdminList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;admins-&gt;listAdmins() -> ?AdminList</code></summary>
 <dl>
 <dd>
 
@@ -10994,7 +11053,7 @@ $client->unstable->admins->retrieveAdmin(
 </details>
 
 ## AI Content
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;listContentImportSources() -> ContentImportSourcesList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;listContentImportSources() -> ?ContentImportSourcesList</code></summary>
 <dl>
 <dd>
 
@@ -11033,7 +11092,7 @@ $client->aiContent->listContentImportSources();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;createContentImportSource($request) -> ContentImportSource</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;createContentImportSource($request) -> ?ContentImportSource</code></summary>
 <dl>
 <dd>
 
@@ -11108,7 +11167,7 @@ $client->aiContent->createContentImportSource(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;getContentImportSource($request) -> ContentImportSource</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;getContentImportSource($request) -> ?ContentImportSource</code></summary>
 <dl>
 <dd>
 
@@ -11152,7 +11211,7 @@ $client->unstable->aiContent->getContentImportSource(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;updateContentImportSource($request) -> ContentImportSource</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;updateContentImportSource($request) -> ?ContentImportSource</code></summary>
 <dl>
 <dd>
 
@@ -11294,7 +11353,7 @@ $client->unstable->aiContent->deleteContentImportSource(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;listExternalPages() -> ExternalPagesList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;listExternalPages() -> ?ExternalPagesList</code></summary>
 <dl>
 <dd>
 
@@ -11333,7 +11392,7 @@ $client->aiContent->listExternalPages();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;createExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;createExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -11452,7 +11511,7 @@ $client->aiContent->createExternalPage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;getExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;getExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -11510,7 +11569,7 @@ $client->unstable->aiContent->getExternalPage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;updateExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;updateExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -11630,7 +11689,7 @@ $client->unstable->aiContent->updateExternalPage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;deleteExternalPage($request) -> ExternalPage</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;aiContent-&gt;deleteExternalPage($request) -> ?ExternalPage</code></summary>
 <dl>
 <dd>
 
@@ -11689,7 +11748,7 @@ $client->unstable->aiContent->deleteExternalPage(
 </details>
 
 ## Articles
-<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;listArticles() -> ArticleList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;listArticles() -> ?ArticleList</code></summary>
 <dl>
 <dd>
 
@@ -11734,7 +11793,7 @@ $client->articles->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;createArticle($request) -> Article</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;createArticle($request) -> ?Article</code></summary>
 <dl>
 <dd>
 
@@ -11792,7 +11851,7 @@ $client->unstable->articles->createArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;retrieveArticle($request) -> Article</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;retrieveArticle($request) -> ?Article</code></summary>
 <dl>
 <dd>
 
@@ -11850,7 +11909,7 @@ $client->unstable->articles->retrieveArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;deleteArticle($request) -> DeletedArticleObject</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;deleteArticle($request) -> ?DeletedArticleObject</code></summary>
 <dl>
 <dd>
 
@@ -11908,7 +11967,7 @@ $client->unstable->articles->deleteArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;searchArticles($request) -> ArticleSearchResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;articles-&gt;searchArticles($request) -> ?ArticleSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -11994,7 +12053,7 @@ $client->articles->search(
 </details>
 
 ## Away Status Reasons
-<details><summary><code>$client-&gt;unstable-&gt;awayStatusReasons-&gt;listAwayStatusReasons() -> array</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;awayStatusReasons-&gt;listAwayStatusReasons() -> ?array</code></summary>
 <dl>
 <dd>
 
@@ -12034,7 +12093,7 @@ $client->awayStatusReasons->listAwayStatusReasons();
 </details>
 
 ## Unstable Export
-<details><summary><code>$client-&gt;unstable-&gt;export-&gt;enqueueANewReportingDataExportJob($request) -> PostExportReportingDataEnqueueResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;export-&gt;enqueueANewReportingDataExportJob($request) -> ?PostExportReportingDataEnqueueResponse</code></summary>
 <dl>
 <dd>
 
@@ -12108,7 +12167,7 @@ $client->export->enqueueANewReportingDataExportJob(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;export-&gt;listAvailableDatasetsAndAttributes() -> GetExportReportingDataGetDatasetsResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;export-&gt;listAvailableDatasetsAndAttributes() -> ?GetExportReportingDataGetDatasetsResponse</code></summary>
 <dl>
 <dd>
 
@@ -12134,7 +12193,7 @@ $client->export->listAvailableDatasetsAndAttributes();
 </details>
 
 ## Help Center
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;listAllCollections() -> CollectionList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;listAllCollections() -> ?CollectionList</code></summary>
 <dl>
 <dd>
 
@@ -12177,7 +12236,7 @@ $client->helpCenters->collections->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;createCollection($request) -> Collection</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;createCollection($request) -> ?Collection</code></summary>
 <dl>
 <dd>
 
@@ -12267,7 +12326,7 @@ $client->helpCenters->collections->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;retrieveCollection($request) -> Collection</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;retrieveCollection($request) -> ?Collection</code></summary>
 <dl>
 <dd>
 
@@ -12325,7 +12384,7 @@ $client->unstable->helpCenter->retrieveCollection(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;updateCollection($request) -> Collection</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;updateCollection($request) -> ?Collection</code></summary>
 <dl>
 <dd>
 
@@ -12416,7 +12475,7 @@ $client->unstable->helpCenter->updateCollection(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;deleteCollection($request) -> DeletedCollectionObject</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;deleteCollection($request) -> ?DeletedCollectionObject</code></summary>
 <dl>
 <dd>
 
@@ -12474,7 +12533,7 @@ $client->unstable->helpCenter->deleteCollection(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;retrieveHelpCenter($request) -> HelpCenter</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;retrieveHelpCenter($request) -> ?HelpCenter</code></summary>
 <dl>
 <dd>
 
@@ -12532,7 +12591,7 @@ $client->unstable->helpCenter->retrieveHelpCenter(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;listHelpCenters() -> HelpCenterList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;helpCenter-&gt;listHelpCenters() -> ?HelpCenterList</code></summary>
 <dl>
 <dd>
 
@@ -12574,7 +12633,7 @@ $client->helpCenters->list(
 </details>
 
 ## Internal Articles
-<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;listInternalArticles() -> InternalArticleList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;listInternalArticles() -> ?InternalArticleList</code></summary>
 <dl>
 <dd>
 
@@ -12613,7 +12672,7 @@ $client->internalArticles->listInternalArticles();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;createInternalArticle($request) -> InternalArticleListItem</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;createInternalArticle($request) -> ?InternalArticleListItem</code></summary>
 <dl>
 <dd>
 
@@ -12674,7 +12733,7 @@ $client->internalArticles->createInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;retrieveInternalArticle($request) -> InternalArticleListItem</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;retrieveInternalArticle($request) -> ?InternalArticleListItem</code></summary>
 <dl>
 <dd>
 
@@ -12732,7 +12791,7 @@ $client->unstable->internalArticles->retrieveInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;updateInternalArticle($request) -> InternalArticleListItem</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;updateInternalArticle($request) -> ?InternalArticleListItem</code></summary>
 <dl>
 <dd>
 
@@ -12824,7 +12883,7 @@ $client->unstable->internalArticles->updateInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;deleteInternalArticle($request) -> DeletedInternalArticleObject</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;deleteInternalArticle($request) -> ?DeletedInternalArticleObject</code></summary>
 <dl>
 <dd>
 
@@ -12882,7 +12941,7 @@ $client->unstable->internalArticles->deleteInternalArticle(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;searchInternalArticles($request) -> InternalArticleSearchResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;internalArticles-&gt;searchInternalArticles($request) -> ?InternalArticleSearchResponse</code></summary>
 <dl>
 <dd>
 
@@ -12941,7 +13000,7 @@ $client->internalArticles->searchInternalArticles(
 </details>
 
 ## Companies
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;retrieveCompany($request) -> CompanyList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;retrieveCompany($request) -> ?CompanyList</code></summary>
 <dl>
 <dd>
 
@@ -13054,7 +13113,7 @@ $client->companies->retrieve(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;createOrUpdateCompany($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;createOrUpdateCompany($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -13120,7 +13179,7 @@ $client->unstable->companies->createOrUpdateCompany(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;retrieveACompanyById($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;retrieveACompanyById($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -13178,7 +13237,7 @@ $client->unstable->companies->retrieveACompanyById(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;updateCompany($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;updateCompany($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -13240,7 +13299,7 @@ $client->unstable->companies->updateCompany(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;deleteCompany($request) -> DeletedCompanyObject</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;deleteCompany($request) -> ?DeletedCompanyObject</code></summary>
 <dl>
 <dd>
 
@@ -13298,7 +13357,7 @@ $client->unstable->companies->deleteCompany(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;listAttachedContacts($request) -> CompanyAttachedContacts</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;listAttachedContacts($request) -> ?CompanyAttachedContacts</code></summary>
 <dl>
 <dd>
 
@@ -13356,7 +13415,7 @@ $client->unstable->companies->listAttachedContacts(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;listAttachedSegmentsForCompanies($request) -> CompanyAttachedSegments</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;listAttachedSegmentsForCompanies($request) -> ?CompanyAttachedSegments</code></summary>
 <dl>
 <dd>
 
@@ -13414,7 +13473,7 @@ $client->unstable->companies->listAttachedSegmentsForCompanies(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;listAllCompanies($request) -> CompanyList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;listAllCompanies($request) -> ?CompanyList</code></summary>
 <dl>
 <dd>
 
@@ -13570,7 +13629,7 @@ $client->companies->scroll(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;attachContactToACompany($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;attachContactToACompany($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -13637,7 +13696,7 @@ $client->unstable->companies->attachContactToACompany(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;detachContactFromACompany($request) -> Company</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;companies-&gt;detachContactFromACompany($request) -> ?Company</code></summary>
 <dl>
 <dd>
 
@@ -13705,7 +13764,7 @@ $client->unstable->companies->detachContactFromACompany(
 </details>
 
 ## Notes
-<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;listCompanyNotes($request) -> NoteList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;listCompanyNotes($request) -> ?NoteList</code></summary>
 <dl>
 <dd>
 
@@ -13763,7 +13822,7 @@ $client->unstable->notes->listCompanyNotes(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;listNotes($request) -> NoteList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;listNotes($request) -> ?NoteList</code></summary>
 <dl>
 <dd>
 
@@ -13821,7 +13880,7 @@ $client->unstable->notes->listNotes(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;createNote($request) -> Note</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;createNote($request) -> ?Note</code></summary>
 <dl>
 <dd>
 
@@ -13906,7 +13965,7 @@ $client->unstable->notes->createNote(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;retrieveNote($request) -> Note</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;notes-&gt;retrieveNote($request) -> ?Note</code></summary>
 <dl>
 <dd>
 
@@ -13965,7 +14024,7 @@ $client->unstable->notes->retrieveNote(
 </details>
 
 ## Contacts
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listCompaniesForAContact($request) -> ContactAttachedCompanies</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listCompaniesForAContact($request) -> ?ContactAttachedCompanies</code></summary>
 <dl>
 <dd>
 
@@ -14023,7 +14082,7 @@ $client->unstable->contacts->listCompaniesForAContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listSegmentsForAContact($request) -> ContactSegments</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listSegmentsForAContact($request) -> ?ContactSegments</code></summary>
 <dl>
 <dd>
 
@@ -14081,7 +14140,7 @@ $client->contacts->listAttachedSegments(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listSubscriptionsForAContact($request) -> SubscriptionTypeList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listSubscriptionsForAContact($request) -> ?SubscriptionTypeList</code></summary>
 <dl>
 <dd>
 
@@ -14145,7 +14204,7 @@ $client->contacts->listAttachedSubscriptions(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listTagsForAContact($request) -> TagList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listTagsForAContact($request) -> ?TagList</code></summary>
 <dl>
 <dd>
 
@@ -14203,7 +14262,7 @@ $client->contacts->listAttachedTags(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;showContact($request) -> ShowContactResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;showContact($request) -> ?ShowContactResponse</code></summary>
 <dl>
 <dd>
 
@@ -14261,7 +14320,7 @@ $client->unstable->contacts->showContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;updateContact($request) -> UpdateContactResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;updateContact($request) -> ?UpdateContactResponse</code></summary>
 <dl>
 <dd>
 
@@ -14423,7 +14482,7 @@ $client->unstable->contacts->updateContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;deleteContact($request) -> ContactDeleted</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;deleteContact($request) -> ?ContactDeleted</code></summary>
 <dl>
 <dd>
 
@@ -14481,7 +14540,7 @@ $client->unstable->contacts->deleteContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;mergeContact($request) -> MergeContactResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;mergeContact($request) -> ?MergeContactResponse</code></summary>
 <dl>
 <dd>
 
@@ -14548,7 +14607,7 @@ $client->contacts->mergeLeadInUser(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;searchContacts($request) -> ContactList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;searchContacts($request) -> ?ContactList</code></summary>
 <dl>
 <dd>
 
@@ -14676,7 +14735,9 @@ The table below shows the operators you can use to define how you want to search
 ```php
 $client->unstable->contacts->searchContacts(
     new SearchRequest([
-        'query' => new SingleFilterSearchRequest([]),
+        'query' => new SingleFilterSearchRequest([
+            'value' => [],
+        ]),
         'pagination' => new StartingAfterPaging([
             'perPage' => 5,
         ]),
@@ -14708,7 +14769,7 @@ $client->unstable->contacts->searchContacts(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listContacts() -> ContactList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;listContacts() -> ?ContactList</code></summary>
 <dl>
 <dd>
 
@@ -14753,7 +14814,7 @@ $client->contacts->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;createContact($request) -> CreateContactResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;createContact($request) -> ?CreateContactResponse</code></summary>
 <dl>
 <dd>
 
@@ -14811,7 +14872,7 @@ $client->contacts->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;showContactByExternalId($request) -> ShowContactByExternalIdResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;showContactByExternalId($request) -> ?ShowContactByExternalIdResponse</code></summary>
 <dl>
 <dd>
 
@@ -14869,7 +14930,7 @@ $client->contacts->showContactByExternalId(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;archiveContact($request) -> ContactArchived</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;archiveContact($request) -> ?ContactArchived</code></summary>
 <dl>
 <dd>
 
@@ -14927,7 +14988,7 @@ $client->unstable->contacts->archiveContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;unarchiveContact($request) -> ContactUnarchived</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;unarchiveContact($request) -> ?ContactUnarchived</code></summary>
 <dl>
 <dd>
 
@@ -14985,7 +15046,7 @@ $client->unstable->contacts->unarchiveContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;blockContact($request) -> ContactBlocked</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;contacts-&gt;blockContact($request) -> ?ContactBlocked</code></summary>
 <dl>
 <dd>
 
@@ -15044,7 +15105,7 @@ $client->unstable->contacts->blockContact(
 </details>
 
 ## Subscription Types
-<details><summary><code>$client-&gt;unstable-&gt;subscriptionTypes-&gt;attachSubscriptionTypeToContact($request) -> SubscriptionType</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;subscriptionTypes-&gt;attachSubscriptionTypeToContact($request) -> ?SubscriptionType</code></summary>
 <dl>
 <dd>
 
@@ -15126,7 +15187,7 @@ $client->contacts->attachSubscription(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;subscriptionTypes-&gt;detachSubscriptionTypeToContact($request) -> SubscriptionType</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;subscriptionTypes-&gt;detachSubscriptionTypeToContact($request) -> ?SubscriptionType</code></summary>
 <dl>
 <dd>
 
@@ -15193,7 +15254,7 @@ $client->unstable->subscriptionTypes->detachSubscriptionTypeToContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;subscriptionTypes-&gt;listSubscriptionTypes() -> SubscriptionTypeList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;subscriptionTypes-&gt;listSubscriptionTypes() -> ?SubscriptionTypeList</code></summary>
 <dl>
 <dd>
 
@@ -15233,7 +15294,7 @@ $client->subscriptionTypes->list();
 </details>
 
 ## Tags
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;attachTagToContact($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;attachTagToContact($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15300,7 +15361,7 @@ $client->tags->tagContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;detachTagFromContact($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;detachTagFromContact($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15367,7 +15428,7 @@ $client->unstable->tags->detachTagFromContact(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;attachTagToConversation($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;attachTagToConversation($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15443,7 +15504,7 @@ $client->tags->tagConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;detachTagFromConversation($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;detachTagFromConversation($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15519,7 +15580,7 @@ $client->unstable->tags->detachTagFromConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;listTags() -> TagList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;listTags() -> ?TagList</code></summary>
 <dl>
 <dd>
 
@@ -15559,7 +15620,7 @@ $client->tags->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;createTag($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;createTag($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15629,7 +15690,7 @@ $client->tags->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;findTag($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;findTag($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15746,7 +15807,7 @@ $client->unstable->tags->deleteTag(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;attachTagToTicket($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;attachTagToTicket($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15822,7 +15883,7 @@ $client->tags->tagTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;detachTagFromTicket($request) -> Tag</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tags-&gt;detachTagFromTicket($request) -> ?Tag</code></summary>
 <dl>
 <dd>
 
@@ -15899,7 +15960,7 @@ $client->unstable->tags->detachTagFromTicket(
 </details>
 
 ## Conversations
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;listConversations($request) -> ConversationList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;listConversations($request) -> ?ConversationList</code></summary>
 <dl>
 <dd>
 
@@ -15972,7 +16033,7 @@ $client->conversations->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;createConversation($request) -> Message</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;createConversation($request) -> ?Message</code></summary>
 <dl>
 <dd>
 
@@ -16059,7 +16120,7 @@ $client->conversations->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;retrieveConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;retrieveConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16144,7 +16205,7 @@ $client->unstable->conversations->retrieveConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;updateConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;updateConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16261,7 +16322,7 @@ $client->unstable->conversations->updateConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;deleteConversation($request) -> ConversationDeleted</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;deleteConversation($request) -> ?ConversationDeleted</code></summary>
 <dl>
 <dd>
 
@@ -16319,7 +16380,7 @@ $client->unstable->conversations->deleteConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;searchConversations($request) -> ConversationList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;searchConversations($request) -> ?ConversationList</code></summary>
 <dl>
 <dd>
 
@@ -16446,7 +16507,9 @@ The table below shows the operators you can use to define how you want to search
 ```php
 $client->unstable->conversations->searchConversations(
     new SearchRequest([
-        'query' => new SingleFilterSearchRequest([]),
+        'query' => new SingleFilterSearchRequest([
+            'value' => [],
+        ]),
         'pagination' => new StartingAfterPaging([
             'perPage' => 5,
         ]),
@@ -16478,7 +16541,7 @@ $client->unstable->conversations->searchConversations(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;replyConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;replyConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16506,7 +16569,7 @@ You can reply to a conversation with a message from an admin or on behalf of a c
 
 ```php
 $client->unstable->conversations->replyConversation(
-    new ReplyConversationRequest([
+    new ReplyConversationBody([
         'id' => '123 or "last"',
         'body' => new ContactReplyIntercomUserIdRequest([
             'messageType' => 'comment',
@@ -16550,7 +16613,7 @@ $client->unstable->conversations->replyConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;manageConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;manageConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16624,7 +16687,7 @@ $client->unstable->conversations->manageConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;attachContactToConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;attachContactToConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16707,7 +16770,7 @@ $client->unstable->conversations->attachContactToConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;detachContactFromConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;detachContactFromConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16788,7 +16851,7 @@ $client->conversations->detachContactAsAdmin(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;listHandlingEvents($request) -> HandlingEventList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;listHandlingEvents($request) -> ?HandlingEventList</code></summary>
 <dl>
 <dd>
 
@@ -16848,7 +16911,7 @@ $client->unstable->conversations->listHandlingEvents(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;redactConversation($request) -> Conversation</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;conversations-&gt;redactConversation($request) -> ?Conversation</code></summary>
 <dl>
 <dd>
 
@@ -16988,7 +17051,7 @@ $client->unstable->conversations->convertConversationToTicket(
 </details>
 
 ## Unstable CustomChannelEvents
-<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyNewConversation($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyNewConversation($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -17054,7 +17117,7 @@ $client->customChannelEvents->notifyNewConversation(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyNewMessage($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyNewMessage($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -17121,7 +17184,7 @@ $client->customChannelEvents->notifyNewMessage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyQuickReplySelected($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyQuickReplySelected($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -17188,7 +17251,7 @@ $client->customChannelEvents->notifyQuickReplySelected(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyAttributeCollected($request) -> CustomChannelNotificationResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;customChannelEvents-&gt;notifyAttributeCollected($request) -> ?CustomChannelNotificationResponse</code></summary>
 <dl>
 <dd>
 
@@ -17314,7 +17377,7 @@ $client->customObjectInstances->getCustomObjectInstancesByExternalId(
 <dl>
 <dd>
 
-**$externalId:** `string` 
+**$externalId:** `string` — The unique identifier for the instance in the external system it originated from.
     
 </dd>
 </dl>
@@ -17423,7 +17486,7 @@ $client->customObjectInstances->createCustomObjectInstances(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesById($request) -> CustomObjectInstanceDeleted</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesById($request) -> ?CustomObjectInstanceDeleted</code></summary>
 <dl>
 <dd>
 
@@ -17478,7 +17541,7 @@ $client->customObjectInstances->deleteCustomObjectInstancesById(
 <dl>
 <dd>
 
-**$externalId:** `string` 
+**$externalId:** `string` — The unique identifier for the instance in the external system it originated from.
     
 </dd>
 </dl>
@@ -17557,7 +17620,7 @@ $client->unstable->customObjectInstances->getCustomObjectInstancesById(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesByExternalId($request) -> CustomObjectInstanceDeleted</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;customObjectInstances-&gt;deleteCustomObjectInstancesByExternalId($request) -> ?CustomObjectInstanceDeleted</code></summary>
 <dl>
 <dd>
 
@@ -17625,7 +17688,7 @@ $client->unstable->customObjectInstances->deleteCustomObjectInstancesByExternalI
 </details>
 
 ## Data Attributes
-<details><summary><code>$client-&gt;unstable-&gt;dataAttributes-&gt;lisDataAttributes($request) -> DataAttributeList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataAttributes-&gt;lisDataAttributes($request) -> ?DataAttributeList</code></summary>
 <dl>
 <dd>
 
@@ -17692,7 +17755,7 @@ $client->dataAttributes->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;dataAttributes-&gt;createDataAttribute($request) -> DataAttribute</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataAttributes-&gt;createDataAttribute($request) -> ?DataAttribute</code></summary>
 <dl>
 <dd>
 
@@ -17750,7 +17813,7 @@ $client->unstable->dataAttributes->createDataAttribute(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;dataAttributes-&gt;updateDataAttribute($request) -> DataAttribute</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataAttributes-&gt;updateDataAttribute($request) -> ?DataAttribute</code></summary>
 <dl>
 <dd>
 
@@ -17783,7 +17846,7 @@ You can update a data attribute.
 
 ```php
 $client->unstable->dataAttributes->updateDataAttribute(
-    new UpdateDataAttributeRequest([
+    new UpdateDataAttributeBody([
         'id' => 1,
         'body' => [
             'key' => "value",
@@ -17825,7 +17888,7 @@ $client->unstable->dataAttributes->updateDataAttribute(
 </details>
 
 ## Data Events
-<details><summary><code>$client-&gt;unstable-&gt;dataEvents-&gt;lisDataEvents($request) -> DataEventSummary</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataEvents-&gt;lisDataEvents($request) -> ?DataEventSummary</code></summary>
 <dl>
 <dd>
 
@@ -17865,12 +17928,13 @@ You can optionally define the result page size as well with the `per_page` param
 <dd>
 
 ```php
-$client->unstable->dataEvents->lisDataEvents(
-    new LisDataEventsRequest([
-        'filter' => new LisDataEventsRequestFilterUserId([
+$client->events->list(
+    new ListEventsRequest([
+        'filter' => new EventsListRequestFilterUserId([
             'userId' => 'user_id',
         ]),
         'type' => 'type',
+        'summary' => true,
     ]),
 );
 ```
@@ -18080,7 +18144,7 @@ $client->events->summaries(
 </details>
 
 ## Data Export
-<details><summary><code>$client-&gt;unstable-&gt;dataExport-&gt;createDataExport($request) -> DataExport</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataExport-&gt;createDataExport($request) -> ?DataExport</code></summary>
 <dl>
 <dd>
 
@@ -18161,7 +18225,7 @@ $client->dataExport->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;dataExport-&gt;getDataExport($request) -> DataExport</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataExport-&gt;getDataExport($request) -> ?DataExport</code></summary>
 <dl>
 <dd>
 
@@ -18223,7 +18287,7 @@ $client->dataExport->find(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;dataExport-&gt;cancelDataExport($request) -> DataExport</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;dataExport-&gt;cancelDataExport($request) -> ?DataExport</code></summary>
 <dl>
 <dd>
 
@@ -18346,7 +18410,7 @@ $client->dataExport->download(
 </details>
 
 ## Workflows
-<details><summary><code>$client-&gt;unstable-&gt;workflows-&gt;exportWorkflow($request) -> WorkflowExport</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;workflows-&gt;exportWorkflow($request) -> ?WorkflowExport</code></summary>
 <dl>
 <dd>
 
@@ -18411,7 +18475,7 @@ $client->unstable->workflows->exportWorkflow(
 </details>
 
 ## Jobs
-<details><summary><code>$client-&gt;unstable-&gt;jobs-&gt;status($request) -> Jobs</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;jobs-&gt;status($request) -> ?Jobs</code></summary>
 <dl>
 <dd>
 
@@ -18470,7 +18534,7 @@ $client->unstable->jobs->status(
 </details>
 
 ## Macros
-<details><summary><code>$client-&gt;unstable-&gt;macros-&gt;listMacros($request) -> MacroList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;macros-&gt;listMacros($request) -> ?MacroList</code></summary>
 <dl>
 <dd>
 
@@ -18633,7 +18697,7 @@ $client->unstable->macros->getMacro(
 </details>
 
 ## Messages
-<details><summary><code>$client-&gt;unstable-&gt;messages-&gt;createMessage($request) -> Message</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;messages-&gt;createMessage($request) -> ?Message</code></summary>
 <dl>
 <dd>
 
@@ -18706,7 +18770,7 @@ $client->unstable->messages->createMessage(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;messages-&gt;getWhatsAppMessageStatus($request) -> WhatsappMessageStatusList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;messages-&gt;getWhatsAppMessageStatus($request) -> ?WhatsappMessageStatusList</code></summary>
 <dl>
 <dd>
 
@@ -18787,7 +18851,7 @@ $client->unstable->messages->getWhatsAppMessageStatus(
 </details>
 
 ## News
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;listNewsItems() -> PaginatedResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;listNewsItems() -> ?PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -18826,7 +18890,7 @@ $client->news->items->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;createNewsItem($request) -> NewsItem</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;createNewsItem($request) -> ?NewsItem</code></summary>
 <dl>
 <dd>
 
@@ -18903,7 +18967,7 @@ $client->news->items->create(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;retrieveNewsItem($request) -> NewsItem</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;retrieveNewsItem($request) -> ?NewsItem</code></summary>
 <dl>
 <dd>
 
@@ -18961,7 +19025,7 @@ $client->unstable->news->retrieveNewsItem(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;updateNewsItem($request) -> NewsItem</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;updateNewsItem($request) -> ?NewsItem</code></summary>
 <dl>
 <dd>
 
@@ -19022,7 +19086,7 @@ $client->unstable->news->updateNewsItem(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;deleteNewsItem($request) -> DeletedObject</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;deleteNewsItem($request) -> ?DeletedObject</code></summary>
 <dl>
 <dd>
 
@@ -19080,7 +19144,7 @@ $client->unstable->news->deleteNewsItem(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;listLiveNewsfeedItems($request) -> PaginatedResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;listLiveNewsfeedItems($request) -> ?PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -19138,7 +19202,7 @@ $client->unstable->news->listLiveNewsfeedItems(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;listNewsfeeds() -> PaginatedResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;listNewsfeeds() -> ?PaginatedResponse</code></summary>
 <dl>
 <dd>
 
@@ -19177,7 +19241,7 @@ $client->news->feeds->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;news-&gt;retrieveNewsfeed($request) -> Newsfeed</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;news-&gt;retrieveNewsfeed($request) -> ?Newsfeed</code></summary>
 <dl>
 <dd>
 
@@ -19236,7 +19300,7 @@ $client->unstable->news->retrieveNewsfeed(
 </details>
 
 ## Segments
-<details><summary><code>$client-&gt;unstable-&gt;segments-&gt;listSegments($request) -> SegmentList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;segments-&gt;listSegments($request) -> ?SegmentList</code></summary>
 <dl>
 <dd>
 
@@ -19294,7 +19358,7 @@ $client->segments->list(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;segments-&gt;retrieveSegment($request) -> Segment</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;segments-&gt;retrieveSegment($request) -> ?Segment</code></summary>
 <dl>
 <dd>
 
@@ -19415,7 +19479,7 @@ $client->unstable->switch->createPhoneSwitch(
 </details>
 
 ## Calls
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;listCalls($request) -> CallList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;listCalls($request) -> ?CallList</code></summary>
 <dl>
 <dd>
 
@@ -19482,7 +19546,7 @@ $client->calls->listCalls(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;showCall($request) -> Call</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;showCall($request) -> ?Call</code></summary>
 <dl>
 <dd>
 
@@ -19656,7 +19720,7 @@ $client->unstable->calls->showCallTranscript(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;listCallsWithTranscripts($request) -> ListCallsWithTranscriptsResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;listCallsWithTranscripts($request) -> ?ListCallsWithTranscriptsResponse</code></summary>
 <dl>
 <dd>
 
@@ -19718,7 +19782,7 @@ $client->calls->listCallsWithTranscripts(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;registerFinVoiceCall($request) -> AiCallResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;registerFinVoiceCall($request) -> ?AiCallResponse</code></summary>
 <dl>
 <dd>
 
@@ -19783,7 +19847,7 @@ $client->unstable->calls->registerFinVoiceCall(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;collectFinVoiceCallById($request) -> AiCallResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;collectFinVoiceCallById($request) -> ?AiCallResponse</code></summary>
 <dl>
 <dd>
 
@@ -19841,7 +19905,7 @@ $client->unstable->calls->collectFinVoiceCallById(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;collectFinVoiceCallByExternalId($request) -> AiCallResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;collectFinVoiceCallByExternalId($request) -> ?AiCallResponse</code></summary>
 <dl>
 <dd>
 
@@ -19899,7 +19963,7 @@ $client->unstable->calls->collectFinVoiceCallByExternalId(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;collectFinVoiceCallByPhoneNumber($request) -> Error</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;calls-&gt;collectFinVoiceCallByPhoneNumber($request) -> ?Error</code></summary>
 <dl>
 <dd>
 
@@ -19960,7 +20024,7 @@ $client->unstable->calls->collectFinVoiceCallByPhoneNumber(
 </details>
 
 ## Teams
-<details><summary><code>$client-&gt;unstable-&gt;teams-&gt;listTeams() -> TeamList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;teams-&gt;listTeams() -> ?TeamList</code></summary>
 <dl>
 <dd>
 
@@ -19999,7 +20063,7 @@ $client->teams->list();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;teams-&gt;retrieveTeam($request) -> Team</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;teams-&gt;retrieveTeam($request) -> ?Team</code></summary>
 <dl>
 <dd>
 
@@ -20058,7 +20122,7 @@ $client->unstable->teams->retrieveTeam(
 </details>
 
 ## Ticket States
-<details><summary><code>$client-&gt;unstable-&gt;ticketStates-&gt;listTicketStates() -> TicketStateList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;ticketStates-&gt;listTicketStates() -> ?TicketStateList</code></summary>
 <dl>
 <dd>
 
@@ -20389,7 +20453,7 @@ $client->unstable->ticketTypeAttributes->updateTicketTypeAttribute(
 </details>
 
 ## Ticket Types
-<details><summary><code>$client-&gt;unstable-&gt;ticketTypes-&gt;listTicketTypes() -> TicketTypeList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;ticketTypes-&gt;listTicketTypes() -> ?TicketTypeList</code></summary>
 <dl>
 <dd>
 
@@ -20549,7 +20613,7 @@ $client->unstable->ticketTypes->getTicketType(
 </details>
 
 ## Tickets
-<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;replyTicket($request) -> TicketReply</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;replyTicket($request) -> ?TicketReply</code></summary>
 <dl>
 <dd>
 
@@ -20601,7 +20665,7 @@ $client->unstable->tickets->replyTicket(
 <dl>
 <dd>
 
-**$id:** `string` 
+**$id:** `string` — The id of the ticket to target.
     
 </dd>
 </dl>
@@ -20621,7 +20685,7 @@ $client->unstable->tickets->replyTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;enqueueCreateTicket($request) -> Jobs</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;enqueueCreateTicket($request) -> ?Jobs</code></summary>
 <dl>
 <dd>
 
@@ -20652,7 +20716,7 @@ $client->tickets->enqueueCreateTicket(
     new EnqueueCreateTicketRequest([
         'ticketTypeId' => '1234',
         'contacts' => [
-            new CreateTicketRequestContactsItemId([
+            new CreateTicketRequestBodyContactsItemId([
                 'id' => '6762f2d81bb69f9f2193bc54',
             ]),
         ],
@@ -20873,7 +20937,7 @@ $client->unstable->tickets->updateTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;deleteTicket($request) -> DeleteTicketResponse</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;deleteTicket($request) -> ?DeleteTicketResponse</code></summary>
 <dl>
 <dd>
 
@@ -20931,7 +20995,7 @@ $client->unstable->tickets->deleteTicket(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;searchTickets($request) -> TicketList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;tickets-&gt;searchTickets($request) -> ?TicketList</code></summary>
 <dl>
 <dd>
 
@@ -21028,7 +21092,9 @@ The table below shows the operators you can use to define how you want to search
 ```php
 $client->unstable->tickets->searchTickets(
     new SearchRequest([
-        'query' => new SingleFilterSearchRequest([]),
+        'query' => new SingleFilterSearchRequest([
+            'value' => [],
+        ]),
         'pagination' => new StartingAfterPaging([
             'perPage' => 5,
         ]),
@@ -21182,7 +21248,7 @@ $client->visitors->update(
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;visitors-&gt;convertVisitor($request) -> Contact</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;visitors-&gt;convertVisitor($request) -> ?Contact</code></summary>
 <dl>
 <dd>
 
@@ -21246,7 +21312,7 @@ $client->unstable->visitors->convertVisitor(
 <dl>
 <dd>
 
-**$user:** `mixed` 
+**$user:** `mixed` — The unique identifiers retained after converting or merging.
     
 </dd>
 </dl>
@@ -21254,7 +21320,7 @@ $client->unstable->visitors->convertVisitor(
 <dl>
 <dd>
 
-**$visitor:** `mixed` 
+**$visitor:** `mixed` — The unique identifiers to convert a single Visitor.
     
 </dd>
 </dl>
@@ -21267,7 +21333,7 @@ $client->unstable->visitors->convertVisitor(
 </details>
 
 ## Brands
-<details><summary><code>$client-&gt;unstable-&gt;brands-&gt;listBrands() -> BrandList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;brands-&gt;listBrands() -> ?BrandList</code></summary>
 <dl>
 <dd>
 
@@ -21307,7 +21373,7 @@ $client->unstable->brands->listBrands();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;brands-&gt;retrieveBrand($request) -> Brand</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;brands-&gt;retrieveBrand($request) -> ?Brand</code></summary>
 <dl>
 <dd>
 
@@ -21366,7 +21432,7 @@ $client->unstable->brands->retrieveBrand(
 </details>
 
 ## Emails
-<details><summary><code>$client-&gt;unstable-&gt;emails-&gt;listEmails() -> EmailList</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;emails-&gt;listEmails() -> ?EmailList</code></summary>
 <dl>
 <dd>
 
@@ -21405,7 +21471,7 @@ $client->unstable->emails->listEmails();
 </dl>
 </details>
 
-<details><summary><code>$client-&gt;unstable-&gt;emails-&gt;retrieveEmail($request) -> EmailSetting</code></summary>
+<details><summary><code>$client-&gt;unstable-&gt;emails-&gt;retrieveEmail($request) -> ?EmailSetting</code></summary>
 <dl>
 <dd>
 
@@ -21462,3 +21528,4 @@ $client->unstable->emails->retrieveEmail(
 </dd>
 </dl>
 </details>
+

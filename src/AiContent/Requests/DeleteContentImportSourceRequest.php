@@ -36,6 +36,7 @@ class DeleteContentImportSourceRequest extends JsonSerializableType
     public function setSourceId(string $value): self
     {
         $this->sourceId = $value;
+        $this->_setField('sourceId');
         return $this;
     }
 }

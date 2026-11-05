@@ -1,6 +1,6 @@
 # Intercom PHP Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fintercom%2Fintercom-php)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Intercom%2FPHP)
 [![php shield](https://img.shields.io/badge/php-packagist-pink)](https://packagist.org/packages/intercom/intercom-php)
 
 The Intercom PHP library provides convenient access to the Intercom APIs from PHP.
@@ -10,9 +10,9 @@ The Intercom PHP library provides convenient access to the Intercom APIs from PH
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Environments](#environments)
 - [Exception Handling](#exception-handling)
 - [Pagination](#pagination)
-- [Legacy Sdk](#legacy-sdk)
 - [Advanced](#advanced)
   - [Custom Client](#custom-client)
   - [Retries](#retries)
@@ -53,6 +53,31 @@ $client->aiContent->createContentImportSource(
 
 ```
 
+## Environments
+
+This SDK allows you to configure different environments for API requests.
+
+```php
+The SDK defaults to the `UsProduction` environment. To use a different environment, pass it to the client constructor:
+
+```php
+use Intercom\IntercomClient;
+use Intercom\Environments;
+
+$client = new IntercomClient(
+    token: '<YOUR_TOKEN>',
+    options: [
+        'baseUrl' => Environments::Staging->value
+    ]
+);
+```
+
+Available environments:
+- `Environments::UsProduction`
+- `Environments::EuProduction`
+- `Environments::AuProduction`
+```
+
 ## Exception Handling
 
 When the API returns a non-success status code (4xx or 5xx response), an exception will be thrown.
@@ -79,7 +104,7 @@ List endpoints return a `Pager<T>` which lets you loop over all items and the SD
 use Intercom\IntercomClient;
 
 $client = new IntercomClient(
-    '<token>',
+    '<YOUR_TOKEN>',
     ['baseUrl' => 'https://api.example.com'],
 );
 
@@ -100,58 +125,34 @@ foreach ($items->getPages() as $page) {
 ```
 
 
-## Legacy SDK
-
-While the new SDK has a lot of improvements, we at Intercom understand that it takes time to upgrade when there are breaking changes.
-To make the migration easier, the new SDK also exports the legacy SDK as `Intercom\Legacy\...`. Here's an example of how you can use the
-legacy SDK alongside the new SDK inside a single file:
-
-```php
-use Intercom\IntercomClient;
-use Intercom\Legacy\IntercomClient as LegacyIntercomClient;
-
-$intercom = new IntercomClient();
-$legacyClient = new LegacyIntercomClient();
-```
-
-We recommend migrating to the new SDK using the following steps:
-
-1. Upgrade the package to `^5.1.0`
-2. Search and replace all requires and imports from `Intercom\...` to `Intercom\Legacy\...`
-
-3. Gradually move over to use the new SDK by importing it from the `Intercom\...` import.
-
-
 ## Advanced
 
 ### Custom Client
 
-This SDK is built to work with any HTTP client that implements Guzzle's `ClientInterface`.
-By default, if no client is provided, the SDK will use Guzzle's default HTTP client.
+This SDK is built to work with any HTTP client that implements the [PSR-18](https://www.php-fig.org/psr/psr-18/) `ClientInterface`.
+By default, if no client is provided, the SDK will use `php-http/discovery` to find an installed HTTP client.
 However, you can pass your own client that adheres to `ClientInterface`:
 
 ```php
 use Intercom\IntercomClient;
 
-// Create a custom Guzzle client with specific configuration.
+// Pass any PSR-18 compatible HTTP client implementation.
+// For example, using Guzzle:
 $customClient = new \GuzzleHttp\Client([
     'timeout' => 5.0,
 ]);
 
-// Pass the custom client when creating an instance of the class.
 $client = new IntercomClient(options: [
     'client' => $customClient
 ]);
 
-// You can also utilize the same technique to leverage advanced customizations to the client such as adding middleware
-$handlerStack = \GuzzleHttp\HandlerStack::create();
-$handlerStack->push(MyCustomMiddleware::create());
-$customClient = new \GuzzleHttp\Client(['handler' => $handlerStack]);
-
-// Pass the custom client when creating an instance of the class.
-$client = new IntercomClient(options: [
-    'client' => $customClient
-]);
+// Or using Symfony HttpClient:
+// $customClient = (new \Symfony\Component\HttpClient\Psr18Client())
+//     ->withOptions(['timeout' => 5.0]);
+//
+// $client = new IntercomClient(options: [
+//     'client' => $customClient
+// ]);
 ```
 
 ### Retries
@@ -164,7 +165,12 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 
 - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
 - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
-- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500) (Internal Server Errors)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (Internal Server Error)
+
+The `retryStatusCodes` configuration controls which [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) status codes are retried:
+
+- `legacy` (default): Retries `408`, `429`, and all `>= 500`
+- `recommended`: Retries `408`, `429`, `502`, `503`, `504` only (excludes `500 Internal Server Error` to avoid retrying non-idempotent failures)
 
 Use the `maxRetries` request option to configure this behavior.
 
@@ -185,7 +191,7 @@ The SDK defaults to a 30 second timeout. Use the `timeout` option to configure t
 $response = $client->aiContent->createContentImportSource(
     ...,
     options: [
-        'timeout' => 3.0 // Override timeout to 3 seconds
+        'timeout' => 3.0 // Override timeout at the request level
     ]
 );
 ```

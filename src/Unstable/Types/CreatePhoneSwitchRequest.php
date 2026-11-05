@@ -62,6 +62,7 @@ class CreatePhoneSwitchRequest extends JsonSerializableType
     public function setPhone(string $value): self
     {
         $this->phone = $value;
+        $this->_setField('phone');
         return $this;
     }
 
@@ -89,6 +90,7 @@ class CreatePhoneSwitchRequest extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 

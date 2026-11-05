@@ -41,6 +41,7 @@ class ConversationSlaRemoved extends JsonSerializableType
     public function setSlaName(?string $value = null): self
     {
         $this->slaName = $value;
+        $this->_setField('slaName');
         return $this;
     }
 

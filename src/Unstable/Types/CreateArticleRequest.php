@@ -97,6 +97,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setTitle(string $value): self
     {
         $this->title = $value;
+        $this->_setField('title');
         return $this;
     }
 
@@ -114,6 +115,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -131,6 +133,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -148,6 +151,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setAuthorId(int $value): self
     {
         $this->authorId = $value;
+        $this->_setField('authorId');
         return $this;
     }
 
@@ -165,6 +169,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -182,6 +187,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setParentId(?int $value = null): self
     {
         $this->parentId = $value;
+        $this->_setField('parentId');
         return $this;
     }
 
@@ -199,6 +205,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setParentType(?string $value = null): self
     {
         $this->parentType = $value;
+        $this->_setField('parentType');
         return $this;
     }
 
@@ -216,6 +223,7 @@ class CreateArticleRequest extends JsonSerializableType
     public function setTranslatedContent(?ArticleTranslatedContent $value = null): self
     {
         $this->translatedContent = $value;
+        $this->_setField('translatedContent');
         return $this;
     }
 

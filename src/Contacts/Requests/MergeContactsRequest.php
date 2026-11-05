@@ -46,6 +46,7 @@ class MergeContactsRequest extends JsonSerializableType
     public function setLeadId(?string $value = null): self
     {
         $this->leadId = $value;
+        $this->_setField('leadId');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class MergeContactsRequest extends JsonSerializableType
     public function setContactId(?string $value = null): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 }

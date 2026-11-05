@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Companies;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Companies\Requests\RetrieveCompanyRequest;
 use Intercom\Unstable\Types\CompanyList;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Companies\Types\Company;
 use Intercom\Unstable\Companies\Requests\RetrieveACompanyByIdRequest;
@@ -78,6 +77,20 @@ class CompaniesClient
      *
      *   `https://api.intercom.io/companies?segment_id={segment_id}`
      *
+     * Example:
+     * ```php
+     * $client->companies->retrieve(
+     *     new RetrieveCompanyRequest([
+     *         'name' => 'my company',
+     *         'companyId' => '12345',
+     *         'tagId' => '678910',
+     *         'segmentId' => '98765',
+     *         'page' => 1,
+     *         'perPage' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveCompanyRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -87,11 +100,11 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CompanyList
+     * @return ?CompanyList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveCompany(RetrieveCompanyRequest $request = new RetrieveCompanyRequest(), ?array $options = null): CompanyList
+    public function retrieveCompany(RetrieveCompanyRequest $request = new RetrieveCompanyRequest(), ?array $options = null): ?CompanyList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -126,20 +139,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CompanyList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -161,6 +167,15 @@ class CompaniesClient
      *   You can set a unique `company_id` value when creating a company. However, it is not possible to update `company_id`. Be sure to set a unique value once upon creation of the company.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->createOrUpdateCompany(
+     *     [
+     *         'key' => "value",
+     *     ],
+     * );
+     * ```
+     *
      * @param mixed $request
      * @param ?array{
      *   baseUrl?: string,
@@ -170,11 +185,11 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Company
+     * @return ?Company
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createOrUpdateCompany(mixed $request, ?array $options = null): Company
+    public function createOrUpdateCompany(mixed $request, ?array $options = null): ?Company
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -190,20 +205,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Company::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -217,6 +225,15 @@ class CompaniesClient
     /**
      * You can fetch a single company.
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->retrieveACompanyById(
+     *     new RetrieveACompanyByIdRequest([
+     *         'id' => '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveACompanyByIdRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -226,18 +243,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Company
+     * @return ?Company
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveACompanyById(RetrieveACompanyByIdRequest $request, ?array $options = null): Company
+    public function retrieveACompanyById(RetrieveACompanyByIdRequest $request, ?array $options = null): ?Company
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "companies/{$request->getId()}",
+                    path: "companies/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -245,20 +262,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Company::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -276,6 +286,15 @@ class CompaniesClient
      *   When updating a company it is not possible to update `company_id`. This can only be set once upon creation of the company.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->updateCompany(
+     *     new UpdateCompanyRequest([
+     *         'id' => '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateCompanyRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -285,18 +304,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Company
+     * @return ?Company
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateCompany(UpdateCompanyRequest $request, ?array $options = null): Company
+    public function updateCompany(UpdateCompanyRequest $request, ?array $options = null): ?Company
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "companies/{$request->getId()}",
+                    path: "companies/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::PUT,
                 ),
                 $options,
@@ -304,20 +323,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Company::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -331,6 +343,15 @@ class CompaniesClient
     /**
      * You can delete a single company.
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->deleteCompany(
+     *     new DeleteCompanyRequest([
+     *         'id' => '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteCompanyRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -340,18 +361,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DeletedCompanyObject
+     * @return ?DeletedCompanyObject
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteCompany(DeleteCompanyRequest $request, ?array $options = null): DeletedCompanyObject
+    public function deleteCompany(DeleteCompanyRequest $request, ?array $options = null): ?DeletedCompanyObject
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "companies/{$request->getId()}",
+                    path: "companies/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -359,20 +380,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DeletedCompanyObject::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -386,6 +400,15 @@ class CompaniesClient
     /**
      * You can fetch a list of all contacts that belong to a company.
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->listAttachedContacts(
+     *     new ListAttachedContactsRequest([
+     *         'id' => '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListAttachedContactsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -395,18 +418,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CompanyAttachedContacts
+     * @return ?CompanyAttachedContacts
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listAttachedContacts(ListAttachedContactsRequest $request, ?array $options = null): CompanyAttachedContacts
+    public function listAttachedContacts(ListAttachedContactsRequest $request, ?array $options = null): ?CompanyAttachedContacts
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "companies/{$request->getId()}/contacts",
+                    path: "companies/" . RawClient::encodePathParam($request->getId()) . "/contacts",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -414,20 +437,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CompanyAttachedContacts::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -441,6 +457,15 @@ class CompaniesClient
     /**
      * You can fetch a list of all segments that belong to a company.
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->listAttachedSegmentsForCompanies(
+     *     new ListAttachedSegmentsForCompaniesRequest([
+     *         'id' => '5f4d3c1c-7b1b-4d7d-a97e-6095715c6632',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListAttachedSegmentsForCompaniesRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -450,18 +475,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CompanyAttachedSegments
+     * @return ?CompanyAttachedSegments
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listAttachedSegmentsForCompanies(ListAttachedSegmentsForCompaniesRequest $request, ?array $options = null): CompanyAttachedSegments
+    public function listAttachedSegmentsForCompanies(ListAttachedSegmentsForCompaniesRequest $request, ?array $options = null): ?CompanyAttachedSegments
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "companies/{$request->getId()}/segments",
+                    path: "companies/" . RawClient::encodePathParam($request->getId()) . "/segments",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -469,20 +494,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CompanyAttachedSegments::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -504,6 +522,17 @@ class CompaniesClient
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->companies->list(
+     *     new ListCompaniesRequest([
+     *         'page' => 1,
+     *         'perPage' => 1,
+     *         'order' => 'desc',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListAllCompaniesRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -513,11 +542,11 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return CompanyList
+     * @return ?CompanyList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listAllCompanies(ListAllCompaniesRequest $request = new ListAllCompaniesRequest(), ?array $options = null): CompanyList
+    public function listAllCompanies(ListAllCompaniesRequest $request = new ListAllCompaniesRequest(), ?array $options = null): ?CompanyList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -543,20 +572,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return CompanyList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -583,6 +605,15 @@ class CompaniesClient
      *   "Request failed due to an internal network error. Please restart the scroll operation."
      *   If this happens, you will need to restart your scroll query: It is not possible to continue from a specific point when using scroll.
      * {% /admonition %}
+     *
+     * Example:
+     * ```php
+     * $client->companies->scroll(
+     *     new ScrollCompaniesRequest([
+     *         'scrollParam' => 'scroll_param',
+     *     ]),
+     * );
+     * ```
      *
      * @param ScrollOverAllCompaniesRequest $request
      * @param ?array{
@@ -624,16 +655,6 @@ class CompaniesClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -647,6 +668,16 @@ class CompaniesClient
     /**
      * You can attach a company to a single contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->attachContactToACompany(
+     *     new AttachContactToACompanyRequest([
+     *         'id' => 'id',
+     *         'companyId' => '6762f09a1bb69f9f2193bb34',
+     *     ]),
+     * );
+     * ```
+     *
      * @param AttachContactToACompanyRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -656,18 +687,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Company
+     * @return ?Company
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function attachContactToACompany(AttachContactToACompanyRequest $request, ?array $options = null): Company
+    public function attachContactToACompany(AttachContactToACompanyRequest $request, ?array $options = null): ?Company
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getId()}/companies",
+                    path: "contacts/" . RawClient::encodePathParam($request->getId()) . "/companies",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -676,20 +707,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Company::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -703,6 +727,16 @@ class CompaniesClient
     /**
      * You can detach a company from a single contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->companies->detachContactFromACompany(
+     *     new DetachContactFromACompanyRequest([
+     *         'contactId' => '58a430d35458202d41b1e65b',
+     *         'id' => '58a430d35458202d41b1e65b',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DetachContactFromACompanyRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -712,18 +746,18 @@ class CompaniesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Company
+     * @return ?Company
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function detachContactFromACompany(DetachContactFromACompanyRequest $request, ?array $options = null): Company
+    public function detachContactFromACompany(DetachContactFromACompanyRequest $request, ?array $options = null): ?Company
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getContactId()}/companies/{$request->getId()}",
+                    path: "contacts/" . RawClient::encodePathParam($request->getContactId()) . "/companies/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -731,20 +765,13 @@ class CompaniesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Company::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

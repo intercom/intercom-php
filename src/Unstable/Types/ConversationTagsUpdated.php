@@ -50,6 +50,7 @@ class ConversationTagsUpdated extends JsonSerializableType
     public function setTagsAdded(?array $value = null): self
     {
         $this->tagsAdded = $value;
+        $this->_setField('tagsAdded');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ConversationTagsUpdated extends JsonSerializableType
     public function setTagsRemoved(?array $value = null): self
     {
         $this->tagsRemoved = $value;
+        $this->_setField('tagsRemoved');
         return $this;
     }
 

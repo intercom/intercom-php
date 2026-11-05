@@ -71,6 +71,7 @@ class GetExportReportingDataGetDatasetsResponseDataItem extends JsonSerializable
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -88,6 +89,7 @@ class GetExportReportingDataGetDatasetsResponseDataItem extends JsonSerializable
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -105,6 +107,7 @@ class GetExportReportingDataGetDatasetsResponseDataItem extends JsonSerializable
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -122,6 +125,7 @@ class GetExportReportingDataGetDatasetsResponseDataItem extends JsonSerializable
     public function setDefaultTimeAttributeId(?string $value = null): self
     {
         $this->defaultTimeAttributeId = $value;
+        $this->_setField('defaultTimeAttributeId');
         return $this;
     }
 
@@ -139,6 +143,7 @@ class GetExportReportingDataGetDatasetsResponseDataItem extends JsonSerializable
     public function setAttributes(?array $value = null): self
     {
         $this->attributes = $value;
+        $this->_setField('attributes');
         return $this;
     }
 

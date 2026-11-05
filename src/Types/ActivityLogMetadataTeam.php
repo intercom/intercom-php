@@ -49,6 +49,7 @@ class ActivityLogMetadataTeam extends JsonSerializableType
     public function setId(?int $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class ActivityLogMetadataTeam extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 

@@ -50,6 +50,7 @@ class ConversationPartMetadata extends JsonSerializableType
     public function setQuickReplyOptions(?array $value = null): self
     {
         $this->quickReplyOptions = $value;
+        $this->_setField('quickReplyOptions');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ConversationPartMetadata extends JsonSerializableType
     public function setQuickReplyUuid(?string $value = null): self
     {
         $this->quickReplyUuid = $value;
+        $this->_setField('quickReplyUuid');
         return $this;
     }
 

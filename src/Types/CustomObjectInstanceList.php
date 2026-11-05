@@ -52,6 +52,7 @@ class CustomObjectInstanceList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -69,6 +70,7 @@ class CustomObjectInstanceList extends JsonSerializableType
     public function setInstances(?array $value = null): self
     {
         $this->instances = $value;
+        $this->_setField('instances');
         return $this;
     }
 

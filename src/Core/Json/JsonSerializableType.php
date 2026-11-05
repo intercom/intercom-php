@@ -19,6 +19,9 @@ abstract class JsonSerializableType implements \JsonSerializable
     /** @var array<string, mixed> Extra properties from JSON that don't map to class properties */
     private array $__additionalProperties = [];
 
+    /** @var array<string, true> Properties that have been explicitly set via setter methods */
+    private array $__explicitlySetProperties = [];
+
     /**
      * Serializes the object to a JSON string.
      *
@@ -28,7 +31,7 @@ abstract class JsonSerializableType implements \JsonSerializable
     public function toJson(): string
     {
         $serializedObject = $this->jsonSerialize();
-        $encoded = JsonEncoder::encode($serializedObject);
+        $encoded = JsonEncoder::encode(empty($serializedObject) ? new \stdClass() : $serializedObject);
         if (!$encoded) {
             throw new Exception("Could not encode type");
         }
@@ -47,7 +50,7 @@ abstract class JsonSerializableType implements \JsonSerializable
         $reflectionClass = new \ReflectionClass($this);
         foreach ($reflectionClass->getProperties() as $property) {
             $jsonKey = self::getJsonKey($property);
-            if ($jsonKey == null) {
+            if ($jsonKey === null) {
                 continue;
             }
             $value = $property->getValue($this);
@@ -75,12 +78,13 @@ abstract class JsonSerializableType implements \JsonSerializable
                 $value = JsonSerializer::serializeArray($value, $arrayType);
             }
 
-            // Handle object
-            if (is_object($value)) {
+            // Handle object (skip stdClass since it's already serialized, e.g. from union processing)
+            if (is_object($value) && !($value instanceof \stdClass)) {
                 $value = JsonSerializer::serializeObject($value);
             }
 
-            if ($value !== null) {
+            // Include the value if it's not null, OR if it was explicitly set (even to null)
+            if ($value !== null || array_key_exists($property->getName(), $this->__explicitlySetProperties)) {
                 $result[$jsonKey] = $value;
             }
         }
@@ -101,7 +105,9 @@ abstract class JsonSerializableType implements \JsonSerializable
         if (!is_array($decodedJson)) {
             throw new JsonException("Unexpected non-array decoded type: " . gettype($decodedJson));
         }
-        return self::jsonDeserialize($decodedJson);
+        /** @var array<string, mixed> $decodedJson */
+        // static:: (not self::) so subclasses' typed jsonDeserialize overrides are dispatched via late static binding.
+        return static::jsonDeserialize($decodedJson);
     }
 
     /**
@@ -140,12 +146,14 @@ abstract class JsonSerializableType implements \JsonSerializable
             $dateTypeAttr = $property->getAttributes(Date::class)[0] ?? null;
             if ($dateTypeAttr) {
                 $dateType = $dateTypeAttr->newInstance()->type;
-                if (!is_string($value)) {
-                    throw new JsonException("Unexpected non-string type for date.");
+                if ($value !== null) {
+                    if (!is_string($value)) {
+                        throw new JsonException("Unexpected non-string type for date.");
+                    }
+                    $value = ($dateType === Date::TYPE_DATE)
+                        ? JsonDeserializer::deserializeDate($value)
+                        : JsonDeserializer::deserializeDateTime($value);
                 }
-                $value = ($dateType === Date::TYPE_DATE)
-                    ? JsonDeserializer::deserializeDate($value)
-                    : JsonDeserializer::deserializeDateTime($value);
             }
 
             // Handle Array annotation
@@ -165,7 +173,9 @@ abstract class JsonSerializableType implements \JsonSerializable
             // Handle object
             $type = $property->getType();
             if (is_array($value) && $type instanceof ReflectionNamedType && !$type->isBuiltin()) {
-                $value = JsonDeserializer::deserializeObject($value, $type->getName());
+                /** @var array<string, mixed> $arrayValue */
+                $arrayValue = $value;
+                $value = JsonDeserializer::deserializeObject($arrayValue, $type->getName());
             }
 
             $args[$property->getName()] = $value;
@@ -174,7 +184,7 @@ abstract class JsonSerializableType implements \JsonSerializable
         // Fill in any missing properties with defaults
         foreach ($properties as $property) {
             if (!isset($args[$property->getName()])) {
-                $args[$property->getName()] = $property->getDefaultValue() ?? null;
+                $args[$property->getName()] = $property->hasDefaultValue() ? $property->getDefaultValue() : null;
             }
         }
 
@@ -191,6 +201,17 @@ abstract class JsonSerializableType implements \JsonSerializable
     public function getAdditionalProperties(): array
     {
         return $this->__additionalProperties;
+    }
+
+    /**
+     * Mark a property as explicitly set.
+     * This ensures the property will be included in JSON serialization even if null.
+     *
+     * @param string $propertyName The name of the property to mark as explicitly set.
+     */
+    protected function _setField(string $propertyName): void
+    {
+        $this->__explicitlySetProperties[$propertyName] = true;
     }
 
     /**

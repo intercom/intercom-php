@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Intercom\Legacy\IntercomClient;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IntercomResourcePathTest extends TestCase
@@ -49,16 +50,14 @@ class IntercomResourcePathTest extends TestCase
         $this->assertSame('users/abc123', $this->client->users->userPath('abc123'));
     }
 
-    /**
-     * @dataProvider invalidIdProvider
-     */
+    #[DataProvider('invalidIdProvider')]
     public function testRejectsDotSegmentId(string $id): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->client->contacts->getContact($id);
     }
 
-    public function invalidIdProvider(): array
+    public static function invalidIdProvider(): array
     {
         return [[''], ['.'], ['..']];
     }

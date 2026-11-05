@@ -41,6 +41,7 @@ class OpenConversationRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 

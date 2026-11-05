@@ -3,6 +3,7 @@
 namespace Intercom\Tests\Core\Json;
 
 use PHPUnit\Framework\TestCase;
+use Intercom\Core\Json\JsonEncoder;
 use Intercom\Core\Json\JsonProperty;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Types\ArrayType;
@@ -51,21 +52,27 @@ class EmptyArrayTest extends TestCase
 {
     public function testEmptyArray(): void
     {
-        $expectedJson = json_encode(
+        $inputJson = JsonEncoder::encode(
             [
                 'empty_string_array' => [],
                 'empty_map_array' => [],
                 'empty_dates_array' => []
             ],
-            JSON_THROW_ON_ERROR
         );
 
-        $object = EmptyArray::fromJson($expectedJson);
+        $object = EmptyArray::fromJson($inputJson);
         $this->assertEmpty($object->emptyStringArray, 'empty_string_array should be empty.');
         $this->assertEmpty($object->emptyMapArray, 'empty_map_array should be empty.');
         $this->assertEmpty($object->emptyDatesArray, 'empty_dates_array should be empty.');
 
         $actualJson = $object->toJson();
-        $this->assertJsonStringEqualsJsonString($expectedJson, $actualJson, 'Serialized JSON does not match original JSON for EmptyArraysType.');
+        $expectedJson = JsonEncoder::encode(
+            [
+                'empty_string_array' => [],
+                'empty_map_array' => new \stdClass(),
+                'empty_dates_array' => []
+            ],
+        );
+        $this->assertJsonStringEqualsJsonString($expectedJson, $actualJson, 'Serialized JSON does not match expected JSON for EmptyArraysType.');
     }
 }

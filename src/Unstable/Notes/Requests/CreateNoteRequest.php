@@ -61,6 +61,7 @@ class CreateNoteRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -78,6 +79,7 @@ class CreateNoteRequest extends JsonSerializableType
     public function setBody(string $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -95,6 +97,7 @@ class CreateNoteRequest extends JsonSerializableType
     public function setContactId(?string $value = null): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -112,6 +115,7 @@ class CreateNoteRequest extends JsonSerializableType
     public function setAdminId(?string $value = null): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 }

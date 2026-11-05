@@ -105,6 +105,7 @@ class HelpCenter extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -122,6 +123,7 @@ class HelpCenter extends JsonSerializableType
     public function setWorkspaceId(?string $value = null): self
     {
         $this->workspaceId = $value;
+        $this->_setField('workspaceId');
         return $this;
     }
 
@@ -139,6 +141,7 @@ class HelpCenter extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -156,6 +159,7 @@ class HelpCenter extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -173,6 +177,7 @@ class HelpCenter extends JsonSerializableType
     public function setIdentifier(?string $value = null): self
     {
         $this->identifier = $value;
+        $this->_setField('identifier');
         return $this;
     }
 
@@ -190,6 +195,7 @@ class HelpCenter extends JsonSerializableType
     public function setWebsiteTurnedOn(?bool $value = null): self
     {
         $this->websiteTurnedOn = $value;
+        $this->_setField('websiteTurnedOn');
         return $this;
     }
 
@@ -207,6 +213,7 @@ class HelpCenter extends JsonSerializableType
     public function setDisplayName(?string $value = null): self
     {
         $this->displayName = $value;
+        $this->_setField('displayName');
         return $this;
     }
 
@@ -224,6 +231,7 @@ class HelpCenter extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -241,6 +249,7 @@ class HelpCenter extends JsonSerializableType
     public function setCustomDomain(?string $value = null): self
     {
         $this->customDomain = $value;
+        $this->_setField('customDomain');
         return $this;
     }
 

@@ -51,6 +51,7 @@ class TicketTypeAttributeList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -68,6 +69,7 @@ class TicketTypeAttributeList extends JsonSerializableType
     public function setTicketTypeAttributes(?array $value = null): self
     {
         $this->ticketTypeAttributes = $value;
+        $this->_setField('ticketTypeAttributes');
         return $this;
     }
 

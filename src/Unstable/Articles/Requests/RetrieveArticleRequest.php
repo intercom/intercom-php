@@ -36,6 +36,7 @@ class RetrieveArticleRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 }

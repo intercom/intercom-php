@@ -43,6 +43,7 @@ class DetachSubscriptionTypeToContactRequest extends JsonSerializableType
     public function setContactId(string $value): self
     {
         $this->contactId = $value;
+        $this->_setField('contactId');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class DetachSubscriptionTypeToContactRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 }

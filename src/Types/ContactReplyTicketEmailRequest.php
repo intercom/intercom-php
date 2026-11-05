@@ -56,6 +56,7 @@ class ContactReplyTicketEmailRequest extends JsonSerializableType
     public function setEmail(string $value): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 

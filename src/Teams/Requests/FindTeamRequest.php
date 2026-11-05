@@ -36,6 +36,7 @@ class FindTeamRequest extends JsonSerializableType
     public function setTeamId(string $value): self
     {
         $this->teamId = $value;
+        $this->_setField('teamId');
         return $this;
     }
 }

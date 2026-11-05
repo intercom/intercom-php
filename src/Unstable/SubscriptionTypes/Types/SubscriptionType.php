@@ -91,6 +91,7 @@ class SubscriptionType extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -108,6 +109,7 @@ class SubscriptionType extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -125,6 +127,7 @@ class SubscriptionType extends JsonSerializableType
     public function setState(?string $value = null): self
     {
         $this->state = $value;
+        $this->_setField('state');
         return $this;
     }
 
@@ -142,6 +145,7 @@ class SubscriptionType extends JsonSerializableType
     public function setDefaultTranslation(?Translation $value = null): self
     {
         $this->defaultTranslation = $value;
+        $this->_setField('defaultTranslation');
         return $this;
     }
 
@@ -159,6 +163,7 @@ class SubscriptionType extends JsonSerializableType
     public function setTranslations(?array $value = null): self
     {
         $this->translations = $value;
+        $this->_setField('translations');
         return $this;
     }
 
@@ -176,6 +181,7 @@ class SubscriptionType extends JsonSerializableType
     public function setConsentType(?string $value = null): self
     {
         $this->consentType = $value;
+        $this->_setField('consentType');
         return $this;
     }
 
@@ -193,6 +199,7 @@ class SubscriptionType extends JsonSerializableType
     public function setContentTypes(?array $value = null): self
     {
         $this->contentTypes = $value;
+        $this->_setField('contentTypes');
         return $this;
     }
 

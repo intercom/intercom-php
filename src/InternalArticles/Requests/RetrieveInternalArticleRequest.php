@@ -36,6 +36,7 @@ class RetrieveInternalArticleRequest extends JsonSerializableType
     public function setInternalArticleId(int $value): self
     {
         $this->internalArticleId = $value;
+        $this->_setField('internalArticleId');
         return $this;
     }
 }

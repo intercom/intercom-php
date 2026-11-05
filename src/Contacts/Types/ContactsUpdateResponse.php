@@ -136,6 +136,7 @@ class ContactsUpdateResponse extends JsonSerializableType
     public function setEnabledPushMessaging(?bool $value = null): self
     {
         $this->enabledPushMessaging = $value;
+        $this->_setField('enabledPushMessaging');
         return $this;
     }
 

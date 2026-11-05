@@ -2,7 +2,7 @@
 
 namespace Intercom\DataExport;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\DataExport\Requests\ExportReportingDataRequest;
 use Intercom\DataExport\Types\DataExportExportReportingDataResponse;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\DataExport\Requests\DownloadReportingDataExportRequest;
 use Intercom\DataExport\Requests\CreateDataExportRequest;
@@ -58,6 +57,18 @@ class DataExportClient
     }
 
     /**
+     * Example:
+     * ```php
+     * $client->dataExport->exportReportingData(
+     *     new ExportReportingDataRequest([
+     *         'jobIdentifierPathParam' => 'job_identifier',
+     *         'appId' => 'app_id',
+     *         'clientId' => 'client_id',
+     *         'jobIdentifier' => 'job_identifier',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ExportReportingDataRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -67,21 +78,22 @@ class DataExportClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataExportExportReportingDataResponse
+     * @return ?DataExportExportReportingDataResponse
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function exportReportingData(ExportReportingDataRequest $request, ?array $options = null): DataExportExportReportingDataResponse
+    public function exportReportingData(ExportReportingDataRequest $request, ?array $options = null): ?DataExportExportReportingDataResponse
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
         $query['app_id'] = $request->getAppId();
         $query['client_id'] = $request->getClientId();
+        $query['job_identifier'] = $request->getJobIdentifier();
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "export/reporting_data/{$request->getJobIdentifier()}",
+                    path: "export/reporting_data/" . RawClient::encodePathParam($request->getJobIdentifierPathParam()),
                     method: HttpMethod::GET,
                     query: $query,
                 ),
@@ -90,20 +102,13 @@ class DataExportClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataExportExportReportingDataResponse::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -120,6 +125,18 @@ class DataExportClient
      * > Octet header required
      * >
      * > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+     *
+     * Example:
+     * ```php
+     * $client->dataExport->downloadReportingDataExport(
+     *     new DownloadReportingDataExportRequest([
+     *         'jobIdentifierPathParam' => 'job_identifier',
+     *         'appId' => 'app_id',
+     *         'jobIdentifier' => 'job_identifier',
+     *         'accept' => 'application/octet-stream',
+     *     ]),
+     * );
+     * ```
      *
      * @param DownloadReportingDataExportRequest $request
      * @param ?array{
@@ -138,13 +155,14 @@ class DataExportClient
         $options = array_merge($this->options, $options ?? []);
         $query = [];
         $query['app_id'] = $request->getAppId();
+        $query['job_identifier'] = $request->getJobIdentifier();
         $headers = [];
         $headers['Accept'] = 'application/octet-stream';
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "download/reporting_data/{$request->getJobIdentifier()}",
+                    path: "download/reporting_data/" . RawClient::encodePathParam($request->getJobIdentifierPathParam()),
                     method: HttpMethod::GET,
                     headers: $headers,
                     query: $query,
@@ -155,16 +173,6 @@ class DataExportClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -192,6 +200,16 @@ class DataExportClient
      * >
      * > Requesting data for 2018-06-01 until 2018-06-30 will get all data for those days including those specified - e.g. 2018-06-01 00:00:00 until 2018-06-30 23:59:99.
      *
+     * Example:
+     * ```php
+     * $client->dataExport->create(
+     *     new CreateDataExportRequest([
+     *         'createdAtAfter' => 1734519776,
+     *         'createdAtBefore' => 1734537776,
+     *     ]),
+     * );
+     * ```
+     *
      * @param CreateDataExportRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -201,11 +219,11 @@ class DataExportClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataExport
+     * @return ?DataExport
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(CreateDataExportRequest $request, ?array $options = null): DataExport
+    public function create(CreateDataExportRequest $request, ?array $options = null): ?DataExport
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -221,20 +239,13 @@ class DataExportClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataExport::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -252,6 +263,15 @@ class DataExportClient
      * > 🚧 Jobs expire after two days
      * > All jobs that have completed processing (and are thus available to download from the provided URL) will have an expiry limit of two days from when the export ob completed. After this, the data will no longer be available.
      *
+     * Example:
+     * ```php
+     * $client->dataExport->find(
+     *     new FindDataExportRequest([
+     *         'jobIdentifier' => 'job_identifier',
+     *     ]),
+     * );
+     * ```
+     *
      * @param FindDataExportRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -261,18 +281,18 @@ class DataExportClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataExport
+     * @return ?DataExport
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function find(FindDataExportRequest $request, ?array $options = null): DataExport
+    public function find(FindDataExportRequest $request, ?array $options = null): ?DataExport
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "export/content/data/{$request->getJobIdentifier()}",
+                    path: "export/content/data/" . RawClient::encodePathParam($request->getJobIdentifier()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -280,20 +300,13 @@ class DataExportClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataExport::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -307,6 +320,15 @@ class DataExportClient
     /**
      * You can cancel your job
      *
+     * Example:
+     * ```php
+     * $client->dataExport->cancel(
+     *     new CancelDataExportRequest([
+     *         'jobIdentifier' => 'job_identifier',
+     *     ]),
+     * );
+     * ```
+     *
      * @param CancelDataExportRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -316,18 +338,18 @@ class DataExportClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return DataExport
+     * @return ?DataExport
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function cancel(CancelDataExportRequest $request, ?array $options = null): DataExport
+    public function cancel(CancelDataExportRequest $request, ?array $options = null): ?DataExport
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "export/cancel/{$request->getJobIdentifier()}",
+                    path: "export/cancel/" . RawClient::encodePathParam($request->getJobIdentifier()),
                     method: HttpMethod::POST,
                 ),
                 $options,
@@ -335,20 +357,13 @@ class DataExportClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return DataExport::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -367,6 +382,15 @@ class DataExportClient
      * > 📘 Octet header required
      * >
      * > You will have to specify the header Accept: `application/octet-stream` when hitting this endpoint.
+     *
+     * Example:
+     * ```php
+     * $client->dataExport->download(
+     *     new DownloadDataExportRequest([
+     *         'jobIdentifier' => 'job_identifier',
+     *     ]),
+     * );
+     * ```
      *
      * @param DownloadDataExportRequest $request
      * @param ?array{
@@ -387,7 +411,7 @@ class DataExportClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "download/content/data/{$request->getJobIdentifier()}",
+                    path: "download/content/data/" . RawClient::encodePathParam($request->getJobIdentifier()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -396,16 +420,6 @@ class DataExportClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

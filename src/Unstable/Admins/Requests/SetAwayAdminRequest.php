@@ -61,6 +61,7 @@ class SetAwayAdminRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -78,6 +79,7 @@ class SetAwayAdminRequest extends JsonSerializableType
     public function setAwayModeEnabled(bool $value): self
     {
         $this->awayModeEnabled = $value;
+        $this->_setField('awayModeEnabled');
         return $this;
     }
 
@@ -95,6 +97,7 @@ class SetAwayAdminRequest extends JsonSerializableType
     public function setAwayModeReassign(bool $value): self
     {
         $this->awayModeReassign = $value;
+        $this->_setField('awayModeReassign');
         return $this;
     }
 
@@ -112,6 +115,7 @@ class SetAwayAdminRequest extends JsonSerializableType
     public function setAwayStatusReasonId(?int $value = null): self
     {
         $this->awayStatusReasonId = $value;
+        $this->_setField('awayStatusReasonId');
         return $this;
     }
 }

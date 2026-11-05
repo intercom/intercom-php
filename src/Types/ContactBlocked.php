@@ -50,6 +50,7 @@ class ContactBlocked extends JsonSerializableType
     public function setBlocked(?bool $value = null): self
     {
         $this->blocked = $value;
+        $this->_setField('blocked');
         return $this;
     }
 

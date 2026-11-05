@@ -74,6 +74,7 @@ class CreateTicketTypeRequest extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -91,6 +92,7 @@ class CreateTicketTypeRequest extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -108,6 +110,7 @@ class CreateTicketTypeRequest extends JsonSerializableType
     public function setCategory(?string $value = null): self
     {
         $this->category = $value;
+        $this->_setField('category');
         return $this;
     }
 
@@ -125,6 +128,7 @@ class CreateTicketTypeRequest extends JsonSerializableType
     public function setIcon(?string $value = null): self
     {
         $this->icon = $value;
+        $this->_setField('icon');
         return $this;
     }
 
@@ -142,6 +146,7 @@ class CreateTicketTypeRequest extends JsonSerializableType
     public function setIsInternal(?bool $value = null): self
     {
         $this->isInternal = $value;
+        $this->_setField('isInternal');
         return $this;
     }
 

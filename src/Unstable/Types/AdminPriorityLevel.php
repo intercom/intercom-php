@@ -50,6 +50,7 @@ class AdminPriorityLevel extends JsonSerializableType
     public function setPrimaryAdminIds(?array $value = null): self
     {
         $this->primaryAdminIds = $value;
+        $this->_setField('primaryAdminIds');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class AdminPriorityLevel extends JsonSerializableType
     public function setSecondaryAdminIds(?array $value = null): self
     {
         $this->secondaryAdminIds = $value;
+        $this->_setField('secondaryAdminIds');
         return $this;
     }
 

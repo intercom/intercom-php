@@ -46,6 +46,7 @@ class NotFoundErrorBodyErrorsItem extends JsonSerializableType
     public function setCode(string $value): self
     {
         $this->code = $value;
+        $this->_setField('code');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class NotFoundErrorBodyErrorsItem extends JsonSerializableType
     public function setMessage(?string $value = null): self
     {
         $this->message = $value;
+        $this->_setField('message');
         return $this;
     }
 

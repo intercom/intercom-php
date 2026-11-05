@@ -138,6 +138,7 @@ class Collection extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -155,6 +156,7 @@ class Collection extends JsonSerializableType
     public function setWorkspaceId(string $value): self
     {
         $this->workspaceId = $value;
+        $this->_setField('workspaceId');
         return $this;
     }
 
@@ -172,6 +174,7 @@ class Collection extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -189,6 +192,7 @@ class Collection extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
@@ -206,6 +210,7 @@ class Collection extends JsonSerializableType
     public function setCreatedAt(int $value): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -223,6 +228,7 @@ class Collection extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -240,6 +246,7 @@ class Collection extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -257,6 +264,7 @@ class Collection extends JsonSerializableType
     public function setIcon(?string $value = null): self
     {
         $this->icon = $value;
+        $this->_setField('icon');
         return $this;
     }
 
@@ -274,6 +282,7 @@ class Collection extends JsonSerializableType
     public function setOrder(int $value): self
     {
         $this->order = $value;
+        $this->_setField('order');
         return $this;
     }
 
@@ -291,6 +300,7 @@ class Collection extends JsonSerializableType
     public function setDefaultLocale(?string $value = null): self
     {
         $this->defaultLocale = $value;
+        $this->_setField('defaultLocale');
         return $this;
     }
 
@@ -308,6 +318,7 @@ class Collection extends JsonSerializableType
     public function setTranslatedContent(?GroupTranslatedContent $value = null): self
     {
         $this->translatedContent = $value;
+        $this->_setField('translatedContent');
         return $this;
     }
 
@@ -325,6 +336,7 @@ class Collection extends JsonSerializableType
     public function setParentId(?string $value = null): self
     {
         $this->parentId = $value;
+        $this->_setField('parentId');
         return $this;
     }
 
@@ -342,6 +354,7 @@ class Collection extends JsonSerializableType
     public function setHelpCenterId(?int $value = null): self
     {
         $this->helpCenterId = $value;
+        $this->_setField('helpCenterId');
         return $this;
     }
 

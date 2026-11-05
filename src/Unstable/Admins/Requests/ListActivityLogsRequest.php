@@ -43,6 +43,7 @@ class ListActivityLogsRequest extends JsonSerializableType
     public function setCreatedAtAfter(string $value): self
     {
         $this->createdAtAfter = $value;
+        $this->_setField('createdAtAfter');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class ListActivityLogsRequest extends JsonSerializableType
     public function setCreatedAtBefore(?string $value = null): self
     {
         $this->createdAtBefore = $value;
+        $this->_setField('createdAtBefore');
         return $this;
     }
 }

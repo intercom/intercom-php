@@ -106,6 +106,7 @@ class AiAgent extends JsonSerializableType
     public function setSourceType(?string $value = null): self
     {
         $this->sourceType = $value;
+        $this->_setField('sourceType');
         return $this;
     }
 
@@ -123,6 +124,7 @@ class AiAgent extends JsonSerializableType
     public function setSourceTitle(?string $value = null): self
     {
         $this->sourceTitle = $value;
+        $this->_setField('sourceTitle');
         return $this;
     }
 
@@ -140,6 +142,7 @@ class AiAgent extends JsonSerializableType
     public function setLastAnswerType(?string $value = null): self
     {
         $this->lastAnswerType = $value;
+        $this->_setField('lastAnswerType');
         return $this;
     }
 
@@ -157,6 +160,7 @@ class AiAgent extends JsonSerializableType
     public function setResolutionState(?string $value = null): self
     {
         $this->resolutionState = $value;
+        $this->_setField('resolutionState');
         return $this;
     }
 
@@ -174,6 +178,7 @@ class AiAgent extends JsonSerializableType
     public function setRating(?int $value = null): self
     {
         $this->rating = $value;
+        $this->_setField('rating');
         return $this;
     }
 
@@ -191,6 +196,7 @@ class AiAgent extends JsonSerializableType
     public function setRatingRemark(?string $value = null): self
     {
         $this->ratingRemark = $value;
+        $this->_setField('ratingRemark');
         return $this;
     }
 
@@ -208,6 +214,7 @@ class AiAgent extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -225,6 +232,7 @@ class AiAgent extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -242,6 +250,7 @@ class AiAgent extends JsonSerializableType
     public function setContentSources(?ContentSourcesList $value = null): self
     {
         $this->contentSources = $value;
+        $this->_setField('contentSources');
         return $this;
     }
 

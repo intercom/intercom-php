@@ -66,6 +66,7 @@ class LinkedObjectList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -83,6 +84,7 @@ class LinkedObjectList extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 
@@ -100,6 +102,7 @@ class LinkedObjectList extends JsonSerializableType
     public function setHasMore(?bool $value = null): self
     {
         $this->hasMore = $value;
+        $this->_setField('hasMore');
         return $this;
     }
 
@@ -117,6 +120,7 @@ class LinkedObjectList extends JsonSerializableType
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 

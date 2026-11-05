@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Brands;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Brands\Types\BrandList;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Brands\Requests\RetrieveBrandRequest;
 use Intercom\Unstable\Brands\Types\Brand;
@@ -56,6 +55,11 @@ class BrandsClient
      * Retrieves all brands for the workspace, including the default brand.
      * The default brand id always matches the workspace
      *
+     * Example:
+     * ```php
+     * $client->unstable->brands->listBrands();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -64,11 +68,11 @@ class BrandsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return BrandList
+     * @return ?BrandList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listBrands(?array $options = null): BrandList
+    public function listBrands(?array $options = null): ?BrandList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -83,20 +87,13 @@ class BrandsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return BrandList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -110,6 +107,15 @@ class BrandsClient
     /**
      * Fetches a specific brand by its unique identifier
      *
+     * Example:
+     * ```php
+     * $client->unstable->brands->retrieveBrand(
+     *     new RetrieveBrandRequest([
+     *         'id' => 'id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveBrandRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -119,18 +125,18 @@ class BrandsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Brand
+     * @return ?Brand
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveBrand(RetrieveBrandRequest $request, ?array $options = null): Brand
+    public function retrieveBrand(RetrieveBrandRequest $request, ?array $options = null): ?Brand
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "brands/{$request->getId()}",
+                    path: "brands/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -138,20 +144,13 @@ class BrandsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Brand::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

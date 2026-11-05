@@ -44,6 +44,7 @@ class LisDataAttributesRequest extends JsonSerializableType
     public function setModel(?string $value = null): self
     {
         $this->model = $value;
+        $this->_setField('model');
         return $this;
     }
 
@@ -61,6 +62,7 @@ class LisDataAttributesRequest extends JsonSerializableType
     public function setIncludeArchived(?bool $value = null): self
     {
         $this->includeArchived = $value;
+        $this->_setField('includeArchived');
         return $this;
     }
 }

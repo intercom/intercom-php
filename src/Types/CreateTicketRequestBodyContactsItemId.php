@@ -5,39 +5,40 @@ namespace Intercom\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 
-class CreateTicketRequestContactsItemExternalId extends JsonSerializableType
+class CreateTicketRequestBodyContactsItemId extends JsonSerializableType
 {
     /**
-     * @var string $externalId The external_id you have defined for the contact who is being added as a participant.
+     * @var string $id The identifier for the contact as given by Intercom.
      */
-    #[JsonProperty('external_id')]
-    private string $externalId;
+    #[JsonProperty('id')]
+    private string $id;
 
     /**
      * @param array{
-     *   externalId: string,
+     *   id: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->externalId = $values['externalId'];
+        $this->id = $values['id'];
     }
 
     /**
      * @return string
      */
-    public function getExternalId(): string
+    public function getId(): string
     {
-        return $this->externalId;
+        return $this->id;
     }
 
     /**
      * @param string $value
      */
-    public function setExternalId(string $value): self
+    public function setId(string $value): self
     {
-        $this->externalId = $value;
+        $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 

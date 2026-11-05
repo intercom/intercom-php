@@ -46,6 +46,7 @@ class CreateDataExportsRequest extends JsonSerializableType
     public function setCreatedAtAfter(int $value): self
     {
         $this->createdAtAfter = $value;
+        $this->_setField('createdAtAfter');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class CreateDataExportsRequest extends JsonSerializableType
     public function setCreatedAtBefore(int $value): self
     {
         $this->createdAtBefore = $value;
+        $this->_setField('createdAtBefore');
         return $this;
     }
 }

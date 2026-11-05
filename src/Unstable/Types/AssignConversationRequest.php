@@ -65,6 +65,7 @@ class AssignConversationRequest extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class AssignConversationRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 
@@ -99,6 +101,7 @@ class AssignConversationRequest extends JsonSerializableType
     public function setAssigneeId(string $value): self
     {
         $this->assigneeId = $value;
+        $this->_setField('assigneeId');
         return $this;
     }
 
@@ -116,6 +119,7 @@ class AssignConversationRequest extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 

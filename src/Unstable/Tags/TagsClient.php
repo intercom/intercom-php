@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Tags;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Tags\Requests\AttachTagToContactRequest;
 use Intercom\Unstable\Tags\Types\Tag;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Tags\Requests\DetachTagFromContactRequest;
 use Intercom\Unstable\Tags\Requests\AttachTagToConversationRequest;
@@ -68,6 +67,16 @@ class TagsClient
     /**
      * You can tag a specific contact. This will return a tag object for the tag that was added to the contact.
      *
+     * Example:
+     * ```php
+     * $client->tags->tagContact(
+     *     new TagContactRequest([
+     *         'contactId' => '63a07ddf05a32042dffac965',
+     *         'tagId' => '7522907',
+     *     ]),
+     * );
+     * ```
+     *
      * @param AttachTagToContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -77,18 +86,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function attachTagToContact(AttachTagToContactRequest $request, ?array $options = null): Tag
+    public function attachTagToContact(AttachTagToContactRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getContactId()}/tags",
+                    path: "contacts/" . RawClient::encodePathParam($request->getContactId()) . "/tags",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -97,20 +106,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -124,6 +126,16 @@ class TagsClient
     /**
      * You can remove tag from a specific contact. This will return a tag object for the tag that was removed from the contact.
      *
+     * Example:
+     * ```php
+     * $client->unstable->tags->detachTagFromContact(
+     *     new DetachTagFromContactRequest([
+     *         'contactId' => '63a07ddf05a32042dffac965',
+     *         'id' => '7522907',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DetachTagFromContactRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -133,18 +145,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function detachTagFromContact(DetachTagFromContactRequest $request, ?array $options = null): Tag
+    public function detachTagFromContact(DetachTagFromContactRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "contacts/{$request->getContactId()}/tags/{$request->getId()}",
+                    path: "contacts/" . RawClient::encodePathParam($request->getContactId()) . "/tags/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -152,20 +164,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -179,6 +184,17 @@ class TagsClient
     /**
      * You can tag a specific conversation. This will return a tag object for the tag that was added to the conversation.
      *
+     * Example:
+     * ```php
+     * $client->tags->tagConversation(
+     *     new TagConversationRequest([
+     *         'conversationId' => '64619700005694',
+     *         'tagId' => '7522907',
+     *         'adminId' => '780',
+     *     ]),
+     * );
+     * ```
+     *
      * @param AttachTagToConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -188,18 +204,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function attachTagToConversation(AttachTagToConversationRequest $request, ?array $options = null): Tag
+    public function attachTagToConversation(AttachTagToConversationRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getConversationId()}/tags",
+                    path: "conversations/" . RawClient::encodePathParam($request->getConversationId()) . "/tags",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -208,20 +224,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -235,6 +244,17 @@ class TagsClient
     /**
      * You can remove tag from a specific conversation. This will return a tag object for the tag that was removed from the conversation.
      *
+     * Example:
+     * ```php
+     * $client->unstable->tags->detachTagFromConversation(
+     *     new DetachTagFromConversationRequest([
+     *         'conversationId' => '64619700005694',
+     *         'id' => '7522907',
+     *         'adminId' => '123',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DetachTagFromConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -244,18 +264,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function detachTagFromConversation(DetachTagFromConversationRequest $request, ?array $options = null): Tag
+    public function detachTagFromConversation(DetachTagFromConversationRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getConversationId()}/tags/{$request->getId()}",
+                    path: "conversations/" . RawClient::encodePathParam($request->getConversationId()) . "/tags/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                     body: $request,
                 ),
@@ -264,20 +284,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -292,6 +305,11 @@ class TagsClient
      * You can fetch a list of all tags for a given workspace.
      *
      *
+     * Example:
+     * ```php
+     * $client->tags->list();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -300,11 +318,11 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TagList
+     * @return ?TagList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listTags(?array $options = null): TagList
+    public function listTags(?array $options = null): ?TagList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -319,20 +337,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TagList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -358,6 +369,15 @@ class TagsClient
      *
      * Each operation will return a tag object.
      *
+     * Example:
+     * ```php
+     * $client->tags->create(
+     *     new CreateOrUpdateTagRequest([
+     *         'name' => 'test',
+     *     ]),
+     * );
+     * ```
+     *
      * @param (
      *    CreateOrUpdateTagRequest
      *   |TagCompanyRequest
@@ -372,11 +392,11 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createTag(CreateOrUpdateTagRequest|TagCompanyRequest|UntagCompanyRequest|TagMultipleUsersRequest $request, ?array $options = null): Tag
+    public function createTag(CreateOrUpdateTagRequest|TagCompanyRequest|UntagCompanyRequest|TagMultipleUsersRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -392,20 +412,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -420,6 +433,15 @@ class TagsClient
      * You can fetch the details of tags that are on the workspace by their id.
      * This will return a tag object.
      *
+     * Example:
+     * ```php
+     * $client->unstable->tags->findTag(
+     *     new FindTagRequest([
+     *         'id' => '123',
+     *     ]),
+     * );
+     * ```
+     *
      * @param FindTagRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -429,18 +451,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function findTag(FindTagRequest $request, ?array $options = null): Tag
+    public function findTag(FindTagRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tags/{$request->getId()}",
+                    path: "tags/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -448,20 +470,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -474,6 +489,15 @@ class TagsClient
 
     /**
      * You can delete the details of tags that are on the workspace by passing in the id.
+     *
+     * Example:
+     * ```php
+     * $client->unstable->tags->deleteTag(
+     *     new DeleteTagRequest([
+     *         'id' => '123',
+     *     ]),
+     * );
+     * ```
      *
      * @param DeleteTagRequest $request
      * @param ?array{
@@ -494,7 +518,7 @@ class TagsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tags/{$request->getId()}",
+                    path: "tags/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -503,16 +527,6 @@ class TagsClient
             if ($statusCode >= 200 && $statusCode < 400) {
                 return;
             }
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -526,6 +540,17 @@ class TagsClient
     /**
      * You can tag a specific ticket. This will return a tag object for the tag that was added to the ticket.
      *
+     * Example:
+     * ```php
+     * $client->tags->tagTicket(
+     *     new TagTicketRequest([
+     *         'ticketId' => '64619700005694',
+     *         'tagId' => '7522907',
+     *         'adminId' => '780',
+     *     ]),
+     * );
+     * ```
+     *
      * @param AttachTagToTicketRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -535,18 +560,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function attachTagToTicket(AttachTagToTicketRequest $request, ?array $options = null): Tag
+    public function attachTagToTicket(AttachTagToTicketRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tickets/{$request->getTicketId()}/tags",
+                    path: "tickets/" . RawClient::encodePathParam($request->getTicketId()) . "/tags",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -555,20 +580,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -582,6 +600,17 @@ class TagsClient
     /**
      * You can remove tag from a specific ticket. This will return a tag object for the tag that was removed from the ticket.
      *
+     * Example:
+     * ```php
+     * $client->unstable->tags->detachTagFromTicket(
+     *     new DetachTagFromTicketRequest([
+     *         'ticketId' => '64619700005694',
+     *         'id' => '7522907',
+     *         'adminId' => '123',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DetachTagFromTicketRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -591,18 +620,18 @@ class TagsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Tag
+     * @return ?Tag
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function detachTagFromTicket(DetachTagFromTicketRequest $request, ?array $options = null): Tag
+    public function detachTagFromTicket(DetachTagFromTicketRequest $request, ?array $options = null): ?Tag
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "tickets/{$request->getTicketId()}/tags/{$request->getId()}",
+                    path: "tickets/" . RawClient::encodePathParam($request->getTicketId()) . "/tags/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                     body: $request,
                 ),
@@ -611,20 +640,13 @@ class TagsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Tag::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

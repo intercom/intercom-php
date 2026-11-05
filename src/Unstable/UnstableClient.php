@@ -36,7 +36,7 @@ use Intercom\Unstable\Tickets\TicketsClient;
 use Intercom\Unstable\Visitors\VisitorsClient;
 use Intercom\Unstable\Brands\BrandsClient;
 use Intercom\Unstable\Emails\EmailsClient;
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 
 class UnstableClient

@@ -49,6 +49,7 @@ class PriorityChanged extends JsonSerializableType
     public function setCurrentPriority(?string $value = null): self
     {
         $this->currentPriority = $value;
+        $this->_setField('currentPriority');
         return $this;
     }
 
@@ -66,6 +67,7 @@ class PriorityChanged extends JsonSerializableType
     public function setPreviousPriority(?string $value = null): self
     {
         $this->previousPriority = $value;
+        $this->_setField('previousPriority');
         return $this;
     }
 

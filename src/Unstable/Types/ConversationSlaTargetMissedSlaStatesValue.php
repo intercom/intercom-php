@@ -46,6 +46,7 @@ class ConversationSlaTargetMissedSlaStatesValue extends JsonSerializableType
     public function setStatus(?string $value = null): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -63,6 +64,7 @@ class ConversationSlaTargetMissedSlaStatesValue extends JsonSerializableType
     public function setSecondsRemaining(?int $value = null): self
     {
         $this->secondsRemaining = $value;
+        $this->_setField('secondsRemaining');
         return $this;
     }
 

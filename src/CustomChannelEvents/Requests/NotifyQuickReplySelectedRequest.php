@@ -48,6 +48,7 @@ class NotifyQuickReplySelectedRequest extends JsonSerializableType
     public function setQuickReplyOptionId(string $value): self
     {
         $this->quickReplyOptionId = $value;
+        $this->_setField('quickReplyOptionId');
         return $this;
     }
 }

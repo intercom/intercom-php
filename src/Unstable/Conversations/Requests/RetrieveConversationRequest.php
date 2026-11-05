@@ -50,6 +50,7 @@ class RetrieveConversationRequest extends JsonSerializableType
     public function setId(int $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class RetrieveConversationRequest extends JsonSerializableType
     public function setDisplayAs(?string $value = null): self
     {
         $this->displayAs = $value;
+        $this->_setField('displayAs');
         return $this;
     }
 
@@ -84,6 +86,7 @@ class RetrieveConversationRequest extends JsonSerializableType
     public function setIncludeTranslations(?bool $value = null): self
     {
         $this->includeTranslations = $value;
+        $this->_setField('includeTranslations');
         return $this;
     }
 }

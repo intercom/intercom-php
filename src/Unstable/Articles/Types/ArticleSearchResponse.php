@@ -66,6 +66,7 @@ class ArticleSearchResponse extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -83,6 +84,7 @@ class ArticleSearchResponse extends JsonSerializableType
     public function setTotalCount(?int $value = null): self
     {
         $this->totalCount = $value;
+        $this->_setField('totalCount');
         return $this;
     }
 
@@ -100,6 +102,7 @@ class ArticleSearchResponse extends JsonSerializableType
     public function setData(?ArticleSearchResponseData $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 
@@ -117,6 +120,7 @@ class ArticleSearchResponse extends JsonSerializableType
     public function setPages(?CursorPages $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 

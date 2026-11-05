@@ -50,6 +50,7 @@ class ConversationContacts extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ConversationContacts extends JsonSerializableType
     public function setContacts(?array $value = null): self
     {
         $this->contacts = $value;
+        $this->_setField('contacts');
         return $this;
     }
 

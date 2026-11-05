@@ -4,7 +4,7 @@ namespace Intercom\TicketTypes\Requests;
 
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\TicketTypes\Types\UpdateTicketTypeRequestCategory;
+use Intercom\TicketTypes\Types\UpdateTicketTypeRequestBodyCategory;
 
 class UpdateTicketTypeRequest extends JsonSerializableType
 {
@@ -26,7 +26,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     private ?string $description;
 
     /**
-     * @var ?value-of<UpdateTicketTypeRequestCategory> $category Category of the Ticket Type.
+     * @var ?value-of<UpdateTicketTypeRequestBodyCategory> $category Category of the Ticket Type.
      */
     #[JsonProperty('category')]
     private ?string $category;
@@ -54,7 +54,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
      *   ticketTypeId: string,
      *   name?: ?string,
      *   description?: ?string,
-     *   category?: ?value-of<UpdateTicketTypeRequestCategory>,
+     *   category?: ?value-of<UpdateTicketTypeRequestBodyCategory>,
      *   icon?: ?string,
      *   archived?: ?bool,
      *   isInternal?: ?bool,
@@ -86,6 +86,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     public function setTicketTypeId(string $value): self
     {
         $this->ticketTypeId = $value;
+        $this->_setField('ticketTypeId');
         return $this;
     }
 
@@ -103,6 +104,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -120,11 +122,12 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     public function setDescription(?string $value = null): self
     {
         $this->description = $value;
+        $this->_setField('description');
         return $this;
     }
 
     /**
-     * @return ?value-of<UpdateTicketTypeRequestCategory>
+     * @return ?value-of<UpdateTicketTypeRequestBodyCategory>
      */
     public function getCategory(): ?string
     {
@@ -132,11 +135,12 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     }
 
     /**
-     * @param ?value-of<UpdateTicketTypeRequestCategory> $value
+     * @param ?value-of<UpdateTicketTypeRequestBodyCategory> $value
      */
     public function setCategory(?string $value = null): self
     {
         $this->category = $value;
+        $this->_setField('category');
         return $this;
     }
 
@@ -154,6 +158,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     public function setIcon(?string $value = null): self
     {
         $this->icon = $value;
+        $this->_setField('icon');
         return $this;
     }
 
@@ -171,6 +176,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     public function setArchived(?bool $value = null): self
     {
         $this->archived = $value;
+        $this->_setField('archived');
         return $this;
     }
 
@@ -188,6 +194,7 @@ class UpdateTicketTypeRequest extends JsonSerializableType
     public function setIsInternal(?bool $value = null): self
     {
         $this->isInternal = $value;
+        $this->_setField('isInternal');
         return $this;
     }
 }

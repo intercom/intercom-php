@@ -5,39 +5,40 @@ namespace Intercom\Unstable\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Core\Json\JsonProperty;
 
-class CreateTicketRequestContactsItemEmail extends JsonSerializableType
+class CreateTicketRequestBodyContactsItemId extends JsonSerializableType
 {
     /**
-     * @var string $email The email you have defined for the contact who is being added as a participant. If a contact with this email does not exist, one will be created.
+     * @var string $id The identifier for the contact as given by Intercom.
      */
-    #[JsonProperty('email')]
-    private string $email;
+    #[JsonProperty('id')]
+    private string $id;
 
     /**
      * @param array{
-     *   email: string,
+     *   id: string,
      * } $values
      */
     public function __construct(
         array $values,
     ) {
-        $this->email = $values['email'];
+        $this->id = $values['id'];
     }
 
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getId(): string
     {
-        return $this->email;
+        return $this->id;
     }
 
     /**
      * @param string $value
      */
-    public function setEmail(string $value): self
+    public function setId(string $value): self
     {
-        $this->email = $value;
+        $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 

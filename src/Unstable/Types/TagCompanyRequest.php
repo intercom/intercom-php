@@ -50,6 +50,7 @@ class TagCompanyRequest extends JsonSerializableType
     public function setName(string $value): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class TagCompanyRequest extends JsonSerializableType
     public function setCompanies(array $value): self
     {
         $this->companies = $value;
+        $this->_setField('companies');
         return $this;
     }
 

@@ -8,7 +8,7 @@ use Intercom\Unstable\Types\ContactReplyEmailRequest;
 use Intercom\Unstable\Types\ContactReplyUserIdRequest;
 use Intercom\Unstable\Types\AdminReplyConversationRequest;
 
-class ReplyConversationRequest extends JsonSerializableType
+class ReplyConversationBody extends JsonSerializableType
 {
     /**
      * @var string $id The Intercom provisioned identifier for the conversation or the string "last" to reply to the last part of the conversation
@@ -57,6 +57,7 @@ class ReplyConversationRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -84,6 +85,7 @@ class ReplyConversationRequest extends JsonSerializableType
     public function setBody(ContactReplyIntercomUserIdRequest|ContactReplyEmailRequest|ContactReplyUserIdRequest|AdminReplyConversationRequest $value): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 }

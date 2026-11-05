@@ -157,6 +157,7 @@ class TicketPart extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -174,6 +175,7 @@ class TicketPart extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -191,6 +193,7 @@ class TicketPart extends JsonSerializableType
     public function setPartType(?string $value = null): self
     {
         $this->partType = $value;
+        $this->_setField('partType');
         return $this;
     }
 
@@ -208,6 +211,7 @@ class TicketPart extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -225,6 +229,7 @@ class TicketPart extends JsonSerializableType
     public function setPreviousTicketState(?string $value = null): self
     {
         $this->previousTicketState = $value;
+        $this->_setField('previousTicketState');
         return $this;
     }
 
@@ -242,6 +247,7 @@ class TicketPart extends JsonSerializableType
     public function setTicketState(?string $value = null): self
     {
         $this->ticketState = $value;
+        $this->_setField('ticketState');
         return $this;
     }
 
@@ -259,6 +265,7 @@ class TicketPart extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -276,6 +283,7 @@ class TicketPart extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -293,6 +301,7 @@ class TicketPart extends JsonSerializableType
     public function setAssignedTo(?Reference $value = null): self
     {
         $this->assignedTo = $value;
+        $this->_setField('assignedTo');
         return $this;
     }
 
@@ -310,6 +319,7 @@ class TicketPart extends JsonSerializableType
     public function setAuthor(?TicketPartAuthor $value = null): self
     {
         $this->author = $value;
+        $this->_setField('author');
         return $this;
     }
 
@@ -327,6 +337,7 @@ class TicketPart extends JsonSerializableType
     public function setAttachments(?array $value = null): self
     {
         $this->attachments = $value;
+        $this->_setField('attachments');
         return $this;
     }
 
@@ -344,6 +355,7 @@ class TicketPart extends JsonSerializableType
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 
@@ -361,6 +373,7 @@ class TicketPart extends JsonSerializableType
     public function setRedacted(?bool $value = null): self
     {
         $this->redacted = $value;
+        $this->_setField('redacted');
         return $this;
     }
 
@@ -378,6 +391,7 @@ class TicketPart extends JsonSerializableType
     public function setAppPackageCode(?string $value = null): self
     {
         $this->appPackageCode = $value;
+        $this->_setField('appPackageCode');
         return $this;
     }
 
@@ -395,6 +409,7 @@ class TicketPart extends JsonSerializableType
     public function setUpdatedAttributeData(?TicketPartUpdatedAttributeData $value = null): self
     {
         $this->updatedAttributeData = $value;
+        $this->_setField('updatedAttributeData');
         return $this;
     }
 

@@ -36,6 +36,7 @@ class ShowCallRecordingRequest extends JsonSerializableType
     public function setCallId(string $value): self
     {
         $this->callId = $value;
+        $this->_setField('callId');
         return $this;
     }
 }

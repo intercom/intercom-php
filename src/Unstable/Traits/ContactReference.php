@@ -45,6 +45,7 @@ trait ContactReference
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -62,6 +63,7 @@ trait ContactReference
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -79,6 +81,7 @@ trait ContactReference
     public function setExternalId(?string $value = null): self
     {
         $this->externalId = $value;
+        $this->_setField('externalId');
         return $this;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Teams;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Types\TeamList;
 use Intercom\Exceptions\IntercomException;
@@ -11,7 +11,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Teams\Requests\RetrieveTeamRequest;
 use Intercom\Unstable\Teams\Types\Team;
@@ -55,6 +54,11 @@ class TeamsClient
     /**
      * This will return a list of team objects for the App.
      *
+     * Example:
+     * ```php
+     * $client->teams->list();
+     * ```
+     *
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -63,11 +67,11 @@ class TeamsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return TeamList
+     * @return ?TeamList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listTeams(?array $options = null): TeamList
+    public function listTeams(?array $options = null): ?TeamList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -82,20 +86,13 @@ class TeamsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return TeamList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -109,6 +106,15 @@ class TeamsClient
     /**
      * You can fetch the details of a single team, containing an array of admins that belong to this team.
      *
+     * Example:
+     * ```php
+     * $client->unstable->teams->retrieveTeam(
+     *     new RetrieveTeamRequest([
+     *         'id' => '123',
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveTeamRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -118,18 +124,18 @@ class TeamsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Team
+     * @return ?Team
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveTeam(RetrieveTeamRequest $request, ?array $options = null): Team
+    public function retrieveTeam(RetrieveTeamRequest $request, ?array $options = null): ?Team
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "teams/{$request->getId()}",
+                    path: "teams/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -137,20 +143,13 @@ class TeamsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Team::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

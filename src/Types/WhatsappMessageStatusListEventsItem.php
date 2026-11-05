@@ -94,6 +94,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -111,6 +112,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -128,6 +130,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setStatus(string $value): self
     {
         $this->status = $value;
+        $this->_setField('status');
         return $this;
     }
 
@@ -145,6 +148,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -162,6 +166,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setCreatedAt(int $value): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -179,6 +184,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setUpdatedAt(int $value): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -196,6 +202,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setWhatsappMessageId(string $value): self
     {
         $this->whatsappMessageId = $value;
+        $this->_setField('whatsappMessageId');
         return $this;
     }
 
@@ -213,6 +220,7 @@ class WhatsappMessageStatusListEventsItem extends JsonSerializableType
     public function setTemplateName(?string $value = null): self
     {
         $this->templateName = $value;
+        $this->_setField('templateName');
         return $this;
     }
 

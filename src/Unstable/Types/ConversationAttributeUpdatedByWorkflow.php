@@ -57,6 +57,7 @@ class ConversationAttributeUpdatedByWorkflow extends JsonSerializableType
     public function setWorkflow(?ConversationAttributeUpdatedByWorkflowWorkflow $value = null): self
     {
         $this->workflow = $value;
+        $this->_setField('workflow');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class ConversationAttributeUpdatedByWorkflow extends JsonSerializableType
     public function setAttribute(?ConversationAttributeUpdatedByWorkflowAttribute $value = null): self
     {
         $this->attribute = $value;
+        $this->_setField('attribute');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class ConversationAttributeUpdatedByWorkflow extends JsonSerializableType
     public function setValue(?ConversationAttributeUpdatedByWorkflowValue $value = null): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

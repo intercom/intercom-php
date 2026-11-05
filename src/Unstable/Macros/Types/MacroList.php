@@ -59,6 +59,7 @@ class MacroList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -76,6 +77,7 @@ class MacroList extends JsonSerializableType
     public function setData(?array $value = null): self
     {
         $this->data = $value;
+        $this->_setField('data');
         return $this;
     }
 
@@ -93,6 +95,7 @@ class MacroList extends JsonSerializableType
     public function setPages(?MacroListPages $value = null): self
     {
         $this->pages = $value;
+        $this->_setField('pages');
         return $this;
     }
 

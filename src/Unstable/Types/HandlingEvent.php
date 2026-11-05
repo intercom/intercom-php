@@ -67,6 +67,7 @@ class HandlingEvent extends JsonSerializableType
     public function setTeammate(TeammateReference $value): self
     {
         $this->teammate = $value;
+        $this->_setField('teammate');
         return $this;
     }
 
@@ -84,6 +85,7 @@ class HandlingEvent extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -101,6 +103,7 @@ class HandlingEvent extends JsonSerializableType
     public function setTimestamp(DateTime $value): self
     {
         $this->timestamp = $value;
+        $this->_setField('timestamp');
         return $this;
     }
 
@@ -118,6 +121,7 @@ class HandlingEvent extends JsonSerializableType
     public function setReason(?string $value = null): self
     {
         $this->reason = $value;
+        $this->_setField('reason');
         return $this;
     }
 

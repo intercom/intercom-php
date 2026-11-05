@@ -43,6 +43,7 @@ class GetCustomObjectInstancesByIdRequest extends JsonSerializableType
     public function setCustomObjectTypeIdentifier(string $value): self
     {
         $this->customObjectTypeIdentifier = $value;
+        $this->_setField('customObjectTypeIdentifier');
         return $this;
     }
 
@@ -60,6 +61,7 @@ class GetCustomObjectInstancesByIdRequest extends JsonSerializableType
     public function setId(string $value): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 }

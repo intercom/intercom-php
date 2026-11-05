@@ -5,7 +5,6 @@ namespace Intercom\Companies\Types;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Types\CompanyList;
 use Exception;
-use Intercom\Core\Json\JsonDecoder;
 
 class CompaniesRetrieveResponse extends JsonSerializableType
 {
@@ -182,18 +181,6 @@ class CompaniesRetrieveResponse extends JsonSerializableType
         }
 
         return $result;
-    }
-
-    /**
-     * @param string $json
-     */
-    public static function fromJson(string $json): static
-    {
-        $decodedJson = JsonDecoder::decode($json);
-        if (!is_array($decodedJson)) {
-            throw new Exception("Unexpected non-array decoded type: " . gettype($decodedJson));
-        }
-        return self::jsonDeserialize($decodedJson);
     }
 
     /**

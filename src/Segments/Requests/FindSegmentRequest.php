@@ -36,6 +36,7 @@ class FindSegmentRequest extends JsonSerializableType
     public function setSegmentId(string $value): self
     {
         $this->segmentId = $value;
+        $this->_setField('segmentId');
         return $this;
     }
 }

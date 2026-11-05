@@ -89,6 +89,7 @@ class FileAttribute extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -106,6 +107,7 @@ class FileAttribute extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -123,6 +125,7 @@ class FileAttribute extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -140,6 +143,7 @@ class FileAttribute extends JsonSerializableType
     public function setContentType(?string $value = null): self
     {
         $this->contentType = $value;
+        $this->_setField('contentType');
         return $this;
     }
 
@@ -157,6 +161,7 @@ class FileAttribute extends JsonSerializableType
     public function setFilesize(?int $value = null): self
     {
         $this->filesize = $value;
+        $this->_setField('filesize');
         return $this;
     }
 
@@ -174,6 +179,7 @@ class FileAttribute extends JsonSerializableType
     public function setWidth(?int $value = null): self
     {
         $this->width = $value;
+        $this->_setField('width');
         return $this;
     }
 
@@ -191,6 +197,7 @@ class FileAttribute extends JsonSerializableType
     public function setHeight(?int $value = null): self
     {
         $this->height = $value;
+        $this->_setField('height');
         return $this;
     }
 

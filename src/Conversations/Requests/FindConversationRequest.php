@@ -50,6 +50,7 @@ class FindConversationRequest extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class FindConversationRequest extends JsonSerializableType
     public function setDisplayAs(?string $value = null): self
     {
         $this->displayAs = $value;
+        $this->_setField('displayAs');
         return $this;
     }
 
@@ -84,6 +86,7 @@ class FindConversationRequest extends JsonSerializableType
     public function setIncludeTranslations(?bool $value = null): self
     {
         $this->includeTranslations = $value;
+        $this->_setField('includeTranslations');
         return $this;
     }
 }

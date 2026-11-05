@@ -36,6 +36,7 @@ class GetExternalPageRequest extends JsonSerializableType
     public function setPageId(string $value): self
     {
         $this->pageId = $value;
+        $this->_setField('pageId');
         return $this;
     }
 }

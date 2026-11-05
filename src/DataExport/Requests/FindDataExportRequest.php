@@ -36,6 +36,7 @@ class FindDataExportRequest extends JsonSerializableType
     public function setJobIdentifier(string $value): self
     {
         $this->jobIdentifier = $value;
+        $this->_setField('jobIdentifier');
         return $this;
     }
 }

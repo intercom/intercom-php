@@ -50,6 +50,7 @@ class EmailMessageMetadata extends JsonSerializableType
     public function setSubject(?string $value = null): self
     {
         $this->subject = $value;
+        $this->_setField('subject');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class EmailMessageMetadata extends JsonSerializableType
     public function setEmailAddressHeaders(?array $value = null): self
     {
         $this->emailAddressHeaders = $value;
+        $this->_setField('emailAddressHeaders');
         return $this;
     }
 

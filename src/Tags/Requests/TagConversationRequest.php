@@ -53,6 +53,7 @@ class TagConversationRequest extends JsonSerializableType
     public function setConversationId(string $value): self
     {
         $this->conversationId = $value;
+        $this->_setField('conversationId');
         return $this;
     }
 
@@ -70,6 +71,7 @@ class TagConversationRequest extends JsonSerializableType
     public function setTagId(string $value): self
     {
         $this->tagId = $value;
+        $this->_setField('tagId');
         return $this;
     }
 
@@ -87,6 +89,7 @@ class TagConversationRequest extends JsonSerializableType
     public function setAdminId(string $value): self
     {
         $this->adminId = $value;
+        $this->_setField('adminId');
         return $this;
     }
 }

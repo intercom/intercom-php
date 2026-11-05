@@ -106,6 +106,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -123,6 +124,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -140,6 +142,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setPlan(?string $value = null): self
     {
         $this->plan = $value;
+        $this->_setField('plan');
         return $this;
     }
 
@@ -157,6 +160,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setSize(?int $value = null): self
     {
         $this->size = $value;
+        $this->_setField('size');
         return $this;
     }
 
@@ -174,6 +178,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setWebsite(?string $value = null): self
     {
         $this->website = $value;
+        $this->_setField('website');
         return $this;
     }
 
@@ -191,6 +196,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setIndustry(?string $value = null): self
     {
         $this->industry = $value;
+        $this->_setField('industry');
         return $this;
     }
 
@@ -208,6 +214,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setCustomAttributes(?array $value = null): self
     {
         $this->customAttributes = $value;
+        $this->_setField('customAttributes');
         return $this;
     }
 
@@ -225,6 +232,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setRemoteCreatedAt(?int $value = null): self
     {
         $this->remoteCreatedAt = $value;
+        $this->_setField('remoteCreatedAt');
         return $this;
     }
 
@@ -242,6 +250,7 @@ class CreateOrUpdateCompanyRequest extends JsonSerializableType
     public function setMonthlySpend(?int $value = null): self
     {
         $this->monthlySpend = $value;
+        $this->_setField('monthlySpend');
         return $this;
     }
 

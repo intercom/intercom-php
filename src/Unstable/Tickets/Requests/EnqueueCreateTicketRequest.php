@@ -5,10 +5,10 @@ namespace Intercom\Unstable\Tickets\Requests;
 use Intercom\Core\Json\JsonSerializableType;
 use Intercom\Unstable\Traits\CreateTicketRequestBody;
 use Intercom\Core\Json\JsonProperty;
-use Intercom\Unstable\Types\CreateTicketRequestContactsItemId;
-use Intercom\Unstable\Types\CreateTicketRequestContactsItemExternalId;
-use Intercom\Unstable\Types\CreateTicketRequestContactsItemEmail;
-use Intercom\Unstable\Types\CreateTicketRequestAssignment;
+use Intercom\Unstable\Types\CreateTicketRequestBodyContactsItemId;
+use Intercom\Unstable\Types\CreateTicketRequestBodyContactsItemExternalId;
+use Intercom\Unstable\Types\CreateTicketRequestBodyContactsItemEmail;
+use Intercom\Unstable\Types\CreateTicketRequestBodyAssignment;
 
 class EnqueueCreateTicketRequest extends JsonSerializableType
 {
@@ -24,15 +24,15 @@ class EnqueueCreateTicketRequest extends JsonSerializableType
      * @param array{
      *   ticketTypeId: string,
      *   contacts: array<(
-     *    CreateTicketRequestContactsItemId
-     *   |CreateTicketRequestContactsItemExternalId
-     *   |CreateTicketRequestContactsItemEmail
+     *    CreateTicketRequestBodyContactsItemId
+     *   |CreateTicketRequestBodyContactsItemExternalId
+     *   |CreateTicketRequestBodyContactsItemEmail
      * )>,
      *   skipNotifications?: ?bool,
      *   conversationToLinkId?: ?string,
      *   companyId?: ?string,
      *   createdAt?: ?int,
-     *   assignment?: ?CreateTicketRequestAssignment,
+     *   assignment?: ?CreateTicketRequestBodyAssignment,
      * } $values
      */
     public function __construct(
@@ -61,6 +61,7 @@ class EnqueueCreateTicketRequest extends JsonSerializableType
     public function setSkipNotifications(?bool $value = null): self
     {
         $this->skipNotifications = $value;
+        $this->_setField('skipNotifications');
         return $this;
     }
 }

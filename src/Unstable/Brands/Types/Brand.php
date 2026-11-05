@@ -97,6 +97,7 @@ class Brand extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -114,6 +115,7 @@ class Brand extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -131,6 +133,7 @@ class Brand extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -148,6 +151,7 @@ class Brand extends JsonSerializableType
     public function setIsDefault(?bool $value = null): self
     {
         $this->isDefault = $value;
+        $this->_setField('isDefault');
         return $this;
     }
 
@@ -165,6 +169,7 @@ class Brand extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -182,6 +187,7 @@ class Brand extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -199,6 +205,7 @@ class Brand extends JsonSerializableType
     public function setHelpCenterId(?string $value = null): self
     {
         $this->helpCenterId = $value;
+        $this->_setField('helpCenterId');
         return $this;
     }
 
@@ -216,6 +223,7 @@ class Brand extends JsonSerializableType
     public function setDefaultAddressSettingsId(?string $value = null): self
     {
         $this->defaultAddressSettingsId = $value;
+        $this->_setField('defaultAddressSettingsId');
         return $this;
     }
 

@@ -58,6 +58,7 @@ class AttachContactToConversationRequestCustomerIntercomUserId extends JsonSeria
     public function setIntercomUserId(string $value): self
     {
         $this->intercomUserId = $value;
+        $this->_setField('intercomUserId');
         return $this;
     }
 
@@ -83,6 +84,7 @@ class AttachContactToConversationRequestCustomerIntercomUserId extends JsonSeria
     public function setCustomer(CustomerRequestIntercomUserId|CustomerRequestUserId|CustomerRequestEmail|null $value = null): self
     {
         $this->customer = $value;
+        $this->_setField('customer');
         return $this;
     }
 

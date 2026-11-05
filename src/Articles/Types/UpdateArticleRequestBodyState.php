@@ -2,7 +2,7 @@
 
 namespace Intercom\Articles\Types;
 
-enum UpdateArticleRequestState: string
+enum UpdateArticleRequestBodyState: string
 {
     case Published = "published";
     case Draft = "draft";

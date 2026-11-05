@@ -38,6 +38,7 @@ class CreateDataAttributeRequestOptionsOptionsItem extends JsonSerializableType
     public function setValue(?string $value = null): self
     {
         $this->value = $value;
+        $this->_setField('value');
         return $this;
     }
 

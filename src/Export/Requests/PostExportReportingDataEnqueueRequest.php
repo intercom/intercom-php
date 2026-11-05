@@ -63,6 +63,7 @@ class PostExportReportingDataEnqueueRequest extends JsonSerializableType
     public function setDatasetId(string $value): self
     {
         $this->datasetId = $value;
+        $this->_setField('datasetId');
         return $this;
     }
 
@@ -80,6 +81,7 @@ class PostExportReportingDataEnqueueRequest extends JsonSerializableType
     public function setAttributeIds(array $value): self
     {
         $this->attributeIds = $value;
+        $this->_setField('attributeIds');
         return $this;
     }
 
@@ -97,6 +99,7 @@ class PostExportReportingDataEnqueueRequest extends JsonSerializableType
     public function setStartTime(int $value): self
     {
         $this->startTime = $value;
+        $this->_setField('startTime');
         return $this;
     }
 
@@ -114,6 +117,7 @@ class PostExportReportingDataEnqueueRequest extends JsonSerializableType
     public function setEndTime(int $value): self
     {
         $this->endTime = $value;
+        $this->_setField('endTime');
         return $this;
     }
 }

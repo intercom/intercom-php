@@ -65,6 +65,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -99,6 +101,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
     public function setEmail(?string $value = null): self
     {
         $this->email = $value;
+        $this->_setField('email');
         return $this;
     }
 
@@ -116,6 +119,7 @@ class ActivityLogPerformedBy extends JsonSerializableType
     public function setIp(?string $value = null): self
     {
         $this->ip = $value;
+        $this->_setField('ip');
         return $this;
     }
 

@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Conversations;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Conversations\Requests\ListConversationsRequest;
 use Intercom\Unstable\Types\ConversationList;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Conversations\Requests\CreateConversationRequest;
 use Intercom\Unstable\Messages\Types\Message;
@@ -22,7 +21,7 @@ use Intercom\Unstable\Conversations\Requests\UpdateConversationRequest;
 use Intercom\Unstable\Conversations\Requests\DeleteConversationRequest;
 use Intercom\Unstable\Types\ConversationDeleted;
 use Intercom\Unstable\Types\SearchRequest;
-use Intercom\Unstable\Conversations\Requests\ReplyConversationRequest;
+use Intercom\Unstable\Conversations\Requests\ReplyConversationBody;
 use Intercom\Unstable\Conversations\Requests\ManageConversationRequest;
 use Intercom\Unstable\Conversations\Requests\AttachContactToConversationRequest;
 use Intercom\Unstable\Conversations\Requests\DetachContactFromConversationRequest;
@@ -77,6 +76,16 @@ class ConversationsClient
      *   See the [pagination section](https://developers.intercom.com/docs/build-an-integration/learn-more/rest-apis/pagination/#pagination-for-list-apis) for more details on how to use the `starting_after` param.
      * {% /admonition %}
      *
+     * Example:
+     * ```php
+     * $client->conversations->list(
+     *     new ListConversationsRequest([
+     *         'perPage' => 1,
+     *         'startingAfter' => 'starting_after',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListConversationsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -86,11 +95,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ConversationList
+     * @return ?ConversationList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listConversations(ListConversationsRequest $request = new ListConversationsRequest(), ?array $options = null): ConversationList
+    public function listConversations(ListConversationsRequest $request = new ListConversationsRequest(), ?array $options = null): ?ConversationList
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -113,20 +122,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ConversationList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -149,6 +151,19 @@ class ConversationsClient
      * This will return the Message model that has been created.
      *
      *
+     * Example:
+     * ```php
+     * $client->conversations->create(
+     *     new CreateConversationRequest([
+     *         'from' => new CreateConversationRequestFrom([
+     *             'type' => CreateConversationRequestFromType::User->value,
+     *             'id' => '6762f11b1bb69f9f2193bba3',
+     *         ]),
+     *         'body' => 'Hello there',
+     *     ]),
+     * );
+     * ```
+     *
      * @param CreateConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -158,11 +173,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Message
+     * @return ?Message
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function createConversation(CreateConversationRequest $request, ?array $options = null): Message
+    public function createConversation(CreateConversationRequest $request, ?array $options = null): ?Message
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -178,20 +193,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Message::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -214,6 +222,17 @@ class ConversationsClient
      *
      * For AI agent conversation metadata, please note that you need to have the agent enabled in your workspace, which is a [paid feature](https://www.intercom.com/help/en/articles/8205718-fin-resolutions#h_97f8c2e671).
      *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->retrieveConversation(
+     *     new RetrieveConversationRequest([
+     *         'id' => 1,
+     *         'displayAs' => 'plaintext',
+     *         'includeTranslations' => true,
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -223,11 +242,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function retrieveConversation(RetrieveConversationRequest $request, ?array $options = null): Conversation
+    public function retrieveConversation(RetrieveConversationRequest $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -241,7 +260,7 @@ class ConversationsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::GET,
                     query: $query,
                 ),
@@ -250,20 +269,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -289,6 +301,22 @@ class ConversationsClient
      * {% /admonition %}
      *
      *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->updateConversation(
+     *     new UpdateConversationRequest([
+     *         'id' => 1,
+     *         'displayAs' => 'plaintext',
+     *         'read' => true,
+     *         'title' => 'new conversation title',
+     *         'customAttributes' => [
+     *             'issue_type' => 'Billing',
+     *             'priority' => 'High',
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
      * @param UpdateConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -298,11 +326,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function updateConversation(UpdateConversationRequest $request, ?array $options = null): Conversation
+    public function updateConversation(UpdateConversationRequest $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         $query = [];
@@ -313,7 +341,7 @@ class ConversationsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::PUT,
                     query: $query,
                     body: $request,
@@ -323,20 +351,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -350,6 +371,15 @@ class ConversationsClient
     /**
      * You can delete a single conversation.
      *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->deleteConversation(
+     *     new DeleteConversationRequest([
+     *         'id' => 1,
+     *     ]),
+     * );
+     * ```
+     *
      * @param DeleteConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -359,18 +389,18 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ConversationDeleted
+     * @return ?ConversationDeleted
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function deleteConversation(DeleteConversationRequest $request, ?array $options = null): ConversationDeleted
+    public function deleteConversation(DeleteConversationRequest $request, ?array $options = null): ?ConversationDeleted
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()),
                     method: HttpMethod::DELETE,
                 ),
                 $options,
@@ -378,20 +408,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ConversationDeleted::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -503,6 +526,20 @@ class ConversationsClient
      * | ^        | String                         | Starts With                                                  |
      * | $        | String                         | Ends With                                                    |
      *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->searchConversations(
+     *     new SearchRequest([
+     *         'query' => new SingleFilterSearchRequest([
+     *             'value' => [],
+     *         ]),
+     *         'pagination' => new StartingAfterPaging([
+     *             'perPage' => 5,
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
      * @param SearchRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -512,11 +549,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return ConversationList
+     * @return ?ConversationList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function searchConversations(SearchRequest $request, ?array $options = null): ConversationList
+    public function searchConversations(SearchRequest $request, ?array $options = null): ?ConversationList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -532,20 +569,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return ConversationList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -559,7 +589,22 @@ class ConversationsClient
     /**
      * You can reply to a conversation with a message from an admin or on behalf of a contact, or with a note for admins.
      *
-     * @param ReplyConversationRequest $request
+     * Example:
+     * ```php
+     * $client->unstable->conversations->replyConversation(
+     *     new ReplyConversationBody([
+     *         'id' => '123 or "last"',
+     *         'body' => new ContactReplyIntercomUserIdRequest([
+     *             'messageType' => 'comment',
+     *             'type' => 'user',
+     *             'body' => 'Thanks again :)',
+     *             'intercomUserId' => '6762f1571bb69f9f2193bbbb',
+     *         ]),
+     *     ]),
+     * );
+     * ```
+     *
+     * @param ReplyConversationBody $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -568,18 +613,18 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function replyConversation(ReplyConversationRequest $request, ?array $options = null): Conversation
+    public function replyConversation(ReplyConversationBody $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}/reply",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()) . "/reply",
                     method: HttpMethod::POST,
                     body: $request->getBody(),
                 ),
@@ -588,20 +633,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -619,6 +657,19 @@ class ConversationsClient
      * - Open a conversation which is `snoozed` or `closed`
      * - Assign a conversation to an admin and/or team.
      *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->manageConversation(
+     *     new ManageConversationRequest([
+     *         'id' => '123',
+     *         'body' => ManageConversationRequestBody::close(new CloseConversationRequest([
+     *             'type' => 'admin',
+     *             'adminId' => '12345',
+     *         ])),
+     *     ]),
+     * );
+     * ```
+     *
      * @param ManageConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -628,18 +679,18 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function manageConversation(ManageConversationRequest $request, ?array $options = null): Conversation
+    public function manageConversation(ManageConversationRequest $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}/parts",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()) . "/parts",
                     method: HttpMethod::POST,
                     body: $request->getBody(),
                 ),
@@ -648,20 +699,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -679,6 +723,19 @@ class ConversationsClient
      * If you add a contact via the email parameter and there is no user/lead found on that workspace with he given email, then we will create a new contact with `role` set to `lead`.
      * {% /admonition %}
      *
+     *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->attachContactToConversation(
+     *     new AttachContactToConversationRequest([
+     *         'id' => '123',
+     *         'adminId' => '12345',
+     *         'customer' => new AttachContactToConversationRequestCustomerIntercomUserId([
+     *             'intercomUserId' => '6762f19b1bb69f9f2193bbd4',
+     *         ]),
+     *     ]),
+     * );
+     * ```
      *
      * @param AttachContactToConversationRequest $request
      * @param ?array{
@@ -689,18 +746,18 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function attachContactToConversation(AttachContactToConversationRequest $request, ?array $options = null): Conversation
+    public function attachContactToConversation(AttachContactToConversationRequest $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}/customers",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()) . "/customers",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -709,20 +766,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -741,6 +791,17 @@ class ConversationsClient
      * {% /admonition %}
      *
      *
+     * Example:
+     * ```php
+     * $client->conversations->detachContactAsAdmin(
+     *     new DetachContactFromConversationRequest([
+     *         'conversationId' => '123',
+     *         'contactId' => '123',
+     *         'adminId' => '5017690',
+     *     ]),
+     * );
+     * ```
+     *
      * @param DetachContactFromConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -750,18 +811,18 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function detachContactFromConversation(DetachContactFromConversationRequest $request, ?array $options = null): Conversation
+    public function detachContactFromConversation(DetachContactFromConversationRequest $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getConversationId()}/customers/{$request->getContactId()}",
+                    path: "conversations/" . RawClient::encodePathParam($request->getConversationId()) . "/customers/" . RawClient::encodePathParam($request->getContactId()),
                     method: HttpMethod::DELETE,
                     body: $request,
                 ),
@@ -770,20 +831,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -799,6 +853,15 @@ class ConversationsClient
      *
      * Requires the `read_conversations` OAuth scope.
      *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->listHandlingEvents(
+     *     new ListHandlingEventsRequest([
+     *         'id' => '123',
+     *     ]),
+     * );
+     * ```
+     *
      * @param ListHandlingEventsRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -808,18 +871,18 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return HandlingEventList
+     * @return ?HandlingEventList
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function listHandlingEvents(ListHandlingEventsRequest $request, ?array $options = null): HandlingEventList
+    public function listHandlingEvents(ListHandlingEventsRequest $request, ?array $options = null): ?HandlingEventList
     {
         $options = array_merge($this->options, $options ?? []);
         try {
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}/handling_events",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()) . "/handling_events",
                     method: HttpMethod::GET,
                 ),
                 $options,
@@ -827,20 +890,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return HandlingEventList::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -859,6 +915,16 @@ class ConversationsClient
      * {% /admonition %}
      *
      *
+     * Example:
+     * ```php
+     * $client->conversations->redactConversationPart(
+     *     RedactConversationRequest::conversationPart(new RedactConversationRequestConversationPart([
+     *         'conversationId' => '19894788788',
+     *         'conversationPartId' => '19381789428',
+     *     ])),
+     * );
+     * ```
+     *
      * @param RedactConversationRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -868,11 +934,11 @@ class ConversationsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Conversation
+     * @return ?Conversation
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function redactConversation(RedactConversationRequest $request, ?array $options = null): Conversation
+    public function redactConversation(RedactConversationRequest $request, ?array $options = null): ?Conversation
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -888,20 +954,13 @@ class ConversationsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Conversation::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -914,6 +973,16 @@ class ConversationsClient
 
     /**
      * You can convert a conversation to a ticket.
+     *
+     * Example:
+     * ```php
+     * $client->unstable->conversations->convertConversationToTicket(
+     *     new ConvertConversationToTicketRequest([
+     *         'id' => 1,
+     *         'ticketTypeId' => '53',
+     *     ]),
+     * );
+     * ```
      *
      * @param ConvertConversationToTicketRequest $request
      * @param ?array{
@@ -935,7 +1004,7 @@ class ConversationsClient
             $response = $this->client->sendRequest(
                 new JsonApiRequest(
                     baseUrl: $options['baseUrl'] ?? $this->client->options['baseUrl'] ?? Environments::UsProduction->value,
-                    path: "conversations/{$request->getId()}/convert",
+                    path: "conversations/" . RawClient::encodePathParam($request->getId()) . "/convert",
                     method: HttpMethod::POST,
                     body: $request,
                 ),
@@ -951,16 +1020,6 @@ class ConversationsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

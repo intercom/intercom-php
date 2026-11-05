@@ -36,6 +36,7 @@ class DeleteCollectionRequest extends JsonSerializableType
     public function setCollectionId(int $value): self
     {
         $this->collectionId = $value;
+        $this->_setField('collectionId');
         return $this;
     }
 }

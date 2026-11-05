@@ -52,6 +52,7 @@ class AdminList extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -69,6 +70,7 @@ class AdminList extends JsonSerializableType
     public function setAdmins(?array $value = null): self
     {
         $this->admins = $value;
+        $this->_setField('admins');
         return $this;
     }
 

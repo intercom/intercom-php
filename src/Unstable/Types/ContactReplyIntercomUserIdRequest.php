@@ -65,6 +65,7 @@ class ContactReplyIntercomUserIdRequest extends JsonSerializableType
     public function setIntercomUserId(string $value): self
     {
         $this->intercomUserId = $value;
+        $this->_setField('intercomUserId');
         return $this;
     }
 
@@ -82,6 +83,7 @@ class ContactReplyIntercomUserIdRequest extends JsonSerializableType
     public function setAttachmentFiles(?array $value = null): self
     {
         $this->attachmentFiles = $value;
+        $this->_setField('attachmentFiles');
         return $this;
     }
 

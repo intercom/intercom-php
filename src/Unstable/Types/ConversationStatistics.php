@@ -218,6 +218,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -235,6 +236,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setTimeToAssignment(?int $value = null): self
     {
         $this->timeToAssignment = $value;
+        $this->_setField('timeToAssignment');
         return $this;
     }
 
@@ -252,6 +254,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setTimeToAdminReply(?int $value = null): self
     {
         $this->timeToAdminReply = $value;
+        $this->_setField('timeToAdminReply');
         return $this;
     }
 
@@ -269,6 +272,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setTimeToFirstClose(?int $value = null): self
     {
         $this->timeToFirstClose = $value;
+        $this->_setField('timeToFirstClose');
         return $this;
     }
 
@@ -286,6 +290,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setTimeToLastClose(?int $value = null): self
     {
         $this->timeToLastClose = $value;
+        $this->_setField('timeToLastClose');
         return $this;
     }
 
@@ -303,6 +308,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setMedianTimeToReply(?int $value = null): self
     {
         $this->medianTimeToReply = $value;
+        $this->_setField('medianTimeToReply');
         return $this;
     }
 
@@ -320,6 +326,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setFirstContactReplyAt(?int $value = null): self
     {
         $this->firstContactReplyAt = $value;
+        $this->_setField('firstContactReplyAt');
         return $this;
     }
 
@@ -337,6 +344,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setFirstAssignmentAt(?int $value = null): self
     {
         $this->firstAssignmentAt = $value;
+        $this->_setField('firstAssignmentAt');
         return $this;
     }
 
@@ -354,6 +362,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setFirstAdminReplyAt(?int $value = null): self
     {
         $this->firstAdminReplyAt = $value;
+        $this->_setField('firstAdminReplyAt');
         return $this;
     }
 
@@ -371,6 +380,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setFirstCloseAt(?int $value = null): self
     {
         $this->firstCloseAt = $value;
+        $this->_setField('firstCloseAt');
         return $this;
     }
 
@@ -388,6 +398,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setLastAssignmentAt(?int $value = null): self
     {
         $this->lastAssignmentAt = $value;
+        $this->_setField('lastAssignmentAt');
         return $this;
     }
 
@@ -405,6 +416,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setLastAssignmentAdminReplyAt(?int $value = null): self
     {
         $this->lastAssignmentAdminReplyAt = $value;
+        $this->_setField('lastAssignmentAdminReplyAt');
         return $this;
     }
 
@@ -422,6 +434,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setLastContactReplyAt(?int $value = null): self
     {
         $this->lastContactReplyAt = $value;
+        $this->_setField('lastContactReplyAt');
         return $this;
     }
 
@@ -439,6 +452,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setLastAdminReplyAt(?int $value = null): self
     {
         $this->lastAdminReplyAt = $value;
+        $this->_setField('lastAdminReplyAt');
         return $this;
     }
 
@@ -456,6 +470,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setLastCloseAt(?int $value = null): self
     {
         $this->lastCloseAt = $value;
+        $this->_setField('lastCloseAt');
         return $this;
     }
 
@@ -473,6 +488,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setLastClosedById(?string $value = null): self
     {
         $this->lastClosedById = $value;
+        $this->_setField('lastClosedById');
         return $this;
     }
 
@@ -490,6 +506,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setCountReopens(?int $value = null): self
     {
         $this->countReopens = $value;
+        $this->_setField('countReopens');
         return $this;
     }
 
@@ -507,6 +524,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setCountAssignments(?int $value = null): self
     {
         $this->countAssignments = $value;
+        $this->_setField('countAssignments');
         return $this;
     }
 
@@ -524,6 +542,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setCountConversationParts(?int $value = null): self
     {
         $this->countConversationParts = $value;
+        $this->_setField('countConversationParts');
         return $this;
     }
 
@@ -541,6 +560,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setAssignedTeamFirstResponseTimeByTeam(?array $value = null): self
     {
         $this->assignedTeamFirstResponseTimeByTeam = $value;
+        $this->_setField('assignedTeamFirstResponseTimeByTeam');
         return $this;
     }
 
@@ -558,6 +578,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setAssignedTeamFirstResponseTimeInOfficeHours(?array $value = null): self
     {
         $this->assignedTeamFirstResponseTimeInOfficeHours = $value;
+        $this->_setField('assignedTeamFirstResponseTimeInOfficeHours');
         return $this;
     }
 
@@ -575,6 +596,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setHandlingTime(?int $value = null): self
     {
         $this->handlingTime = $value;
+        $this->_setField('handlingTime');
         return $this;
     }
 
@@ -592,6 +614,7 @@ class ConversationStatistics extends JsonSerializableType
     public function setAdjustedHandlingTime(?int $value = null): self
     {
         $this->adjustedHandlingTime = $value;
+        $this->_setField('adjustedHandlingTime');
         return $this;
     }
 

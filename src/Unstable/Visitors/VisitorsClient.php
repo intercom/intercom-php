@@ -2,7 +2,7 @@
 
 namespace Intercom\Unstable\Visitors;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Unstable\Visitors\Requests\RetrieveVisitorWithUserIdRequest;
 use Intercom\Unstable\Types\Visitor;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Intercom\Unstable\Visitors\Requests\ConvertVisitorRequest;
 use Intercom\Unstable\Contacts\Types\Contact;
@@ -56,6 +55,15 @@ class VisitorsClient
     /**
      * You can fetch the details of a single visitor.
      *
+     * Example:
+     * ```php
+     * $client->visitors->find(
+     *     new FindVisitorRequest([
+     *         'userId' => 'user_id',
+     *     ]),
+     * );
+     * ```
+     *
      * @param RetrieveVisitorWithUserIdRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -94,16 +102,6 @@ class VisitorsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -121,7 +119,19 @@ class VisitorsClient
      *
      * **Option 2.** You can update a visitor by passing in the `id` of the visitor in the Request body.
      *
-     * @param mixed $request
+     * Example:
+     * ```php
+     * $client->visitors->update(
+     *     new UpdateVisitorRequestWithId([
+     *         'id' => '6762f30c1bb69f9f2193bc5e',
+     *         'name' => 'Gareth Bale',
+     *     ]),
+     * );
+     * ```
+     *
+     * @param (
+     *    mixed
+     * ) $request
      * @param ?array{
      *   baseUrl?: string,
      *   maxRetries?: int,
@@ -157,16 +167,6 @@ class VisitorsClient
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }
@@ -184,6 +184,21 @@ class VisitorsClient
      * >
      * > If the User exists, then the Visitor will be merged into it, the Visitor deleted and the User returned. If the User does not exist, the Visitor will be converted to a User, with the User identifiers replacing it's Visitor identifiers.
      *
+     * Example:
+     * ```php
+     * $client->unstable->visitors->convertVisitor(
+     *     new ConvertVisitorRequest([
+     *         'type' => 'user',
+     *         'user' => [
+     *             'email' => "foo@bar.com",
+     *         ],
+     *         'visitor' => [
+     *             'user_id' => "3ecf64d0-9ed1-4e9f-88e1-da7d6e6782f3",
+     *         ],
+     *     ]),
+     * );
+     * ```
+     *
      * @param ConvertVisitorRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -193,11 +208,11 @@ class VisitorsClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Contact
+     * @return ?Contact
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function convertVisitor(ConvertVisitorRequest $request, ?array $options = null): Contact
+    public function convertVisitor(ConvertVisitorRequest $request, ?array $options = null): ?Contact
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -213,20 +228,13 @@ class VisitorsClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Contact::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

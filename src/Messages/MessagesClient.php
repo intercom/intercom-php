@@ -2,7 +2,7 @@
 
 namespace Intercom\Messages;
 
-use GuzzleHttp\ClientInterface;
+use Psr\Http\Client\ClientInterface;
 use Intercom\Core\Client\RawClient;
 use Intercom\Types\CreateMessageRequest;
 use Intercom\Messages\Types\Message;
@@ -12,7 +12,6 @@ use Intercom\Core\Json\JsonApiRequest;
 use Intercom\Environments;
 use Intercom\Core\Client\HttpMethod;
 use JsonException;
-use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Client\ClientExceptionInterface;
 
 class MessagesClient
@@ -64,6 +63,25 @@ class MessagesClient
      * >
      * > As this is a message, there will be no conversation present until the contact responds. Once they do, you will have to search for a contact's conversations with the id of the message.
      *
+     * Example:
+     * ```php
+     * $client->messages->create(
+     *     CreateMessageRequest::email(new CreateMessageRequestWithEmail([
+     *         'subject' => 'Thanks for everything',
+     *         'body' => 'Hello there',
+     *         'template' => 'plain',
+     *         'from' => new CreateMessageRequestFrom([
+     *             'type' => 'admin',
+     *             'id' => 394051,
+     *         ]),
+     *         'to' => new CreateMessageRequestTo([
+     *             'type' => CreateMessageRequestType::User->value,
+     *             'id' => '536e564f316c83104c000020',
+     *         ]),
+     *     ])),
+     * );
+     * ```
+     *
      * @param ?CreateMessageRequest $request
      * @param ?array{
      *   baseUrl?: string,
@@ -73,11 +91,11 @@ class MessagesClient
      *   queryParameters?: array<string, mixed>,
      *   bodyProperties?: array<string, mixed>,
      * } $options
-     * @return Message
+     * @return ?Message
      * @throws IntercomException
      * @throws IntercomApiException
      */
-    public function create(?CreateMessageRequest $request = null, ?array $options = null): Message
+    public function create(?CreateMessageRequest $request = null, ?array $options = null): ?Message
     {
         $options = array_merge($this->options, $options ?? []);
         try {
@@ -93,20 +111,13 @@ class MessagesClient
             $statusCode = $response->getStatusCode();
             if ($statusCode >= 200 && $statusCode < 400) {
                 $json = $response->getBody()->getContents();
+                if (empty($json)) {
+                    return null;
+                }
                 return Message::fromJson($json);
             }
         } catch (JsonException $e) {
             throw new IntercomException(message: "Failed to deserialize response: {$e->getMessage()}", previous: $e);
-        } catch (RequestException $e) {
-            $response = $e->getResponse();
-            if ($response === null) {
-                throw new IntercomException(message: $e->getMessage(), previous: $e);
-            }
-            throw new IntercomApiException(
-                message: "API request failed",
-                statusCode: $response->getStatusCode(),
-                body: $response->getBody()->getContents(),
-            );
         } catch (ClientExceptionInterface $e) {
             throw new IntercomException(message: $e->getMessage(), previous: $e);
         }

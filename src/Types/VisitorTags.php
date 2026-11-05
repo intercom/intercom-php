@@ -47,6 +47,7 @@ class VisitorTags extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -64,6 +65,7 @@ class VisitorTags extends JsonSerializableType
     public function setTags(?array $value = null): self
     {
         $this->tags = $value;
+        $this->_setField('tags');
         return $this;
     }
 

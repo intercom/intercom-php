@@ -78,6 +78,7 @@ class Article extends JsonSerializableType
     public function setStatistics(?ArticleStatistics $value = null): self
     {
         $this->statistics = $value;
+        $this->_setField('statistics');
         return $this;
     }
 

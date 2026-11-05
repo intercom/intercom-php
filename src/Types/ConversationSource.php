@@ -106,6 +106,7 @@ class ConversationSource extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -123,6 +124,7 @@ class ConversationSource extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -140,6 +142,7 @@ class ConversationSource extends JsonSerializableType
     public function setDeliveredAs(?string $value = null): self
     {
         $this->deliveredAs = $value;
+        $this->_setField('deliveredAs');
         return $this;
     }
 
@@ -157,6 +160,7 @@ class ConversationSource extends JsonSerializableType
     public function setSubject(?string $value = null): self
     {
         $this->subject = $value;
+        $this->_setField('subject');
         return $this;
     }
 
@@ -174,6 +178,7 @@ class ConversationSource extends JsonSerializableType
     public function setBody(?string $value = null): self
     {
         $this->body = $value;
+        $this->_setField('body');
         return $this;
     }
 
@@ -191,6 +196,7 @@ class ConversationSource extends JsonSerializableType
     public function setAuthor(?ConversationPartAuthor $value = null): self
     {
         $this->author = $value;
+        $this->_setField('author');
         return $this;
     }
 
@@ -208,6 +214,7 @@ class ConversationSource extends JsonSerializableType
     public function setAttachments(?array $value = null): self
     {
         $this->attachments = $value;
+        $this->_setField('attachments');
         return $this;
     }
 
@@ -225,6 +232,7 @@ class ConversationSource extends JsonSerializableType
     public function setUrl(?string $value = null): self
     {
         $this->url = $value;
+        $this->_setField('url');
         return $this;
     }
 
@@ -242,6 +250,7 @@ class ConversationSource extends JsonSerializableType
     public function setRedacted(?bool $value = null): self
     {
         $this->redacted = $value;
+        $this->_setField('redacted');
         return $this;
     }
 

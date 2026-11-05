@@ -57,6 +57,7 @@ class DeletedCollectionObject extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -74,6 +75,7 @@ class DeletedCollectionObject extends JsonSerializableType
     public function setObject(?string $value = null): self
     {
         $this->object = $value;
+        $this->_setField('object');
         return $this;
     }
 
@@ -91,6 +93,7 @@ class DeletedCollectionObject extends JsonSerializableType
     public function setDeleted(?bool $value = null): self
     {
         $this->deleted = $value;
+        $this->_setField('deleted');
         return $this;
     }
 

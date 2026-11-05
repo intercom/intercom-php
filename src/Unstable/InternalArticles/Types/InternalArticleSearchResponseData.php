@@ -42,6 +42,7 @@ class InternalArticleSearchResponseData extends JsonSerializableType
     public function setInternalArticles(?array $value = null): self
     {
         $this->internalArticles = $value;
+        $this->_setField('internalArticles');
         return $this;
     }
 

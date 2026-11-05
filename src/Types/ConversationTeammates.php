@@ -50,6 +50,7 @@ class ConversationTeammates extends JsonSerializableType
     public function setType(string $value): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -67,6 +68,7 @@ class ConversationTeammates extends JsonSerializableType
     public function setAdmins(array $value): self
     {
         $this->admins = $value;
+        $this->_setField('admins');
         return $this;
     }
 

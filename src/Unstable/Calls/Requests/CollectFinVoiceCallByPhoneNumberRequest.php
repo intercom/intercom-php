@@ -36,6 +36,7 @@ class CollectFinVoiceCallByPhoneNumberRequest extends JsonSerializableType
     public function setPhoneNumber(string $value): self
     {
         $this->phoneNumber = $value;
+        $this->_setField('phoneNumber');
         return $this;
     }
 }

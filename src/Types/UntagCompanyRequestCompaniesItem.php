@@ -54,6 +54,7 @@ class UntagCompanyRequestCompaniesItem extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -71,6 +72,7 @@ class UntagCompanyRequestCompaniesItem extends JsonSerializableType
     public function setCompanyId(?string $value = null): self
     {
         $this->companyId = $value;
+        $this->_setField('companyId');
         return $this;
     }
 
@@ -88,6 +90,7 @@ class UntagCompanyRequestCompaniesItem extends JsonSerializableType
     public function setUntag(?bool $value = null): self
     {
         $this->untag = $value;
+        $this->_setField('untag');
         return $this;
     }
 

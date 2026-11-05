@@ -89,6 +89,7 @@ class Segment extends JsonSerializableType
     public function setType(?string $value = null): self
     {
         $this->type = $value;
+        $this->_setField('type');
         return $this;
     }
 
@@ -106,6 +107,7 @@ class Segment extends JsonSerializableType
     public function setId(?string $value = null): self
     {
         $this->id = $value;
+        $this->_setField('id');
         return $this;
     }
 
@@ -123,6 +125,7 @@ class Segment extends JsonSerializableType
     public function setName(?string $value = null): self
     {
         $this->name = $value;
+        $this->_setField('name');
         return $this;
     }
 
@@ -140,6 +143,7 @@ class Segment extends JsonSerializableType
     public function setCreatedAt(?int $value = null): self
     {
         $this->createdAt = $value;
+        $this->_setField('createdAt');
         return $this;
     }
 
@@ -157,6 +161,7 @@ class Segment extends JsonSerializableType
     public function setUpdatedAt(?int $value = null): self
     {
         $this->updatedAt = $value;
+        $this->_setField('updatedAt');
         return $this;
     }
 
@@ -174,6 +179,7 @@ class Segment extends JsonSerializableType
     public function setPersonType(?string $value = null): self
     {
         $this->personType = $value;
+        $this->_setField('personType');
         return $this;
     }
 
@@ -191,6 +197,7 @@ class Segment extends JsonSerializableType
     public function setCount(?int $value = null): self
     {
         $this->count = $value;
+        $this->_setField('count');
         return $this;
     }
 

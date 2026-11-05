@@ -38,6 +38,7 @@ class UpdateArticleRequestBody extends JsonSerializableType
     public function setParentType(?string $value = null): self
     {
         $this->parentType = $value;
+        $this->_setField('parentType');
         return $this;
     }
 
